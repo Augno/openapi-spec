@@ -1,0 +1,72 @@
+name: Sync API Spec
+
+on:
+    repository_dispatch:
+        types: [api-release]
+    workflow_dispatch:
+
+permissions:
+    contents: write
+    id-token: write
+
+jobs:
+    sync:
+        name: Sync OpenAPI Spec
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v3
+              with:
+                  role-to-assume: arn:aws:iam::013292575751:role/github-action-role
+                  aws-region: us-east-2
+
+            - name: Download public spec from S3
+              run: |
+                  aws s3 cp s3://augno-public-openapi-specs/openapi.json preview/openapi.json
+
+            - name: Check for changes
+              id: diff
+              run: |
+                  if git diff --quiet preview/openapi.json; then
+                    echo "changed=false" >> "$GITHUB_OUTPUT"
+                    echo "Spec has not changed — skipping."
+                  else
+                    echo "changed=true" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: Commit and push
+              if: steps.diff.outputs.changed == 'true'
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add preview/openapi.json
+                  API_VERSION="${{ github.event.client_payload.api_version || 'manual' }}"
+                  git commit -m "chore: sync spec from API ${API_VERSION}"
+                  git push
+
+            - name: Create release
+              if: steps.diff.outputs.changed == 'true'
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  API_VERSION=$(jq -r '.info.version' preview/openapi.json)
+
+                  git fetch --tags
+                  EXISTING=$(git tag -l "${API_VERSION}-rev.*" | wc -l | tr -d ' ')
+                  NEXT_REV=$((EXISTING + 1))
+                  TAG="${API_VERSION}-rev.${NEXT_REV}"
+
+                  COMMIT_SHA=$(git rev-parse HEAD)
+                  SHORT_SHA=$(git rev-parse --short HEAD)
+
+                  gh release create "$TAG" \
+                    --title "$TAG" \
+                    --target "$COMMIT_SHA" \
+                    --notes "**API Version:** \`${API_VERSION}\`
+                  **Revision:** ${NEXT_REV}
+                  **Commit:** [\`${SHORT_SHA}\`](https://github.com/${{ github.repository }}/commit/${COMMIT_SHA})"

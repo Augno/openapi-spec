@@ -1,0 +1,2628 @@
+{
+  "components": {
+    "schemas": {
+      "APIErrorResponse": {
+        "description": "APIErrorResponse is the top-level envelope wrapping a ResponseError.\nAll API error responses use this shape: { \"error\": { ... } }.",
+        "example": {
+          "error": {
+            "code": "validation_failed",
+            "type": "invalid_request_error",
+            "message": "The request was invalid.",
+            "param": "email",
+            "doc_url": "https://docs.augno.com/errors#validation_failed",
+            "is_transient": false,
+            "quota": null,
+            "request_log_url": null
+          }
+        },
+        "properties": {
+          "error": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResponseError"
+              }
+            ],
+            "description": "The error object containing details about what went wrong.",
+            "example": {
+              "code": "validation_failed",
+              "type": "invalid_request_error",
+              "message": "The request was invalid.",
+              "param": "email",
+              "doc_url": "https://docs.augno.com/errors#validation_failed",
+              "is_transient": false,
+              "quota": null,
+              "request_log_url": "https://augno.com/dashboard/request-logs/rq_fbv1ygmybo3eauykr74"
+            }
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "type": "object"
+      },
+      "APIKey": {
+        "description": "APIKey represents an API key for authenticating API requests.",
+        "example": {
+          "id": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+          "object": "api_key",
+          "name": "Production API Key",
+          "redacted_value": "aug_sk_prod_...hjt4",
+          "role": {
+            "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+            "object_type": "",
+            "name": "Admin",
+            "role_type_code": null
+          },
+          "created_at": "2026-05-10T00:00:00Z",
+          "updated_at": "2026-05-10T00:23:00Z",
+          "last_used_at": "2026-05-10T00:23:00Z",
+          "expires_at": "2026-06-10T00:00:00Z",
+          "revoked_at": null
+        },
+        "properties": {
+          "id": {
+            "description": "The unique identifier for the API key.",
+            "type": "string"
+          },
+          "object": {
+            "description": "The object type.",
+            "enum": [
+              "api_key"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "The human-readable name for the API key.",
+            "type": "string"
+          },
+          "redacted_value": {
+            "description": "The redacted value of the API key for display purposes.",
+            "type": "string"
+          },
+          "role": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LightRole"
+              }
+            ],
+            "description": "The role associated with this API key.",
+            "example": {
+              "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+              "object_type": "role",
+              "name": "Admin",
+              "role_type_code": "admin"
+            }
+          },
+          "created_at": {
+            "description": "The timestamp when the API key was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "The timestamp when the API key was last updated.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "last_used_at": {
+            "description": "The timestamp when the API key was last used.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "expires_at": {
+            "description": "The timestamp when the API key expires.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "revoked_at": {
+            "description": "The timestamp when the API key was revoked.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "name",
+          "redacted_value",
+          "role",
+          "created_at",
+          "updated_at",
+          "last_used_at",
+          "expires_at",
+          "revoked_at"
+        ],
+        "type": "object"
+      },
+      "CreateAPIKeyRequest": {
+        "description": "The request to create an API key",
+        "example": {
+          "role_id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+          "name": "Production API Key"
+        },
+        "properties": {
+          "role_id": {
+            "description": "The role ID for the API key.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name for the API key.",
+            "type": "string"
+          },
+          "expires_at": {
+            "description": "Optional expiration time for the API key.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "role_id",
+          "name"
+        ],
+        "type": "object"
+      },
+      "CreateSandboxRequest": {
+        "description": "The request to create a sandbox.",
+        "example": {
+          "name": "Integration Testing",
+          "mode": "blank"
+        },
+        "properties": {
+          "name": {
+            "description": "The display name for the sandbox.",
+            "type": "string"
+          },
+          "mode": {
+            "description": "Controls whether the sandbox is blank or seeded with tutorial data.",
+            "enum": [
+              "blank",
+              "seeded"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "mode"
+        ],
+        "type": "object"
+      },
+      "CreateUnitRequest": {
+        "description": "CreateUnitRequest is the request to create a new unit.",
+        "example": {
+          "name": "Gram",
+          "abbreviation": "g",
+          "type": "mass",
+          "ratio_numerator": "1.000000000000000000000000000000",
+          "ratio_denominator": "1.000000000000000000000000000000",
+          "offset_numerator": "0.000000000000000000000000000000",
+          "offset_denominator": "1.000000000000000000000000000000",
+          "is_base_unit": true
+        },
+        "properties": {
+          "name": {
+            "description": "The display name of the unit (e.g. \"Gram\").",
+            "type": "string"
+          },
+          "abbreviation": {
+            "description": "The short abbreviation for the unit (e.g. \"g\").",
+            "type": "string"
+          },
+          "type": {
+            "description": "The unit dimension code (e.g. \"mass\", \"quantity\").",
+            "enum": [
+              "currency",
+              "quantity",
+              "time",
+              "mass",
+              "volume",
+              "length",
+              "temperature",
+              "area"
+            ],
+            "type": "string"
+          },
+          "ratio_numerator": {
+            "description": "The conversion ratio numerator relative to the base unit, as a decimal string.",
+            "type": "string"
+          },
+          "ratio_denominator": {
+            "description": "The conversion ratio denominator relative to the base unit, as a decimal string.",
+            "type": "string"
+          },
+          "offset_numerator": {
+            "description": "The conversion offset numerator, as a decimal string.",
+            "type": "string"
+          },
+          "offset_denominator": {
+            "description": "The conversion offset denominator, as a decimal string.",
+            "type": "string"
+          },
+          "is_base_unit": {
+            "description": "Whether this unit is the base unit for its dimension.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "abbreviation",
+          "type",
+          "ratio_numerator",
+          "ratio_denominator",
+          "offset_numerator",
+          "offset_denominator",
+          "is_base_unit"
+        ],
+        "type": "object"
+      },
+      "CreatedAPIKey": {
+        "description": "CreatedAPIKey represents a newly created API key with the full secret value.",
+        "example": {
+          "api_key_secret": "aug_sk_prod_RhxFDvTdDnb0bgtcoA5P79_60EmH4h9j9ZldsuU9XyngXlpu8NqdIlGTQw8OM8cGeCadyhjtr",
+          "api_key_info": {
+            "id": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+            "object": "api_key",
+            "name": "Production API Key",
+            "redacted_value": "aug_sk_prod_...hjt4",
+            "role": {
+              "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+              "object_type": "",
+              "name": "Admin",
+              "role_type_code": null
+            },
+            "created_at": "2026-05-10T00:00:00Z",
+            "updated_at": "2026-05-10T00:23:00Z",
+            "last_used_at": "2026-05-10T00:23:00Z",
+            "expires_at": "2026-06-10T00:00:00Z",
+            "revoked_at": null
+          }
+        },
+        "properties": {
+          "api_key_secret": {
+            "description": "The full API key secret value (only shown once at creation).",
+            "type": "string"
+          },
+          "api_key_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/APIKey"
+              }
+            ],
+            "description": "The API key metadata.",
+            "example": {
+              "id": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+              "object": "api_key",
+              "name": "Production API Key",
+              "redacted_value": "aug_sk_prod_...hjt4",
+              "role": {
+                "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                "object_type": "",
+                "name": "Admin",
+                "role_type_code": null
+              },
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z",
+              "last_used_at": "2026-05-10T00:23:00Z",
+              "expires_at": "2026-06-10T00:00:00Z",
+              "revoked_at": null
+            }
+          }
+        },
+        "required": [
+          "api_key_secret",
+          "api_key_info"
+        ],
+        "type": "object"
+      },
+      "LightAccount": {
+        "description": "LightAccount represents a minimal account reference.",
+        "example": {
+          "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+          "object_type": "account",
+          "name": "Acme Inc."
+        },
+        "properties": {
+          "id": {
+            "description": "The unique identifier for the account.",
+            "type": "string"
+          },
+          "object_type": {
+            "description": "The resource type identifier.",
+            "enum": [
+              "account"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "The display name of the account.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object_type",
+          "name"
+        ],
+        "type": "object"
+      },
+      "LightRole": {
+        "description": "LightRole represents a minimal role reference.",
+        "example": {
+          "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+          "object_type": "role",
+          "name": "Admin",
+          "role_type_code": "admin"
+        },
+        "properties": {
+          "id": {
+            "description": "The unique identifier for the role.",
+            "type": "string"
+          },
+          "object_type": {
+            "description": "The resource type identifier.",
+            "enum": [
+              "role"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "The display name of the role.",
+            "type": "string"
+          },
+          "role_type_code": {
+            "description": "The role type code.",
+            "enum": [
+              "admin",
+              "user",
+              "scanner",
+              "sales_rep",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object_type",
+          "name",
+          "role_type_code"
+        ],
+        "type": "object"
+      },
+      "List_APIKey": {
+        "description": "A paginated list of APIKey resources",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_cursor": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+            "prev_cursor": null,
+            "has_next_page": true,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+              "object": "api_key",
+              "name": "Production API Key",
+              "redacted_value": "aug_sk_prod_...hjt4",
+              "role": {
+                "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                "object_type": "",
+                "name": "Admin",
+                "role_type_code": null
+              },
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z",
+              "last_used_at": "2026-05-10T00:23:00Z",
+              "expires_at": "2026-06-10T00:00:00Z",
+              "revoked_at": null
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Object type for APIKey list",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata for APIKey list"
+          },
+          "data": {
+            "description": "Array of APIKey resources in this page",
+            "items": {
+              "$ref": "#/components/schemas/APIKey"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_RequestLogListItem": {
+        "description": "A paginated list of RequestLogListItem resources",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_cursor": "rl_01jm4r6700f8nwq3v5hx2d9ktp",
+            "prev_cursor": null,
+            "has_next_page": true,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "rl_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "request_log",
+              "method": "GET",
+              "host": "https://api.augno.com",
+              "path": "/v1/core/sandboxes",
+              "normalized_route": "/v1/core/sandboxes",
+              "query_json": "{\"limit\":10}",
+              "status_code": 200,
+              "latency_us": 12345,
+              "api_version": "2026-01-01",
+              "identity_type": "user",
+              "client_ip": "198.51.100.7",
+              "user_agent": "Mozilla/5.0",
+              "referrer": null,
+              "error_code": null,
+              "error_message": null,
+              "occurred_at": "2026-05-10T00:00:00Z",
+              "created_at": "2026-05-10T00:00:00Z",
+              "account": {
+                "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                "object_type": "account",
+                "name": "Acme Inc."
+              },
+              "actor": {
+                "id": "us_01gf7a8200e9pvbd6bgyq395ae",
+                "object_type": "user",
+                "name": "John Doe",
+                "email": "jdoe@augno.com",
+                "redacted_value": null,
+                "role": {
+                  "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                  "object_type": "role",
+                  "name": "Admin",
+                  "role_type_code": "admin"
+                }
+              },
+              "idempotency_key": null
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Object type for RequestLogListItem list",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata for RequestLogListItem list"
+          },
+          "data": {
+            "description": "Array of RequestLogListItem resources in this page",
+            "items": {
+              "$ref": "#/components/schemas/RequestLogListItem"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_Sandbox": {
+        "description": "A paginated list of Sandbox resources",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_cursor": "sbac_01jm4r6700f8nwq3v5hx2d9ktp",
+            "prev_cursor": null,
+            "has_next_page": true,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "sbac_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "sandbox",
+              "name": "Integration Testing",
+              "account_id": "ac_01jm4r6700g2bz7y4c6e8f1jrm",
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Object type for Sandbox list",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata for Sandbox list"
+          },
+          "data": {
+            "description": "Array of Sandbox resources in this page",
+            "items": {
+              "$ref": "#/components/schemas/Sandbox"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_Unit": {
+        "description": "A paginated list of Unit resources",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_cursor": "unit_01jm4r6700f8nwq3v5hx2d9ktp",
+            "prev_cursor": null,
+            "has_next_page": true,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "unit_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "unit",
+              "name": "Kilogram",
+              "abbreviation": "kg",
+              "type": "mass",
+              "ratio_numerator": "1000.000000000000000000000000000000",
+              "ratio_denominator": "1.000000000000000000000000000000",
+              "offset_numerator": "0.000000000000000000000000000000",
+              "offset_denominator": "1.000000000000000000000000000000",
+              "is_base_unit": false,
+              "is_internal": false,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Object type for Unit list",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata for Unit list"
+          },
+          "data": {
+            "description": "Array of Unit resources in this page",
+            "items": {
+              "$ref": "#/components/schemas/Unit"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "PageInfo contains cursor-based pagination metadata.",
+        "properties": {
+          "next_cursor": {
+            "description": "Cursor to fetch the next page of results, null if no more pages.",
+            "nullable": true,
+            "type": "string"
+          },
+          "prev_cursor": {
+            "description": "Cursor to fetch the previous page of results, null if on the first page.",
+            "nullable": true,
+            "type": "string"
+          },
+          "has_next_page": {
+            "description": "Whether there are more results after this page.",
+            "type": "boolean"
+          },
+          "has_prev_page": {
+            "description": "Whether there are results before this page.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "next_cursor",
+          "prev_cursor",
+          "has_next_page",
+          "has_prev_page"
+        ],
+        "type": "object"
+      },
+      "QuotaInfo": {
+        "description": "QuotaInfo provides machine-readable details about a plan-imposed resource limit.\nIncluded in limit_exceeded errors so clients can display upgrade prompts, usage bars,\nor implement programmatic retry/backoff logic.",
+        "properties": {
+          "limit": {
+            "description": "Limit is the maximum number of resources allowed by the current plan.",
+            "type": "integer"
+          },
+          "used": {
+            "description": "Used is the number of resources currently consumed.",
+            "type": "integer"
+          },
+          "reset_at": {
+            "description": "ResetAt is the time when the quota resets, if applicable. Nil for static (non-metered) limits.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "limit",
+          "used",
+          "reset_at"
+        ],
+        "type": "object"
+      },
+      "RequestLog": {
+        "description": "RequestLog represents a single API request log entry.",
+        "example": {
+          "id": "rl_01jm4r6700f8nwq3v5hx2d9ktp",
+          "object": "request_log",
+          "method": "GET",
+          "host": "https://api.augno.com",
+          "path": "/v1/core/sandboxes",
+          "normalized_route": "/v1/core/sandboxes",
+          "query_json": "{\"limit\":10}",
+          "status_code": 200,
+          "latency_us": 12345,
+          "api_version": "2026-01-01",
+          "identity_type": "user",
+          "client_ip": "198.51.100.7",
+          "user_agent": "Mozilla/5.0",
+          "referrer": null,
+          "error_code": null,
+          "error_message": null,
+          "occurred_at": "2026-05-10T00:00:00Z",
+          "created_at": "2026-05-10T00:00:00Z",
+          "account": {
+            "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+            "object_type": "account",
+            "name": "Acme Inc."
+          },
+          "actor": {
+            "id": "us_01gf7a8200e9pvbd6bgyq395ae",
+            "object_type": "user",
+            "name": "John Doe",
+            "email": "jdoe@augno.com",
+            "redacted_value": null,
+            "role": {
+              "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+              "object_type": "role",
+              "name": "Admin",
+              "role_type_code": "admin"
+            }
+          },
+          "idempotency_key": null,
+          "request_body_json": null,
+          "response_body_json": "{\"object\":\"list\",\"data\":[...]}"
+        },
+        "properties": {
+          "id": {
+            "description": "The unique identifier for the request log.",
+            "type": "string"
+          },
+          "object": {
+            "description": "The object type.",
+            "enum": [
+              "request_log"
+            ],
+            "type": "string"
+          },
+          "method": {
+            "description": "The HTTP method.",
+            "type": "string"
+          },
+          "host": {
+            "description": "The request host.",
+            "type": "string"
+          },
+          "path": {
+            "description": "The request path.",
+            "type": "string"
+          },
+          "normalized_route": {
+            "description": "The normalized route pattern.",
+            "type": "string"
+          },
+          "query_json": {
+            "description": "The query parameters as JSON.",
+            "nullable": true,
+            "type": "string"
+          },
+          "status_code": {
+            "description": "The HTTP status code.",
+            "type": "integer"
+          },
+          "latency_us": {
+            "description": "The request latency in microseconds.",
+            "type": "integer"
+          },
+          "api_version": {
+            "description": "The API version used.",
+            "nullable": true,
+            "type": "string"
+          },
+          "identity_type": {
+            "description": "The identity type of the caller.",
+            "nullable": true,
+            "type": "string"
+          },
+          "client_ip": {
+            "description": "The client IP address.",
+            "nullable": true,
+            "type": "string"
+          },
+          "user_agent": {
+            "description": "The user agent string.",
+            "nullable": true,
+            "type": "string"
+          },
+          "referrer": {
+            "description": "The referrer header.",
+            "nullable": true,
+            "type": "string"
+          },
+          "error_code": {
+            "description": "The API error code, if any.",
+            "nullable": true,
+            "type": "string"
+          },
+          "error_message": {
+            "description": "The error message, if any.",
+            "nullable": true,
+            "type": "string"
+          },
+          "occurred_at": {
+            "description": "When the request occurred.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "When the log entry was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "account": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LightAccount"
+              }
+            ],
+            "description": "The account targeted by the request.",
+            "example": {
+              "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+              "object_type": "account",
+              "name": "Acme Inc."
+            },
+            "nullable": true
+          },
+          "actor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RequestLogActor"
+              }
+            ],
+            "description": "Actor details (user or API key).",
+            "nullable": true
+          },
+          "idempotency_key": {
+            "description": "The user-provided idempotency key value.",
+            "nullable": true,
+            "type": "string"
+          },
+          "request_body_json": {
+            "description": "The JSON request body.",
+            "nullable": true,
+            "type": "string"
+          },
+          "response_body_json": {
+            "description": "The JSON response body.",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "method",
+          "host",
+          "path",
+          "normalized_route",
+          "query_json",
+          "status_code",
+          "latency_us",
+          "api_version",
+          "identity_type",
+          "client_ip",
+          "user_agent",
+          "referrer",
+          "error_code",
+          "error_message",
+          "occurred_at",
+          "created_at",
+          "account",
+          "actor",
+          "idempotency_key",
+          "request_body_json",
+          "response_body_json"
+        ],
+        "type": "object"
+      },
+      "RequestLogActor": {
+        "description": "RequestLogActor contains the resolved actor details for a request log.",
+        "properties": {
+          "id": {
+            "description": "The actor's ID (user ID or API key type_id).",
+            "type": "string"
+          },
+          "object_type": {
+            "description": "The resource type identifier.",
+            "enum": [
+              "user"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "The actor's display name.",
+            "nullable": true,
+            "type": "string"
+          },
+          "email": {
+            "description": "The actor's email (users only).",
+            "nullable": true,
+            "type": "string"
+          },
+          "redacted_value": {
+            "description": "The redacted API key value (API keys only).",
+            "nullable": true,
+            "type": "string"
+          },
+          "role": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LightRole"
+              }
+            ],
+            "description": "The role assigned to the actor.",
+            "example": {
+              "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+              "object_type": "role",
+              "name": "Admin",
+              "role_type_code": "admin"
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "object_type",
+          "name",
+          "email",
+          "redacted_value",
+          "role"
+        ],
+        "type": "object"
+      },
+      "RequestLogListItem": {
+        "description": "RequestLogListItem is the list representation of a request log entry.\nIt omits the request and response body JSON fields which are only\navailable when retrieving a single request log by ID.",
+        "example": {
+          "id": "rl_01jm4r6700f8nwq3v5hx2d9ktp",
+          "object": "request_log",
+          "method": "GET",
+          "host": "https://api.augno.com",
+          "path": "/v1/core/sandboxes",
+          "normalized_route": "/v1/core/sandboxes",
+          "query_json": "{\"limit\":10}",
+          "status_code": 200,
+          "latency_us": 12345,
+          "api_version": "2026-01-01",
+          "identity_type": "user",
+          "client_ip": "198.51.100.7",
+          "user_agent": "Mozilla/5.0",
+          "referrer": null,
+          "error_code": null,
+          "error_message": null,
+          "occurred_at": "2026-05-10T00:00:00Z",
+          "created_at": "2026-05-10T00:00:00Z",
+          "account": {
+            "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+            "object_type": "account",
+            "name": "Acme Inc."
+          },
+          "actor": {
+            "id": "us_01gf7a8200e9pvbd6bgyq395ae",
+            "object_type": "user",
+            "name": "John Doe",
+            "email": "jdoe@augno.com",
+            "redacted_value": null,
+            "role": {
+              "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+              "object_type": "role",
+              "name": "Admin",
+              "role_type_code": "admin"
+            }
+          },
+          "idempotency_key": null
+        },
+        "properties": {
+          "id": {
+            "description": "The unique identifier for the request log.",
+            "type": "string"
+          },
+          "object": {
+            "description": "The object type.",
+            "enum": [
+              "request_log"
+            ],
+            "type": "string"
+          },
+          "method": {
+            "description": "The HTTP method.",
+            "type": "string"
+          },
+          "host": {
+            "description": "The request host.",
+            "type": "string"
+          },
+          "path": {
+            "description": "The request path.",
+            "type": "string"
+          },
+          "normalized_route": {
+            "description": "The normalized route pattern.",
+            "type": "string"
+          },
+          "query_json": {
+            "description": "The query parameters as JSON.",
+            "nullable": true,
+            "type": "string"
+          },
+          "status_code": {
+            "description": "The HTTP status code.",
+            "type": "integer"
+          },
+          "latency_us": {
+            "description": "The request latency in microseconds.",
+            "type": "integer"
+          },
+          "api_version": {
+            "description": "The API version used.",
+            "nullable": true,
+            "type": "string"
+          },
+          "identity_type": {
+            "description": "The identity type of the caller.",
+            "nullable": true,
+            "type": "string"
+          },
+          "client_ip": {
+            "description": "The client IP address.",
+            "nullable": true,
+            "type": "string"
+          },
+          "user_agent": {
+            "description": "The user agent string.",
+            "nullable": true,
+            "type": "string"
+          },
+          "referrer": {
+            "description": "The referrer header.",
+            "nullable": true,
+            "type": "string"
+          },
+          "error_code": {
+            "description": "The API error code, if any.",
+            "nullable": true,
+            "type": "string"
+          },
+          "error_message": {
+            "description": "The error message, if any.",
+            "nullable": true,
+            "type": "string"
+          },
+          "occurred_at": {
+            "description": "When the request occurred.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "When the log entry was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "account": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LightAccount"
+              }
+            ],
+            "description": "The account targeted by the request.",
+            "example": {
+              "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+              "object_type": "account",
+              "name": "Acme Inc."
+            },
+            "nullable": true
+          },
+          "actor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RequestLogActor"
+              }
+            ],
+            "description": "Actor details (user or API key).",
+            "nullable": true
+          },
+          "idempotency_key": {
+            "description": "The user-provided idempotency key value.",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "method",
+          "host",
+          "path",
+          "normalized_route",
+          "query_json",
+          "status_code",
+          "latency_us",
+          "api_version",
+          "identity_type",
+          "client_ip",
+          "user_agent",
+          "referrer",
+          "error_code",
+          "error_message",
+          "occurred_at",
+          "created_at",
+          "account",
+          "actor",
+          "idempotency_key"
+        ],
+        "type": "object"
+      },
+      "ResponseError": {
+        "description": "ResponseError is the JSON-serializable error body returned to API clients. It contains\nonly public information. This struct is used by the OpenAPI schema generator to produce\ndocumentation.",
+        "example": {
+          "code": "validation_failed",
+          "type": "invalid_request_error",
+          "message": "The request was invalid.",
+          "param": "email",
+          "doc_url": "https://docs.augno.com/errors#validation_failed",
+          "is_transient": false,
+          "quota": null,
+          "request_log_url": "https://augno.com/dashboard/request-logs/rq_fbv1ygmybo3eauykr74"
+        },
+        "properties": {
+          "code": {
+            "description": "A machine-readable code for the error.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of error.",
+            "type": "string"
+          },
+          "message": {
+            "description": "A human-readable message providing more details about the error.",
+            "type": "string"
+          },
+          "param": {
+            "description": "The parameter that caused the error, if applicable.",
+            "nullable": true,
+            "type": "string"
+          },
+          "doc_url": {
+            "description": "A URL to documentation about the error.",
+            "nullable": true,
+            "type": "string"
+          },
+          "is_transient": {
+            "description": "Whether this error is transient and the request can be retried.",
+            "type": "boolean"
+          },
+          "quota": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/QuotaInfo"
+              }
+            ],
+            "description": "Quota provides plan limit details when the error is limit_exceeded. Nil otherwise.",
+            "nullable": true
+          },
+          "request_log_url": {
+            "description": "RequestLogURL is a link to the dashboard page for this request's log entry.\nNil when no request log is available.",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "type",
+          "message",
+          "param",
+          "doc_url",
+          "is_transient",
+          "quota",
+          "request_log_url"
+        ],
+        "type": "object"
+      },
+      "RotateAPIKeyRequest": {
+        "description": "The request to rotate an API key, optionally overriding the expiration",
+        "example": {
+          "expires_at": "2026-12-31T23:59:59Z"
+        },
+        "properties": {
+          "expires_at": {
+            "description": "Optional expiration time override for the new API key.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Sandbox": {
+        "description": "Sandbox represents an isolated testing environment for an account.",
+        "example": {
+          "id": "sbac_01jm4r6700f8nwq3v5hx2d9ktp",
+          "object": "sandbox",
+          "name": "Integration Testing",
+          "account_id": "ac_01jm4r6700g2bz7y4c6e8f1jrm",
+          "created_at": "2026-05-10T00:00:00Z",
+          "updated_at": "2026-05-10T00:23:00Z"
+        },
+        "properties": {
+          "id": {
+            "description": "The unique identifier for the sandbox.",
+            "type": "string"
+          },
+          "object": {
+            "description": "The object type.",
+            "enum": [
+              "sandbox"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "The display name of the sandbox.",
+            "type": "string"
+          },
+          "account_id": {
+            "description": "The ID of the account this sandbox belongs to.",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "When this sandbox was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "When this sandbox was last updated.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "name",
+          "account_id",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "Unit": {
+        "description": "Unit represents a unit of measurement used for conversions and product quantities.",
+        "example": {
+          "id": "unit_01jm4r6700f8nwq3v5hx2d9ktp",
+          "object": "unit",
+          "name": "Kilogram",
+          "abbreviation": "kg",
+          "type": "mass",
+          "ratio_numerator": "1000.000000000000000000000000000000",
+          "ratio_denominator": "1.000000000000000000000000000000",
+          "offset_numerator": "0.000000000000000000000000000000",
+          "offset_denominator": "1.000000000000000000000000000000",
+          "is_base_unit": false,
+          "is_internal": false,
+          "created_at": "2026-05-10T00:00:00Z",
+          "updated_at": "2026-05-10T00:23:00Z"
+        },
+        "properties": {
+          "id": {
+            "description": "The unique identifier for the unit.",
+            "type": "string"
+          },
+          "object": {
+            "description": "The object type.",
+            "enum": [
+              "unit"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "The display name of the unit (e.g. \"Gram\", \"Kilogram\").",
+            "type": "string"
+          },
+          "abbreviation": {
+            "description": "The short abbreviation for the unit (e.g. \"g\", \"kg\").",
+            "type": "string"
+          },
+          "type": {
+            "description": "The unit dimension (e.g. \"quantity\", \"mass\", \"time\", \"currency\").",
+            "enum": [
+              "currency",
+              "quantity",
+              "time",
+              "mass",
+              "volume",
+              "length",
+              "temperature",
+              "area"
+            ],
+            "type": "string"
+          },
+          "ratio_numerator": {
+            "description": "The conversion ratio numerator relative to the base unit in the same dimension.",
+            "format": "decimal",
+            "type": "string"
+          },
+          "ratio_denominator": {
+            "description": "The conversion ratio denominator relative to the base unit in the same dimension.",
+            "format": "decimal",
+            "type": "string"
+          },
+          "offset_numerator": {
+            "description": "The conversion offset numerator, used for temperature-like conversions. Zero for most unit types.",
+            "format": "decimal",
+            "type": "string"
+          },
+          "offset_denominator": {
+            "description": "The conversion offset denominator. Typically 1.",
+            "format": "decimal",
+            "type": "string"
+          },
+          "is_base_unit": {
+            "description": "Whether this unit is the base unit for its dimension. Conversion ratios are relative to this unit.",
+            "type": "boolean"
+          },
+          "is_internal": {
+            "description": "Whether this unit belongs to the requesting account. False for system/global units.",
+            "type": "boolean"
+          },
+          "created_at": {
+            "description": "When this unit was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "When this unit was last updated.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "name",
+          "abbreviation",
+          "type",
+          "ratio_numerator",
+          "ratio_denominator",
+          "offset_numerator",
+          "offset_denominator",
+          "is_base_unit",
+          "is_internal",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "UpdateUnitRequest": {
+        "description": "UpdateUnitRequest is the request to partially update a unit.",
+        "properties": {
+          "name": {
+            "description": "The display name of the unit.",
+            "nullable": true,
+            "type": "string"
+          },
+          "abbreviation": {
+            "description": "The short abbreviation for the unit.",
+            "nullable": true,
+            "type": "string"
+          },
+          "ratio_numerator": {
+            "description": "The conversion ratio numerator, as a decimal string.",
+            "nullable": true,
+            "type": "string"
+          },
+          "ratio_denominator": {
+            "description": "The conversion ratio denominator, as a decimal string.",
+            "nullable": true,
+            "type": "string"
+          },
+          "offset_numerator": {
+            "description": "The conversion offset numerator, as a decimal string.",
+            "nullable": true,
+            "type": "string"
+          },
+          "offset_denominator": {
+            "description": "The conversion offset denominator, as a decimal string.",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "API for Augno services",
+    "title": "Augno API",
+    "version": "1.0.forge-preview.1"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/v1/auth/api-keys": {
+      "get": {
+        "description": "This endpoint returns a paginated list of API keys for the target account.\nSupports cursor-based pagination and optional search filtering by name.",
+        "operationId": "list-api-keys",
+        "parameters": [
+          {
+            "description": "Filter API keys by status.",
+            "example": [
+              "active"
+            ],
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "items": {
+                "enum": [
+                  "active",
+                  "expired",
+                  "revoked"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_cursor": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+                    "prev_cursor": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+                      "object": "api_key",
+                      "name": "Production API Key",
+                      "redacted_value": "aug_sk_prod_...hjt4",
+                      "role": {
+                        "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                        "object_type": "",
+                        "name": "Admin",
+                        "role_type_code": null
+                      },
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z",
+                      "last_used_at": "2026-05-10T00:23:00Z",
+                      "expires_at": "2026-06-10T00:00:00Z",
+                      "revoked_at": null
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_APIKey"
+                }
+              }
+            },
+            "description": "Successful response for List API Keys"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List API Keys",
+        "tags": [
+          "API Key Management"
+        ],
+        "x-preview": true
+      },
+      "post": {
+        "description": "This endpoint is used to create an API key. Once completed, the API key object is\nreturned, and the API key secret is returned. The secret is only returned once at creation, and is not retrievable after creation.",
+        "operationId": "create-api-key",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "role_id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                "name": "Production API Key"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/CreateAPIKeyRequest"
+              }
+            }
+          },
+          "description": "The request body for Create API Key"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "api_key_secret": "aug_sk_prod_RhxFDvTdDnb0bgtcoA5P79_60EmH4h9j9ZldsuU9XyngXlpu8NqdIlGTQw8OM8cGeCadyhjtr",
+                  "api_key_info": {
+                    "id": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+                    "object": "api_key",
+                    "name": "Production API Key",
+                    "redacted_value": "aug_sk_prod_...hjt4",
+                    "role": {
+                      "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                      "object_type": "",
+                      "name": "Admin",
+                      "role_type_code": null
+                    },
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z",
+                    "last_used_at": "2026-05-10T00:23:00Z",
+                    "expires_at": "2026-06-10T00:00:00Z",
+                    "revoked_at": null
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedAPIKey"
+                }
+              }
+            },
+            "description": "Successful response for Create API Key"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Create API Key",
+        "tags": [
+          "API Key Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/auth/api-keys/{id}": {
+      "delete": {
+        "description": "This endpoint revokes an API key so it can no longer be used to \nauthenticate requests. The API key will be marked as revoked and will no longer be usable.",
+        "operationId": "revoke-api-key",
+        "parameters": [
+          {
+            "description": "The ID of the API key to revoke.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Revoke API Key"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Revoke API Key",
+        "tags": [
+          "API Key Management"
+        ],
+        "x-preview": true
+      },
+      "get": {
+        "description": "This endpoint returns a single API key's metadata by its ID.",
+        "operationId": "get-api-key",
+        "parameters": [
+          {
+            "description": "The ID of the API key to retrieve.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+                  "object": "api_key",
+                  "name": "Production API Key",
+                  "redacted_value": "aug_sk_prod_...hjt4",
+                  "role": {
+                    "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                    "object_type": "",
+                    "name": "Admin",
+                    "role_type_code": null
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z",
+                  "last_used_at": "2026-05-10T00:23:00Z",
+                  "expires_at": "2026-06-10T00:00:00Z",
+                  "revoked_at": null
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/APIKey"
+                }
+              }
+            },
+            "description": "Successful response for Get API Key"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Get API Key",
+        "tags": [
+          "API Key Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/auth/api-keys/{id}/actions/rotate": {
+      "post": {
+        "description": "This endpoint rotates an API key by revoking the existing key and creating a new\nreplacement with the same name, role, and owner. The new key inherits the old key's expiration unless an explicit expires_at override is provided.\nThe new API key secret is returned once and is not retrievable after creation.",
+        "operationId": "rotate-api-key",
+        "parameters": [
+          {
+            "description": "The unique identifier for the API key to rotate.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "expires_at": "2026-12-31T23:59:59Z"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/RotateAPIKeyRequest"
+              }
+            }
+          },
+          "description": "The request body for Rotate API Key"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "api_key_secret": "aug_sk_prod_RhxFDvTdDnb0bgtcoA5P79_60EmH4h9j9ZldsuU9XyngXlpu8NqdIlGTQw8OM8cGeCadyhjtr",
+                  "api_key_info": {
+                    "id": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+                    "object": "api_key",
+                    "name": "Production API Key",
+                    "redacted_value": "aug_sk_prod_...hjt4",
+                    "role": {
+                      "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                      "object_type": "",
+                      "name": "Admin",
+                      "role_type_code": null
+                    },
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z",
+                    "last_used_at": "2026-05-10T00:23:00Z",
+                    "expires_at": "2026-06-10T00:00:00Z",
+                    "revoked_at": null
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedAPIKey"
+                }
+              }
+            },
+            "description": "Successful response for Rotate API Key"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Rotate API Key",
+        "tags": [
+          "API Key Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/core/request-logs": {
+      "get": {
+        "description": "This endpoint returns a paginated, filterable list of request logs for the target account.\nSupports cursor-based pagination and various filters.",
+        "operationId": "list-request-logs",
+        "parameters": [
+          {
+            "description": "Cursor for fetching the next page, from a previous response's next_cursor field.",
+            "example": "example",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results to return per page (default: 100, max: 1000).",
+            "example": 100,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Search query: matches against ID (exact), path (partial), or error message (partial).",
+            "example": "example",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter: start of date range for occurred_at.",
+            "example": "example",
+            "in": "query",
+            "name": "start_date",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter: end of date range for occurred_at.",
+            "example": "example",
+            "in": "query",
+            "name": "end_date",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter: HTTP method.",
+            "example": "example",
+            "in": "query",
+            "name": "method",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter: HTTP status code.",
+            "example": 100,
+            "in": "query",
+            "name": "status_code",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filter: API error code.",
+            "example": "example",
+            "in": "query",
+            "name": "error_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter: actor's home account ID.",
+            "example": "example",
+            "in": "query",
+            "name": "account_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter: actor ID.",
+            "example": "example",
+            "in": "query",
+            "name": "actor_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter: actor type (\"user\" or \"api_key\").",
+            "example": "example",
+            "in": "query",
+            "name": "actor_type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter: actor name (partial or exact match).",
+            "example": "example",
+            "in": "query",
+            "name": "actor_name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "When true, string filters use exact match instead of partial (LIKE).",
+            "example": true,
+            "in": "query",
+            "name": "exact_match",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_cursor": "rl_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "prev_cursor": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "rl_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "request_log",
+                      "method": "GET",
+                      "host": "https://api.augno.com",
+                      "path": "/v1/core/sandboxes",
+                      "normalized_route": "/v1/core/sandboxes",
+                      "query_json": "{\"limit\":10}",
+                      "status_code": 200,
+                      "latency_us": 12345,
+                      "api_version": "2026-01-01",
+                      "identity_type": "user",
+                      "client_ip": "198.51.100.7",
+                      "user_agent": "Mozilla/5.0",
+                      "referrer": null,
+                      "error_code": null,
+                      "error_message": null,
+                      "occurred_at": "2026-05-10T00:00:00Z",
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "account": {
+                        "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                        "object_type": "account",
+                        "name": "Acme Inc."
+                      },
+                      "actor": {
+                        "id": "us_01gf7a8200e9pvbd6bgyq395ae",
+                        "object_type": "user",
+                        "name": "John Doe",
+                        "email": "jdoe@augno.com",
+                        "redacted_value": null,
+                        "role": {
+                          "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                          "object_type": "role",
+                          "name": "Admin",
+                          "role_type_code": "admin"
+                        }
+                      },
+                      "idempotency_key": null
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_RequestLogListItem"
+                }
+              }
+            },
+            "description": "Successful response for List Request Logs"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Request Logs",
+        "tags": [
+          "Request Log Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/core/request-logs/{id}": {
+      "get": {
+        "description": "This endpoint returns a single request log by its ID.",
+        "operationId": "get-request-log",
+        "parameters": [
+          {
+            "description": "The ID of the request log to retrieve.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "rl_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "request_log",
+                  "method": "GET",
+                  "host": "https://api.augno.com",
+                  "path": "/v1/core/sandboxes",
+                  "normalized_route": "/v1/core/sandboxes",
+                  "query_json": "{\"limit\":10}",
+                  "status_code": 200,
+                  "latency_us": 12345,
+                  "api_version": "2026-01-01",
+                  "identity_type": "user",
+                  "client_ip": "198.51.100.7",
+                  "user_agent": "Mozilla/5.0",
+                  "referrer": null,
+                  "error_code": null,
+                  "error_message": null,
+                  "occurred_at": "2026-05-10T00:00:00Z",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "account": {
+                    "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                    "object_type": "account",
+                    "name": "Acme Inc."
+                  },
+                  "actor": {
+                    "id": "us_01gf7a8200e9pvbd6bgyq395ae",
+                    "object_type": "user",
+                    "name": "John Doe",
+                    "email": "jdoe@augno.com",
+                    "redacted_value": null,
+                    "role": {
+                      "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                      "object_type": "role",
+                      "name": "Admin",
+                      "role_type_code": "admin"
+                    }
+                  },
+                  "idempotency_key": null,
+                  "request_body_json": null,
+                  "response_body_json": "{\"object\":\"list\",\"data\":[...]}"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/RequestLog"
+                }
+              }
+            },
+            "description": "Successful response for Get Request Log"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Get Request Log",
+        "tags": [
+          "Request Log Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/core/sandboxes": {
+      "get": {
+        "description": "This endpoint returns a paginated list of sandbox accounts for the target account.\nSupports cursor-based pagination.",
+        "operationId": "list-sandboxes",
+        "parameters": [
+          {
+            "description": "Cursor for fetching the next page, from a previous response's next_cursor field.",
+            "example": "example",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results to return per page (default: 100, max: 1000).",
+            "example": 100,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Optional search query to filter results.",
+            "example": "example",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_cursor": "sbac_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "prev_cursor": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "sbac_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "sandbox",
+                      "name": "Integration Testing",
+                      "account_id": "ac_01jm4r6700g2bz7y4c6e8f1jrm",
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_Sandbox"
+                }
+              }
+            },
+            "description": "Successful response for List Sandboxes"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Sandboxes",
+        "tags": [
+          "Sandbox Management"
+        ],
+        "x-preview": true
+      },
+      "post": {
+        "description": "This endpoint creates a new sandbox account for the target account.\nEnforces a per-account sandbox limit. Requires admin permissions.",
+        "operationId": "create-sandbox",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "Integration Testing",
+                "mode": "blank"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/CreateSandboxRequest"
+              }
+            }
+          },
+          "description": "The request body for Create Sandbox"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "sbac_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "sandbox",
+                  "name": "Integration Testing",
+                  "account_id": "ac_01jm4r6700g2bz7y4c6e8f1jrm",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Sandbox"
+                }
+              }
+            },
+            "description": "Successful response for Create Sandbox"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Create Sandbox",
+        "tags": [
+          "Sandbox Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/core/sandboxes/{id}": {
+      "delete": {
+        "description": "This endpoint deletes a sandbox account. At least one sandbox must remain\nper production account. The sandbox and its account record are removed synchronously, and all\naccount-scoped data is purged asynchronously.",
+        "operationId": "delete-sandbox",
+        "parameters": [
+          {
+            "description": "The ID of the sandbox to delete.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Delete Sandbox"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Delete Sandbox",
+        "tags": [
+          "Sandbox Management"
+        ],
+        "x-preview": true
+      },
+      "get": {
+        "description": "This endpoint returns a single sandbox account by its ID.",
+        "operationId": "get-sandbox",
+        "parameters": [
+          {
+            "description": "The ID of the sandbox to retrieve.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "sbac_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "sandbox",
+                  "name": "Integration Testing",
+                  "account_id": "ac_01jm4r6700g2bz7y4c6e8f1jrm",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Sandbox"
+                }
+              }
+            },
+            "description": "Successful response for Get Sandbox"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Get Sandbox",
+        "tags": [
+          "Sandbox Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/core/units": {
+      "get": {
+        "description": "This endpoint returns a paginated list of units for the target account, including both account-specific and global system units.\nSupports cursor-based pagination, filtering by dimension type and unit group membership, and search by name or abbreviation.",
+        "operationId": "list-units",
+        "parameters": [
+          {
+            "description": "Filter by unit dimension code (e.g. \"mass\", \"quantity\").",
+            "example": "example",
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by unit group membership.",
+            "example": [],
+            "in": "query",
+            "name": "unit_group_ids",
+            "schema": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_cursor": "unit_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "prev_cursor": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "unit_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "unit",
+                      "name": "Kilogram",
+                      "abbreviation": "kg",
+                      "type": "mass",
+                      "ratio_numerator": "1000.000000000000000000000000000000",
+                      "ratio_denominator": "1.000000000000000000000000000000",
+                      "offset_numerator": "0.000000000000000000000000000000",
+                      "offset_denominator": "1.000000000000000000000000000000",
+                      "is_base_unit": false,
+                      "is_internal": false,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_Unit"
+                }
+              }
+            },
+            "description": "Successful response for List Units"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Units",
+        "tags": [
+          "Units Management"
+        ],
+        "x-preview": true
+      },
+      "post": {
+        "description": "This endpoint creates a new account-owned unit.",
+        "operationId": "create-unit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "Gram",
+                "abbreviation": "g",
+                "type": "mass",
+                "ratio_numerator": "1.000000000000000000000000000000",
+                "ratio_denominator": "1.000000000000000000000000000000",
+                "offset_numerator": "0.000000000000000000000000000000",
+                "offset_denominator": "1.000000000000000000000000000000",
+                "is_base_unit": true
+              },
+              "schema": {
+                "$ref": "#/components/schemas/CreateUnitRequest"
+              }
+            }
+          },
+          "description": "The request body for Create Unit"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "unit_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "1000.000000000000000000000000000000",
+                  "ratio_denominator": "1.000000000000000000000000000000",
+                  "offset_numerator": "0.000000000000000000000000000000",
+                  "offset_denominator": "1.000000000000000000000000000000",
+                  "is_base_unit": false,
+                  "is_internal": false,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Unit"
+                }
+              }
+            },
+            "description": "Successful response for Create Unit"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Create Unit",
+        "tags": [
+          "Units Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/core/units/{id}": {
+      "delete": {
+        "description": "This endpoint deletes an account-owned unit.\nAssociated unit group memberships are also removed. System units cannot be deleted.",
+        "operationId": "delete-unit",
+        "parameters": [
+          {
+            "description": "The ID of the unit to delete.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Delete Unit"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Delete Unit",
+        "tags": [
+          "Units Management"
+        ],
+        "x-preview": true
+      },
+      "get": {
+        "description": "This endpoint returns a single unit by its ID.\nThe unit must belong to the requesting account or be a system (global) unit.",
+        "operationId": "get-unit",
+        "parameters": [
+          {
+            "description": "The ID of the unit to retrieve.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "unit_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "1000.000000000000000000000000000000",
+                  "ratio_denominator": "1.000000000000000000000000000000",
+                  "offset_numerator": "0.000000000000000000000000000000",
+                  "offset_denominator": "1.000000000000000000000000000000",
+                  "is_base_unit": false,
+                  "is_internal": false,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Unit"
+                }
+              }
+            },
+            "description": "Successful response for Get Unit"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Get Unit",
+        "tags": [
+          "Units Management"
+        ],
+        "x-preview": true
+      },
+      "patch": {
+        "description": "This endpoint partially updates an account-owned unit.\nOnly provided fields are updated; absent fields retain their current values.\nSystem units cannot be updated.",
+        "operationId": "update-unit",
+        "parameters": [
+          {
+            "description": "The ID of the unit to update.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUnitRequest"
+              }
+            }
+          },
+          "description": "The request body for Update Unit"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "unit_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "1000.000000000000000000000000000000",
+                  "ratio_denominator": "1.000000000000000000000000000000",
+                  "offset_numerator": "0.000000000000000000000000000000",
+                  "offset_denominator": "1.000000000000000000000000000000",
+                  "is_base_unit": false,
+                  "is_internal": false,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Unit"
+                }
+              }
+            },
+            "description": "Successful response for Update Unit"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Update Unit",
+        "tags": [
+          "Units Management"
+        ],
+        "x-preview": true
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Production server",
+      "url": "https://api.augno.com"
+    },
+    {
+      "description": "Local development server",
+      "url": "http://localhost:8081"
+    }
+  ],
+  "tags": [
+    {
+      "description": "Handles creating and managing API keys for programmatic access.",
+      "name": "API Key Management"
+    },
+    {
+      "description": "Handles listing and managing sandbox environments.",
+      "name": "Sandbox Management"
+    },
+    {
+      "description": "Handles listing and retrieving request logs.",
+      "name": "Request Log Management"
+    },
+    {
+      "description": "Handles listing and managing units.",
+      "name": "Units Management"
+    }
+  ]
+}
