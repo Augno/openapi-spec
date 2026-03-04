@@ -49,9 +49,9 @@
           "redacted_value": "aug_sk_prod_...hjt4",
           "role": {
             "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-            "object_type": "",
+            "object": "role",
             "name": "Admin",
-            "role_type_code": null
+            "role_type_code": "admin"
           },
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z",
@@ -65,7 +65,7 @@
             "type": "string"
           },
           "object": {
-            "description": "The object type.",
+            "description": "The resource type identifier.",
             "enum": [
               "api_key"
             ],
@@ -85,13 +85,15 @@
                 "$ref": "#/components/schemas/LightRole"
               }
             ],
-            "description": "The role associated with this API key.",
+            "description": "The role associated with this API key. Expandable.",
             "example": {
               "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-              "object_type": "role",
+              "object": "role",
               "name": "Admin",
               "role_type_code": "admin"
-            }
+            },
+            "nullable": true,
+            "x-expandable": true
           },
           "created_at": {
             "description": "The timestamp when the API key was created.",
@@ -269,9 +271,9 @@
             "redacted_value": "aug_sk_prod_...hjt4",
             "role": {
               "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-              "object_type": "",
+              "object": "role",
               "name": "Admin",
-              "role_type_code": null
+              "role_type_code": "admin"
             },
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z",
@@ -299,9 +301,9 @@
               "redacted_value": "aug_sk_prod_...hjt4",
               "role": {
                 "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-                "object_type": "",
+                "object": "role",
                 "name": "Admin",
-                "role_type_code": null
+                "role_type_code": "admin"
               },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z",
@@ -321,7 +323,7 @@
         "description": "LightAccount represents a minimal account reference.",
         "example": {
           "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-          "object_type": "account",
+          "object": "account",
           "name": "Acme Inc."
         },
         "properties": {
@@ -329,7 +331,7 @@
             "description": "The unique identifier for the account.",
             "type": "string"
           },
-          "object_type": {
+          "object": {
             "description": "The resource type identifier.",
             "enum": [
               "account"
@@ -343,7 +345,7 @@
         },
         "required": [
           "id",
-          "object_type",
+          "object",
           "name"
         ],
         "type": "object"
@@ -352,7 +354,7 @@
         "description": "LightRole represents a minimal role reference.",
         "example": {
           "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-          "object_type": "role",
+          "object": "role",
           "name": "Admin",
           "role_type_code": "admin"
         },
@@ -361,7 +363,7 @@
             "description": "The unique identifier for the role.",
             "type": "string"
           },
-          "object_type": {
+          "object": {
             "description": "The resource type identifier.",
             "enum": [
               "role"
@@ -378,16 +380,14 @@
               "admin",
               "user",
               "scanner",
-              "sales_rep",
-              null
+              "sales_rep"
             ],
-            "nullable": true,
             "type": "string"
           }
         },
         "required": [
           "id",
-          "object_type",
+          "object",
           "name",
           "role_type_code"
         ],
@@ -411,9 +411,9 @@
               "redacted_value": "aug_sk_prod_...hjt4",
               "role": {
                 "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-                "object_type": "",
+                "object": "role",
                 "name": "Admin",
-                "role_type_code": null
+                "role_type_code": "admin"
               },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z",
@@ -489,18 +489,18 @@
               "created_at": "2026-05-10T00:00:00Z",
               "account": {
                 "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                "object_type": "account",
+                "object": "account",
                 "name": "Acme Inc."
               },
               "actor": {
                 "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                "object_type": "user",
+                "object": "user",
                 "name": "John Doe",
                 "email": "jdoe@augno.com",
                 "redacted_value": null,
                 "role": {
                   "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-                  "object_type": "role",
+                  "object": "role",
                   "name": "Admin",
                   "role_type_code": "admin"
                 }
@@ -559,6 +559,11 @@
               "object": "sandbox",
               "name": "Integration Testing",
               "account_id": "ac_01jm4r6700g2bz7y4c6e8f1jrm",
+              "owner_account": {
+                "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                "object": "account",
+                "name": "Acme Inc."
+              },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             }
@@ -738,18 +743,18 @@
           "created_at": "2026-05-10T00:00:00Z",
           "account": {
             "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-            "object_type": "account",
+            "object": "account",
             "name": "Acme Inc."
           },
           "actor": {
             "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-            "object_type": "user",
+            "object": "user",
             "name": "John Doe",
             "email": "jdoe@augno.com",
             "redacted_value": null,
             "role": {
               "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-              "object_type": "role",
+              "object": "role",
               "name": "Admin",
               "role_type_code": "admin"
             }
@@ -764,7 +769,7 @@
             "type": "string"
           },
           "object": {
-            "description": "The object type.",
+            "description": "The resource type identifier.",
             "enum": [
               "request_log"
             ],
@@ -850,13 +855,14 @@
                 "$ref": "#/components/schemas/LightAccount"
               }
             ],
-            "description": "The account targeted by the request.",
+            "description": "The account targeted by the request. Expandable.",
             "example": {
               "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-              "object_type": "account",
+              "object": "account",
               "name": "Acme Inc."
             },
-            "nullable": true
+            "nullable": true,
+            "x-expandable": true
           },
           "actor": {
             "allOf": [
@@ -864,8 +870,9 @@
                 "$ref": "#/components/schemas/RequestLogActor"
               }
             ],
-            "description": "Actor details (user or API key).",
-            "nullable": true
+            "description": "Actor details (user or API key). Expandable.",
+            "nullable": true,
+            "x-expandable": true
           },
           "idempotency_key": {
             "description": "The user-provided idempotency key value.",
@@ -917,7 +924,7 @@
             "description": "The actor's ID (user ID or API key type_id).",
             "type": "string"
           },
-          "object_type": {
+          "object": {
             "description": "The resource type identifier.",
             "enum": [
               "user"
@@ -945,19 +952,20 @@
                 "$ref": "#/components/schemas/LightRole"
               }
             ],
-            "description": "The role assigned to the actor.",
+            "description": "The role assigned to the actor. Expandable.",
             "example": {
               "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-              "object_type": "role",
+              "object": "role",
               "name": "Admin",
               "role_type_code": "admin"
             },
-            "nullable": true
+            "nullable": true,
+            "x-expandable": true
           }
         },
         "required": [
           "id",
-          "object_type",
+          "object",
           "name",
           "email",
           "redacted_value",
@@ -988,18 +996,18 @@
           "created_at": "2026-05-10T00:00:00Z",
           "account": {
             "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-            "object_type": "account",
+            "object": "account",
             "name": "Acme Inc."
           },
           "actor": {
             "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-            "object_type": "user",
+            "object": "user",
             "name": "John Doe",
             "email": "jdoe@augno.com",
             "redacted_value": null,
             "role": {
               "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-              "object_type": "role",
+              "object": "role",
               "name": "Admin",
               "role_type_code": "admin"
             }
@@ -1012,7 +1020,7 @@
             "type": "string"
           },
           "object": {
-            "description": "The object type.",
+            "description": "The resource type identifier.",
             "enum": [
               "request_log"
             ],
@@ -1098,13 +1106,14 @@
                 "$ref": "#/components/schemas/LightAccount"
               }
             ],
-            "description": "The account targeted by the request.",
+            "description": "The account targeted by the request. Expandable.",
             "example": {
               "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-              "object_type": "account",
+              "object": "account",
               "name": "Acme Inc."
             },
-            "nullable": true
+            "nullable": true,
+            "x-expandable": true
           },
           "actor": {
             "allOf": [
@@ -1112,8 +1121,9 @@
                 "$ref": "#/components/schemas/RequestLogActor"
               }
             ],
-            "description": "Actor details (user or API key).",
-            "nullable": true
+            "description": "Actor details (user or API key). Expandable.",
+            "nullable": true,
+            "x-expandable": true
           },
           "idempotency_key": {
             "description": "The user-provided idempotency key value.",
@@ -1234,6 +1244,11 @@
           "object": "sandbox",
           "name": "Integration Testing",
           "account_id": "ac_01jm4r6700g2bz7y4c6e8f1jrm",
+          "owner_account": {
+            "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+            "object": "account",
+            "name": "Acme Inc."
+          },
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
         },
@@ -1243,7 +1258,7 @@
             "type": "string"
           },
           "object": {
-            "description": "The object type.",
+            "description": "The resource type identifier.",
             "enum": [
               "sandbox"
             ],
@@ -1256,6 +1271,21 @@
           "account_id": {
             "description": "The ID of the account this sandbox belongs to.",
             "type": "string"
+          },
+          "owner_account": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LightAccount"
+              }
+            ],
+            "description": "The owner account of this sandbox. Expandable.",
+            "example": {
+              "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+              "object": "account",
+              "name": "Acme Inc."
+            },
+            "nullable": true,
+            "x-expandable": true
           },
           "created_at": {
             "description": "When this sandbox was created.",
@@ -1273,6 +1303,7 @@
           "object",
           "name",
           "account_id",
+          "owner_account",
           "created_at",
           "updated_at"
         ],
@@ -1301,7 +1332,7 @@
             "type": "string"
           },
           "object": {
-            "description": "The object type.",
+            "description": "The resource type identifier.",
             "enum": [
               "unit"
             ],
@@ -1453,6 +1484,23 @@
               },
               "type": "array"
             }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "role"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
           }
         ],
         "responses": {
@@ -1475,9 +1523,9 @@
                       "redacted_value": "aug_sk_prod_...hjt4",
                       "role": {
                         "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-                        "object_type": "",
+                        "object": "role",
                         "name": "Admin",
-                        "role_type_code": null
+                        "role_type_code": "admin"
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z",
@@ -1514,6 +1562,25 @@
       "post": {
         "description": "This endpoint is used to create an API key. Once completed, the API key object is\nreturned, and the API key secret is returned. The secret is only returned once at creation, and is not retrievable after creation.",
         "operationId": "create-api-key",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "role"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1541,9 +1608,9 @@
                     "redacted_value": "aug_sk_prod_...hjt4",
                     "role": {
                       "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-                      "object_type": "",
+                      "object": "role",
                       "name": "Admin",
-                      "role_type_code": null
+                      "role_type_code": "admin"
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z",
@@ -1634,6 +1701,23 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "role"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
           }
         ],
         "responses": {
@@ -1647,9 +1731,9 @@
                   "redacted_value": "aug_sk_prod_...hjt4",
                   "role": {
                     "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-                    "object_type": "",
+                    "object": "role",
                     "name": "Admin",
-                    "role_type_code": null
+                    "role_type_code": "admin"
                   },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z",
@@ -1695,6 +1779,23 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "role"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
           }
         ],
         "requestBody": {
@@ -1723,9 +1824,9 @@
                     "redacted_value": "aug_sk_prod_...hjt4",
                     "role": {
                       "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-                      "object_type": "",
+                      "object": "role",
                       "name": "Admin",
-                      "role_type_code": null
+                      "role_type_code": "admin"
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z",
@@ -1882,6 +1983,25 @@
             "schema": {
               "type": "boolean"
             }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "account"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "account",
+                  "actor",
+                  "actor.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
           }
         ],
         "responses": {
@@ -1918,18 +2038,18 @@
                       "created_at": "2026-05-10T00:00:00Z",
                       "account": {
                         "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                        "object_type": "account",
+                        "object": "account",
                         "name": "Acme Inc."
                       },
                       "actor": {
                         "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                        "object_type": "user",
+                        "object": "user",
                         "name": "John Doe",
                         "email": "jdoe@augno.com",
                         "redacted_value": null,
                         "role": {
                           "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-                          "object_type": "role",
+                          "object": "role",
                           "name": "Admin",
                           "role_type_code": "admin"
                         }
@@ -1976,6 +2096,25 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "account"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "account",
+                  "actor",
+                  "actor.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
           }
         ],
         "responses": {
@@ -2003,18 +2142,18 @@
                   "created_at": "2026-05-10T00:00:00Z",
                   "account": {
                     "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                    "object_type": "account",
+                    "object": "account",
                     "name": "Acme Inc."
                   },
                   "actor": {
                     "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                    "object_type": "user",
+                    "object": "user",
                     "name": "John Doe",
                     "email": "jdoe@augno.com",
                     "redacted_value": null,
                     "role": {
                       "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
-                      "object_type": "role",
+                      "object": "role",
                       "name": "Admin",
                       "role_type_code": "admin"
                     }
@@ -2079,6 +2218,23 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner_account"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner_account"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
           }
         ],
         "responses": {
@@ -2099,6 +2255,11 @@
                       "object": "sandbox",
                       "name": "Integration Testing",
                       "account_id": "ac_01jm4r6700g2bz7y4c6e8f1jrm",
+                      "owner_account": {
+                        "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                        "object": "account",
+                        "name": "Acme Inc."
+                      },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
@@ -2131,6 +2292,25 @@
       "post": {
         "description": "This endpoint creates a new sandbox account for the target account.\nEnforces a per-account sandbox limit. Requires admin permissions.",
         "operationId": "create-sandbox",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner_account"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner_account"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -2154,6 +2334,11 @@
                   "object": "sandbox",
                   "name": "Integration Testing",
                   "account_id": "ac_01jm4r6700g2bz7y4c6e8f1jrm",
+                  "owner_account": {
+                    "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                    "object": "account",
+                    "name": "Acme Inc."
+                  },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -2239,6 +2424,23 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner_account"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner_account"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
           }
         ],
         "responses": {
@@ -2250,6 +2452,11 @@
                   "object": "sandbox",
                   "name": "Integration Testing",
                   "account_id": "ac_01jm4r6700g2bz7y4c6e8f1jrm",
+                  "owner_account": {
+                    "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                    "object": "account",
+                    "name": "Acme Inc."
+                  },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
