@@ -765,6 +765,71 @@
         ],
         "type": "object"
       },
+      "AddressInput": {
+        "description": "AddressInput represents an inline address to create with a parent resource.\nField names align with the Address resource shape.",
+        "properties": {
+          "name": {
+            "description": "The display name of the address.",
+            "type": "string"
+          },
+          "phone": {
+            "description": "The phone number associated with this address.",
+            "nullable": true,
+            "type": "string"
+          },
+          "email": {
+            "description": "The email address associated with this address.",
+            "nullable": true,
+            "type": "string"
+          },
+          "is_drop_ship": {
+            "description": "Whether this is a drop ship address.",
+            "type": "boolean"
+          },
+          "street_line_1": {
+            "description": "The first line of the street address.",
+            "nullable": true,
+            "type": "string"
+          },
+          "street_line_2": {
+            "description": "The second line of the street address.",
+            "nullable": true,
+            "type": "string"
+          },
+          "locality": {
+            "description": "The city or locality.",
+            "nullable": true,
+            "type": "string"
+          },
+          "state": {
+            "description": "The state or region.",
+            "nullable": true,
+            "type": "string"
+          },
+          "postal_code": {
+            "description": "The postal or ZIP code.",
+            "nullable": true,
+            "type": "string"
+          },
+          "country": {
+            "description": "The ISO country code.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "phone",
+          "email",
+          "is_drop_ship",
+          "street_line_1",
+          "street_line_2",
+          "locality",
+          "state",
+          "postal_code",
+          "country"
+        ],
+        "type": "object"
+      },
       "AddressSuggestion": {
         "description": "AddressSuggestion represents an autocomplete suggestion.",
         "example": {
@@ -1795,8 +1860,35 @@
         "example": {
           "name": "Acme Inc.",
           "note": "Key enterprise account",
+          "status_code": "normal",
           "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
-          "default_payment_term_id": "pytm_01jm4r6700f8nwq3v5hx2d9ktp"
+          "default_payment_term_id": "pytm_01jm4r6700f8nwq3v5hx2d9ktp",
+          "default_shipping_term_id": "shtm_01jm4r6700f8nwq3v5hx2d9ktp",
+          "customer_type_group_id": "acgp_01jm4r6700f8nwq3v5hx2d9ktp",
+          "bill_to_address": {
+            "name": "Acme Inc.",
+            "phone": null,
+            "email": null,
+            "is_drop_ship": false,
+            "street_line_1": "123 Main St",
+            "street_line_2": null,
+            "locality": "New York",
+            "state": "NY",
+            "postal_code": "10001",
+            "country": "US"
+          },
+          "ship_to_address": {
+            "name": "Acme Inc.",
+            "phone": null,
+            "email": null,
+            "is_drop_ship": false,
+            "street_line_1": "123 Main St",
+            "street_line_2": null,
+            "locality": "New York",
+            "state": "NY",
+            "postal_code": "10001",
+            "country": "US"
+          }
         },
         "properties": {
           "name": {
@@ -1897,16 +1989,6 @@
             "nullable": true,
             "type": "string"
           },
-          "bill_to_address_id": {
-            "description": "The bill-to address ID.",
-            "nullable": true,
-            "type": "string"
-          },
-          "ship_to_address_id": {
-            "description": "The ship-to address ID.",
-            "nullable": true,
-            "type": "string"
-          },
           "customer_price_group_ids": {
             "description": "The customer price group IDs.",
             "items": {
@@ -1933,11 +2015,36 @@
             "description": "The carrier billing account number.",
             "nullable": true,
             "type": "string"
+          },
+          "bill_to_address": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AddressInput"
+              }
+            ],
+            "description": "The bill-to address for this customer.",
+            "nullable": true
+          },
+          "ship_to_address": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AddressInput"
+              }
+            ],
+            "description": "The ship-to address for this customer.",
+            "nullable": true
           }
         },
         "required": [
           "name",
-          "customer_price_group_ids"
+          "status_code",
+          "default_carrier_id",
+          "default_payment_term_id",
+          "default_shipping_term_id",
+          "customer_price_group_ids",
+          "customer_type_group_id",
+          "bill_to_address",
+          "ship_to_address"
         ],
         "type": "object"
       },
@@ -17076,8 +17183,35 @@
               "example": {
                 "name": "Acme Inc.",
                 "note": "Key enterprise account",
+                "status_code": "normal",
                 "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
-                "default_payment_term_id": "pytm_01jm4r6700f8nwq3v5hx2d9ktp"
+                "default_payment_term_id": "pytm_01jm4r6700f8nwq3v5hx2d9ktp",
+                "default_shipping_term_id": "shtm_01jm4r6700f8nwq3v5hx2d9ktp",
+                "customer_type_group_id": "acgp_01jm4r6700f8nwq3v5hx2d9ktp",
+                "bill_to_address": {
+                  "name": "Acme Inc.",
+                  "phone": null,
+                  "email": null,
+                  "is_drop_ship": false,
+                  "street_line_1": "123 Main St",
+                  "street_line_2": null,
+                  "locality": "New York",
+                  "state": "NY",
+                  "postal_code": "10001",
+                  "country": "US"
+                },
+                "ship_to_address": {
+                  "name": "Acme Inc.",
+                  "phone": null,
+                  "email": null,
+                  "is_drop_ship": false,
+                  "street_line_1": "123 Main St",
+                  "street_line_2": null,
+                  "locality": "New York",
+                  "state": "NY",
+                  "postal_code": "10001",
+                  "country": "US"
+                }
               },
               "schema": {
                 "$ref": "#/components/schemas/CreateCustomerRequest"
