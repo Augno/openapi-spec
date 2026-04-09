@@ -2016,6 +2016,15 @@
             "nullable": true,
             "type": "string"
           },
+          "credit_limit": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/QuantityInput"
+              }
+            ],
+            "description": "The credit limit for this customer.",
+            "nullable": true
+          },
           "bill_to_address": {
             "allOf": [
               {
@@ -2618,6 +2627,27 @@
           "is_parent_account": false,
           "commission_policy": "commission_applied",
           "note": "Preferred customer since 2020.",
+          "credit_limit": {
+            "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+            "object": "quantity",
+            "value": "1234.56",
+            "display_value": "$1,234.56",
+            "unit": {
+              "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "unit",
+              "name": "US Dollar",
+              "abbreviation": "$",
+              "type": "currency",
+              "ratio_numerator": "",
+              "ratio_denominator": "",
+              "offset_numerator": "",
+              "offset_denominator": "",
+              "is_base_unit": false,
+              "owner": null,
+              "created_at": "0001-01-01T00:00:00Z",
+              "updated_at": "0001-01-01T00:00:00Z"
+            }
+          },
           "contact_info": {
             "object": "customer_contact_info",
             "email": "orders@acme.com",
@@ -2858,6 +2888,37 @@
             "nullable": true,
             "type": "string"
           },
+          "credit_limit": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Quantity"
+              }
+            ],
+            "description": "The customer's credit limit.",
+            "example": {
+              "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "quantity",
+              "value": "1234.56",
+              "display_value": "$1,234.56",
+              "unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "$",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              }
+            },
+            "nullable": true,
+            "x-expandable": true
+          },
           "contact_info": {
             "allOf": [
               {
@@ -3028,6 +3089,27 @@
               "is_parent_account": false,
               "commission_policy": "commission_applied",
               "note": "Preferred customer since 2020.",
+              "credit_limit": {
+                "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "quantity",
+                "value": "1234.56",
+                "display_value": "$1,234.56",
+                "unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "$",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                }
+              },
               "contact_info": {
                 "object": "customer_contact_info",
                 "email": "orders@acme.com",
@@ -3251,6 +3333,7 @@
           "is_parent_account",
           "commission_policy",
           "note",
+          "credit_limit",
           "contact_info",
           "freight_preferences",
           "defaults",
@@ -7103,6 +7186,25 @@
         ],
         "type": "object"
       },
+      "QuantityInput": {
+        "description": "QuantityInput represents a value with an associated unit for create/update requests.",
+        "properties": {
+          "value": {
+            "description": "The decimal value.",
+            "format": "decimal",
+            "type": "string"
+          },
+          "unit_id": {
+            "description": "The unit ID for the value.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "value",
+          "unit_id"
+        ],
+        "type": "object"
+      },
       "QuantityInputRequest": {
         "description": "QuantityInputRequest represents a quantity value and unit pair.",
         "properties": {
@@ -8685,7 +8787,8 @@
           "name": "Acme Corp Updated",
           "note": "Updated account notes",
           "freight_policy": "billed_freight",
-          "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp"
+          "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
+          "credit_limit": {}
         },
         "properties": {
           "name": {
@@ -8834,6 +8937,16 @@
             "description": "The carrier billing account number.",
             "nullable": true,
             "type": "string",
+            "x-nullable-clear": true
+          },
+          "credit_limit": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/QuantityInput"
+              }
+            ],
+            "description": "The credit limit for this customer. Send null to clear.",
+            "nullable": true,
             "x-nullable-clear": true
           }
         },
@@ -17167,7 +17280,8 @@
                   "defaults",
                   "notification_preferences",
                   "price_groups",
-                  "child_accounts"
+                  "child_accounts",
+                  "credit_limit"
                 ],
                 "type": "string"
               },
@@ -17232,6 +17346,27 @@
                   "is_parent_account": false,
                   "commission_policy": "commission_applied",
                   "note": "Preferred customer since 2020.",
+                  "credit_limit": {
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
+                    "unit": {
+                      "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "unit",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
+                      "is_base_unit": false,
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
+                    }
+                  },
                   "contact_info": {
                     "object": "customer_contact_info",
                     "email": "orders@acme.com",
@@ -17529,7 +17664,8 @@
                   "defaults",
                   "notification_preferences",
                   "price_groups",
-                  "child_accounts"
+                  "child_accounts",
+                  "credit_limit"
                 ],
                 "type": "string"
               },
@@ -17551,6 +17687,27 @@
                   "is_parent_account": false,
                   "commission_policy": "commission_applied",
                   "note": "Preferred customer since 2020.",
+                  "credit_limit": {
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
+                    "unit": {
+                      "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "unit",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
+                      "is_base_unit": false,
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
+                    }
+                  },
                   "contact_info": {
                     "object": "customer_contact_info",
                     "email": "orders@acme.com",
@@ -17802,7 +17959,8 @@
                   "defaults",
                   "notification_preferences",
                   "price_groups",
-                  "child_accounts"
+                  "child_accounts",
+                  "credit_limit"
                 ],
                 "type": "string"
               },
@@ -17817,7 +17975,8 @@
                 "name": "Acme Corp Updated",
                 "note": "Updated account notes",
                 "freight_policy": "billed_freight",
-                "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp"
+                "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
+                "credit_limit": {}
               },
               "schema": {
                 "$ref": "#/components/schemas/UpdateCustomerRequest"
@@ -17840,6 +17999,27 @@
                   "is_parent_account": false,
                   "commission_policy": "commission_applied",
                   "note": "Preferred customer since 2020.",
+                  "credit_limit": {
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
+                    "unit": {
+                      "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "unit",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
+                      "is_base_unit": false,
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
+                    }
+                  },
                   "contact_info": {
                     "object": "customer_contact_info",
                     "email": "orders@acme.com",
@@ -18093,7 +18273,8 @@
                   "defaults",
                   "notification_preferences",
                   "price_groups",
-                  "child_accounts"
+                  "child_accounts",
+                  "credit_limit"
                 ],
                 "type": "string"
               },
@@ -18130,6 +18311,27 @@
                   "is_parent_account": false,
                   "commission_policy": "commission_applied",
                   "note": "Preferred customer since 2020.",
+                  "credit_limit": {
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
+                    "unit": {
+                      "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "unit",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
+                      "is_base_unit": false,
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
+                    }
+                  },
                   "contact_info": {
                     "object": "customer_contact_info",
                     "email": "orders@acme.com",
