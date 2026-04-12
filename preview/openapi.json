@@ -51,11 +51,23 @@
             "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
             "object": "role",
             "name": "Admin",
-            "type_code": "admin",
-            "owner": null,
-            "permissions": null,
-            "created_at": "0001-01-01T00:00:00Z",
-            "updated_at": "0001-01-01T00:00:00Z"
+            "type": "admin",
+            "owner": {
+              "object": "owner",
+              "type": "account",
+              "account": {
+                "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                "object": "account"
+              }
+            },
+            "permissions": [
+              "customers:create",
+              "customers:read",
+              "customers:update",
+              "customers:delete"
+            ],
+            "created_at": "2026-05-10T00:00:00Z",
+            "updated_at": "2026-05-10T00:23:00Z"
           },
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z",
@@ -94,7 +106,7 @@
               "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
               "object": "role",
               "name": "Admin",
-              "type_code": "admin",
+              "type": "admin",
               "owner": {
                 "object": "owner",
                 "type": "account",
@@ -538,14 +550,15 @@
         "description": "Actor is a reference to an actor (user, API key, or agent).",
         "example": {
           "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-          "object": "user",
+          "object": "actor",
+          "type": "user",
           "name": "John Doe",
           "handle": "jdoe@augno.com",
           "role": {
             "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
             "object": "role",
             "name": "Admin",
-            "type_code": "admin",
+            "type": "admin",
             "owner": {
               "object": "owner",
               "type": "account",
@@ -572,7 +585,16 @@
           "object": {
             "description": "The resource type identifier.",
             "enum": [
-              "user|api_key|agent"
+              "actor"
+            ],
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of actor.",
+            "enum": [
+              "user",
+              "api_key",
+              "agent"
             ],
             "type": "string"
           },
@@ -597,7 +619,7 @@
               "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
               "object": "role",
               "name": "Admin",
-              "type_code": "admin",
+              "type": "admin",
               "owner": {
                 "object": "owner",
                 "type": "account",
@@ -622,6 +644,7 @@
         "required": [
           "id",
           "object",
+          "type",
           "name",
           "handle",
           "role"
@@ -879,7 +902,7 @@
           "id": "at_01jm4r6700f8nwq3v5hx2d9ktp",
           "object": "attribute",
           "value": "Premium",
-          "color_code": "red",
+          "color": "red",
           "sort_order": 1,
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
@@ -900,7 +923,7 @@
             "description": "The value of the attribute.",
             "type": "string"
           },
-          "color_code": {
+          "color": {
             "description": "The color code of the attribute.",
             "enum": [
               "blue",
@@ -935,7 +958,7 @@
           "id",
           "object",
           "value",
-          "color_code",
+          "color",
           "sort_order",
           "created_at",
           "updated_at"
@@ -952,14 +975,15 @@
           "resource_id": "us_01gf7a8200e9pvbd6bgyq395ae",
           "actor": {
             "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-            "object": "user",
+            "object": "actor",
+            "type": "user",
             "name": "John Doe",
             "handle": "jdoe@augno.com",
             "role": {
               "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
               "object": "role",
               "name": "Admin",
-              "type_code": "admin",
+              "type": "admin",
               "owner": {
                 "object": "owner",
                 "type": "account",
@@ -978,13 +1002,22 @@
               "updated_at": "2026-05-10T00:23:00Z"
             }
           },
-          "changes": [
-            {
-              "field": "email",
-              "old_value": "old@example.com",
-              "new_value": "new@example.com"
-            }
-          ],
+          "changes": {
+            "object": "list",
+            "page_info": {
+              "next_cursor": null,
+              "prev_cursor": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "field": "email",
+                "old_value": "old@example.com",
+                "new_value": "new@example.com"
+              }
+            ]
+          },
           "metadata": {
             "reason": "operator override"
           },
@@ -1021,6 +1054,8 @@
             "description": "The resource type of the audited entity.",
             "enum": [
               "account",
+              "actor",
+              "entity",
               "user",
               "address",
               "api_key",
@@ -1218,14 +1253,15 @@
             "description": "The actor who performed the mutation.",
             "example": {
               "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-              "object": "user",
+              "object": "actor",
+              "type": "user",
               "name": "John Doe",
               "handle": "jdoe@augno.com",
               "role": {
                 "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                 "object": "role",
                 "name": "Admin",
-                "type_code": "admin",
+                "type": "admin",
                 "owner": {
                   "object": "owner",
                   "type": "account",
@@ -1248,11 +1284,13 @@
             "x-expandable": true
           },
           "changes": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_AuditFieldChange"
+              }
+            ],
             "description": "The field-level changes recorded for this event.",
-            "items": {
-              "$ref": "#/components/schemas/AuditFieldChange"
-            },
-            "type": "array",
+            "nullable": true,
             "x-expandable": true
           },
           "metadata": {
@@ -1403,12 +1441,13 @@
             "x-expandable": true
           },
           "service_levels": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_ServiceLevel"
+              }
+            ],
             "description": "The service levels (shipping service levels).",
-            "items": {
-              "$ref": "#/components/schemas/ServiceLevel"
-            },
             "nullable": true,
-            "type": "array",
             "x-expandable": true
           },
           "deleted_at": {
@@ -1495,7 +1534,7 @@
             "object": "item",
             "sku": "ALM-2024-1001",
             "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
-            "item_type_code": "part"
+            "item_type": "part"
           },
           "instructions": "Mix with water before adding",
           "created_at": "2026-05-10T00:00:00Z",
@@ -1587,7 +1626,7 @@
               "object": "item",
               "sku": "ALM-2024-1001",
               "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
-              "item_type_code": "part"
+              "item_type": "part"
             },
             "nullable": true,
             "x-expandable": true
@@ -1627,7 +1666,7 @@
           "object": "item",
           "sku": "ALM-2024-1001",
           "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
-          "item_type_code": "part"
+          "item_type": "part"
         },
         "properties": {
           "id": {
@@ -1650,7 +1689,7 @@
             "nullable": true,
             "type": "string"
           },
-          "item_type_code": {
+          "item_type": {
             "description": "The item type code.",
             "enum": [
               "product",
@@ -1665,7 +1704,7 @@
           "object",
           "sku",
           "description",
-          "item_type_code"
+          "item_type"
         ],
         "type": "object"
       },
@@ -1687,7 +1726,6 @@
           "expires_at": {
             "description": "Optional expiration time for the API key.",
             "format": "date-time",
-            "nullable": true,
             "type": "string"
           }
         },
@@ -1817,7 +1855,7 @@
         "description": "CreateAttributeRequest is the request to create a new attribute.",
         "example": {
           "value": "Red",
-          "color_code": "red",
+          "color": "red",
           "sort_order": 1
         },
         "properties": {
@@ -1825,7 +1863,7 @@
             "description": "The value of the attribute.",
             "type": "string"
           },
-          "color_code": {
+          "color": {
             "description": "The color code of the attribute. Randomly assigned if not provided.",
             "enum": [
               "blue",
@@ -1860,7 +1898,7 @@
         "example": {
           "name": "Acme Inc.",
           "note": "Key enterprise account",
-          "status_code": "normal",
+          "status": "normal",
           "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
           "default_payment_term_id": "pytm_01jm4r6700f8nwq3v5hx2d9ktp",
           "default_shipping_term_id": "shtm_01jm4r6700f8nwq3v5hx2d9ktp",
@@ -1920,7 +1958,7 @@
             "nullable": true,
             "type": "string"
           },
-          "status_code": {
+          "status": {
             "description": "The account status code.",
             "enum": [
               "normal",
@@ -1973,7 +2011,7 @@
             "nullable": true,
             "type": "string"
           },
-          "default_priority_code": {
+          "default_priority": {
             "description": "The default priority code.",
             "enum": [
               "low",
@@ -2046,7 +2084,7 @@
         },
         "required": [
           "name",
-          "status_code",
+          "status",
           "default_carrier_id",
           "default_payment_term_id",
           "default_shipping_term_id",
@@ -2089,14 +2127,14 @@
         "description": "CreateLocationRequest is the request to create a new location.",
         "example": {
           "name": "Warehouse A",
-          "type_code": "building"
+          "type": "building"
         },
         "properties": {
           "name": {
             "description": "The display name of the location.",
             "type": "string"
           },
-          "type_code": {
+          "type": {
             "description": "The code of the location type.",
             "enum": [
               "building",
@@ -2123,7 +2161,7 @@
         },
         "required": [
           "name",
-          "type_code",
+          "type",
           "child_ids"
         ],
         "type": "object"
@@ -2561,11 +2599,23 @@
               "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
               "object": "role",
               "name": "Admin",
-              "type_code": "admin",
-              "owner": null,
-              "permissions": null,
-              "created_at": "0001-01-01T00:00:00Z",
-              "updated_at": "0001-01-01T00:00:00Z"
+              "type": "admin",
+              "owner": {
+                "object": "owner",
+                "type": "account",
+                "account": {
+                  "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                  "object": "account"
+                }
+              },
+              "permissions": [
+                "customers:create",
+                "customers:read",
+                "customers:update",
+                "customers:delete"
+              ],
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
             },
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z",
@@ -2595,11 +2645,23 @@
                 "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                 "object": "role",
                 "name": "Admin",
-                "type_code": "admin",
-                "owner": null,
-                "permissions": null,
-                "created_at": "0001-01-01T00:00:00Z",
-                "updated_at": "0001-01-01T00:00:00Z"
+                "type": "admin",
+                "owner": {
+                  "object": "owner",
+                  "type": "account",
+                  "account": {
+                    "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                    "object": "account"
+                  }
+                },
+                "permissions": [
+                  "customers:create",
+                  "customers:read",
+                  "customers:update",
+                  "customers:delete"
+                ],
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
               },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z",
@@ -3631,7 +3693,7 @@
             "id": "lc_01gf7a8200er3ar3pkfrb6kk30",
             "object": "location",
             "name": "Warehouse A",
-            "type_code": "building",
+            "type": "building",
             "parent": null,
             "children": {
               "object": "list",
@@ -3646,7 +3708,7 @@
                   "id": "lc_01gf7a8200er3ar3pkfrb6kk32",
                   "object": "location",
                   "name": "Shelf A1",
-                  "type_code": "building",
+                  "type": "building",
                   "parent": null,
                   "children": null,
                   "created_at": "0001-01-01T00:00:00Z",
@@ -3672,8 +3734,8 @@
                 "name": "Packaging Line 1",
                 "notes": null,
                 "type": "init_batch",
-                "label_size_code": null,
-                "label_type_code": null,
+                "label_size": null,
+                "label_type": null,
                 "material_check_required": false,
                 "department": null,
                 "production_steps": null,
@@ -3738,7 +3800,7 @@
               "id": "lc_01gf7a8200er3ar3pkfrb6kk30",
               "object": "location",
               "name": "Warehouse A",
-              "type_code": "building",
+              "type": "building",
               "parent": null,
               "children": {
                 "object": "list",
@@ -3753,7 +3815,7 @@
                     "id": "lc_01gf7a8200er3ar3pkfrb6kk32",
                     "object": "location",
                     "name": "Shelf A1",
-                    "type_code": "building",
+                    "type": "building",
                     "parent": null,
                     "children": null,
                     "created_at": "0001-01-01T00:00:00Z",
@@ -3825,14 +3887,32 @@
           "ses_message_id": null,
           "sent_by": {
             "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-            "object": "user",
-            "email": "jdoe@augno.com",
+            "object": "actor",
+            "type": "user",
             "name": "John Doe",
-            "username": "jdoe",
-            "email_verified_at": "2026-06-10T00:00:00Z",
-            "image_url": "https://cdn.augno.com/avatars/us_01gf7a8200e9pvbd6bgyq395ae.jpg",
-            "created_at": "2026-05-10T00:00:00Z",
-            "updated_at": "2026-05-10T00:23:00Z"
+            "handle": "jdoe@augno.com",
+            "role": {
+              "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+              "object": "role",
+              "name": "Admin",
+              "type": "admin",
+              "owner": {
+                "object": "owner",
+                "type": "account",
+                "account": {
+                  "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                  "object": "account"
+                }
+              },
+              "permissions": [
+                "customers:create",
+                "customers:read",
+                "customers:update",
+                "customers:delete"
+              ],
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            }
           },
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
@@ -3878,22 +3958,41 @@
           "sent_by": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/Actor"
               }
             ],
-            "description": "The user who sent the email. Null if not associated with a user.",
+            "description": "The actor who sent the email. Null when the email was sent by the\nsystem, or when the caller did not request `include=sent_by`.",
             "example": {
               "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-              "object": "user",
-              "email": "jdoe@augno.com",
+              "object": "actor",
+              "type": "user",
               "name": "John Doe",
-              "username": "jdoe",
-              "email_verified_at": "2026-06-10T00:00:00Z",
-              "image_url": "https://cdn.augno.com/avatars/us_01gf7a8200e9pvbd6bgyq395ae.jpg",
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
+              "handle": "jdoe@augno.com",
+              "role": {
+                "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                "object": "role",
+                "name": "Admin",
+                "type": "admin",
+                "owner": {
+                  "object": "owner",
+                  "type": "account",
+                  "account": {
+                    "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                    "object": "account"
+                  }
+                },
+                "permissions": [
+                  "customers:create",
+                  "customers:read",
+                  "customers:update",
+                  "customers:delete"
+                ],
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              }
             },
-            "nullable": true
+            "nullable": true,
+            "x-expandable": true
           },
           "created_at": {
             "description": "When this email log was created.",
@@ -4133,11 +4232,23 @@
                 "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                 "object": "role",
                 "name": "Admin",
-                "type_code": "admin",
-                "owner": null,
-                "permissions": null,
-                "created_at": "0001-01-01T00:00:00Z",
-                "updated_at": "0001-01-01T00:00:00Z"
+                "type": "admin",
+                "owner": {
+                  "object": "owner",
+                  "type": "account",
+                  "account": {
+                    "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                    "object": "account"
+                  }
+                },
+                "permissions": [
+                  "customers:create",
+                  "customers:read",
+                  "customers:update",
+                  "customers:delete"
+                ],
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
               },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z",
@@ -4415,14 +4526,15 @@
               "resource_id": "us_01gf7a8200e9pvbd6bgyq395ae",
               "actor": {
                 "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                "object": "user",
+                "object": "actor",
+                "type": "user",
                 "name": "John Doe",
                 "handle": "jdoe@augno.com",
                 "role": {
                   "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                   "object": "role",
                   "name": "Admin",
-                  "type_code": "admin",
+                  "type": "admin",
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -4441,13 +4553,22 @@
                   "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
-              "changes": [
-                {
-                  "field": "email",
-                  "old_value": "old@example.com",
-                  "new_value": "new@example.com"
-                }
-              ],
+              "changes": {
+                "object": "list",
+                "page_info": {
+                  "next_cursor": null,
+                  "prev_cursor": null,
+                  "has_next_page": false,
+                  "has_prev_page": false
+                },
+                "data": [
+                  {
+                    "field": "email",
+                    "old_value": "old@example.com",
+                    "new_value": "new@example.com"
+                  }
+                ]
+              },
               "metadata": {
                 "reason": "operator override"
               },
@@ -4479,6 +4600,42 @@
             "description": "Array of AuditEvent resources in this page",
             "items": {
               "$ref": "#/components/schemas/AuditEvent"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_AuditFieldChange": {
+        "description": "A paginated list of AuditFieldChange resources",
+        "properties": {
+          "object": {
+            "description": "Object type for AuditFieldChange list",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata for AuditFieldChange list"
+          },
+          "data": {
+            "description": "Array of AuditFieldChange resources in this page",
+            "items": {
+              "$ref": "#/components/schemas/AuditFieldChange"
             },
             "type": "array",
             "x-stainless-pagination-property": {
@@ -4552,14 +4709,32 @@
               "ses_message_id": null,
               "sent_by": {
                 "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                "object": "user",
-                "email": "jdoe@augno.com",
+                "object": "actor",
+                "type": "user",
                 "name": "John Doe",
-                "username": "jdoe",
-                "email_verified_at": "2026-06-10T00:00:00Z",
-                "image_url": "https://cdn.augno.com/avatars/us_01gf7a8200e9pvbd6bgyq395ae.jpg",
-                "created_at": "2026-05-10T00:00:00Z",
-                "updated_at": "2026-05-10T00:23:00Z"
+                "handle": "jdoe@augno.com",
+                "role": {
+                  "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                  "object": "role",
+                  "name": "Admin",
+                  "type": "admin",
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                      "object": "account"
+                    }
+                  },
+                  "permissions": [
+                    "customers:create",
+                    "customers:read",
+                    "customers:update",
+                    "customers:delete"
+                  ],
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
               },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -4678,7 +4853,7 @@
               "id": "lc_01gf7a8200er3ar3pkfrb6kk30",
               "object": "location",
               "name": "Warehouse A",
-              "type_code": "building",
+              "type": "building",
               "parent": null,
               "children": {
                 "object": "list",
@@ -4693,7 +4868,7 @@
                     "id": "lc_01gf7a8200er3ar3pkfrb6kk32",
                     "object": "location",
                     "name": "Shelf A1",
-                    "type_code": "building",
+                    "type": "building",
                     "parent": null,
                     "children": null,
                     "created_at": "0001-01-01T00:00:00Z",
@@ -5149,14 +5324,15 @@
               },
               "actor": {
                 "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                "object": "user",
+                "object": "actor",
+                "type": "user",
                 "name": "John Doe",
                 "handle": "jdoe@augno.com",
                 "role": {
                   "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                   "object": "role",
                   "name": "Admin",
-                  "type_code": "admin",
+                  "type": "admin",
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -5230,7 +5406,7 @@
               "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
               "object": "role",
               "name": "Admin",
-              "type_code": "admin",
+              "type": "admin",
               "owner": {
                 "object": "owner",
                 "type": "account",
@@ -5366,8 +5542,8 @@
               "name": "Packaging Line 1",
               "notes": null,
               "type": "init_batch",
-              "label_size_code": null,
-              "label_type_code": null,
+              "label_size": null,
+              "label_type": null,
               "material_check_required": false,
               "department": null,
               "production_steps": null,
@@ -5689,7 +5865,7 @@
           "id": "lc_01gf7a8200er3ar3pkfrb6kk30",
           "object": "location",
           "name": "Warehouse A",
-          "type_code": "building",
+          "type": "building",
           "parent": null,
           "children": {
             "object": "list",
@@ -5704,7 +5880,7 @@
                 "id": "lc_01gf7a8200er3ar3pkfrb6kk32",
                 "object": "location",
                 "name": "Shelf A1",
-                "type_code": "building",
+                "type": "building",
                 "parent": null,
                 "children": null,
                 "created_at": "0001-01-01T00:00:00Z",
@@ -5731,7 +5907,7 @@
             "description": "The display name of the location.",
             "type": "string"
           },
-          "type_code": {
+          "type": {
             "description": "The code of the location type.",
             "enum": [
               "building",
@@ -5778,7 +5954,7 @@
           "id",
           "object",
           "name",
-          "type_code",
+          "type",
           "parent",
           "children",
           "created_at",
@@ -6297,7 +6473,7 @@
             "object": "item",
             "sku": "ALM-2024-1001",
             "description": null,
-            "item_type_code": "product"
+            "item_type": "product"
           },
           "quantity": {
             "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
@@ -6347,7 +6523,7 @@
               "object": "item",
               "sku": "ALM-2024-1001",
               "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
-              "item_type_code": "part"
+              "item_type": "part"
             },
             "nullable": true
           },
@@ -6533,7 +6709,7 @@
               "object": "item",
               "sku": "ALM-2024-1001",
               "description": null,
-              "item_type_code": "product"
+              "item_type": "product"
             },
             "quantity": {
               "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
@@ -6610,7 +6786,7 @@
                 "object": "item",
                 "sku": "ALM-2024-1001",
                 "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
-                "item_type_code": "part"
+                "item_type": "part"
               },
               "instructions": "Mix with water before adding",
               "created_at": "2026-05-10T00:00:00Z",
@@ -6812,7 +6988,7 @@
                 "object": "item",
                 "sku": "ALM-2024-1001",
                 "description": null,
-                "item_type_code": "product"
+                "item_type": "product"
               },
               "quantity": {
                 "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
@@ -7424,14 +7600,15 @@
           },
           "actor": {
             "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-            "object": "user",
+            "object": "actor",
+            "type": "user",
             "name": "John Doe",
             "handle": "jdoe@augno.com",
             "role": {
               "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
               "object": "role",
               "name": "Admin",
-              "type_code": "admin",
+              "type": "admin",
               "owner": {
                 "object": "owner",
                 "type": "account",
@@ -7571,14 +7748,15 @@
             "description": "Actor details (user or API key).",
             "example": {
               "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-              "object": "user",
+              "object": "actor",
+              "type": "user",
               "name": "John Doe",
               "handle": "jdoe@augno.com",
               "role": {
                 "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                 "object": "role",
                 "name": "Admin",
-                "type_code": "admin",
+                "type": "admin",
                 "owner": {
                   "object": "owner",
                   "type": "account",
@@ -7717,7 +7895,7 @@
           "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
           "object": "role",
           "name": "Admin",
-          "type_code": "admin",
+          "type": "admin",
           "owner": {
             "object": "owner",
             "type": "account",
@@ -7751,7 +7929,7 @@
             "description": "The display name of the role.",
             "type": "string"
           },
-          "type_code": {
+          "type": {
             "description": "The role type code.",
             "enum": [
               "admin",
@@ -7773,7 +7951,7 @@
             "x-expandable": true
           },
           "permissions": {
-            "description": "The permissions for this role in \"{domain}:{action}\" format.",
+            "description": "The permissions for this role in `{domain}:{action}` format.",
             "items": {
               "type": "string"
             },
@@ -7796,7 +7974,7 @@
           "id",
           "object",
           "name",
-          "type_code",
+          "type",
           "owner",
           "permissions",
           "created_at",
@@ -7813,7 +7991,6 @@
           "expires_at": {
             "description": "Optional expiration time override for the new API key.",
             "format": "date-time",
-            "nullable": true,
             "type": "string"
           }
         },
@@ -7905,8 +8082,8 @@
           "name": "Packaging Line 1",
           "notes": null,
           "type": "init_batch",
-          "label_size_code": null,
-          "label_type_code": null,
+          "label_size": null,
+          "label_type": null,
           "material_check_required": false,
           "department": null,
           "production_steps": null,
@@ -7944,7 +8121,7 @@
             ],
             "type": "string"
           },
-          "label_size_code": {
+          "label_size": {
             "description": "The label size code for the scanning station.",
             "enum": [
               "1x1",
@@ -7956,7 +8133,7 @@
             "nullable": true,
             "type": "string"
           },
-          "label_type_code": {
+          "label_type": {
             "description": "The label type code for the scanning station.",
             "enum": [
               "tag",
@@ -7986,7 +8163,7 @@
                 "id": "lc_01gf7a8200er3ar3pkfrb6kk30",
                 "object": "location",
                 "name": "Warehouse A",
-                "type_code": "building",
+                "type": "building",
                 "parent": null,
                 "children": {
                   "object": "list",
@@ -8001,7 +8178,7 @@
                       "id": "lc_01gf7a8200er3ar3pkfrb6kk32",
                       "object": "location",
                       "name": "Shelf A1",
-                      "type_code": "building",
+                      "type": "building",
                       "parent": null,
                       "children": null,
                       "created_at": "0001-01-01T00:00:00Z",
@@ -8027,8 +8204,8 @@
                     "name": "Packaging Line 1",
                     "notes": null,
                     "type": "init_batch",
-                    "label_size_code": null,
-                    "label_type_code": null,
+                    "label_size": null,
+                    "label_type": null,
                     "material_check_required": false,
                     "department": null,
                     "production_steps": null,
@@ -8091,8 +8268,8 @@
           "name",
           "notes",
           "type",
-          "label_size_code",
-          "label_type_code",
+          "label_size",
+          "label_type",
           "material_check_required",
           "department",
           "production_steps",
@@ -8664,7 +8841,8 @@
           "description": {
             "description": "An optional description of the account group.",
             "nullable": true,
-            "type": "string"
+            "type": "string",
+            "x-nullable-clear": true
           },
           "commission_policy": {
             "description": "The commission status code.",
@@ -8693,52 +8871,48 @@
         "properties": {
           "name": {
             "description": "The display name of the address.",
-            "nullable": true,
             "type": "string"
           },
           "phone": {
             "description": "The phone number associated with this address.",
             "nullable": true,
-            "type": "string"
+            "type": "string",
+            "x-nullable-clear": true
           },
           "email": {
             "description": "The email address associated with this address.",
             "nullable": true,
-            "type": "string"
+            "type": "string",
+            "x-nullable-clear": true
           },
           "is_drop_ship": {
             "description": "Whether this is a drop ship address.",
-            "nullable": true,
             "type": "boolean"
           },
           "street_line_1": {
             "description": "The first line of the street address.",
-            "nullable": true,
             "type": "string"
           },
           "street_line_2": {
             "description": "The second line of the street address.",
             "nullable": true,
-            "type": "string"
+            "type": "string",
+            "x-nullable-clear": true
           },
           "locality": {
             "description": "The city or locality.",
-            "nullable": true,
             "type": "string"
           },
           "state": {
             "description": "The state or administrative area.",
-            "nullable": true,
             "type": "string"
           },
           "postal_code": {
             "description": "The postal or zip code.",
-            "nullable": true,
             "type": "string"
           },
           "country": {
             "description": "The two-letter country code.",
-            "nullable": true,
             "type": "string"
           }
         },
@@ -8752,10 +8926,9 @@
         "properties": {
           "value": {
             "description": "The new value of the attribute.",
-            "nullable": true,
             "type": "string"
           },
-          "color_code": {
+          "color": {
             "description": "The new color code of the attribute.",
             "enum": [
               "blue",
@@ -8767,15 +8940,12 @@
               "pink",
               "purple",
               "red",
-              "yellow",
-              null
+              "yellow"
             ],
-            "nullable": true,
             "type": "string"
           },
           "sort_order": {
             "description": "The new display order of the attribute.",
-            "nullable": true,
             "type": "integer"
           }
         },
@@ -8793,12 +8963,10 @@
         "properties": {
           "name": {
             "description": "The customer name.",
-            "nullable": true,
             "type": "string"
           },
           "number": {
             "description": "The customer number.",
-            "nullable": true,
             "type": "string"
           },
           "note": {
@@ -8807,16 +8975,14 @@
             "type": "string",
             "x-nullable-clear": true
           },
-          "status_code": {
+          "status": {
             "description": "The status code.",
             "enum": [
               "normal",
               "preferred",
               "hold_shipment",
-              "hold_all",
-              null
+              "hold_all"
             ],
-            "nullable": true,
             "type": "string"
           },
           "email": {
@@ -8839,7 +9005,6 @@
           },
           "is_edi_enabled": {
             "description": "Whether the customer is EDI enabled.",
-            "nullable": true,
             "type": "boolean"
           },
           "commission_policy": {
@@ -8860,9 +9025,7 @@
           },
           "default_carrier_id": {
             "description": "The default carrier ID.",
-            "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "default_service_level_id": {
             "description": "The default service level ID.",
@@ -8872,25 +9035,19 @@
           },
           "default_payment_term_id": {
             "description": "The default payment term ID.",
-            "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "default_shipping_term_id": {
             "description": "The default shipping term ID.",
-            "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
-          "default_priority_code": {
+          "default_priority": {
             "description": "The default priority code.",
             "enum": [
               "low",
               "normal",
-              "high",
-              null
+              "high"
             ],
-            "nullable": true,
             "type": "string"
           },
           "default_sales_rep_user_id": {
@@ -8916,14 +9073,11 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "type": "array"
           },
           "customer_type_group_id": {
             "description": "The customer type group ID.",
-            "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "carrier_billing_type": {
             "description": "The carrier billing type.",
@@ -8960,12 +9114,10 @@
         "properties": {
           "name": {
             "description": "The display name of the item category.",
-            "nullable": true,
             "type": "string"
           },
           "notes": {
             "description": "Optional notes about the item category.",
-            "nullable": true,
             "type": "string"
           }
         },
@@ -8974,16 +9126,14 @@
       "UpdateLocationRequest": {
         "description": "UpdateLocationRequest is the request to partially update a location.",
         "example": {
-          "name": "Warehouse B",
-          "clear_parent": false
+          "name": "Warehouse B"
         },
         "properties": {
           "name": {
             "description": "The display name of the location.",
-            "nullable": true,
             "type": "string"
           },
-          "type_code": {
+          "type": {
             "description": "The code of the location type.",
             "enum": [
               "building",
@@ -9001,22 +9151,14 @@
             "type": "string",
             "x-nullable-clear": true
           },
-          "clear_parent": {
-            "description": "Set to true to remove the parent (make top-level).",
-            "type": "boolean"
-          },
           "child_ids": {
             "description": "The IDs of child locations. When provided, replaces all current children.",
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "type": "array"
           }
         },
-        "required": [
-          "clear_parent"
-        ],
         "type": "object"
       },
       "UpdatePaymentTermRequest": {
@@ -9027,7 +9169,6 @@
         "properties": {
           "name": {
             "description": "The display name of the payment term.",
-            "nullable": true,
             "type": "string"
           }
         },
@@ -9041,7 +9182,6 @@
         "properties": {
           "name": {
             "description": "The display name of the product line.",
-            "nullable": true,
             "type": "string"
           },
           "commission_policy": {
@@ -9062,9 +9202,7 @@
           },
           "unit_group_id": {
             "description": "The ID of the unit group to associate with this product line.",
-            "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           }
         },
         "type": "object"
@@ -9077,7 +9215,6 @@
         "properties": {
           "name": {
             "description": "The new name of the property.",
-            "nullable": true,
             "type": "string"
           }
         },
@@ -9095,7 +9232,6 @@
         "properties": {
           "name": {
             "description": "The new display name for the role.",
-            "nullable": true,
             "type": "string"
           },
           "permissions": {
@@ -9103,7 +9239,6 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "type": "array"
           }
         },
@@ -9121,15 +9256,15 @@
         "properties": {
           "name": {
             "description": "The display name of the scanning station.",
-            "nullable": true,
             "type": "string"
           },
           "notes": {
             "description": "Optional notes about the scanning station.",
             "nullable": true,
-            "type": "string"
+            "type": "string",
+            "x-nullable-clear": true
           },
-          "label_size_code": {
+          "label_size": {
             "description": "The label size code for the scanning station.",
             "enum": [
               "1x1",
@@ -9139,7 +9274,7 @@
             ],
             "type": "string"
           },
-          "label_type_code": {
+          "label_type": {
             "description": "The label type code for the scanning station.",
             "enum": [
               "tag",
@@ -9149,21 +9284,22 @@
           },
           "material_check_required": {
             "description": "Whether material check is required at this station.",
-            "nullable": true,
             "type": "boolean"
           }
         },
         "type": "object"
       },
       "UpdateShippingTermRequest": {
-        "description": "UpdateShippingTermRequest is the request to partially update a shipping term.\nAll fields are optional. Absent fields are left unchanged. Explicitly null\nvalues for flat_rate, minimum_order_value, and free_shipping_service_level_ids\nclear the existing value.",
+        "description": "UpdateShippingTermRequest is the request to partially update a shipping term.\nAll fields are optional. Absent fields are left unchanged. Send an explicit\nJSON null for flat_rate, minimum_order_value, or free_shipping_service_level_ids\nto clear the existing value.",
         "example": {
-          "name": "Collect"
+          "name": "Collect",
+          "flat_rate": {},
+          "minimum_order_value": {},
+          "free_shipping_service_level_ids": {}
         },
         "properties": {
           "name": {
             "description": "The display name of the shipping term.",
-            "nullable": true,
             "type": "string"
           },
           "type": {
@@ -9182,7 +9318,8 @@
               }
             ],
             "description": "The flat rate for this shipping term. Send null to clear.",
-            "nullable": true
+            "nullable": true,
+            "x-nullable-clear": true
           },
           "minimum_order_value": {
             "allOf": [
@@ -9191,19 +9328,19 @@
               }
             ],
             "description": "The minimum order value for free shipping under this term. Send null to clear.",
-            "nullable": true
+            "nullable": true,
+            "x-nullable-clear": true
           },
           "free_shipping_service_level_ids": {
             "description": "The service level IDs that qualify for free shipping. Send null to clear.",
             "items": {
               "type": "string"
             },
-            "type": "array"
+            "nullable": true,
+            "type": "array",
+            "x-nullable-clear": true
           }
         },
-        "required": [
-          "free_shipping_service_level_ids"
-        ],
         "type": "object"
       },
       "UpdateUnitGroupRequest": {
@@ -9215,17 +9352,16 @@
         "properties": {
           "name": {
             "description": "The display name of the unit group.",
-            "nullable": true,
             "type": "string"
           },
           "notes": {
             "description": "Optional notes about the unit group. Set to null to clear.",
             "nullable": true,
-            "type": "string"
+            "type": "string",
+            "x-nullable-clear": true
           },
           "base_unit_id": {
             "description": "The base unit ID.",
-            "nullable": true,
             "type": "string"
           },
           "associated_units": {
@@ -9233,7 +9369,6 @@
             "items": {
               "$ref": "#/components/schemas/CreateUnitGroupUnitParam"
             },
-            "nullable": true,
             "type": "array"
           }
         },
@@ -9248,17 +9383,14 @@
         "properties": {
           "unit_id": {
             "description": "The unit ID.",
-            "nullable": true,
             "type": "string"
           },
           "discount_percentage": {
             "description": "The discount percentage.",
-            "nullable": true,
             "type": "number"
           },
           "discount_fixed": {
             "description": "The fixed discount amount.",
-            "nullable": true,
             "type": "number"
           },
           "customer_portal_visibility": {
@@ -9281,32 +9413,26 @@
         "properties": {
           "name": {
             "description": "The display name of the unit.",
-            "nullable": true,
             "type": "string"
           },
           "abbreviation": {
             "description": "The short abbreviation for the unit.",
-            "nullable": true,
             "type": "string"
           },
           "ratio_numerator": {
             "description": "The conversion ratio numerator, as a decimal string.",
-            "nullable": true,
             "type": "string"
           },
           "ratio_denominator": {
             "description": "The conversion ratio denominator, as a decimal string.",
-            "nullable": true,
             "type": "string"
           },
           "offset_numerator": {
             "description": "The conversion offset numerator, as a decimal string.",
-            "nullable": true,
             "type": "string"
           },
           "offset_denominator": {
             "description": "The conversion offset denominator, as a decimal string.",
-            "nullable": true,
             "type": "string"
           }
         },
@@ -9403,7 +9529,6 @@
           },
           "address_line_2": {
             "description": "The second line of the street address.",
-            "nullable": true,
             "type": "string"
           },
           "city": {
@@ -9594,11 +9719,23 @@
                         "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                         "object": "role",
                         "name": "Admin",
-                        "type_code": "admin",
-                        "owner": null,
-                        "permissions": null,
-                        "created_at": "0001-01-01T00:00:00Z",
-                        "updated_at": "0001-01-01T00:00:00Z"
+                        "type": "admin",
+                        "owner": {
+                          "object": "owner",
+                          "type": "account",
+                          "account": {
+                            "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                            "object": "account"
+                          }
+                        },
+                        "permissions": [
+                          "customers:create",
+                          "customers:read",
+                          "customers:update",
+                          "customers:delete"
+                        ],
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z",
@@ -9684,11 +9821,23 @@
                       "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                       "object": "role",
                       "name": "Admin",
-                      "type_code": "admin",
-                      "owner": null,
-                      "permissions": null,
-                      "created_at": "0001-01-01T00:00:00Z",
-                      "updated_at": "0001-01-01T00:00:00Z"
+                      "type": "admin",
+                      "owner": {
+                        "object": "owner",
+                        "type": "account",
+                        "account": {
+                          "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                          "object": "account"
+                        }
+                      },
+                      "permissions": [
+                        "customers:create",
+                        "customers:read",
+                        "customers:update",
+                        "customers:delete"
+                      ],
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z",
@@ -9812,11 +9961,23 @@
                     "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                     "object": "role",
                     "name": "Admin",
-                    "type_code": "admin",
-                    "owner": null,
-                    "permissions": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "type": "admin",
+                    "owner": {
+                      "object": "owner",
+                      "type": "account",
+                      "account": {
+                        "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                        "object": "account"
+                      }
+                    },
+                    "permissions": [
+                      "customers:create",
+                      "customers:read",
+                      "customers:update",
+                      "customers:delete"
+                    ],
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z",
@@ -9910,11 +10071,23 @@
                       "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                       "object": "role",
                       "name": "Admin",
-                      "type_code": "admin",
-                      "owner": null,
-                      "permissions": null,
-                      "created_at": "0001-01-01T00:00:00Z",
-                      "updated_at": "0001-01-01T00:00:00Z"
+                      "type": "admin",
+                      "owner": {
+                        "object": "owner",
+                        "type": "account",
+                        "account": {
+                          "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                          "object": "account"
+                        }
+                      },
+                      "permissions": [
+                        "customers:create",
+                        "customers:read",
+                        "customers:update",
+                        "customers:delete"
+                      ],
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z",
@@ -11380,7 +11553,7 @@
             "application/json": {
               "example": {
                 "value": "Red",
-                "color_code": "red",
+                "color": "red",
                 "sort_order": 1
               },
               "schema": {
@@ -11398,7 +11571,7 @@
                   "id": "at_01jm4r6700f8nwq3v5hx2d9ktp",
                   "object": "attribute",
                   "value": "Premium",
-                  "color_code": "red",
+                  "color": "red",
                   "sort_order": 1,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -11513,7 +11686,7 @@
                   "id": "at_01jm4r6700f8nwq3v5hx2d9ktp",
                   "object": "attribute",
                   "value": "Premium",
-                  "color_code": "red",
+                  "color": "red",
                   "sort_order": 1,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -11586,7 +11759,7 @@
                   "id": "at_01jm4r6700f8nwq3v5hx2d9ktp",
                   "object": "attribute",
                   "value": "Premium",
-                  "color_code": "red",
+                  "color": "red",
                   "sort_order": 1,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -12833,80 +13006,8 @@
         "x-preview": true
       }
     },
-    "/v1/core/addresses/autocomplete": {
-      "get": {
-        "description": "Returns address autocomplete suggestions based on the input text.",
-        "operationId": "autocomplete-address",
-        "parameters": [
-          {
-            "description": "The text input for autocomplete.",
-            "example": "example",
-            "in": "query",
-            "name": "input",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "An optional session token for grouping autocomplete requests.",
-            "example": "example",
-            "in": "query",
-            "name": "session_token,omitempty",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "object": "list",
-                  "page_info": {
-                    "next_cursor": "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
-                    "prev_cursor": null,
-                    "has_next_page": true,
-                    "has_prev_page": false
-                  },
-                  "data": [
-                    {
-                      "id": "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
-                      "object": "address_suggestion",
-                      "description": "123 Main St, Springfield, IL 62701, USA",
-                      "main_text": "123 Main St",
-                      "secondary_text": "Springfield, IL 62701, USA"
-                    }
-                  ]
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/List_AddressSuggestion"
-                }
-              }
-            },
-            "description": "Successful response for Autocomplete Address"
-          },
-          "4XX": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
-                }
-              }
-            },
-            "description": "Error response"
-          }
-        },
-        "summary": "Autocomplete Address",
-        "tags": [
-          "Address Validation"
-        ],
-        "x-preview": true
-      }
-    },
-    "/v1/core/addresses/validate": {
-      "post": {
+    "/v1/core/addresses/actions/validate": {
+      "put": {
         "description": "Validates an address and returns whether it is valid, a formatted version, and any validation messages.",
         "operationId": "validate-address",
         "requestBody": {
@@ -12965,6 +13066,78 @@
           }
         },
         "summary": "Validate Address",
+        "tags": [
+          "Address Validation"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/core/addresses/suggestions": {
+      "get": {
+        "description": "Returns address suggestions based on the input text.",
+        "operationId": "get-address-suggestions",
+        "parameters": [
+          {
+            "description": "The text input for autocomplete.",
+            "example": "example",
+            "in": "query",
+            "name": "input",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "An optional session token for grouping autocomplete requests.",
+            "example": "example",
+            "in": "query",
+            "name": "session_token,omitempty",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_cursor": "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
+                    "prev_cursor": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
+                      "object": "address_suggestion",
+                      "description": "123 Main St, Springfield, IL 62701, USA",
+                      "main_text": "123 Main St",
+                      "secondary_text": "Springfield, IL 62701, USA"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_AddressSuggestion"
+                }
+              }
+            },
+            "description": "Successful response for Get Address Suggestions"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Get Address Suggestions",
         "tags": [
           "Address Validation"
         ],
@@ -13031,6 +13204,8 @@
             "schema": {
               "enum": [
                 "account",
+                "actor",
+                "entity",
                 "user",
                 "address",
                 "api_key",
@@ -13300,14 +13475,15 @@
                       "resource_id": "us_01gf7a8200e9pvbd6bgyq395ae",
                       "actor": {
                         "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                        "object": "user",
+                        "object": "actor",
+                        "type": "user",
                         "name": "John Doe",
                         "handle": "jdoe@augno.com",
                         "role": {
                           "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                           "object": "role",
                           "name": "Admin",
-                          "type_code": "admin",
+                          "type": "admin",
                           "owner": {
                             "object": "owner",
                             "type": "account",
@@ -13326,13 +13502,22 @@
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
-                      "changes": [
-                        {
-                          "field": "email",
-                          "old_value": "old@example.com",
-                          "new_value": "new@example.com"
-                        }
-                      ],
+                      "changes": {
+                        "object": "list",
+                        "page_info": {
+                          "next_cursor": null,
+                          "prev_cursor": null,
+                          "has_next_page": false,
+                          "has_prev_page": false
+                        },
+                        "data": [
+                          {
+                            "field": "email",
+                            "old_value": "old@example.com",
+                            "new_value": "new@example.com"
+                          }
+                        ]
+                      },
                       "metadata": {
                         "reason": "operator override"
                       },
@@ -13415,14 +13600,15 @@
                   "resource_id": "us_01gf7a8200e9pvbd6bgyq395ae",
                   "actor": {
                     "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                    "object": "user",
+                    "object": "actor",
+                    "type": "user",
                     "name": "John Doe",
                     "handle": "jdoe@augno.com",
                     "role": {
                       "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                       "object": "role",
                       "name": "Admin",
-                      "type_code": "admin",
+                      "type": "admin",
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -13441,13 +13627,22 @@
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
-                  "changes": [
-                    {
-                      "field": "email",
-                      "old_value": "old@example.com",
-                      "new_value": "new@example.com"
-                    }
-                  ],
+                  "changes": {
+                    "object": "list",
+                    "page_info": {
+                      "next_cursor": null,
+                      "prev_cursor": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "field": "email",
+                        "old_value": "old@example.com",
+                        "new_value": "new@example.com"
+                      }
+                    ]
+                  },
                   "metadata": {
                     "reason": "operator override"
                   },
@@ -13513,6 +13708,23 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "sent_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "sent_by"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
           }
         ],
         "responses": {
@@ -13540,14 +13752,32 @@
                       "ses_message_id": null,
                       "sent_by": {
                         "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                        "object": "user",
-                        "email": "jdoe@augno.com",
+                        "object": "actor",
+                        "type": "user",
                         "name": "John Doe",
-                        "username": "jdoe",
-                        "email_verified_at": "2026-06-10T00:00:00Z",
-                        "image_url": "https://cdn.augno.com/avatars/us_01gf7a8200e9pvbd6bgyq395ae.jpg",
-                        "created_at": "2026-05-10T00:00:00Z",
-                        "updated_at": "2026-05-10T00:23:00Z"
+                        "handle": "jdoe@augno.com",
+                        "role": {
+                          "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                          "object": "role",
+                          "name": "Admin",
+                          "type": "admin",
+                          "owner": {
+                            "object": "owner",
+                            "type": "account",
+                            "account": {
+                              "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                              "object": "account"
+                            }
+                          },
+                          "permissions": [
+                            "customers:create",
+                            "customers:read",
+                            "customers:update",
+                            "customers:delete"
+                          ],
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -13592,6 +13822,23 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "sent_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "sent_by"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
           }
         ],
         "responses": {
@@ -13610,14 +13857,32 @@
                   "ses_message_id": null,
                   "sent_by": {
                     "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                    "object": "user",
-                    "email": "jdoe@augno.com",
+                    "object": "actor",
+                    "type": "user",
                     "name": "John Doe",
-                    "username": "jdoe",
-                    "email_verified_at": "2026-06-10T00:00:00Z",
-                    "image_url": "https://cdn.augno.com/avatars/us_01gf7a8200e9pvbd6bgyq395ae.jpg",
-                    "created_at": "2026-05-10T00:00:00Z",
-                    "updated_at": "2026-05-10T00:23:00Z"
+                    "handle": "jdoe@augno.com",
+                    "role": {
+                      "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                      "object": "role",
+                      "name": "Admin",
+                      "type": "admin",
+                      "owner": {
+                        "object": "owner",
+                        "type": "account",
+                        "account": {
+                          "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                          "object": "account"
+                        }
+                      },
+                      "permissions": [
+                        "customers:create",
+                        "customers:read",
+                        "customers:update",
+                        "customers:delete"
+                      ],
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
                   },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -13836,14 +14101,15 @@
                       },
                       "actor": {
                         "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                        "object": "user",
+                        "object": "actor",
+                        "type": "user",
                         "name": "John Doe",
                         "handle": "jdoe@augno.com",
                         "role": {
                           "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                           "object": "role",
                           "name": "Admin",
-                          "type_code": "admin",
+                          "type": "admin",
                           "owner": {
                             "object": "owner",
                             "type": "account",
@@ -13967,14 +14233,15 @@
                   },
                   "actor": {
                     "id": "us_01gf7a8200e9pvbd6bgyq395ae",
-                    "object": "user",
+                    "object": "actor",
+                    "type": "user",
                     "name": "John Doe",
                     "handle": "jdoe@augno.com",
                     "role": {
                       "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                       "object": "role",
                       "name": "Admin",
-                      "type_code": "admin",
+                      "type": "admin",
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -14797,7 +15064,7 @@
                       "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                       "object": "role",
                       "name": "Admin",
-                      "type_code": "admin",
+                      "type": "admin",
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -14891,7 +15158,7 @@
                   "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                   "object": "role",
                   "name": "Admin",
-                  "type_code": "admin",
+                  "type": "admin",
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -15019,7 +15286,7 @@
                   "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                   "object": "role",
                   "name": "Admin",
-                  "type_code": "admin",
+                  "type": "admin",
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -15118,7 +15385,7 @@
                   "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
                   "object": "role",
                   "name": "Admin",
-                  "type_code": "admin",
+                  "type": "admin",
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -15362,7 +15629,7 @@
                       "id": "lc_01gf7a8200er3ar3pkfrb6kk30",
                       "object": "location",
                       "name": "Warehouse A",
-                      "type_code": "building",
+                      "type": "building",
                       "parent": null,
                       "children": {
                         "object": "list",
@@ -15377,7 +15644,7 @@
                             "id": "lc_01gf7a8200er3ar3pkfrb6kk32",
                             "object": "location",
                             "name": "Shelf A1",
-                            "type_code": "building",
+                            "type": "building",
                             "parent": null,
                             "children": null,
                             "created_at": "0001-01-01T00:00:00Z",
@@ -15442,7 +15709,7 @@
             "application/json": {
               "example": {
                 "name": "Warehouse A",
-                "type_code": "building"
+                "type": "building"
               },
               "schema": {
                 "$ref": "#/components/schemas/CreateLocationRequest"
@@ -15459,7 +15726,7 @@
                   "id": "lc_01gf7a8200er3ar3pkfrb6kk30",
                   "object": "location",
                   "name": "Warehouse A",
-                  "type_code": "building",
+                  "type": "building",
                   "parent": null,
                   "children": {
                     "object": "list",
@@ -15474,7 +15741,7 @@
                         "id": "lc_01gf7a8200er3ar3pkfrb6kk32",
                         "object": "location",
                         "name": "Shelf A1",
-                        "type_code": "building",
+                        "type": "building",
                         "parent": null,
                         "children": null,
                         "created_at": "0001-01-01T00:00:00Z",
@@ -15595,7 +15862,7 @@
                   "id": "lc_01gf7a8200er3ar3pkfrb6kk30",
                   "object": "location",
                   "name": "Warehouse A",
-                  "type_code": "building",
+                  "type": "building",
                   "parent": null,
                   "children": {
                     "object": "list",
@@ -15610,7 +15877,7 @@
                         "id": "lc_01gf7a8200er3ar3pkfrb6kk32",
                         "object": "location",
                         "name": "Shelf A1",
-                        "type_code": "building",
+                        "type": "building",
                         "parent": null,
                         "children": null,
                         "created_at": "0001-01-01T00:00:00Z",
@@ -15646,7 +15913,7 @@
         "x-preview": true
       },
       "patch": {
-        "description": "Partially updates a location. Set clear_parent to true to remove the parent.",
+        "description": "Partially updates a location.",
         "operationId": "update-location",
         "parameters": [
           {
@@ -15681,8 +15948,7 @@
           "content": {
             "application/json": {
               "example": {
-                "name": "Warehouse B",
-                "clear_parent": false
+                "name": "Warehouse B"
               },
               "schema": {
                 "$ref": "#/components/schemas/UpdateLocationRequest"
@@ -15699,7 +15965,7 @@
                   "id": "lc_01gf7a8200er3ar3pkfrb6kk30",
                   "object": "location",
                   "name": "Warehouse A",
-                  "type_code": "building",
+                  "type": "building",
                   "parent": null,
                   "children": {
                     "object": "list",
@@ -15714,7 +15980,7 @@
                         "id": "lc_01gf7a8200er3ar3pkfrb6kk32",
                         "object": "location",
                         "name": "Shelf A1",
-                        "type_code": "building",
+                        "type": "building",
                         "parent": null,
                         "children": null,
                         "created_at": "0001-01-01T00:00:00Z",
@@ -15820,8 +16086,8 @@
                       "name": "Packaging Line 1",
                       "notes": null,
                       "type": "init_batch",
-                      "label_size_code": null,
-                      "label_type_code": null,
+                      "label_size": null,
+                      "label_type": null,
                       "material_check_required": false,
                       "department": null,
                       "production_steps": null,
@@ -15903,8 +16169,8 @@
                   "name": "Packaging Line 1",
                   "notes": null,
                   "type": "init_batch",
-                  "label_size_code": null,
-                  "label_type_code": null,
+                  "label_size": null,
+                  "label_type": null,
                   "material_check_required": false,
                   "department": null,
                   "production_steps": null,
@@ -16023,8 +16289,8 @@
                   "name": "Packaging Line 1",
                   "notes": null,
                   "type": "init_batch",
-                  "label_size_code": null,
-                  "label_type_code": null,
+                  "label_size": null,
+                  "label_type": null,
                   "material_check_required": false,
                   "department": null,
                   "production_steps": null,
@@ -16110,8 +16376,8 @@
                   "name": "Packaging Line 1",
                   "notes": null,
                   "type": "init_batch",
-                  "label_size_code": null,
-                  "label_type_code": null,
+                  "label_size": null,
+                  "label_type": null,
                   "material_check_required": false,
                   "department": null,
                   "production_steps": null,
@@ -16523,7 +16789,10 @@
           "content": {
             "application/json": {
               "example": {
-                "name": "Collect"
+                "name": "Collect",
+                "flat_rate": {},
+                "minimum_order_value": {},
+                "free_shipping_service_level_ids": {}
               },
               "schema": {
                 "$ref": "#/components/schemas/UpdateShippingTermRequest"
@@ -17295,7 +17564,7 @@
               "example": {
                 "name": "Acme Inc.",
                 "note": "Key enterprise account",
-                "status_code": "normal",
+                "status": "normal",
                 "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
                 "default_payment_term_id": "pytm_01jm4r6700f8nwq3v5hx2d9ktp",
                 "default_shipping_term_id": "shtm_01jm4r6700f8nwq3v5hx2d9ktp",
