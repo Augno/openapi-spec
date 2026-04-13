@@ -57,7 +57,14 @@
               "type": "account",
               "account": {
                 "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                "object": "account"
+                "object": "account",
+                "name": "Acme Inc.",
+                "default_billing_address": null,
+                "default_shipping_address": null,
+                "branding": null,
+                "portal": null,
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
               }
             },
             "permissions": [
@@ -112,7 +119,14 @@
                 "type": "account",
                 "account": {
                   "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                  "object": "account"
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
               "permissions": [
@@ -564,7 +578,14 @@
               "type": "account",
               "account": {
                 "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                "object": "account"
+                "object": "account",
+                "name": "Acme Inc.",
+                "default_billing_address": null,
+                "default_shipping_address": null,
+                "branding": null,
+                "portal": null,
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
               }
             },
             "permissions": [
@@ -625,7 +646,14 @@
                 "type": "account",
                 "account": {
                   "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                  "object": "account"
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
               "permissions": [
@@ -789,7 +817,16 @@
         "type": "object"
       },
       "AddressInput": {
-        "description": "AddressInput represents an inline address to create with a parent resource.\nField names align with the Address resource shape.",
+        "description": "AddressInput represents an address.\nField names align with the Address resource shape.",
+        "example": {
+          "name": "Headquarters",
+          "is_drop_ship": false,
+          "street_line_1": "123 Main St",
+          "locality": "Springfield",
+          "state": "IL",
+          "postal_code": "62701",
+          "country": "US"
+        },
         "properties": {
           "name": {
             "description": "The display name of the address.",
@@ -825,30 +862,23 @@
             "type": "string"
           },
           "state": {
-            "description": "The state or region.",
+            "description": "The state or administrative area.",
             "nullable": true,
             "type": "string"
           },
           "postal_code": {
-            "description": "The postal or ZIP code.",
+            "description": "The postal or zip code.",
             "nullable": true,
             "type": "string"
           },
           "country": {
-            "description": "The ISO country code.",
+            "description": "The two-letter country code.",
             "type": "string"
           }
         },
         "required": [
           "name",
-          "phone",
-          "email",
           "is_drop_ship",
-          "street_line_1",
-          "street_line_2",
-          "locality",
-          "state",
-          "postal_code",
           "country"
         ],
         "type": "object"
@@ -989,7 +1019,14 @@
                 "type": "account",
                 "account": {
                   "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                  "object": "account"
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
               "permissions": [
@@ -1022,7 +1059,7 @@
             "reason": "operator override"
           },
           "request_id": "req_01gq7s3f2m0y9h2t7z1w7q3v9k",
-          "idempotency_key_id": null,
+          "idempotency_key": null,
           "source_ip": "198.51.100.8",
           "occurred_at": "2026-05-10T00:00:00Z",
           "created_at": "2026-05-10T00:00:00Z"
@@ -1267,7 +1304,14 @@
                   "type": "account",
                   "account": {
                     "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                    "object": "account"
+                    "object": "account",
+                    "name": "Acme Inc.",
+                    "default_billing_address": null,
+                    "default_shipping_address": null,
+                    "branding": null,
+                    "portal": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   }
                 },
                 "permissions": [
@@ -1302,8 +1346,8 @@
             "nullable": true,
             "type": "string"
           },
-          "idempotency_key_id": {
-            "description": "The idempotency key ID associated with the originating request, when applicable.",
+          "idempotency_key": {
+            "description": "The idempotency key associated with the originating request, when applicable.",
             "nullable": true,
             "type": "string"
           },
@@ -1333,7 +1377,7 @@
           "changes",
           "metadata",
           "request_id",
-          "idempotency_key_id",
+          "idempotency_key",
           "source_ip",
           "occurred_at",
           "created_at"
@@ -1377,7 +1421,14 @@
             "type": "account",
             "account": {
               "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-              "object": "account"
+              "object": "account",
+              "name": "Acme Inc.",
+              "default_billing_address": null,
+              "default_shipping_address": null,
+              "branding": null,
+              "portal": null,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
             }
           },
           "service_levels": null,
@@ -1774,80 +1825,12 @@
           },
           "description": {
             "description": "An optional description of the account group.",
-            "nullable": true,
             "type": "string"
           }
         },
         "required": [
           "name",
           "type"
-        ],
-        "type": "object"
-      },
-      "CreateAddressRequest": {
-        "description": "CreateAddressRequest is the request to create a new address.",
-        "example": {
-          "name": "Headquarters",
-          "is_drop_ship": false,
-          "street_line_1": "123 Main St",
-          "locality": "Springfield",
-          "state": "IL",
-          "postal_code": "62701",
-          "country": "US"
-        },
-        "properties": {
-          "name": {
-            "description": "The display name of the address.",
-            "type": "string"
-          },
-          "phone": {
-            "description": "The phone number associated with this address.",
-            "nullable": true,
-            "type": "string"
-          },
-          "email": {
-            "description": "The email address associated with this address.",
-            "nullable": true,
-            "type": "string"
-          },
-          "is_drop_ship": {
-            "description": "Whether this is a drop ship address.",
-            "type": "boolean"
-          },
-          "street_line_1": {
-            "description": "The first line of the street address.",
-            "nullable": true,
-            "type": "string"
-          },
-          "street_line_2": {
-            "description": "The second line of the street address.",
-            "nullable": true,
-            "type": "string"
-          },
-          "locality": {
-            "description": "The city or locality.",
-            "nullable": true,
-            "type": "string"
-          },
-          "state": {
-            "description": "The state or administrative area.",
-            "nullable": true,
-            "type": "string"
-          },
-          "postal_code": {
-            "description": "The postal or zip code.",
-            "nullable": true,
-            "type": "string"
-          },
-          "country": {
-            "description": "The two-letter country code.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "is_drop_ship",
-          "country"
         ],
         "type": "object"
       },
@@ -1898,18 +1881,14 @@
         "example": {
           "name": "Acme Inc.",
           "note": "Key enterprise account",
-          "status": "normal",
           "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
           "default_payment_term_id": "pytm_01jm4r6700f8nwq3v5hx2d9ktp",
           "default_shipping_term_id": "shtm_01jm4r6700f8nwq3v5hx2d9ktp",
           "customer_type_group_id": "acgp_01jm4r6700f8nwq3v5hx2d9ktp",
           "bill_to_address": {
             "name": "Acme Inc.",
-            "phone": null,
-            "email": null,
             "is_drop_ship": false,
             "street_line_1": "123 Main St",
-            "street_line_2": null,
             "locality": "New York",
             "state": "NY",
             "postal_code": "10001",
@@ -1917,11 +1896,8 @@
           },
           "ship_to_address": {
             "name": "Acme Inc.",
-            "phone": null,
-            "email": null,
             "is_drop_ship": false,
             "street_line_1": "123 Main St",
-            "street_line_2": null,
             "locality": "New York",
             "state": "NY",
             "postal_code": "10001",
@@ -1935,47 +1911,42 @@
           },
           "number": {
             "description": "The customer number (auto-generated if omitted).",
-            "nullable": true,
             "type": "string"
           },
           "note": {
             "description": "A note about the customer.",
-            "nullable": true,
             "type": "string"
           },
           "email": {
             "description": "The customer email address.",
-            "nullable": true,
             "type": "string"
           },
           "phone": {
             "description": "The customer phone number.",
-            "nullable": true,
             "type": "string"
           },
           "url": {
             "description": "The customer website URL.",
-            "nullable": true,
             "type": "string"
           },
           "status": {
+            "default": "normal",
             "description": "The account status code.",
             "enum": [
               "normal",
               "preferred",
               "hold_shipment",
-              "hold_all",
-              null
+              "hold_all"
             ],
-            "nullable": true,
             "type": "string"
           },
           "is_edi_enabled": {
+            "default": "false",
             "description": "Whether the customer is EDI enabled.",
-            "nullable": true,
             "type": "boolean"
           },
           "commission_policy": {
+            "default": "commission_exempt",
             "description": "The commission policy for this customer.",
             "enum": [
               "commission_applied",
@@ -1984,6 +1955,7 @@
             "type": "string"
           },
           "freight_policy": {
+            "default": "billed_freight",
             "description": "The freight policy for this customer.",
             "enum": [
               "free_freight",
@@ -1993,38 +1965,32 @@
           },
           "default_carrier_id": {
             "description": "The default carrier ID.",
-            "nullable": true,
             "type": "string"
           },
           "default_service_level_id": {
             "description": "The default service level ID.",
-            "nullable": true,
             "type": "string"
           },
           "default_payment_term_id": {
             "description": "The default payment term ID.",
-            "nullable": true,
             "type": "string"
           },
           "default_shipping_term_id": {
             "description": "The default shipping term ID.",
-            "nullable": true,
             "type": "string"
           },
           "default_priority": {
+            "default": "normal",
             "description": "The default priority code.",
             "enum": [
               "low",
               "normal",
-              "high",
-              null
+              "high"
             ],
-            "nullable": true,
             "type": "string"
           },
           "default_sales_rep_user_id": {
             "description": "The default sales rep user ID.",
-            "nullable": true,
             "type": "string"
           },
           "customer_price_group_ids": {
@@ -2036,22 +2002,19 @@
           },
           "customer_type_group_id": {
             "description": "The customer type group ID.",
-            "nullable": true,
             "type": "string"
           },
           "carrier_billing_type": {
+            "default": "sender",
             "description": "The carrier billing type.",
             "enum": [
               "sender",
-              "third_party",
-              null
+              "third_party"
             ],
-            "nullable": true,
             "type": "string"
           },
           "carrier_billing_account": {
             "description": "The carrier billing account number.",
-            "nullable": true,
             "type": "string"
           },
           "credit_limit": {
@@ -2060,8 +2023,7 @@
                 "$ref": "#/components/schemas/QuantityInput"
               }
             ],
-            "description": "The credit limit for this customer.",
-            "nullable": true
+            "description": "The credit limit for this customer."
           },
           "bill_to_address": {
             "allOf": [
@@ -2070,7 +2032,15 @@
               }
             ],
             "description": "The bill-to address for this customer.",
-            "nullable": true
+            "example": {
+              "name": "Headquarters",
+              "is_drop_ship": false,
+              "street_line_1": "123 Main St",
+              "locality": "Springfield",
+              "state": "IL",
+              "postal_code": "62701",
+              "country": "US"
+            }
           },
           "ship_to_address": {
             "allOf": [
@@ -2079,12 +2049,19 @@
               }
             ],
             "description": "The ship-to address for this customer.",
-            "nullable": true
+            "example": {
+              "name": "Headquarters",
+              "is_drop_ship": false,
+              "street_line_1": "123 Main St",
+              "locality": "Springfield",
+              "state": "IL",
+              "postal_code": "62701",
+              "country": "US"
+            }
           }
         },
         "required": [
           "name",
-          "status",
           "default_carrier_id",
           "default_payment_term_id",
           "default_shipping_term_id",
@@ -2109,6 +2086,10 @@
           },
           "type": {
             "description": "The type of item category (material_category or product_category).",
+            "enum": [
+              "material_category",
+              "product_category"
+            ],
             "type": "string"
           },
           "unit_group_id": {
@@ -2156,13 +2137,13 @@
             "items": {
               "type": "string"
             },
+            "nullable": true,
             "type": "array"
           }
         },
         "required": [
           "name",
-          "type",
-          "child_ids"
+          "type"
         ],
         "type": "object"
       },
@@ -2257,7 +2238,7 @@
             "type": "string"
           },
           "permissions": {
-            "description": "The permissions to attach to this role in \"domain:action\" format.",
+            "description": "The permissions to attach to this role in `\u003cdomain\u003e:\u003caction\u003e` format.",
             "items": {
               "type": "string"
             },
@@ -2282,17 +2263,18 @@
             "type": "string"
           },
           "mode": {
-            "description": "Controls whether the sandbox is blank or seeded with tutorial data.",
+            "description": "Controls whether the sandbox is blank or seeded with tutorial data. Defaults to blank.",
             "enum": [
               "blank",
-              "seeded"
+              "seeded",
+              null
             ],
+            "nullable": true,
             "type": "string"
           }
         },
         "required": [
-          "name",
-          "mode"
+          "name"
         ],
         "type": "object"
       },
@@ -2311,7 +2293,6 @@
           },
           "notes": {
             "description": "Optional notes about the scanning station.",
-            "nullable": true,
             "type": "string"
           },
           "type": {
@@ -2330,6 +2311,24 @@
           },
           "department_id": {
             "description": "The ID of the department to associate with this scanning station.",
+            "type": "string"
+          },
+          "label_size": {
+            "description": "The label size code for the scanning station.",
+            "enum": [
+              "1x1",
+              "1x3",
+              "1x4",
+              "2x4"
+            ],
+            "type": "string"
+          },
+          "label_type": {
+            "description": "The label type code for the scanning station.",
+            "enum": [
+              "tag",
+              "traveler"
+            ],
             "type": "string"
           }
         },
@@ -2364,7 +2363,7 @@
           "flat_rate": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/QuantityInputRequest"
+                "$ref": "#/components/schemas/QuantityInput"
               }
             ],
             "description": "The flat rate for this shipping term.",
@@ -2373,7 +2372,7 @@
           "minimum_order_value": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/QuantityInputRequest"
+                "$ref": "#/components/schemas/QuantityInput"
               }
             ],
             "description": "The minimum order value for free shipping under this term.",
@@ -2417,11 +2416,10 @@
           "notes": {
             "default": "null",
             "description": "Optional notes about the unit group.",
-            "nullable": true,
             "type": "string"
           },
           "type": {
-            "description": "The unit type code (e.g. \"mass\", \"quantity\").",
+            "description": "The unit type code.",
             "enum": [
               "currency",
               "quantity",
@@ -2560,18 +2558,22 @@
           },
           "ratio_numerator": {
             "description": "The conversion ratio numerator relative to the base unit, as a decimal string.",
+            "format": "decimal",
             "type": "string"
           },
           "ratio_denominator": {
             "description": "The conversion ratio denominator relative to the base unit, as a decimal string.",
+            "format": "decimal",
             "type": "string"
           },
           "offset_numerator": {
             "description": "The conversion offset numerator, as a decimal string.",
+            "format": "decimal",
             "type": "string"
           },
           "offset_denominator": {
             "description": "The conversion offset denominator, as a decimal string.",
+            "format": "decimal",
             "type": "string"
           }
         },
@@ -2605,7 +2607,14 @@
                 "type": "account",
                 "account": {
                   "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                  "object": "account"
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
               "permissions": [
@@ -2651,7 +2660,14 @@
                   "type": "account",
                   "account": {
                     "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                    "object": "account"
+                    "object": "account",
+                    "name": "Acme Inc.",
+                    "default_billing_address": null,
+                    "default_shipping_address": null,
+                    "branding": null,
+                    "portal": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   }
                 },
                 "permissions": [
@@ -2731,7 +2747,14 @@
                 "type": "account",
                 "account": {
                   "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                  "object": "account"
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
               "service_levels": null,
@@ -3193,7 +3216,14 @@
                     "type": "account",
                     "account": {
                       "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                      "object": "account"
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
                   "service_levels": null,
@@ -3604,7 +3634,14 @@
                 "type": "account",
                 "account": {
                   "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                  "object": "account"
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
               "service_levels": null,
@@ -3901,7 +3938,14 @@
                 "type": "account",
                 "account": {
                   "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                  "object": "account"
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
               "permissions": [
@@ -3978,7 +4022,14 @@
                   "type": "account",
                   "account": {
                     "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                    "object": "account"
+                    "object": "account",
+                    "name": "Acme Inc.",
+                    "default_billing_address": null,
+                    "default_shipping_address": null,
+                    "branding": null,
+                    "portal": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   }
                 },
                 "permissions": [
@@ -4238,7 +4289,14 @@
                   "type": "account",
                   "account": {
                     "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                    "object": "account"
+                    "object": "account",
+                    "name": "Acme Inc.",
+                    "default_billing_address": null,
+                    "default_shipping_address": null,
+                    "branding": null,
+                    "portal": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   }
                 },
                 "permissions": [
@@ -4540,7 +4598,14 @@
                     "type": "account",
                     "account": {
                       "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                      "object": "account"
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
                   "permissions": [
@@ -4573,7 +4638,7 @@
                 "reason": "operator override"
               },
               "request_id": "req_01gq7s3f2m0y9h2t7z1w7q3v9k",
-              "idempotency_key_id": null,
+              "idempotency_key": null,
               "source_ip": "198.51.100.8",
               "occurred_at": "2026-05-10T00:00:00Z",
               "created_at": "2026-05-10T00:00:00Z"
@@ -4723,7 +4788,14 @@
                     "type": "account",
                     "account": {
                       "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                      "object": "account"
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
                   "permissions": [
@@ -5338,7 +5410,14 @@
                     "type": "account",
                     "account": {
                       "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                      "object": "account"
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
                   "permissions": [
@@ -5412,7 +5491,14 @@
                 "type": "account",
                 "account": {
                   "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                  "object": "account"
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
               "permissions": [
@@ -5483,8 +5569,8 @@
                 "default_shipping_address": null,
                 "branding": null,
                 "portal": null,
-                "created_at": "0001-01-01T00:00:00Z",
-                "updated_at": "0001-01-01T00:00:00Z"
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
               },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -6133,38 +6219,29 @@
           "account": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/OwnerAccount"
+                "$ref": "#/components/schemas/Account"
               }
             ],
-            "description": "The account that owns this resource. Present when type is \"account\".",
-            "nullable": true
+            "description": "The account that owns this resource. `null` if the object is system-owned.",
+            "example": {
+              "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+              "object": "account",
+              "name": "Acme Inc.",
+              "default_billing_address": null,
+              "default_shipping_address": null,
+              "branding": null,
+              "portal": null,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "nullable": true,
+            "x-expandable": true
           }
         },
         "required": [
           "object",
           "type",
           "account"
-        ],
-        "type": "object"
-      },
-      "OwnerAccount": {
-        "description": "OwnerAccount is a minimal account reference within an Owner.",
-        "properties": {
-          "id": {
-            "description": "The unique identifier for the account.",
-            "type": "string"
-          },
-          "object": {
-            "description": "The resource type identifier.",
-            "enum": [
-              "account"
-            ],
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "object"
         ],
         "type": "object"
       },
@@ -7381,24 +7458,6 @@
         ],
         "type": "object"
       },
-      "QuantityInputRequest": {
-        "description": "QuantityInputRequest represents a quantity value and unit pair.",
-        "properties": {
-          "value": {
-            "description": "The decimal value.",
-            "type": "string"
-          },
-          "unit_id": {
-            "description": "The unit ID for the value.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "value",
-          "unit_id"
-        ],
-        "type": "object"
-      },
       "QuotaInfo": {
         "description": "QuotaInfo provides machine-readable details about a plan-imposed resource limit.\nIncluded in limit_exceeded errors so clients can display upgrade prompts, usage bars,\nor implement programmatic retry/backoff logic.",
         "properties": {
@@ -7614,7 +7673,14 @@
                 "type": "account",
                 "account": {
                   "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                  "object": "account"
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
               "permissions": [
@@ -7762,7 +7828,14 @@
                   "type": "account",
                   "account": {
                     "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                    "object": "account"
+                    "object": "account",
+                    "name": "Acme Inc.",
+                    "default_billing_address": null,
+                    "default_shipping_address": null,
+                    "branding": null,
+                    "portal": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   }
                 },
                 "permissions": [
@@ -7901,7 +7974,14 @@
             "type": "account",
             "account": {
               "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-              "object": "account"
+              "object": "account",
+              "name": "Acme Inc.",
+              "default_billing_address": null,
+              "default_shipping_address": null,
+              "branding": null,
+              "portal": null,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
             }
           },
           "permissions": [
@@ -8010,8 +8090,8 @@
             "default_shipping_address": null,
             "branding": null,
             "portal": null,
-            "created_at": "0001-01-01T00:00:00Z",
-            "updated_at": "0001-01-01T00:00:00Z"
+            "created_at": "2026-05-10T00:00:00Z",
+            "updated_at": "2026-05-10T00:23:00Z"
           },
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
@@ -9126,7 +9206,8 @@
       "UpdateLocationRequest": {
         "description": "UpdateLocationRequest is the request to partially update a location.",
         "example": {
-          "name": "Warehouse B"
+          "name": "Warehouse B",
+          "child_ids": {}
         },
         "properties": {
           "name": {
@@ -9152,11 +9233,13 @@
             "x-nullable-clear": true
           },
           "child_ids": {
-            "description": "The IDs of child locations. When provided, replaces all current children.",
+            "description": "The IDs of child locations. When provided, replaces all current children. Send null to clear.",
             "items": {
               "type": "string"
             },
-            "type": "array"
+            "nullable": true,
+            "type": "array",
+            "x-nullable-clear": true
           }
         },
         "type": "object"
@@ -9235,7 +9318,7 @@
             "type": "string"
           },
           "permissions": {
-            "description": "The full set of permissions to replace existing ones with in \"domain:action\" format. If omitted, permissions are not changed.",
+            "description": "The full set of permissions to replace existing ones with in `\u003cdomain\u003e:\u003caction\u003e` format. If omitted, permissions are not changed.",
             "items": {
               "type": "string"
             },
@@ -9314,7 +9397,7 @@
           "flat_rate": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/QuantityInputRequest"
+                "$ref": "#/components/schemas/QuantityInput"
               }
             ],
             "description": "The flat rate for this shipping term. Send null to clear.",
@@ -9324,7 +9407,7 @@
           "minimum_order_value": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/QuantityInputRequest"
+                "$ref": "#/components/schemas/QuantityInput"
               }
             ],
             "description": "The minimum order value for free shipping under this term. Send null to clear.",
@@ -9421,18 +9504,22 @@
           },
           "ratio_numerator": {
             "description": "The conversion ratio numerator, as a decimal string.",
+            "format": "decimal",
             "type": "string"
           },
           "ratio_denominator": {
             "description": "The conversion ratio denominator, as a decimal string.",
+            "format": "decimal",
             "type": "string"
           },
           "offset_numerator": {
             "description": "The conversion offset numerator, as a decimal string.",
+            "format": "decimal",
             "type": "string"
           },
           "offset_denominator": {
             "description": "The conversion offset denominator, as a decimal string.",
+            "format": "decimal",
             "type": "string"
           }
         },
@@ -9725,7 +9812,14 @@
                           "type": "account",
                           "account": {
                             "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                            "object": "account"
+                            "object": "account",
+                            "name": "Acme Inc.",
+                            "default_billing_address": null,
+                            "default_shipping_address": null,
+                            "branding": null,
+                            "portal": null,
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
                           }
                         },
                         "permissions": [
@@ -9827,7 +9921,14 @@
                         "type": "account",
                         "account": {
                           "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                          "object": "account"
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
                       "permissions": [
@@ -9967,7 +10068,14 @@
                       "type": "account",
                       "account": {
                         "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                        "object": "account"
+                        "object": "account",
+                        "name": "Acme Inc.",
+                        "default_billing_address": null,
+                        "default_shipping_address": null,
+                        "branding": null,
+                        "portal": null,
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
                       }
                     },
                     "permissions": [
@@ -10077,7 +10185,14 @@
                         "type": "account",
                         "account": {
                           "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                          "object": "account"
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
                       "permissions": [
@@ -10155,10 +10270,14 @@
           },
           {
             "description": "Filter by item category type code (material_category or product_category).",
-            "example": "example",
+            "example": "material_category",
             "in": "query",
             "name": "type",
             "schema": {
+              "enum": [
+                "material_category",
+                "product_category"
+              ],
               "type": "string"
             }
           },
@@ -10173,6 +10292,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "properties",
                   "unit_group"
                 ],
@@ -10252,6 +10372,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "properties",
                   "unit_group"
                 ],
@@ -10390,6 +10511,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "properties",
                   "unit_group"
                 ],
@@ -10467,6 +10589,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "properties",
                   "unit_group"
                 ],
@@ -10740,6 +10863,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "unit_group"
                 ],
                 "type": "string"
@@ -10819,6 +10943,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "unit_group"
                 ],
                 "type": "string"
@@ -10958,6 +11083,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "unit_group"
                 ],
                 "type": "string"
@@ -11035,6 +11161,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "unit_group"
                 ],
                 "type": "string"
@@ -11851,6 +11978,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "base_unit",
                   "associated_units"
                 ],
@@ -11930,6 +12058,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "base_unit",
                   "associated_units"
                 ],
@@ -12076,6 +12205,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "base_unit",
                   "associated_units"
                 ],
@@ -12153,6 +12283,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "base_unit",
                   "associated_units"
                 ],
@@ -12635,7 +12766,8 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner"
+                  "owner",
+                  "owner.account"
                 ],
                 "type": "string"
               },
@@ -12715,7 +12847,8 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner"
+                  "owner",
+                  "owner.account"
                 ],
                 "type": "string"
               },
@@ -12858,7 +12991,8 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner"
+                  "owner",
+                  "owner.account"
                 ],
                 "type": "string"
               },
@@ -12936,7 +13070,8 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner"
+                  "owner",
+                  "owner.account"
                 ],
                 "type": "string"
               },
@@ -13091,7 +13226,7 @@
             "description": "An optional session token for grouping autocomplete requests.",
             "example": "example",
             "in": "query",
-            "name": "session_token,omitempty",
+            "name": "session_token",
             "schema": {
               "type": "string"
             }
@@ -13489,7 +13624,14 @@
                             "type": "account",
                             "account": {
                               "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                              "object": "account"
+                              "object": "account",
+                              "name": "Acme Inc.",
+                              "default_billing_address": null,
+                              "default_shipping_address": null,
+                              "branding": null,
+                              "portal": null,
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
                             }
                           },
                           "permissions": [
@@ -13522,7 +13664,7 @@
                         "reason": "operator override"
                       },
                       "request_id": "req_01gq7s3f2m0y9h2t7z1w7q3v9k",
-                      "idempotency_key_id": null,
+                      "idempotency_key": null,
                       "source_ip": "198.51.100.8",
                       "occurred_at": "2026-05-10T00:00:00Z",
                       "created_at": "2026-05-10T00:00:00Z"
@@ -13614,7 +13756,14 @@
                         "type": "account",
                         "account": {
                           "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                          "object": "account"
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
                       "permissions": [
@@ -13647,7 +13796,7 @@
                     "reason": "operator override"
                   },
                   "request_id": "req_01gq7s3f2m0y9h2t7z1w7q3v9k",
-                  "idempotency_key_id": null,
+                  "idempotency_key": null,
                   "source_ip": "198.51.100.8",
                   "occurred_at": "2026-05-10T00:00:00Z",
                   "created_at": "2026-05-10T00:00:00Z"
@@ -13766,7 +13915,14 @@
                             "type": "account",
                             "account": {
                               "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                              "object": "account"
+                              "object": "account",
+                              "name": "Acme Inc.",
+                              "default_billing_address": null,
+                              "default_shipping_address": null,
+                              "branding": null,
+                              "portal": null,
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
                             }
                           },
                           "permissions": [
@@ -13871,7 +14027,14 @@
                         "type": "account",
                         "account": {
                           "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                          "object": "account"
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
                       "permissions": [
@@ -14115,7 +14278,14 @@
                             "type": "account",
                             "account": {
                               "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                              "object": "account"
+                              "object": "account",
+                              "name": "Acme Inc.",
+                              "default_billing_address": null,
+                              "default_shipping_address": null,
+                              "branding": null,
+                              "portal": null,
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
                             }
                           },
                           "permissions": [
@@ -14247,7 +14417,14 @@
                         "type": "account",
                         "account": {
                           "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                          "object": "account"
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
                       "permissions": [
@@ -14364,8 +14541,8 @@
                         "default_shipping_address": null,
                         "branding": null,
                         "portal": null,
-                        "created_at": "0001-01-01T00:00:00Z",
-                        "updated_at": "0001-01-01T00:00:00Z"
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -14448,8 +14625,8 @@
                     "default_shipping_address": null,
                     "branding": null,
                     "portal": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -14571,8 +14748,8 @@
                     "default_shipping_address": null,
                     "branding": null,
                     "portal": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -14644,7 +14821,8 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner"
+                  "owner",
+                  "owner.account"
                 ],
                 "type": "string"
               },
@@ -14718,7 +14896,8 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner"
+                  "owner",
+                  "owner.account"
                 ],
                 "type": "string"
               },
@@ -14849,7 +15028,8 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner"
+                  "owner",
+                  "owner.account"
                 ],
                 "type": "string"
               },
@@ -14921,7 +15101,8 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner"
+                  "owner",
+                  "owner.account"
                 ],
                 "type": "string"
               },
@@ -15039,6 +15220,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "permissions"
                 ],
                 "type": "string"
@@ -15070,7 +15252,14 @@
                         "type": "account",
                         "account": {
                           "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                          "object": "account"
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
                       "permissions": [
@@ -15123,6 +15312,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "permissions"
                 ],
                 "type": "string"
@@ -15164,7 +15354,14 @@
                     "type": "account",
                     "account": {
                       "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                      "object": "account"
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
                   "permissions": [
@@ -15270,6 +15467,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "permissions"
                 ],
                 "type": "string"
@@ -15292,7 +15490,14 @@
                     "type": "account",
                     "account": {
                       "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                      "object": "account"
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
                   "permissions": [
@@ -15352,6 +15557,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "permissions"
                 ],
                 "type": "string"
@@ -15391,7 +15597,14 @@
                     "type": "account",
                     "account": {
                       "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                      "object": "account"
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
                   "permissions": [
@@ -15948,7 +16161,8 @@
           "content": {
             "application/json": {
               "example": {
-                "name": "Warehouse B"
+                "name": "Warehouse B",
+                "child_ids": {}
               },
               "schema": {
                 "$ref": "#/components/schemas/UpdateLocationRequest"
@@ -16452,6 +16666,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "flat_rate.unit",
                   "minimum_order_value.unit",
                   "free_shipping_service_levels"
@@ -16541,6 +16756,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "flat_rate.unit",
                   "minimum_order_value.unit",
                   "free_shipping_service_levels"
@@ -16688,6 +16904,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "flat_rate.unit",
                   "minimum_order_value.unit",
                   "free_shipping_service_levels"
@@ -16775,6 +16992,7 @@
               "items": {
                 "enum": [
                   "owner",
+                  "owner.account",
                   "flat_rate.unit",
                   "minimum_order_value.unit",
                   "free_shipping_service_levels"
@@ -17281,7 +17499,7 @@
                 "country": "US"
               },
               "schema": {
-                "$ref": "#/components/schemas/CreateAddressRequest"
+                "$ref": "#/components/schemas/AddressInput"
               }
             }
           },
@@ -17564,18 +17782,14 @@
               "example": {
                 "name": "Acme Inc.",
                 "note": "Key enterprise account",
-                "status": "normal",
                 "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
                 "default_payment_term_id": "pytm_01jm4r6700f8nwq3v5hx2d9ktp",
                 "default_shipping_term_id": "shtm_01jm4r6700f8nwq3v5hx2d9ktp",
                 "customer_type_group_id": "acgp_01jm4r6700f8nwq3v5hx2d9ktp",
                 "bill_to_address": {
                   "name": "Acme Inc.",
-                  "phone": null,
-                  "email": null,
                   "is_drop_ship": false,
                   "street_line_1": "123 Main St",
-                  "street_line_2": null,
                   "locality": "New York",
                   "state": "NY",
                   "postal_code": "10001",
@@ -17583,11 +17797,8 @@
                 },
                 "ship_to_address": {
                   "name": "Acme Inc.",
-                  "phone": null,
-                  "email": null,
                   "is_drop_ship": false,
                   "street_line_1": "123 Main St",
-                  "street_line_2": null,
                   "locality": "New York",
                   "state": "NY",
                   "postal_code": "10001",
@@ -17657,7 +17868,14 @@
                         "type": "account",
                         "account": {
                           "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                          "object": "account"
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
                       "service_levels": null,
@@ -17998,7 +18216,14 @@
                         "type": "account",
                         "account": {
                           "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                          "object": "account"
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
                       "service_levels": null,
@@ -18310,7 +18535,14 @@
                         "type": "account",
                         "account": {
                           "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                          "object": "account"
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
                       "service_levels": null,
@@ -18622,7 +18854,14 @@
                         "type": "account",
                         "account": {
                           "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
-                          "object": "account"
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
                       "service_levels": null,
@@ -18857,7 +19096,8 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner"
+                  "owner",
+                  "owner.account"
                 ],
                 "type": "string"
               },
@@ -18942,7 +19182,8 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner"
+                  "owner",
+                  "owner.account"
                 ],
                 "type": "string"
               },
