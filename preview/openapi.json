@@ -2263,6 +2263,56 @@
         ],
         "type": "object"
       },
+      "CreateCarrierRequest": {
+        "description": "Request to create a carrier.",
+        "example": {
+          "name": "FedEx",
+          "code": "fedex",
+          "account_number": null
+        },
+        "properties": {
+          "name": {
+            "description": "Display name.",
+            "type": "string"
+          },
+          "code": {
+            "description": "Carrier code.",
+            "enum": [
+              "fedex",
+              "ups",
+              "usps",
+              "will_call",
+              "delivery",
+              "ltl",
+              "ltl1",
+              "freight_collect",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "account_number": {
+            "description": "Carrier account number. Required for UPS and USPS carriers.",
+            "nullable": true,
+            "type": "string"
+          },
+          "customer_portal_visibility": {
+            "default": "visible",
+            "description": "Customer portal visibility.",
+            "enum": [
+              "visible",
+              "hidden"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "code",
+          "account_number"
+        ],
+        "type": "object"
+      },
       "CreateCustomerRequest": {
         "description": "Request to create a customer.",
         "example": {
@@ -2728,6 +2778,43 @@
         ],
         "type": "object"
       },
+      "CreateServiceLevelRequest": {
+        "description": "Request to create a service level.",
+        "example": {
+          "name": "Ground Shipping",
+          "code": "ground",
+          "is_default": false
+        },
+        "properties": {
+          "name": {
+            "description": "Display name.",
+            "type": "string"
+          },
+          "code": {
+            "description": "Service level code.",
+            "type": "string"
+          },
+          "customer_portal_visibility": {
+            "default": "visible",
+            "description": "Customer portal visibility.",
+            "enum": [
+              "visible",
+              "hidden"
+            ],
+            "type": "string"
+          },
+          "is_default": {
+            "description": "Default (system-synced) service level.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "code",
+          "is_default"
+        ],
+        "type": "object"
+      },
       "CreateShippingTermRequest": {
         "description": "Request to create a shipping term.",
         "example": {
@@ -3157,6 +3244,21 @@
               "service_level_token": "fedex_ground",
               "customer_portal_visibility": "visible",
               "is_default": false,
+              "owner": {
+                "object": "owner",
+                "type": "account",
+                "account": {
+                  "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
+              },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             },
@@ -3827,6 +3929,21 @@
               "service_level_token": "fedex_ground",
               "customer_portal_visibility": "visible",
               "is_default": false,
+              "owner": {
+                "object": "owner",
+                "type": "account",
+                "account": {
+                  "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
+              },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             },
@@ -5025,6 +5142,80 @@
         ],
         "type": "object"
       },
+      "List_Carrier": {
+        "description": "A paginated list of Carrier resources",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_cursor": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
+            "prev_cursor": null,
+            "has_next_page": true,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "carrier",
+              "name": "FedEx",
+              "code": "fedex",
+              "account_number": null,
+              "customer_portal_visibility": "visible",
+              "owner": {
+                "object": "owner",
+                "type": "account",
+                "account": {
+                  "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
+              },
+              "service_levels": null,
+              "deleted_at": null,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Object type for Carrier list",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata for Carrier list"
+          },
+          "data": {
+            "description": "Array of Carrier resources in this page",
+            "items": {
+              "$ref": "#/components/schemas/Carrier"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
       "List_Customer": {
         "description": "A paginated list of Customer resources",
         "example": {
@@ -5110,6 +5301,21 @@
                   "service_level_token": "fedex_ground",
                   "customer_portal_visibility": "visible",
                   "is_default": false,
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -9020,6 +9226,21 @@
           "service_level_token": "fedex_ground",
           "customer_portal_visibility": "visible",
           "is_default": false,
+          "owner": {
+            "object": "owner",
+            "type": "account",
+            "account": {
+              "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+              "object": "account",
+              "name": "Acme Inc.",
+              "default_billing_address": null,
+              "default_shipping_address": null,
+              "branding": null,
+              "portal": null,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            }
+          },
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
         },
@@ -9055,6 +9276,16 @@
             "description": "Default service level for the carrier.",
             "type": "boolean"
           },
+          "owner": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Owner"
+              }
+            ],
+            "description": "Owner.",
+            "nullable": true,
+            "x-expandable": true
+          },
           "created_at": {
             "description": "Creation timestamp.",
             "format": "date-time",
@@ -9073,6 +9304,7 @@
           "service_level_token",
           "customer_portal_visibility",
           "is_default",
+          "owner",
           "created_at",
           "updated_at"
         ],
@@ -9750,6 +9982,27 @@
         },
         "type": "object"
       },
+      "UpdateCarrierRequest": {
+        "description": "Request to update a carrier.",
+        "example": {
+          "name": "FedEx Express"
+        },
+        "properties": {
+          "name": {
+            "description": "Display name.",
+            "type": "string"
+          },
+          "customer_portal_visibility": {
+            "description": "Customer portal visibility.",
+            "enum": [
+              "visible",
+              "hidden"
+            ],
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "UpdateCustomerRequest": {
         "description": "Request to partially update a customer.",
         "example": {
@@ -10086,6 +10339,35 @@
           },
           "material_check_required": {
             "description": "Whether material check is required. If `true`, the operator at this station must manually verify the material before proceeding.",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "UpdateServiceLevelRequest": {
+        "description": "Request to update a service level.",
+        "example": {
+          "name": "Express Shipping"
+        },
+        "properties": {
+          "name": {
+            "description": "Display name.",
+            "type": "string"
+          },
+          "code": {
+            "description": "Service level code.",
+            "type": "string"
+          },
+          "customer_portal_visibility": {
+            "description": "Customer portal visibility.",
+            "enum": [
+              "visible",
+              "hidden"
+            ],
+            "type": "string"
+          },
+          "is_default": {
+            "description": "Whether this is the tenant's preferred default service level for the carrier.",
             "type": "boolean"
           }
         },
@@ -16962,6 +17244,899 @@
         "x-preview": true
       }
     },
+    "/v1/operations/carriers": {
+      "get": {
+        "description": "Returns a paginated list of carriers for the current account.",
+        "operationId": "list-carriers",
+        "parameters": [
+          {
+            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "example": "example",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results per page (default: 100, max: 1000).",
+            "example": 100,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Search query used to filter results.",
+            "example": "example",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner",
+                  "owner.account",
+                  "service_levels"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_cursor": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "prev_cursor": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "carrier",
+                      "name": "FedEx",
+                      "code": "fedex",
+                      "account_number": null,
+                      "customer_portal_visibility": "visible",
+                      "owner": {
+                        "object": "owner",
+                        "type": "account",
+                        "account": {
+                          "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      },
+                      "service_levels": null,
+                      "deleted_at": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_Carrier"
+                }
+              }
+            },
+            "description": "Successful response for List Carriers"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Carriers",
+        "tags": [
+          "Carriers Management"
+        ],
+        "x-preview": true
+      },
+      "post": {
+        "description": "Creates a carrier. If a Shippo-supported carrier code is provided, the carrier will be registered with Shippo and service levels will be auto-synced as options.",
+        "operationId": "create-carrier",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner",
+                  "owner.account",
+                  "service_levels"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "FedEx",
+                "code": "fedex",
+                "account_number": null
+              },
+              "schema": {
+                "$ref": "#/components/schemas/CreateCarrierRequest"
+              }
+            }
+          },
+          "description": "The request body for Create Carrier"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "carrier",
+                  "name": "FedEx",
+                  "code": "fedex",
+                  "account_number": null,
+                  "customer_portal_visibility": "visible",
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
+                  "service_levels": null,
+                  "deleted_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Carrier"
+                }
+              }
+            },
+            "description": "Successful response for Create Carrier"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Create Carrier",
+        "tags": [
+          "Carriers Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/carriers/{carrier_id}/service-levels": {
+      "get": {
+        "description": "Returns a paginated list of service levels for a carrier.",
+        "operationId": "list-service-levels",
+        "parameters": [
+          {
+            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "example": "example",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results per page (default: 100, max: 1000).",
+            "example": 100,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Search query used to filter results.",
+            "example": "example",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Carrier ID.",
+            "in": "path",
+            "name": "carrier_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner",
+                  "owner.account"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/List_ServiceLevel"
+                }
+              }
+            },
+            "description": "Successful response for List Service Levels"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Service Levels",
+        "tags": [
+          "Service Levels Management"
+        ],
+        "x-preview": true
+      },
+      "post": {
+        "description": "Creates a service level for a carrier.",
+        "operationId": "create-service-level",
+        "parameters": [
+          {
+            "description": "Carrier ID.",
+            "in": "path",
+            "name": "carrier_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner",
+                  "owner.account"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "Ground Shipping",
+                "code": "ground",
+                "is_default": false
+              },
+              "schema": {
+                "$ref": "#/components/schemas/CreateServiceLevelRequest"
+              }
+            }
+          },
+          "description": "The request body for Create Service Level"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "crop_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "service_level",
+                  "name": "FedEx Ground",
+                  "service_level_token": "fedex_ground",
+                  "customer_portal_visibility": "visible",
+                  "is_default": false,
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceLevel"
+                }
+              }
+            },
+            "description": "Successful response for Create Service Level"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Create Service Level",
+        "tags": [
+          "Service Levels Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/carriers/{carrier_id}/service-levels/{id}": {
+      "delete": {
+        "description": "Permanently deletes a service level. Fails if the service level is a default (system-synced) level.",
+        "operationId": "delete-service-level",
+        "parameters": [
+          {
+            "description": "Carrier ID.",
+            "in": "path",
+            "name": "carrier_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Service level ID.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Delete Service Level"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Delete Service Level",
+        "tags": [
+          "Service Levels Management"
+        ],
+        "x-preview": true
+      },
+      "get": {
+        "description": "Returns a service level by ID.",
+        "operationId": "get-service-level",
+        "parameters": [
+          {
+            "description": "Carrier ID.",
+            "in": "path",
+            "name": "carrier_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Service level ID.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner",
+                  "owner.account"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "crop_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "service_level",
+                  "name": "FedEx Ground",
+                  "service_level_token": "fedex_ground",
+                  "customer_portal_visibility": "visible",
+                  "is_default": false,
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceLevel"
+                }
+              }
+            },
+            "description": "Successful response for Get Service Level"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Get Service Level",
+        "tags": [
+          "Service Levels Management"
+        ],
+        "x-preview": true
+      },
+      "patch": {
+        "description": "Partially updates a service level's name, code, and portal visibility.",
+        "operationId": "update-service-level",
+        "parameters": [
+          {
+            "description": "Carrier ID.",
+            "in": "path",
+            "name": "carrier_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Service level ID.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner",
+                  "owner.account"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "Express Shipping"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/UpdateServiceLevelRequest"
+              }
+            }
+          },
+          "description": "The request body for Update Service Level"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "crop_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "service_level",
+                  "name": "FedEx Ground",
+                  "service_level_token": "fedex_ground",
+                  "customer_portal_visibility": "visible",
+                  "is_default": false,
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceLevel"
+                }
+              }
+            },
+            "description": "Successful response for Update Service Level"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Update Service Level",
+        "tags": [
+          "Service Levels Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/carriers/{id}": {
+      "delete": {
+        "description": "Deletes a carrier and cascades to remove all options. If the carrier is managed by Shippo, the Shippo account is deactivated.",
+        "operationId": "delete-carrier",
+        "parameters": [
+          {
+            "description": "Carrier ID.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Delete Carrier"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Delete Carrier",
+        "tags": [
+          "Carriers Management"
+        ],
+        "x-preview": true
+      },
+      "get": {
+        "description": "Returns a carrier by ID.",
+        "operationId": "get-carrier",
+        "parameters": [
+          {
+            "description": "Carrier ID.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner",
+                  "owner.account",
+                  "service_levels"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "carrier",
+                  "name": "FedEx",
+                  "code": "fedex",
+                  "account_number": null,
+                  "customer_portal_visibility": "visible",
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
+                  "service_levels": null,
+                  "deleted_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Carrier"
+                }
+              }
+            },
+            "description": "Successful response for Get Carrier"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Get Carrier",
+        "tags": [
+          "Carriers Management"
+        ],
+        "x-preview": true
+      },
+      "patch": {
+        "description": "Partially updates a carrier's name and portal visibility.",
+        "operationId": "update-carrier",
+        "parameters": [
+          {
+            "description": "Carrier ID.",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner",
+                  "owner.account",
+                  "service_levels"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "FedEx Express"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCarrierRequest"
+              }
+            }
+          },
+          "description": "The request body for Update Carrier"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "carrier",
+                  "name": "FedEx",
+                  "code": "fedex",
+                  "account_number": null,
+                  "customer_portal_visibility": "visible",
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
+                  "service_levels": null,
+                  "deleted_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Carrier"
+                }
+              }
+            },
+            "description": "Successful response for Update Carrier"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Update Carrier",
+        "tags": [
+          "Carriers Management"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/operations/location-types": {
       "get": {
         "description": "Returns a paginated list of location types.",
@@ -19520,6 +20695,21 @@
                           "service_level_token": "fedex_ground",
                           "customer_portal_visibility": "visible",
                           "is_default": false,
+                          "owner": {
+                            "object": "owner",
+                            "type": "account",
+                            "account": {
+                              "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                              "object": "account",
+                              "name": "Acme Inc.",
+                              "default_billing_address": null,
+                              "default_shipping_address": null,
+                              "branding": null,
+                              "portal": null,
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
+                            }
+                          },
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
@@ -19851,6 +21041,21 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": false,
+                      "owner": {
+                        "object": "owner",
+                        "type": "account",
+                        "account": {
+                          "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -20199,6 +21404,21 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": false,
+                      "owner": {
+                        "object": "owner",
+                        "type": "account",
+                        "account": {
+                          "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -20518,6 +21738,21 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": false,
+                      "owner": {
+                        "object": "owner",
+                        "type": "account",
+                        "account": {
+                          "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -20837,6 +22072,21 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": false,
+                      "owner": {
+                        "object": "owner",
+                        "type": "account",
+                        "account": {
+                          "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -21265,6 +22515,14 @@
     {
       "description": "List and retrieve priorities.",
       "name": "Priorities"
+    },
+    {
+      "description": "List and manage carriers and their Shippo integrations.",
+      "name": "Carriers Management"
+    },
+    {
+      "description": "List and manage service levels (shipping service levels).",
+      "name": "Service Levels Management"
     },
     {
       "description": "List and manage item categories.",
