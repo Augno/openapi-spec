@@ -19863,8 +19863,7 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner",
-                  "owner.account"
+                  "owner"
                 ],
                 "type": "string"
               },
@@ -19949,8 +19948,7 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner",
-                  "owner.account"
+                  "owner"
                 ],
                 "type": "string"
               },
@@ -22307,8 +22305,7 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner",
-                  "owner.account"
+                  "owner"
                 ],
                 "type": "string"
               },
@@ -22393,8 +22390,7 @@
             "schema": {
               "items": {
                 "enum": [
-                  "owner",
-                  "owner.account"
+                  "owner"
                 ],
                 "type": "string"
               },
