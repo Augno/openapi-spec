@@ -20029,6 +20029,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Query parameter: drop_ship for List Addresses",
+            "example": true,
+            "in": "query",
+            "name": "drop_ship",
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
