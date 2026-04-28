@@ -14333,7 +14333,7 @@
             }
           },
           {
-            "description": "Resource types of the audited entity (repeatable, exact match).",
+            "description": "Resource types of the audited entity.",
             "example": [
               "account"
             ],
@@ -14533,10 +14533,10 @@
             }
           },
           {
-            "description": "Audited resource IDs (repeatable, exact match).",
+            "description": "Audited resource IDs.",
             "example": [],
             "in": "query",
-            "name": "resource_id[]",
+            "name": "resource_ids[]",
             "schema": {
               "items": {
                 "type": "string"
@@ -14545,10 +14545,10 @@
             }
           },
           {
-            "description": "Actor IDs (repeatable, exact match). Each value is a user.id when\nidentity_type=user, or an api_key.type_id when identity_type=api_key —\nnot an account_user.id.",
+            "description": "Actor identifier. `user.id` when `identity_type`=`user`, or an `api_key.id` when `identity_type`=`api_key`.",
             "example": [],
             "in": "query",
-            "name": "actor_id[]",
+            "name": "actor_ids[]",
             "schema": {
               "items": {
                 "type": "string"
@@ -14557,12 +14557,12 @@
             }
           },
           {
-            "description": "Audit actions (repeatable, exact match).",
+            "description": "Audit actions.",
             "example": [
               "create"
             ],
             "in": "query",
-            "name": "action[]",
+            "name": "actions[]",
             "schema": {
               "items": {
                 "enum": [
@@ -15159,7 +15159,7 @@
             }
           },
           {
-            "description": "Filter: start of date range for occurred_at.",
+            "description": "Start of date range for occurred_at.",
             "example": "example",
             "in": "query",
             "name": "start_date",
@@ -15169,7 +15169,7 @@
             }
           },
           {
-            "description": "Filter: end of date range for occurred_at.",
+            "description": "End of date range for occurred_at.",
             "example": "example",
             "in": "query",
             "name": "end_date",
@@ -15179,22 +15179,33 @@
             }
           },
           {
-            "description": "Filter: HTTP methods (repeatable, exact match).",
-            "example": [],
+            "description": "HTTP methods.",
+            "example": [
+              "GET"
+            ],
             "in": "query",
-            "name": "method[]",
+            "name": "methods[]",
             "schema": {
               "items": {
+                "enum": [
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "PATCH",
+                  "DELETE",
+                  "HEAD",
+                  "OPTIONS"
+                ],
                 "type": "string"
               },
               "type": "array"
             }
           },
           {
-            "description": "Filter: HTTP status codes (repeatable, exact match).",
+            "description": "HTTP status codes.",
             "example": [],
             "in": "query",
-            "name": "status_code[]",
+            "name": "status_codes[]",
             "schema": {
               "items": {
                 "type": "integer"
@@ -15203,10 +15214,10 @@
             }
           },
           {
-            "description": "Filter: API error codes (repeatable, exact match).",
+            "description": "API error codes.",
             "example": [],
             "in": "query",
-            "name": "error_code[]",
+            "name": "error_codes[]",
             "schema": {
               "items": {
                 "type": "string"
@@ -15215,10 +15226,10 @@
             }
           },
           {
-            "description": "Filter: actor home account IDs (repeatable, exact match).",
+            "description": "Actor home account IDs.",
             "example": [],
             "in": "query",
-            "name": "account_id[]",
+            "name": "account_ids[]",
             "schema": {
               "items": {
                 "type": "string"
@@ -15227,10 +15238,10 @@
             }
           },
           {
-            "description": "Filter: actor IDs (repeatable, exact match). Each value is a user.id when\nidentity_type=user, or an api_key.type_id when identity_type=api_key —\nnot an account_user.id.",
+            "description": "Actor identifier. `user.id` when `identity_type`=`user`, or an `api_key.id` when `identity_type`=`api_key`.",
             "example": [],
             "in": "query",
-            "name": "actor_id[]",
+            "name": "actor_ids[]",
             "schema": {
               "items": {
                 "type": "string"
@@ -15239,10 +15250,29 @@
             }
           },
           {
-            "description": "Filter: actor types (repeatable, exact match — \"user\" or \"api_key\").",
+            "description": "Actor types.",
+            "example": [
+              "user"
+            ],
+            "in": "query",
+            "name": "actor_types[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "user",
+                  "api_key",
+                  "agent"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
+            "description": "Normalized route templates.",
             "example": [],
             "in": "query",
-            "name": "actor_type[]",
+            "name": "normalized_routes[]",
             "schema": {
               "items": {
                 "type": "string"
@@ -15251,10 +15281,10 @@
             }
           },
           {
-            "description": "Filter: normalized route templates (repeatable, exact match).",
+            "description": "Request hosts.",
             "example": [],
             "in": "query",
-            "name": "normalized_route[]",
+            "name": "hosts[]",
             "schema": {
               "items": {
                 "type": "string"
@@ -15263,19 +15293,7 @@
             }
           },
           {
-            "description": "Filter: request hosts (repeatable, exact match).",
-            "example": [],
-            "in": "query",
-            "name": "host[]",
-            "schema": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            }
-          },
-          {
-            "description": "Filter: minimum latency in microseconds.",
+            "description": "Minimum latency in microseconds.",
             "example": 100,
             "in": "query",
             "name": "min_latency_us",
@@ -16803,7 +16821,7 @@
             "description": "Filter by role type code(s).",
             "example": [],
             "in": "query",
-            "name": "role_type[]",
+            "name": "role_types[]",
             "schema": {
               "items": {
                 "type": "string"
