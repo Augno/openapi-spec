@@ -1265,6 +1265,7 @@
           "value": "Premium",
           "color": "red",
           "sort_order": 1,
+          "property": null,
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
         },
@@ -1330,6 +1331,7 @@
           "value",
           "color",
           "sort_order",
+          "property",
           "created_at",
           "updated_at"
         ],
@@ -1485,6 +1487,7 @@
               "carrier",
               "service_level",
               "item",
+              "item_inventory",
               "product",
               "batch",
               "batch_flow_node",
@@ -1930,7 +1933,161 @@
             "object": "item",
             "sku": "ALM-2024-1001",
             "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
-            "item_type": "part"
+            "notes": null,
+            "type": "product",
+            "category": {
+              "id": "ic_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "item_category",
+              "name": "Electronics",
+              "notes": null,
+              "type": "material_category",
+              "owner": {
+                "object": "owner",
+                "type": "system",
+                "account": null
+              },
+              "properties": null,
+              "unit_group": null,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "unit_value": {
+              "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "rate",
+              "value": "25.500000000000000000000000000000",
+              "numerator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "USD",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "denominator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "Kilogram",
+                "abbreviation": "kg",
+                "type": "mass",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "display_value": "$25.50 / kg",
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "unit_cost": {
+              "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "rate",
+              "value": "25.500000000000000000000000000000",
+              "numerator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "USD",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "denominator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "Kilogram",
+                "abbreviation": "kg",
+                "type": "mass",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "display_value": "$25.50 / kg",
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "burn_rate": {
+              "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "rate",
+              "value": "25.500000000000000000000000000000",
+              "numerator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "USD",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "denominator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "Kilogram",
+                "abbreviation": "kg",
+                "type": "mass",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "display_value": "$25.50 / kg",
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "attributes": {
+              "object": "list",
+              "page_info": {
+                "next_cursor": null,
+                "prev_cursor": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": [
+                {
+                  "id": "at_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "attribute",
+                  "value": "Premium",
+                  "color": "red",
+                  "sort_order": 1,
+                  "property": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
+              ]
+            },
+            "created_at": "2026-05-10T00:00:00Z",
+            "updated_at": "2026-05-10T00:23:00Z"
           },
           "instructions": "Mix with water before adding",
           "created_at": "2026-05-10T00:00:00Z",
@@ -2013,16 +2170,170 @@
           "consumed_item": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/ConsumptionItem"
+                "$ref": "#/components/schemas/Item"
               }
             ],
-            "description": "Consumed item.",
+            "description": "Consumed item. Expandable via include[]=consumed_item.",
             "example": {
               "id": "it_01jm4r6700f8nwq3v5hx2d9ktp",
               "object": "item",
               "sku": "ALM-2024-1001",
               "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
-              "item_type": "part"
+              "notes": null,
+              "type": "product",
+              "category": {
+                "id": "ic_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "item_category",
+                "name": "Electronics",
+                "notes": null,
+                "type": "material_category",
+                "owner": {
+                  "object": "owner",
+                  "type": "system",
+                  "account": null
+                },
+                "properties": null,
+                "unit_group": null,
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "unit_value": {
+                "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "rate",
+                "value": "25.500000000000000000000000000000",
+                "numerator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "USD",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "denominator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "display_value": "$25.50 / kg",
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "unit_cost": {
+                "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "rate",
+                "value": "25.500000000000000000000000000000",
+                "numerator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "USD",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "denominator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "display_value": "$25.50 / kg",
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "burn_rate": {
+                "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "rate",
+                "value": "25.500000000000000000000000000000",
+                "numerator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "USD",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "denominator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "display_value": "$25.50 / kg",
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "attributes": {
+                "object": "list",
+                "page_info": {
+                  "next_cursor": null,
+                  "prev_cursor": null,
+                  "has_next_page": false,
+                  "has_prev_page": false
+                },
+                "data": [
+                  {
+                    "id": "at_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "attribute",
+                    "value": "Premium",
+                    "color": "red",
+                    "sort_order": 1,
+                    "property": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  }
+                ]
+              },
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
             },
             "nullable": true,
             "x-expandable": true
@@ -2052,55 +2363,6 @@
           "instructions",
           "created_at",
           "updated_at"
-        ],
-        "type": "object"
-      },
-      "ConsumptionItem": {
-        "description": "Item embedded within a consumption.",
-        "example": {
-          "id": "it_01jm4r6700f8nwq3v5hx2d9ktp",
-          "object": "item",
-          "sku": "ALM-2024-1001",
-          "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
-          "item_type": "part"
-        },
-        "properties": {
-          "id": {
-            "description": "Item ID.",
-            "type": "string"
-          },
-          "object": {
-            "description": "Resource type identifier.",
-            "enum": [
-              "item"
-            ],
-            "type": "string"
-          },
-          "sku": {
-            "description": "Stock keeping unit code.",
-            "type": "string"
-          },
-          "description": {
-            "description": "Item description.",
-            "nullable": true,
-            "type": "string"
-          },
-          "item_type": {
-            "description": "Item type code.",
-            "enum": [
-              "product",
-              "material",
-              "part"
-            ],
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "object",
-          "sku",
-          "description",
-          "item_type"
         ],
         "type": "object"
       },
@@ -4925,6 +5187,7 @@
                 "value": "Premium",
                 "color": "red",
                 "sort_order": 1,
+                "property": null,
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               }
@@ -5240,25 +5503,6 @@
               }
             ],
             "description": "Properties associated with this item category.",
-            "example": {
-              "object": "list",
-              "page_info": {
-                "next_cursor": "pp_01jm4r6700f8nwq3v5hx2d9ktp",
-                "prev_cursor": null,
-                "has_next_page": true,
-                "has_prev_page": false
-              },
-              "data": [
-                {
-                  "id": "pp_01jm4r6700f8nwq3v5hx2d9ktp",
-                  "object": "property",
-                  "name": "Color",
-                  "attributes": null,
-                  "created_at": "2026-05-10T00:00:00Z",
-                  "updated_at": "2026-05-10T00:23:00Z"
-                }
-              ]
-            },
             "nullable": true,
             "x-expandable": true
           },
@@ -5334,93 +5578,89 @@
       "ItemInventory": {
         "description": "ItemInventory contains inventory quantities for an item.",
         "example": {
-          "object": "item",
+          "object": "item_inventory",
           "on_hand": {
-            "value": "100.000000000000000000000000000000",
+            "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+            "object": "quantity",
+            "value": "1234.56",
+            "display_value": "$1,234.56",
             "unit": {
               "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
               "object": "unit",
-              "name": "Kilogram",
-              "abbreviation": "kg",
-              "type": "mass",
-              "ratio_numerator": "1000",
-              "ratio_denominator": "1",
-              "offset_numerator": "0",
-              "offset_denominator": "1",
+              "name": "US Dollar",
+              "abbreviation": "$",
+              "type": "currency",
+              "ratio_numerator": "",
+              "ratio_denominator": "",
+              "offset_numerator": "",
+              "offset_denominator": "",
               "is_base_unit": false,
-              "owner": {
-                "object": "owner",
-                "type": "system",
-                "account": null
-              },
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
+              "owner": null,
+              "created_at": "0001-01-01T00:00:00Z",
+              "updated_at": "0001-01-01T00:00:00Z"
             }
           },
           "reserved": {
-            "value": "100.000000000000000000000000000000",
+            "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+            "object": "quantity",
+            "value": "1234.56",
+            "display_value": "$1,234.56",
             "unit": {
               "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
               "object": "unit",
-              "name": "Kilogram",
-              "abbreviation": "kg",
-              "type": "mass",
-              "ratio_numerator": "1000",
-              "ratio_denominator": "1",
-              "offset_numerator": "0",
-              "offset_denominator": "1",
+              "name": "US Dollar",
+              "abbreviation": "$",
+              "type": "currency",
+              "ratio_numerator": "",
+              "ratio_denominator": "",
+              "offset_numerator": "",
+              "offset_denominator": "",
               "is_base_unit": false,
-              "owner": {
-                "object": "owner",
-                "type": "system",
-                "account": null
-              },
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
+              "owner": null,
+              "created_at": "0001-01-01T00:00:00Z",
+              "updated_at": "0001-01-01T00:00:00Z"
             }
           },
           "available_to_promise": {
-            "value": "100.000000000000000000000000000000",
+            "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+            "object": "quantity",
+            "value": "1234.56",
+            "display_value": "$1,234.56",
             "unit": {
               "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
               "object": "unit",
-              "name": "Kilogram",
-              "abbreviation": "kg",
-              "type": "mass",
-              "ratio_numerator": "1000",
-              "ratio_denominator": "1",
-              "offset_numerator": "0",
-              "offset_denominator": "1",
+              "name": "US Dollar",
+              "abbreviation": "$",
+              "type": "currency",
+              "ratio_numerator": "",
+              "ratio_denominator": "",
+              "offset_numerator": "",
+              "offset_denominator": "",
               "is_base_unit": false,
-              "owner": {
-                "object": "owner",
-                "type": "system",
-                "account": null
-              },
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
+              "owner": null,
+              "created_at": "0001-01-01T00:00:00Z",
+              "updated_at": "0001-01-01T00:00:00Z"
             }
           },
           "short": {
-            "value": "100.000000000000000000000000000000",
+            "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+            "object": "quantity",
+            "value": "1234.56",
+            "display_value": "$1,234.56",
             "unit": {
               "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
               "object": "unit",
-              "name": "Kilogram",
-              "abbreviation": "kg",
-              "type": "mass",
-              "ratio_numerator": "1000",
-              "ratio_denominator": "1",
-              "offset_numerator": "0",
-              "offset_denominator": "1",
+              "name": "US Dollar",
+              "abbreviation": "$",
+              "type": "currency",
+              "ratio_numerator": "",
+              "ratio_denominator": "",
+              "offset_numerator": "",
+              "offset_denominator": "",
               "is_base_unit": false,
-              "owner": {
-                "object": "owner",
-                "type": "system",
-                "account": null
-              },
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
+              "owner": null,
+              "created_at": "0001-01-01T00:00:00Z",
+              "updated_at": "0001-01-01T00:00:00Z"
             }
           }
         },
@@ -5428,45 +5668,133 @@
           "object": {
             "description": "Resource type identifier.",
             "enum": [
-              "item"
+              "item_inventory"
             ],
             "type": "string"
           },
           "on_hand": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/QuantityInfo"
+                "$ref": "#/components/schemas/Quantity"
               }
             ],
-            "description": "On-hand quantity and unit.",
-            "nullable": true
+            "description": "On-hand quantity. Expandable via include[]=on_hand.",
+            "example": {
+              "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "quantity",
+              "value": "1234.56",
+              "display_value": "$1,234.56",
+              "unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "$",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              }
+            },
+            "nullable": true,
+            "x-expandable": true
           },
           "reserved": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/QuantityInfo"
+                "$ref": "#/components/schemas/Quantity"
               }
             ],
-            "description": "Reserved quantity and unit.",
-            "nullable": true
+            "description": "Reserved quantity. Expandable via include[]=reserved.",
+            "example": {
+              "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "quantity",
+              "value": "1234.56",
+              "display_value": "$1,234.56",
+              "unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "$",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              }
+            },
+            "nullable": true,
+            "x-expandable": true
           },
           "available_to_promise": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/QuantityInfo"
+                "$ref": "#/components/schemas/Quantity"
               }
             ],
-            "description": "Available-to-promise quantity and unit.",
-            "nullable": true
+            "description": "Available-to-promise quantity. Expandable via include[]=available_to_promise.",
+            "example": {
+              "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "quantity",
+              "value": "1234.56",
+              "display_value": "$1,234.56",
+              "unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "$",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              }
+            },
+            "nullable": true,
+            "x-expandable": true
           },
           "short": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/QuantityInfo"
+                "$ref": "#/components/schemas/Quantity"
               }
             ],
-            "description": "Short quantity and unit.",
-            "nullable": true
+            "description": "Short quantity. Expandable via include[]=short.",
+            "example": {
+              "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "quantity",
+              "value": "1234.56",
+              "display_value": "$1,234.56",
+              "unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "$",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              }
+            },
+            "nullable": true,
+            "x-expandable": true
           }
         },
         "required": [
@@ -6153,6 +6481,42 @@
         ],
         "type": "object"
       },
+      "List_Consumption": {
+        "description": "List represents a paginated list of resources.",
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/Consumption"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
       "List_Customer": {
         "description": "List represents a paginated list of resources.",
         "example": {
@@ -6732,6 +7096,7 @@
                     "value": "Premium",
                     "color": "red",
                     "sort_order": 1,
+                    "property": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   }
@@ -7132,6 +7497,7 @@
                       "value": "Premium",
                       "color": "red",
                       "sort_order": 1,
+                      "property": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
@@ -7141,47 +7507,45 @@
                 "updated_at": "2026-05-10T00:23:00Z"
               },
               "order_point": {
-                "value": "100.000000000000000000000000000000",
+                "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "quantity",
+                "value": "1234.56",
+                "display_value": "$1,234.56",
                 "unit": {
                   "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                   "object": "unit",
-                  "name": "Kilogram",
-                  "abbreviation": "kg",
-                  "type": "mass",
-                  "ratio_numerator": "1000",
-                  "ratio_denominator": "1",
-                  "offset_numerator": "0",
-                  "offset_denominator": "1",
+                  "name": "US Dollar",
+                  "abbreviation": "$",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
                   "is_base_unit": false,
-                  "owner": {
-                    "object": "owner",
-                    "type": "system",
-                    "account": null
-                  },
-                  "created_at": "2026-05-10T00:00:00Z",
-                  "updated_at": "2026-05-10T00:23:00Z"
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
                 }
               },
               "lead_time": {
-                "value": "100.000000000000000000000000000000",
+                "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "quantity",
+                "value": "1234.56",
+                "display_value": "$1,234.56",
                 "unit": {
                   "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                   "object": "unit",
-                  "name": "Kilogram",
-                  "abbreviation": "kg",
-                  "type": "mass",
-                  "ratio_numerator": "1000",
-                  "ratio_denominator": "1",
-                  "offset_numerator": "0",
-                  "offset_denominator": "1",
+                  "name": "US Dollar",
+                  "abbreviation": "$",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
                   "is_base_unit": false,
-                  "owner": {
-                    "object": "owner",
-                    "type": "system",
-                    "account": null
-                  },
-                  "created_at": "2026-05-10T00:00:00Z",
-                  "updated_at": "2026-05-10T00:23:00Z"
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
                 }
               },
               "created_at": "2026-05-10T00:00:00Z",
@@ -7310,6 +7674,7 @@
                 "carrier",
                 "service_level",
                 "item",
+                "item_inventory",
                 "product",
                 "batch",
                 "batch_flow_node",
@@ -7623,6 +7988,7 @@
                       "value": "Premium",
                       "color": "red",
                       "sort_order": 1,
+                      "property": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
@@ -7975,6 +8341,7 @@
                       "value": "Premium",
                       "color": "red",
                       "sort_order": 1,
+                      "property": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
@@ -8124,25 +8491,6 @@
       },
       "List_Property": {
         "description": "List represents a paginated list of resources.",
-        "example": {
-          "object": "list",
-          "page_info": {
-            "next_cursor": "pp_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
-            "has_next_page": true,
-            "has_prev_page": false
-          },
-          "data": [
-            {
-              "id": "pp_01jm4r6700f8nwq3v5hx2d9ktp",
-              "object": "property",
-              "name": "Color",
-              "attributes": null,
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
-            }
-          ]
-        },
         "properties": {
           "object": {
             "description": "Resource type identifier.",
@@ -9161,6 +9509,7 @@
                   "value": "Premium",
                   "color": "red",
                   "sort_order": 1,
+                  "property": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 }
@@ -9170,47 +9519,45 @@
             "updated_at": "2026-05-10T00:23:00Z"
           },
           "order_point": {
-            "value": "100.000000000000000000000000000000",
+            "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+            "object": "quantity",
+            "value": "1234.56",
+            "display_value": "$1,234.56",
             "unit": {
               "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
               "object": "unit",
-              "name": "Kilogram",
-              "abbreviation": "kg",
-              "type": "mass",
-              "ratio_numerator": "1000",
-              "ratio_denominator": "1",
-              "offset_numerator": "0",
-              "offset_denominator": "1",
+              "name": "US Dollar",
+              "abbreviation": "$",
+              "type": "currency",
+              "ratio_numerator": "",
+              "ratio_denominator": "",
+              "offset_numerator": "",
+              "offset_denominator": "",
               "is_base_unit": false,
-              "owner": {
-                "object": "owner",
-                "type": "system",
-                "account": null
-              },
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
+              "owner": null,
+              "created_at": "0001-01-01T00:00:00Z",
+              "updated_at": "0001-01-01T00:00:00Z"
             }
           },
           "lead_time": {
-            "value": "100.000000000000000000000000000000",
+            "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+            "object": "quantity",
+            "value": "1234.56",
+            "display_value": "$1,234.56",
             "unit": {
               "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
               "object": "unit",
-              "name": "Kilogram",
-              "abbreviation": "kg",
-              "type": "mass",
-              "ratio_numerator": "1000",
-              "ratio_denominator": "1",
-              "offset_numerator": "0",
-              "offset_denominator": "1",
+              "name": "US Dollar",
+              "abbreviation": "$",
+              "type": "currency",
+              "ratio_numerator": "",
+              "ratio_denominator": "",
+              "offset_numerator": "",
+              "offset_denominator": "",
               "is_base_unit": false,
-              "owner": {
-                "object": "owner",
-                "type": "system",
-                "account": null
-              },
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
+              "owner": null,
+              "created_at": "0001-01-01T00:00:00Z",
+              "updated_at": "0001-01-01T00:00:00Z"
             }
           },
           "created_at": "2026-05-10T00:00:00Z",
@@ -9387,6 +9734,7 @@
                     "value": "Premium",
                     "color": "red",
                     "sort_order": 1,
+                    "property": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   }
@@ -9401,19 +9749,61 @@
           "order_point": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/QuantityInfo"
+                "$ref": "#/components/schemas/Quantity"
               }
             ],
             "description": "Order point quantity.",
+            "example": {
+              "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "quantity",
+              "value": "1234.56",
+              "display_value": "$1,234.56",
+              "unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "$",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              }
+            },
             "nullable": true
           },
           "lead_time": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/QuantityInfo"
+                "$ref": "#/components/schemas/Quantity"
               }
             ],
             "description": "Lead time quantity.",
+            "example": {
+              "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "quantity",
+              "value": "1234.56",
+              "display_value": "$1,234.56",
+              "unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "$",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              }
+            },
             "nullable": true
           },
           "created_at": {
@@ -9716,6 +10106,7 @@
                   "value": "Premium",
                   "color": "red",
                   "sort_order": 1,
+                  "property": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 }
@@ -9898,6 +10289,7 @@
                     "value": "Premium",
                     "color": "red",
                     "sort_order": 1,
+                    "property": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   }
@@ -10248,6 +10640,7 @@
                   "value": "Premium",
                   "color": "red",
                   "sort_order": 1,
+                  "property": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 }
@@ -10477,6 +10870,7 @@
                     "value": "Premium",
                     "color": "red",
                     "sort_order": 1,
+                    "property": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   }
@@ -10661,8 +11055,162 @@
             "id": "it_01jm4r6700f8nwq3v5hx2d9ktp",
             "object": "item",
             "sku": "ALM-2024-1001",
-            "description": null,
-            "item_type": "product"
+            "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
+            "notes": null,
+            "type": "product",
+            "category": {
+              "id": "ic_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "item_category",
+              "name": "Electronics",
+              "notes": null,
+              "type": "material_category",
+              "owner": {
+                "object": "owner",
+                "type": "system",
+                "account": null
+              },
+              "properties": null,
+              "unit_group": null,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "unit_value": {
+              "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "rate",
+              "value": "25.500000000000000000000000000000",
+              "numerator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "USD",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "denominator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "Kilogram",
+                "abbreviation": "kg",
+                "type": "mass",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "display_value": "$25.50 / kg",
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "unit_cost": {
+              "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "rate",
+              "value": "25.500000000000000000000000000000",
+              "numerator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "USD",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "denominator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "Kilogram",
+                "abbreviation": "kg",
+                "type": "mass",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "display_value": "$25.50 / kg",
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "burn_rate": {
+              "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "rate",
+              "value": "25.500000000000000000000000000000",
+              "numerator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "USD",
+                "type": "currency",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "denominator_unit": {
+                "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "unit",
+                "name": "Kilogram",
+                "abbreviation": "kg",
+                "type": "mass",
+                "ratio_numerator": "",
+                "ratio_denominator": "",
+                "offset_numerator": "",
+                "offset_denominator": "",
+                "is_base_unit": false,
+                "owner": null,
+                "created_at": "0001-01-01T00:00:00Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+              },
+              "display_value": "$25.50 / kg",
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "attributes": {
+              "object": "list",
+              "page_info": {
+                "next_cursor": null,
+                "prev_cursor": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": [
+                {
+                  "id": "at_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "attribute",
+                  "value": "Premium",
+                  "color": "red",
+                  "sort_order": 1,
+                  "property": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
+              ]
+            },
+            "created_at": "2026-05-10T00:00:00Z",
+            "updated_at": "2026-05-10T00:23:00Z"
           },
           "quantity": {
             "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
@@ -10703,18 +11251,173 @@
           "produced_item": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/ConsumptionItem"
+                "$ref": "#/components/schemas/Item"
               }
             ],
-            "description": "Produced item.",
+            "description": "Produced item. Expandable via include[]=produced_item.",
             "example": {
               "id": "it_01jm4r6700f8nwq3v5hx2d9ktp",
               "object": "item",
               "sku": "ALM-2024-1001",
               "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
-              "item_type": "part"
+              "notes": null,
+              "type": "product",
+              "category": {
+                "id": "ic_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "item_category",
+                "name": "Electronics",
+                "notes": null,
+                "type": "material_category",
+                "owner": {
+                  "object": "owner",
+                  "type": "system",
+                  "account": null
+                },
+                "properties": null,
+                "unit_group": null,
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "unit_value": {
+                "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "rate",
+                "value": "25.500000000000000000000000000000",
+                "numerator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "USD",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "denominator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "display_value": "$25.50 / kg",
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "unit_cost": {
+                "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "rate",
+                "value": "25.500000000000000000000000000000",
+                "numerator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "USD",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "denominator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "display_value": "$25.50 / kg",
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "burn_rate": {
+                "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "rate",
+                "value": "25.500000000000000000000000000000",
+                "numerator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "USD",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "denominator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "display_value": "$25.50 / kg",
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "attributes": {
+                "object": "list",
+                "page_info": {
+                  "next_cursor": null,
+                  "prev_cursor": null,
+                  "has_next_page": false,
+                  "has_prev_page": false
+                },
+                "data": [
+                  {
+                    "id": "at_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "attribute",
+                    "value": "Premium",
+                    "color": "red",
+                    "sort_order": 1,
+                    "property": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  }
+                ]
+              },
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
             },
-            "nullable": true
+            "nullable": true,
+            "x-expandable": true
           },
           "quantity": {
             "allOf": [
@@ -10897,8 +11600,162 @@
               "id": "it_01jm4r6700f8nwq3v5hx2d9ktp",
               "object": "item",
               "sku": "ALM-2024-1001",
-              "description": null,
-              "item_type": "product"
+              "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
+              "notes": null,
+              "type": "product",
+              "category": {
+                "id": "ic_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "item_category",
+                "name": "Electronics",
+                "notes": null,
+                "type": "material_category",
+                "owner": {
+                  "object": "owner",
+                  "type": "system",
+                  "account": null
+                },
+                "properties": null,
+                "unit_group": null,
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "unit_value": {
+                "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "rate",
+                "value": "25.500000000000000000000000000000",
+                "numerator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "USD",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "denominator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "display_value": "$25.50 / kg",
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "unit_cost": {
+                "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "rate",
+                "value": "25.500000000000000000000000000000",
+                "numerator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "USD",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "denominator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "display_value": "$25.50 / kg",
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "burn_rate": {
+                "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "rate",
+                "value": "25.500000000000000000000000000000",
+                "numerator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "USD",
+                  "type": "currency",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "denominator_unit": {
+                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "unit",
+                  "name": "Kilogram",
+                  "abbreviation": "kg",
+                  "type": "mass",
+                  "ratio_numerator": "",
+                  "ratio_denominator": "",
+                  "offset_numerator": "",
+                  "offset_denominator": "",
+                  "is_base_unit": false,
+                  "owner": null,
+                  "created_at": "0001-01-01T00:00:00Z",
+                  "updated_at": "0001-01-01T00:00:00Z"
+                },
+                "display_value": "$25.50 / kg",
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "attributes": {
+                "object": "list",
+                "page_info": {
+                  "next_cursor": null,
+                  "prev_cursor": null,
+                  "has_next_page": false,
+                  "has_prev_page": false
+                },
+                "data": [
+                  {
+                    "id": "at_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "attribute",
+                    "value": "Premium",
+                    "color": "red",
+                    "sort_order": 1,
+                    "property": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  }
+                ]
+              },
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
             },
             "quantity": {
               "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
@@ -10924,69 +11781,366 @@
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z"
           },
-          "consumptions": [
-            {
-              "id": "cp_01jm4r6700f8nwq3v5hx2d9ktp",
-              "object": "consumption",
-              "quantity": {
-                "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
-                "object": "quantity",
-                "value": "1234.56",
-                "display_value": "$1,234.56",
-                "unit": {
-                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
-                  "object": "unit",
-                  "name": "US Dollar",
-                  "abbreviation": "$",
-                  "type": "currency",
-                  "ratio_numerator": "",
-                  "ratio_denominator": "",
-                  "offset_numerator": "",
-                  "offset_denominator": "",
-                  "is_base_unit": false,
-                  "owner": null,
-                  "created_at": "0001-01-01T00:00:00Z",
-                  "updated_at": "0001-01-01T00:00:00Z"
-                }
+          "consumptions": {
+            "object": "list",
+            "page_info": {
+              "next_cursor": null,
+              "prev_cursor": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "id": "cp_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "consumption",
+                "quantity": {
+                  "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "quantity",
+                  "value": "1234.56",
+                  "display_value": "$1,234.56",
+                  "unit": {
+                    "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "unit",
+                    "name": "US Dollar",
+                    "abbreviation": "$",
+                    "type": "currency",
+                    "ratio_numerator": "",
+                    "ratio_denominator": "",
+                    "offset_numerator": "",
+                    "offset_denominator": "",
+                    "is_base_unit": false,
+                    "owner": null,
+                    "created_at": "0001-01-01T00:00:00Z",
+                    "updated_at": "0001-01-01T00:00:00Z"
+                  }
+                },
+                "waste_quantity": {
+                  "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "quantity",
+                  "value": "1234.56",
+                  "display_value": "$1,234.56",
+                  "unit": {
+                    "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "unit",
+                    "name": "US Dollar",
+                    "abbreviation": "$",
+                    "type": "currency",
+                    "ratio_numerator": "",
+                    "ratio_denominator": "",
+                    "offset_numerator": "",
+                    "offset_denominator": "",
+                    "is_base_unit": false,
+                    "owner": null,
+                    "created_at": "0001-01-01T00:00:00Z",
+                    "updated_at": "0001-01-01T00:00:00Z"
+                  }
+                },
+                "consumed_item": {
+                  "id": "it_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "item",
+                  "sku": "ALM-2024-1001",
+                  "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
+                  "notes": null,
+                  "type": "product",
+                  "category": {
+                    "id": "ic_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "item_category",
+                    "name": "Electronics",
+                    "notes": null,
+                    "type": "material_category",
+                    "owner": {
+                      "object": "owner",
+                      "type": "system",
+                      "account": null
+                    },
+                    "properties": null,
+                    "unit_group": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  },
+                  "unit_value": {
+                    "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "rate",
+                    "value": "25.500000000000000000000000000000",
+                    "numerator_unit": {
+                      "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "unit",
+                      "name": "US Dollar",
+                      "abbreviation": "USD",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
+                      "is_base_unit": false,
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
+                    },
+                    "denominator_unit": {
+                      "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "unit",
+                      "name": "Kilogram",
+                      "abbreviation": "kg",
+                      "type": "mass",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
+                      "is_base_unit": false,
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
+                    },
+                    "display_value": "$25.50 / kg",
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  },
+                  "unit_cost": {
+                    "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "rate",
+                    "value": "25.500000000000000000000000000000",
+                    "numerator_unit": {
+                      "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "unit",
+                      "name": "US Dollar",
+                      "abbreviation": "USD",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
+                      "is_base_unit": false,
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
+                    },
+                    "denominator_unit": {
+                      "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "unit",
+                      "name": "Kilogram",
+                      "abbreviation": "kg",
+                      "type": "mass",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
+                      "is_base_unit": false,
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
+                    },
+                    "display_value": "$25.50 / kg",
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  },
+                  "burn_rate": {
+                    "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "rate",
+                    "value": "25.500000000000000000000000000000",
+                    "numerator_unit": {
+                      "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "unit",
+                      "name": "US Dollar",
+                      "abbreviation": "USD",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
+                      "is_base_unit": false,
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
+                    },
+                    "denominator_unit": {
+                      "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "unit",
+                      "name": "Kilogram",
+                      "abbreviation": "kg",
+                      "type": "mass",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
+                      "is_base_unit": false,
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
+                    },
+                    "display_value": "$25.50 / kg",
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  },
+                  "attributes": {
+                    "object": "list",
+                    "page_info": {
+                      "next_cursor": null,
+                      "prev_cursor": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "id": "at_01jm4r6700f8nwq3v5hx2d9ktp",
+                        "object": "attribute",
+                        "value": "Premium",
+                        "color": "red",
+                        "sort_order": 1,
+                        "property": null,
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      }
+                    ]
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "instructions": "Mix with water before adding",
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              }
+            ]
+          },
+          "machines": {
+            "object": "list",
+            "page_info": {
+              "next_cursor": null,
+              "prev_cursor": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "id": "mc_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "machine",
+                "name": "CNC Router",
+                "serial_number": "SN-2024-0001",
+                "notes": null,
+                "department": null,
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              }
+            ]
+          },
+          "scanning_station": {
+            "id": "scst_01jm4r6700f8nwq3v5hx2d9ktp",
+            "object": "scanning_station",
+            "name": "Packaging Line 1",
+            "notes": null,
+            "type": "init_batch",
+            "label_size": null,
+            "label_type": null,
+            "operator_requirement": "none",
+            "department": null,
+            "production_steps": null,
+            "created_at": "2026-05-10T00:00:00Z",
+            "updated_at": "2026-05-10T00:23:00Z"
+          },
+          "in_steps": {
+            "object": "list",
+            "page_info": {
+              "next_cursor": null,
+              "prev_cursor": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": []
+          },
+          "out_steps": {
+            "object": "list",
+            "page_info": {
+              "next_cursor": null,
+              "prev_cursor": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": []
+          },
+          "department": {
+            "id": "dp_01gf7a8200er3ar3pkfrb6kk30",
+            "object": "department",
+            "name": "Fabrication",
+            "notes": null,
+            "location": {
+              "id": "lc_01gf7a8200er3ar3pkfrb6kk30",
+              "object": "location",
+              "name": "Warehouse A",
+              "type": "building",
+              "parent": null,
+              "children": {
+                "object": "list",
+                "page_info": {
+                  "next_cursor": null,
+                  "prev_cursor": null,
+                  "has_next_page": false,
+                  "has_prev_page": false
+                },
+                "data": [
+                  {
+                    "id": "lc_01gf7a8200er3ar3pkfrb6kk32",
+                    "object": "location",
+                    "name": "Shelf A1",
+                    "type": "building",
+                    "parent": null,
+                    "children": null,
+                    "created_at": "0001-01-01T00:00:00Z",
+                    "updated_at": "0001-01-01T00:00:00Z"
+                  }
+                ]
               },
-              "waste_quantity": {
-                "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
-                "object": "quantity",
-                "value": "1234.56",
-                "display_value": "$1,234.56",
-                "unit": {
-                  "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
-                  "object": "unit",
-                  "name": "US Dollar",
-                  "abbreviation": "$",
-                  "type": "currency",
-                  "ratio_numerator": "",
-                  "ratio_denominator": "",
-                  "offset_numerator": "",
-                  "offset_denominator": "",
-                  "is_base_unit": false,
-                  "owner": null,
-                  "created_at": "0001-01-01T00:00:00Z",
-                  "updated_at": "0001-01-01T00:00:00Z"
-                }
-              },
-              "consumed_item": {
-                "id": "it_01jm4r6700f8nwq3v5hx2d9ktp",
-                "object": "item",
-                "sku": "ALM-2024-1001",
-                "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
-                "item_type": "part"
-              },
-              "instructions": "Mix with water before adding",
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
-            }
-          ],
-          "machines": [],
-          "scanning_station": null,
-          "in_steps": [],
-          "out_steps": [],
-          "department": null,
+            },
+            "scanning_stations": {
+              "object": "list",
+              "page_info": {
+                "next_cursor": null,
+                "prev_cursor": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": [
+                {
+                  "id": "scst_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "scanning_station",
+                  "name": "Packaging Line 1",
+                  "notes": null,
+                  "type": "init_batch",
+                  "label_size": null,
+                  "label_type": null,
+                  "operator_requirement": "none",
+                  "department": null,
+                  "production_steps": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
+              ]
+            },
+            "machines": {
+              "object": "list",
+              "page_info": {
+                "next_cursor": null,
+                "prev_cursor": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": [
+                {
+                  "id": "mc_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "machine",
+                  "name": "CNC Router",
+                  "serial_number": "SN-2024-0001",
+                  "notes": null,
+                  "department": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
+              ]
+            },
+            "created_at": "2026-05-10T00:00:00Z",
+            "updated_at": "2026-05-10T00:23:00Z"
+          },
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
         },
@@ -11168,7 +12322,7 @@
                 "$ref": "#/components/schemas/ProductionOutput"
               }
             ],
-            "description": "Production output.",
+            "description": "Production output. Expandable via include[]=production.",
             "example": {
               "id": "pn_01jm4r6700f8nwq3v5hx2d9ktp",
               "object": "production",
@@ -11176,8 +12330,162 @@
                 "id": "it_01jm4r6700f8nwq3v5hx2d9ktp",
                 "object": "item",
                 "sku": "ALM-2024-1001",
-                "description": null,
-                "item_type": "product"
+                "description": "6061-T6 aluminum sheet, 4ft x 8ft, 0.125in thick",
+                "notes": null,
+                "type": "product",
+                "category": {
+                  "id": "ic_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "item_category",
+                  "name": "Electronics",
+                  "notes": null,
+                  "type": "material_category",
+                  "owner": {
+                    "object": "owner",
+                    "type": "system",
+                    "account": null
+                  },
+                  "properties": null,
+                  "unit_group": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "unit_value": {
+                  "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "rate",
+                  "value": "25.500000000000000000000000000000",
+                  "numerator_unit": {
+                    "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "unit",
+                    "name": "US Dollar",
+                    "abbreviation": "USD",
+                    "type": "currency",
+                    "ratio_numerator": "",
+                    "ratio_denominator": "",
+                    "offset_numerator": "",
+                    "offset_denominator": "",
+                    "is_base_unit": false,
+                    "owner": null,
+                    "created_at": "0001-01-01T00:00:00Z",
+                    "updated_at": "0001-01-01T00:00:00Z"
+                  },
+                  "denominator_unit": {
+                    "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "unit",
+                    "name": "Kilogram",
+                    "abbreviation": "kg",
+                    "type": "mass",
+                    "ratio_numerator": "",
+                    "ratio_denominator": "",
+                    "offset_numerator": "",
+                    "offset_denominator": "",
+                    "is_base_unit": false,
+                    "owner": null,
+                    "created_at": "0001-01-01T00:00:00Z",
+                    "updated_at": "0001-01-01T00:00:00Z"
+                  },
+                  "display_value": "$25.50 / kg",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "unit_cost": {
+                  "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "rate",
+                  "value": "25.500000000000000000000000000000",
+                  "numerator_unit": {
+                    "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "unit",
+                    "name": "US Dollar",
+                    "abbreviation": "USD",
+                    "type": "currency",
+                    "ratio_numerator": "",
+                    "ratio_denominator": "",
+                    "offset_numerator": "",
+                    "offset_denominator": "",
+                    "is_base_unit": false,
+                    "owner": null,
+                    "created_at": "0001-01-01T00:00:00Z",
+                    "updated_at": "0001-01-01T00:00:00Z"
+                  },
+                  "denominator_unit": {
+                    "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "unit",
+                    "name": "Kilogram",
+                    "abbreviation": "kg",
+                    "type": "mass",
+                    "ratio_numerator": "",
+                    "ratio_denominator": "",
+                    "offset_numerator": "",
+                    "offset_denominator": "",
+                    "is_base_unit": false,
+                    "owner": null,
+                    "created_at": "0001-01-01T00:00:00Z",
+                    "updated_at": "0001-01-01T00:00:00Z"
+                  },
+                  "display_value": "$25.50 / kg",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "burn_rate": {
+                  "id": "ra_01jm4r6700f8nwq3v5hx2d9ktp",
+                  "object": "rate",
+                  "value": "25.500000000000000000000000000000",
+                  "numerator_unit": {
+                    "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "unit",
+                    "name": "US Dollar",
+                    "abbreviation": "USD",
+                    "type": "currency",
+                    "ratio_numerator": "",
+                    "ratio_denominator": "",
+                    "offset_numerator": "",
+                    "offset_denominator": "",
+                    "is_base_unit": false,
+                    "owner": null,
+                    "created_at": "0001-01-01T00:00:00Z",
+                    "updated_at": "0001-01-01T00:00:00Z"
+                  },
+                  "denominator_unit": {
+                    "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "unit",
+                    "name": "Kilogram",
+                    "abbreviation": "kg",
+                    "type": "mass",
+                    "ratio_numerator": "",
+                    "ratio_denominator": "",
+                    "offset_numerator": "",
+                    "offset_denominator": "",
+                    "is_base_unit": false,
+                    "owner": null,
+                    "created_at": "0001-01-01T00:00:00Z",
+                    "updated_at": "0001-01-01T00:00:00Z"
+                  },
+                  "display_value": "$25.50 / kg",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "attributes": {
+                  "object": "list",
+                  "page_info": {
+                    "next_cursor": null,
+                    "prev_cursor": null,
+                    "has_next_page": false,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "at_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "attribute",
+                      "value": "Premium",
+                      "color": "red",
+                      "sort_order": 1,
+                      "property": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  ]
+                },
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
               },
               "quantity": {
                 "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
@@ -11203,62 +12511,68 @@
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             },
-            "nullable": true
+            "nullable": true,
+            "x-expandable": true
           },
           "consumptions": {
-            "description": "Consumptions.",
-            "items": {
-              "$ref": "#/components/schemas/Consumption"
-            },
-            "type": "array"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_Consumption"
+              }
+            ],
+            "description": "Consumptions. Expandable via include[]=consumptions.",
+            "nullable": true,
+            "x-expandable": true
           },
           "machines": {
-            "description": "Machines assigned to this step.",
-            "items": {
-              "$ref": "#/components/schemas/ProductionStepMachine"
-            },
-            "type": "array"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_Machine"
+              }
+            ],
+            "description": "Machines assigned to this step. Expandable via include[]=machines.",
+            "nullable": true,
+            "x-expandable": true
           },
           "scanning_station": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/ProductionStepScanStation"
+                "$ref": "#/components/schemas/ScanningStation"
               }
             ],
-            "description": "Scanning station.",
-            "example": {
-              "id": "scst_01jm4r6700f8nwq3v5hx2d9ktp",
-              "object": "scanning_station",
-              "name": "Packaging Line 1"
-            },
-            "nullable": true
+            "description": "Scanning station. Expandable via include[]=scanning_station.",
+            "nullable": true,
+            "x-expandable": true
           },
           "in_steps": {
-            "description": "Input steps feeding into this step.",
-            "items": {
-              "$ref": "#/components/schemas/ProductionStepRef"
-            },
-            "type": "array"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_ProductionStep"
+              }
+            ],
+            "description": "Input steps feeding into this step. Expandable via include[]=in_steps.",
+            "nullable": true,
+            "x-expandable": true
           },
           "out_steps": {
-            "description": "Output steps this step feeds into.",
-            "items": {
-              "$ref": "#/components/schemas/ProductionStepRef"
-            },
-            "type": "array"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_ProductionStep"
+              }
+            ],
+            "description": "Output steps this step feeds into. Expandable via include[]=out_steps.",
+            "nullable": true,
+            "x-expandable": true
           },
           "department": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/ProductionStepDepartment"
+                "$ref": "#/components/schemas/Department"
               }
             ],
-            "description": "Department.",
-            "example": {
-              "id": "dp_01gf7a8200er3ar3pkfrb6kk30",
-              "object": "department"
-            },
-            "nullable": true
+            "description": "Department. Expandable via include[]=department.",
+            "nullable": true,
+            "x-expandable": true
           },
           "created_at": {
             "description": "Creation timestamp.",
@@ -11290,124 +12604,6 @@
           "department",
           "created_at",
           "updated_at"
-        ],
-        "type": "object"
-      },
-      "ProductionStepDepartment": {
-        "description": "Department reference on a production step.",
-        "example": {
-          "id": "dp_01gf7a8200er3ar3pkfrb6kk30",
-          "object": "department"
-        },
-        "properties": {
-          "id": {
-            "description": "Department ID.",
-            "type": "string"
-          },
-          "object": {
-            "description": "Resource type identifier.",
-            "enum": [
-              "department"
-            ],
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "object"
-        ],
-        "type": "object"
-      },
-      "ProductionStepMachine": {
-        "description": "Machine reference on a production step.",
-        "example": {
-          "id": "mc_01jm4r6700f8nwq3v5hx2d9ktp",
-          "object": "machine",
-          "name": "CNC Router"
-        },
-        "properties": {
-          "id": {
-            "description": "Machine ID.",
-            "type": "string"
-          },
-          "object": {
-            "description": "Resource type identifier.",
-            "enum": [
-              "machine"
-            ],
-            "type": "string"
-          },
-          "name": {
-            "description": "Display name.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "object",
-          "name"
-        ],
-        "type": "object"
-      },
-      "ProductionStepRef": {
-        "description": "Minimal production step reference.",
-        "example": {
-          "id": "prst_01jm4r6700f8nwq3v5hx2d9ktp",
-          "object": "production_step",
-          "name": "Final Assembly"
-        },
-        "properties": {
-          "id": {
-            "description": "Production step ID.",
-            "type": "string"
-          },
-          "object": {
-            "description": "Resource type identifier.",
-            "enum": [
-              "production_step"
-            ],
-            "type": "string"
-          },
-          "name": {
-            "description": "Display name.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "object",
-          "name"
-        ],
-        "type": "object"
-      },
-      "ProductionStepScanStation": {
-        "description": "Scanning station reference on a production step.",
-        "example": {
-          "id": "scst_01jm4r6700f8nwq3v5hx2d9ktp",
-          "object": "scanning_station",
-          "name": "Packaging Line 1"
-        },
-        "properties": {
-          "id": {
-            "description": "Scanning station ID.",
-            "type": "string"
-          },
-          "object": {
-            "description": "Resource type identifier.",
-            "enum": [
-              "scanning_station"
-            ],
-            "type": "string"
-          },
-          "name": {
-            "description": "Display name.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "object",
-          "name"
         ],
         "type": "object"
       },
@@ -11547,49 +12743,6 @@
           "object",
           "value",
           "display_value",
-          "unit"
-        ],
-        "type": "object"
-      },
-      "QuantityInfo": {
-        "description": "QuantityInfo is a quantity with its associated unit.",
-        "properties": {
-          "value": {
-            "description": "Decimal quantity value.",
-            "format": "decimal",
-            "type": "string"
-          },
-          "unit": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Unit"
-              }
-            ],
-            "description": "Unit.",
-            "example": {
-              "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
-              "object": "unit",
-              "name": "Kilogram",
-              "abbreviation": "kg",
-              "type": "mass",
-              "ratio_numerator": "1000",
-              "ratio_denominator": "1",
-              "offset_numerator": "0",
-              "offset_denominator": "1",
-              "is_base_unit": false,
-              "owner": {
-                "object": "owner",
-                "type": "system",
-                "account": null
-              },
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
-            },
-            "nullable": true
-          }
-        },
-        "required": [
-          "value",
           "unit"
         ],
         "type": "object"
@@ -15531,6 +16684,7 @@
                             "value": "Premium",
                             "color": "red",
                             "sort_order": 1,
+                            "property": null,
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           }
@@ -15763,6 +16917,7 @@
                         "value": "Premium",
                         "color": "red",
                         "sort_order": 1,
+                        "property": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
@@ -16002,6 +17157,7 @@
                         "value": "Premium",
                         "color": "red",
                         "sort_order": 1,
+                        "property": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
@@ -16239,6 +17395,7 @@
                         "value": "Premium",
                         "color": "red",
                         "sort_order": 1,
+                        "property": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
@@ -16478,6 +17635,7 @@
                         "value": "Premium",
                         "color": "red",
                         "sort_order": 1,
+                        "property": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
@@ -16524,6 +17682,26 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "on_hand"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "on_hand",
+                  "reserved",
+                  "available_to_promise",
+                  "short"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
           }
         ],
         "responses": {
@@ -16531,93 +17709,89 @@
             "content": {
               "application/json": {
                 "example": {
-                  "object": "item",
+                  "object": "item_inventory",
                   "on_hand": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   },
                   "reserved": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   },
                   "available_to_promise": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   },
                   "short": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   }
                 },
@@ -16915,6 +18089,7 @@
                               "value": "Premium",
                               "color": "red",
                               "sort_order": 1,
+                              "property": null,
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
                             }
@@ -16924,47 +18099,45 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "order_point": {
-                        "value": "100.000000000000000000000000000000",
+                        "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                        "object": "quantity",
+                        "value": "1234.56",
+                        "display_value": "$1,234.56",
                         "unit": {
                           "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                           "object": "unit",
-                          "name": "Kilogram",
-                          "abbreviation": "kg",
-                          "type": "mass",
-                          "ratio_numerator": "1000",
-                          "ratio_denominator": "1",
-                          "offset_numerator": "0",
-                          "offset_denominator": "1",
+                          "name": "US Dollar",
+                          "abbreviation": "$",
+                          "type": "currency",
+                          "ratio_numerator": "",
+                          "ratio_denominator": "",
+                          "offset_numerator": "",
+                          "offset_denominator": "",
                           "is_base_unit": false,
-                          "owner": {
-                            "object": "owner",
-                            "type": "system",
-                            "account": null
-                          },
-                          "created_at": "2026-05-10T00:00:00Z",
-                          "updated_at": "2026-05-10T00:23:00Z"
+                          "owner": null,
+                          "created_at": "0001-01-01T00:00:00Z",
+                          "updated_at": "0001-01-01T00:00:00Z"
                         }
                       },
                       "lead_time": {
-                        "value": "100.000000000000000000000000000000",
+                        "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                        "object": "quantity",
+                        "value": "1234.56",
+                        "display_value": "$1,234.56",
                         "unit": {
                           "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                           "object": "unit",
-                          "name": "Kilogram",
-                          "abbreviation": "kg",
-                          "type": "mass",
-                          "ratio_numerator": "1000",
-                          "ratio_denominator": "1",
-                          "offset_numerator": "0",
-                          "offset_denominator": "1",
+                          "name": "US Dollar",
+                          "abbreviation": "$",
+                          "type": "currency",
+                          "ratio_numerator": "",
+                          "ratio_denominator": "",
+                          "offset_numerator": "",
+                          "offset_denominator": "",
                           "is_base_unit": false,
-                          "owner": {
-                            "object": "owner",
-                            "type": "system",
-                            "account": null
-                          },
-                          "created_at": "2026-05-10T00:00:00Z",
-                          "updated_at": "2026-05-10T00:23:00Z"
+                          "owner": null,
+                          "created_at": "0001-01-01T00:00:00Z",
+                          "updated_at": "0001-01-01T00:00:00Z"
                         }
                       },
                       "created_at": "2026-05-10T00:00:00Z",
@@ -17198,6 +18371,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -17207,47 +18381,45 @@
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "order_point": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   },
                   "lead_time": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   },
                   "created_at": "2026-05-10T00:00:00Z",
@@ -17452,6 +18624,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -17461,47 +18634,45 @@
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "order_point": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   },
                   "lead_time": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   },
                   "created_at": "2026-05-10T00:00:00Z",
@@ -17728,6 +18899,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -17737,47 +18909,45 @@
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "order_point": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   },
                   "lead_time": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   },
                   "created_at": "2026-05-10T00:00:00Z",
@@ -18017,6 +19187,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -18026,47 +19197,45 @@
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "order_point": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   },
                   "lead_time": {
-                    "value": "100.000000000000000000000000000000",
+                    "id": "qty_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
                     "unit": {
                       "id": "un_01jm4r6700f8nwq3v5hx2d9ktp",
                       "object": "unit",
-                      "name": "Kilogram",
-                      "abbreviation": "kg",
-                      "type": "mass",
-                      "ratio_numerator": "1000",
-                      "ratio_denominator": "1",
-                      "offset_numerator": "0",
-                      "offset_denominator": "1",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "",
+                      "ratio_denominator": "",
+                      "offset_numerator": "",
+                      "offset_denominator": "",
                       "is_base_unit": false,
-                      "owner": {
-                        "object": "owner",
-                        "type": "system",
-                        "account": null
-                      },
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "owner": null,
+                      "created_at": "0001-01-01T00:00:00Z",
+                      "updated_at": "0001-01-01T00:00:00Z"
                     }
                   },
                   "created_at": "2026-05-10T00:00:00Z",
@@ -18366,6 +19535,7 @@
                               "value": "Premium",
                               "color": "red",
                               "sort_order": 1,
+                              "property": null,
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
                             }
@@ -18604,6 +19774,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -18814,6 +19985,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -19046,6 +20218,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -19291,6 +20464,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -20069,6 +21243,7 @@
                               "value": "Premium",
                               "color": "red",
                               "sort_order": 1,
+                              "property": null,
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
                             }
@@ -20109,6 +21284,40 @@
       "post": {
         "description": "Creates a product.",
         "operationId": "create-product",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "product_line"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "product_line",
+                  "product_line.unit_group",
+                  "product_line.unit_group.base_unit",
+                  "product_line.unit_group.associated_units",
+                  "product_line.unit_group.associated_units.unit",
+                  "item",
+                  "item.category",
+                  "item.category.properties",
+                  "item.category.unit_group",
+                  "item.category.unit_group.base_unit",
+                  "item.category.unit_group.associated_units",
+                  "item.category.unit_group.associated_units.unit",
+                  "item.unit_value",
+                  "item.unit_cost",
+                  "item.burn_rate",
+                  "item.attributes"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -20305,6 +21514,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -20353,6 +21563,38 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "product_line"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "product_line",
+                  "product_line.unit_group",
+                  "product_line.unit_group.base_unit",
+                  "product_line.unit_group.associated_units",
+                  "product_line.unit_group.associated_units.unit",
+                  "item",
+                  "item.category",
+                  "item.category.properties",
+                  "item.category.unit_group",
+                  "item.category.unit_group.base_unit",
+                  "item.category.unit_group.associated_units",
+                  "item.category.unit_group.associated_units.unit",
+                  "item.unit_value",
+                  "item.unit_cost",
+                  "item.burn_rate",
+                  "item.attributes"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           }
         ],
@@ -20534,6 +21776,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -20793,6 +22036,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -21065,6 +22309,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -21122,6 +22367,38 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "product_line"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "product_line",
+                  "product_line.unit_group",
+                  "product_line.unit_group.base_unit",
+                  "product_line.unit_group.associated_units",
+                  "product_line.unit_group.associated_units.unit",
+                  "item",
+                  "item.category",
+                  "item.category.properties",
+                  "item.category.unit_group",
+                  "item.category.unit_group.base_unit",
+                  "item.category.unit_group.associated_units",
+                  "item.category.unit_group.associated_units.unit",
+                  "item.unit_value",
+                  "item.unit_cost",
+                  "item.burn_rate",
+                  "item.attributes"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           }
         ],
@@ -21303,6 +22580,7 @@
                           "value": "Premium",
                           "color": "red",
                           "sort_order": 1,
+                          "property": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -21393,25 +22671,6 @@
           "200": {
             "content": {
               "application/json": {
-                "example": {
-                  "object": "list",
-                  "page_info": {
-                    "next_cursor": "pp_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
-                    "has_next_page": true,
-                    "has_prev_page": false
-                  },
-                  "data": [
-                    {
-                      "id": "pp_01jm4r6700f8nwq3v5hx2d9ktp",
-                      "object": "property",
-                      "name": "Color",
-                      "attributes": null,
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
-                    }
-                  ]
-                },
                 "schema": {
                   "$ref": "#/components/schemas/List_Property"
                 }
@@ -21810,6 +23069,7 @@
                   "value": "Premium",
                   "color": "red",
                   "sort_order": 1,
+                  "property": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -21925,6 +23185,7 @@
                   "value": "Premium",
                   "color": "red",
                   "sort_order": 1,
+                  "property": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -21998,6 +23259,7 @@
                   "value": "Premium",
                   "color": "red",
                   "sort_order": 1,
+                  "property": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -23578,6 +24840,7 @@
                   "carrier",
                   "service_level",
                   "item",
+                  "item_inventory",
                   "product",
                   "batch",
                   "batch_flow_node",
