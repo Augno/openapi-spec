@@ -778,8 +778,8 @@
                 "children": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": null,
-                    "prev_cursor": null,
+                    "next_page_url": null,
+                    "previous_page_url": null,
                     "has_next_page": false,
                     "has_prev_page": false
                   },
@@ -802,8 +802,8 @@
               "scanning_stations": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -827,8 +827,8 @@
               "machines": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -1112,7 +1112,7 @@
             "type": "string"
           },
           "city": {
-            "description": "City.",
+            "description": "City or locality.",
             "type": "string"
           },
           "state": {
@@ -1225,7 +1225,7 @@
         },
         "properties": {
           "id": {
-            "description": "Google Places ID.",
+            "description": "Address suggestion ID.",
             "type": "string"
           },
           "object": {
@@ -1236,7 +1236,7 @@
             "type": "string"
           },
           "description": {
-            "description": "Full description.",
+            "description": "Full description of the address.",
             "type": "string"
           },
           "main_text": {
@@ -1384,8 +1384,8 @@
           "changes": {
             "object": "list",
             "page_info": {
-              "next_cursor": null,
-              "prev_cursor": null,
+              "next_page_url": null,
+              "previous_page_url": null,
               "has_next_page": false,
               "has_prev_page": false
             },
@@ -1400,7 +1400,30 @@
           "metadata": {
             "reason": "operator override"
           },
-          "request_id": "req_01gq7s3f2m0y9h2t7z1w7q3v9k",
+          "request": {
+            "id": "rq_01jm4r6700f8nwq3v5hx2d9ktp",
+            "object": "request_log",
+            "method": "",
+            "host": "",
+            "path": "",
+            "normalized_route": "",
+            "query_params": null,
+            "status_code": 0,
+            "latency_us": 0,
+            "api_version": null,
+            "client_ip": null,
+            "user_agent": null,
+            "referrer": null,
+            "error_code": null,
+            "error_message": null,
+            "occurred_at": "0001-01-01T00:00:00Z",
+            "created_at": "0001-01-01T00:00:00Z",
+            "account": null,
+            "actor": null,
+            "idempotency_key": null,
+            "request_body": null,
+            "response_body": null
+          },
           "idempotency_key": null,
           "source_ip": "198.51.100.8",
           "occurred_at": "2026-05-10T00:00:00Z",
@@ -1687,10 +1710,95 @@
             "nullable": true,
             "type": "object"
           },
-          "request_id": {
-            "description": "Originating HTTP request ID.",
+          "request": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RequestLog"
+              }
+            ],
+            "description": "Originating HTTP request. Expandable.",
+            "example": {
+              "id": "rq_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "request_log",
+              "method": "GET",
+              "host": "https://api.augno.com",
+              "path": "/v1/core/sandboxes",
+              "normalized_route": "/v1/core/sandboxes",
+              "query_params": {
+                "limit": 10
+              },
+              "status_code": 200,
+              "latency_us": 12345,
+              "api_version": "2026-01-01",
+              "client_ip": "198.51.100.7",
+              "user_agent": "Mozilla/5.0",
+              "referrer": null,
+              "error_code": null,
+              "error_message": null,
+              "occurred_at": "2026-05-10T00:00:00Z",
+              "created_at": "2026-05-10T00:00:00Z",
+              "account": {
+                "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                "object": "account",
+                "name": "Acme Inc.",
+                "default_billing_address": null,
+                "default_shipping_address": null,
+                "branding": null,
+                "portal": null,
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "actor": {
+                "id": "us_01gf7a8200e9pvbd6bgyq395ae",
+                "object": "actor",
+                "type": "user",
+                "name": "John Doe",
+                "handle": "jdoe@augno.com",
+                "role": {
+                  "id": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                  "object": "role",
+                  "name": "Admin",
+                  "type": "admin",
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_01gf7a8200eaj8fke1xvw4h50x",
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
+                  "permissions": [
+                    "customers:create",
+                    "customers:read",
+                    "customers:update",
+                    "customers:delete"
+                  ],
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
+              },
+              "idempotency_key": null,
+              "request_body": null,
+              "response_body": {
+                "data": [],
+                "object": "list",
+                "page_info": {
+                  "has_next_page": false,
+                  "has_prev_page": false,
+                  "next_page_url": null,
+                  "previous_page_url": null
+                }
+              }
+            },
             "nullable": true,
-            "type": "string"
+            "x-expandable": true
           },
           "idempotency_key": {
             "description": "Idempotency key of the originating request.",
@@ -1722,7 +1830,7 @@
           "actor",
           "changes",
           "metadata",
-          "request_id",
+          "request",
           "idempotency_key",
           "source_ip",
           "occurred_at",
@@ -2068,8 +2176,8 @@
             "attributes": {
               "object": "list",
               "page_info": {
-                "next_cursor": null,
-                "prev_cursor": null,
+                "next_page_url": null,
+                "previous_page_url": null,
                 "has_next_page": false,
                 "has_prev_page": false
               },
@@ -2314,8 +2422,8 @@
               "attributes": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -3663,7 +3771,7 @@
             "type": "string"
           },
           "api_key_secret": {
-            "description": "Full secret value. Returned once and cannot be retrieved later.",
+            "description": "Full secret value. Returned once and cannot be retrieved later. Learn more about [managing your API keys](https://docs.augno.com/api/managing-api-keys).",
             "type": "string"
           },
           "api_key_info": {
@@ -3849,8 +3957,8 @@
               "free_shipping_service_levels": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -3973,8 +4081,8 @@
           "price_groups": {
             "object": "list",
             "page_info": {
-              "next_cursor": null,
-              "prev_cursor": null,
+              "next_page_url": null,
+              "previous_page_url": null,
               "has_next_page": false,
               "has_prev_page": false
             },
@@ -4219,8 +4327,8 @@
             "example": {
               "object": "list",
               "page_info": {
-                "next_cursor": "acgp_01jm4r6700f8nwq3v5hx2d9ktp",
-                "prev_cursor": null,
+                "next_page_url": "acgp_01jm4r6700f8nwq3v5hx2d9ktp",
+                "previous_page_url": null,
                 "has_next_page": true,
                 "has_prev_page": false
               },
@@ -4387,8 +4495,8 @@
               "free_shipping_service_levels": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -4638,8 +4746,8 @@
             "children": {
               "object": "list",
               "page_info": {
-                "next_cursor": null,
-                "prev_cursor": null,
+                "next_page_url": null,
+                "previous_page_url": null,
                 "has_next_page": false,
                 "has_prev_page": false
               },
@@ -4662,8 +4770,8 @@
           "scanning_stations": {
             "object": "list",
             "page_info": {
-              "next_cursor": null,
-              "prev_cursor": null,
+              "next_page_url": null,
+              "previous_page_url": null,
               "has_next_page": false,
               "has_prev_page": false
             },
@@ -4687,8 +4795,8 @@
           "machines": {
             "object": "list",
             "page_info": {
-              "next_cursor": null,
-              "prev_cursor": null,
+              "next_page_url": null,
+              "previous_page_url": null,
               "has_next_page": false,
               "has_prev_page": false
             },
@@ -4745,8 +4853,8 @@
               "children": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -4824,7 +4932,6 @@
           ],
           "subject": "Order Confirmation #1001",
           "filename": "invoice_1001.pdf",
-          "ses_message_id": null,
           "sent_by": {
             "id": "us_01gf7a8200e9pvbd6bgyq395ae",
             "object": "actor",
@@ -4901,11 +5008,6 @@
             "nullable": true,
             "type": "string"
           },
-          "ses_message_id": {
-            "description": "SES message ID returned by AWS.",
-            "nullable": true,
-            "type": "string"
-          },
           "sent_by": {
             "allOf": [
               {
@@ -4970,7 +5072,6 @@
           "recipients",
           "subject",
           "filename",
-          "ses_message_id",
           "sent_by",
           "created_at",
           "updated_at"
@@ -5175,8 +5276,8 @@
           "attributes": {
             "object": "list",
             "page_info": {
-              "next_cursor": null,
-              "prev_cursor": null,
+              "next_page_url": null,
+              "previous_page_url": null,
               "has_next_page": false,
               "has_prev_page": false
             },
@@ -5811,8 +5912,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
-            "prev_cursor": null,
+            "next_page_url": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -5898,8 +5999,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "acgp_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "acgp_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -5956,8 +6057,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "acss_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "acss_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -6016,8 +6117,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "acus_01gf7a8200er3ar3pkfrb6kk29",
-            "prev_cursor": null,
+            "next_page_url": "acus_01gf7a8200er3ar3pkfrb6kk29",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -6105,8 +6206,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "ad_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "ad_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -6172,8 +6273,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
-            "prev_cursor": null,
+            "next_page_url": "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -6262,8 +6363,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "ae_01gq7s3f2m0y9h2t7z1w7q3v9k",
-            "prev_cursor": null,
+            "next_page_url": "ae_01gq7s3f2m0y9h2t7z1w7q3v9k",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -6313,8 +6414,8 @@
               "changes": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -6329,7 +6430,30 @@
               "metadata": {
                 "reason": "operator override"
               },
-              "request_id": "req_01gq7s3f2m0y9h2t7z1w7q3v9k",
+              "request": {
+                "id": "rq_01jm4r6700f8nwq3v5hx2d9ktp",
+                "object": "request_log",
+                "method": "",
+                "host": "",
+                "path": "",
+                "normalized_route": "",
+                "query_params": null,
+                "status_code": 0,
+                "latency_us": 0,
+                "api_version": null,
+                "client_ip": null,
+                "user_agent": null,
+                "referrer": null,
+                "error_code": null,
+                "error_message": null,
+                "occurred_at": "0001-01-01T00:00:00Z",
+                "created_at": "0001-01-01T00:00:00Z",
+                "account": null,
+                "actor": null,
+                "idempotency_key": null,
+                "request_body": null,
+                "response_body": null
+              },
               "idempotency_key": null,
               "source_ip": "198.51.100.8",
               "occurred_at": "2026-05-10T00:00:00Z",
@@ -6412,8 +6536,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -6522,8 +6646,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "ac_01gf7a8200er3ar3pkfrb6kk29",
-            "prev_cursor": null,
+            "next_page_url": "ac_01gf7a8200er3ar3pkfrb6kk29",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -6653,8 +6777,8 @@
                   "free_shipping_service_levels": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -6777,8 +6901,8 @@
               "price_groups": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -6842,8 +6966,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "eml_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "eml_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -6857,7 +6981,6 @@
               ],
               "subject": "Order Confirmation #1001",
               "filename": "invoice_1001.pdf",
-              "ses_message_id": null,
               "sent_by": {
                 "id": "us_01gf7a8200e9pvbd6bgyq395ae",
                 "object": "actor",
@@ -6938,8 +7061,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "it_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "it_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -7084,8 +7207,8 @@
               "attributes": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -7146,8 +7269,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "ic_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "ic_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -7245,8 +7368,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "lc_01gf7a8200er3ar3pkfrb6kk31",
-            "prev_cursor": null,
+            "next_page_url": "lc_01gf7a8200er3ar3pkfrb6kk31",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -7336,8 +7459,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "ml_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "ml_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -7485,8 +7608,8 @@
                 "attributes": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": null,
-                    "prev_cursor": null,
+                    "next_page_url": null,
+                    "previous_page_url": null,
                     "has_next_page": false,
                     "has_prev_page": false
                   },
@@ -7592,8 +7715,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": null,
-            "prev_cursor": null,
+            "next_page_url": null,
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -7827,8 +7950,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "pt_02kn5s7811g9qwce7cizr4e0mq",
-            "prev_cursor": null,
+            "next_page_url": "pt_02kn5s7811g9qwce7cizr4e0mq",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -7976,8 +8099,8 @@
                 "attributes": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": null,
-                    "prev_cursor": null,
+                    "next_page_url": null,
+                    "previous_page_url": null,
                     "has_next_page": false,
                     "has_prev_page": false
                   },
@@ -8041,8 +8164,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "pytm_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "pytm_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -8101,8 +8224,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "pi_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "pi_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -8161,8 +8284,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "pd_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "pd_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -8329,8 +8452,8 @@
                 "attributes": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": null,
-                    "prev_cursor": null,
+                    "next_page_url": null,
+                    "previous_page_url": null,
                     "has_next_page": false,
                     "has_prev_page": false
                   },
@@ -8394,8 +8517,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "pl_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "pl_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -8530,8 +8653,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "rq_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "rq_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -8611,8 +8734,8 @@
                 "page_info": {
                   "has_next_page": false,
                   "has_prev_page": false,
-                  "next_cursor": null,
-                  "prev_cursor": null
+                  "next_page_url": null,
+                  "previous_page_url": null
                 }
               }
             }
@@ -8657,8 +8780,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "rl_01gf7a8200er3ar3pkfrb6kk29",
-            "prev_cursor": null,
+            "next_page_url": "rl_01gf7a8200er3ar3pkfrb6kk29",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -8733,8 +8856,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "sbac_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "sbac_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -8870,8 +8993,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "shtm_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "shtm_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -8891,8 +9014,8 @@
               "free_shipping_service_levels": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -8942,8 +9065,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "un_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -9008,8 +9131,8 @@
         "example": {
           "object": "list",
           "page_info": {
-            "next_cursor": "ug_01jm4r6700f8nwq3v5hx2d9ktp",
-            "prev_cursor": null,
+            "next_page_url": "ug_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
             "has_next_page": true,
             "has_prev_page": false
           },
@@ -9131,8 +9254,8 @@
           "children": {
             "object": "list",
             "page_info": {
-              "next_cursor": null,
-              "prev_cursor": null,
+              "next_page_url": null,
+              "previous_page_url": null,
               "has_next_page": false,
               "has_prev_page": false
             },
@@ -9497,8 +9620,8 @@
             "attributes": {
               "object": "list",
               "page_info": {
-                "next_cursor": null,
-                "prev_cursor": null,
+                "next_page_url": null,
+                "previous_page_url": null,
                 "has_next_page": false,
                 "has_prev_page": false
               },
@@ -9722,8 +9845,8 @@
               "attributes": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -9920,15 +10043,15 @@
         "type": "object"
       },
       "PageInfo": {
-        "description": "PageInfo contains cursor-based pagination metadata.",
+        "description": "PageInfo contains URL-based pagination metadata.",
         "properties": {
-          "next_cursor": {
-            "description": "Cursor to fetch the next page, `null` if no more pages.",
+          "next_page_url": {
+            "description": "URL to fetch the next page, `null` if no more pages.",
             "nullable": true,
             "type": "string"
           },
-          "prev_cursor": {
-            "description": "Cursor to fetch the previous page, `null` if on the first page.",
+          "previous_page_url": {
+            "description": "URL to fetch the previous page, `null` if on the first page.",
             "nullable": true,
             "type": "string"
           },
@@ -9942,8 +10065,8 @@
           }
         },
         "required": [
-          "next_cursor",
-          "prev_cursor",
+          "next_page_url",
+          "previous_page_url",
           "has_next_page",
           "has_prev_page"
         ],
@@ -10094,8 +10217,8 @@
             "attributes": {
               "object": "list",
               "page_info": {
-                "next_cursor": null,
-                "prev_cursor": null,
+                "next_page_url": null,
+                "previous_page_url": null,
                 "has_next_page": false,
                 "has_prev_page": false
               },
@@ -10277,8 +10400,8 @@
               "attributes": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -10628,8 +10751,8 @@
             "attributes": {
               "object": "list",
               "page_info": {
-                "next_cursor": null,
-                "prev_cursor": null,
+                "next_page_url": null,
+                "previous_page_url": null,
                 "has_next_page": false,
                 "has_prev_page": false
               },
@@ -10858,8 +10981,8 @@
               "attributes": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -11191,8 +11314,8 @@
             "attributes": {
               "object": "list",
               "page_info": {
-                "next_cursor": null,
-                "prev_cursor": null,
+                "next_page_url": null,
+                "previous_page_url": null,
                 "has_next_page": false,
                 "has_prev_page": false
               },
@@ -11395,8 +11518,8 @@
               "attributes": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -11736,8 +11859,8 @@
               "attributes": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -11784,8 +11907,8 @@
           "consumptions": {
             "object": "list",
             "page_info": {
-              "next_cursor": null,
-              "prev_cursor": null,
+              "next_page_url": null,
+              "previous_page_url": null,
               "has_next_page": false,
               "has_prev_page": false
             },
@@ -11975,8 +12098,8 @@
                   "attributes": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -12005,8 +12128,8 @@
           "machines": {
             "object": "list",
             "page_info": {
-              "next_cursor": null,
-              "prev_cursor": null,
+              "next_page_url": null,
+              "previous_page_url": null,
               "has_next_page": false,
               "has_prev_page": false
             },
@@ -12040,8 +12163,8 @@
           "in_steps": {
             "object": "list",
             "page_info": {
-              "next_cursor": null,
-              "prev_cursor": null,
+              "next_page_url": null,
+              "previous_page_url": null,
               "has_next_page": false,
               "has_prev_page": false
             },
@@ -12050,8 +12173,8 @@
           "out_steps": {
             "object": "list",
             "page_info": {
-              "next_cursor": null,
-              "prev_cursor": null,
+              "next_page_url": null,
+              "previous_page_url": null,
               "has_next_page": false,
               "has_prev_page": false
             },
@@ -12071,8 +12194,8 @@
               "children": {
                 "object": "list",
                 "page_info": {
-                  "next_cursor": null,
-                  "prev_cursor": null,
+                  "next_page_url": null,
+                  "previous_page_url": null,
                   "has_next_page": false,
                   "has_prev_page": false
                 },
@@ -12095,8 +12218,8 @@
             "scanning_stations": {
               "object": "list",
               "page_info": {
-                "next_cursor": null,
-                "prev_cursor": null,
+                "next_page_url": null,
+                "previous_page_url": null,
                 "has_next_page": false,
                 "has_prev_page": false
               },
@@ -12120,8 +12243,8 @@
             "machines": {
               "object": "list",
               "page_info": {
-                "next_cursor": null,
-                "prev_cursor": null,
+                "next_page_url": null,
+                "previous_page_url": null,
                 "has_next_page": false,
                 "has_prev_page": false
               },
@@ -12466,8 +12589,8 @@
                 "attributes": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": null,
-                    "prev_cursor": null,
+                    "next_page_url": null,
+                    "previous_page_url": null,
                     "has_next_page": false,
                     "has_prev_page": false
                   },
@@ -13051,8 +13174,8 @@
             "page_info": {
               "has_next_page": false,
               "has_prev_page": false,
-              "next_cursor": null,
-              "prev_cursor": null
+              "next_page_url": null,
+              "previous_page_url": null
             }
           }
         },
@@ -13402,7 +13525,7 @@
             "type": "string"
           },
           "type": {
-            "description": "Role type code.",
+            "description": "Role type code.\n\nThe role's type is sometimes used to gate special behaviors in the frontend\nand to restrict some actions to only certain types of roles. For example,\nonly roles with the type `admin` can create and manage API keys.",
             "enum": [
               "admin",
               "user",
@@ -13780,8 +13903,8 @@
           "free_shipping_service_levels": {
             "object": "list",
             "page_info": {
-              "next_cursor": null,
-              "prev_cursor": null,
+              "next_page_url": null,
+              "previous_page_url": null,
               "has_next_page": false,
               "has_prev_page": false
             },
@@ -14614,6 +14737,9 @@
             "x-nullable-clear": true
           }
         },
+        "required": [
+          "credit_limit"
+        ],
         "type": "object"
       },
       "UpdateItemCategoryRequest": {
@@ -14672,6 +14798,9 @@
             "x-nullable-clear": true
           }
         },
+        "required": [
+          "child_ids"
+        ],
         "type": "object"
       },
       "UpdateMaterialRequest": {
@@ -15006,6 +15135,11 @@
             "x-nullable-clear": true
           }
         },
+        "required": [
+          "flat_rate",
+          "minimum_order_value",
+          "free_shipping_service_level_ids"
+        ],
         "type": "object"
       },
       "UpdateUnitGroupRequest": {
@@ -15126,7 +15260,7 @@
             "type": "string"
           },
           "city": {
-            "description": "City.",
+            "description": "City or locality.",
             "type": "string"
           },
           "state": {
@@ -15227,11 +15361,11 @@
   "paths": {
     "/v1/auth/api-keys": {
       "get": {
-        "description": "Returns a paginated list of API keys.",
+        "description": "Returns a paginated list of [API keys](https://docs.augno.com/api/api-keys).",
         "operationId": "list-api-keys",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -15302,8 +15436,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
-                    "prev_cursor": null,
+                    "next_page_url": "apke_01jm4r6700e3kxb9w2nqh7g5fp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -15375,7 +15509,7 @@
         "x-preview": true
       },
       "post": {
-        "description": "Creates an API key. The secret key is returned once and cannot be retrieved later.",
+        "description": "Creates an [API key](https://docs.augno.com/api/api-keys) to authenticate API requests.\n\nThe secret key is returned once and cannot be retrieved later, so you should store it securely. We provide some [recommendations](https://docs.augno.com/api/managing-api-keys) on how you can manage your API keys.",
         "operationId": "create-api-key",
         "parameters": [
           {
@@ -15486,7 +15620,7 @@
     },
     "/v1/auth/api-keys/{id}": {
       "delete": {
-        "description": "Revokes an API key, preventing it from being used to authenticate requests.",
+        "description": "Revokes an [API key](https://docs.augno.com/api/api-keys).\n\nRevoked API keys will be unable to be used to authenticate requests.",
         "operationId": "revoke-api-key",
         "parameters": [
           {
@@ -15530,7 +15664,7 @@
         "x-preview": true
       },
       "get": {
-        "description": "Returns API key metadata by ID.",
+        "description": "Returns [API key](https://docs.augno.com/api/api-keys) metadata by ID.",
         "operationId": "retrieve-api-key",
         "parameters": [
           {
@@ -15632,7 +15766,7 @@
     },
     "/v1/auth/api-keys/{id}/actions/rotate": {
       "post": {
-        "description": "Rotates an API key by revoking the existing key and issuing a replacement with the same name, role, and expiration. The new secret is returned once.",
+        "description": "Rotates an [API key](https://docs.augno.com/api/api-keys) by revoking the existing key and issuing a replacement with the same name, role, and expiration (unless overridden).\n\nThe secret key is returned once and cannot be retrieved later, so you should store it securely. We provide some [recommendations](https://docs.augno.com/api/managing-api-keys) on how you can manage your API keys.",
         "operationId": "rotate-api-key",
         "parameters": [
           {
@@ -15755,7 +15889,7 @@
         "operationId": "list-item-categories",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -15825,8 +15959,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "ic_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "ic_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -16351,7 +16485,7 @@
         "operationId": "list-items",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -16526,8 +16660,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "it_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "it_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -16672,8 +16806,8 @@
                       "attributes": {
                         "object": "list",
                         "page_info": {
-                          "next_cursor": null,
-                          "prev_cursor": null,
+                          "next_page_url": null,
+                          "previous_page_url": null,
                           "has_next_page": false,
                           "has_prev_page": false
                         },
@@ -16905,8 +17039,8 @@
                   "attributes": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -17145,8 +17279,8 @@
                   "attributes": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -17383,8 +17517,8 @@
                   "attributes": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -17623,8 +17757,8 @@
                   "attributes": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -17826,7 +17960,7 @@
         "operationId": "list-materials",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -17928,8 +18062,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "ml_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "ml_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -18077,8 +18211,8 @@
                         "attributes": {
                           "object": "list",
                           "page_info": {
-                            "next_cursor": null,
-                            "prev_cursor": null,
+                            "next_page_url": null,
+                            "previous_page_url": null,
                             "has_next_page": false,
                             "has_prev_page": false
                           },
@@ -18359,8 +18493,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -18612,8 +18746,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -18887,8 +19021,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -19175,8 +19309,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -19272,7 +19406,7 @@
         "operationId": "list-parts",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -19374,8 +19508,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "pt_02kn5s7811g9qwce7cizr4e0mq",
-                    "prev_cursor": null,
+                    "next_page_url": "pt_02kn5s7811g9qwce7cizr4e0mq",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -19523,8 +19657,8 @@
                         "attributes": {
                           "object": "list",
                           "page_info": {
-                            "next_cursor": null,
-                            "prev_cursor": null,
+                            "next_page_url": null,
+                            "previous_page_url": null,
                             "has_next_page": false,
                             "has_prev_page": false
                           },
@@ -19762,8 +19896,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -19973,8 +20107,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -20206,8 +20340,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -20452,8 +20586,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -20507,7 +20641,7 @@
         "operationId": "list-product-lines",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -20560,8 +20694,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "pl_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "pl_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -20916,7 +21050,7 @@
         "operationId": "list-products",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -21063,8 +21197,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "pd_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "pd_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -21231,8 +21365,8 @@
                         "attributes": {
                           "object": "list",
                           "page_info": {
-                            "next_cursor": null,
-                            "prev_cursor": null,
+                            "next_page_url": null,
+                            "previous_page_url": null,
                             "has_next_page": false,
                             "has_prev_page": false
                           },
@@ -21502,8 +21636,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -21764,8 +21898,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -22024,8 +22158,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -22297,8 +22431,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -22568,8 +22702,8 @@
                     "attributes": {
                       "object": "list",
                       "page_info": {
-                        "next_cursor": null,
-                        "prev_cursor": null,
+                        "next_page_url": null,
+                        "previous_page_url": null,
                         "has_next_page": false,
                         "has_prev_page": false
                       },
@@ -22623,7 +22757,7 @@
         "operationId": "list-properties",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -22966,7 +23100,7 @@
         "operationId": "list-attributes",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -23294,7 +23428,7 @@
         "operationId": "list-unit-groups",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -23367,8 +23501,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "ug_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "ug_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -24143,7 +24277,7 @@
         "operationId": "list-units",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -24226,8 +24360,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "un_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "un_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -24683,8 +24817,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
-                    "prev_cursor": null,
+                    "next_page_url": "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -24729,7 +24863,7 @@
         "operationId": "list-audit-events",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -24991,7 +25125,7 @@
             }
           },
           {
-            "description": "Filter by the actor identifier. `account_user.id` when `identity_type`=`user`, or an `api_key.id` when `identity_type`=`api_key`.",
+            "description": "Filter by the actor identifier.\n\nWill be `account_user.id` when `identity_type`=`user` or an `api_key.id` when `identity_type`=`api_key`.",
             "example": [],
             "in": "query",
             "name": "actor_ids[]",
@@ -25035,7 +25169,8 @@
                 "enum": [
                   "actor",
                   "changes",
-                  "metadata"
+                  "metadata",
+                  "request"
                 ],
                 "type": "string"
               },
@@ -25050,8 +25185,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "ae_01gq7s3f2m0y9h2t7z1w7q3v9k",
-                    "prev_cursor": null,
+                    "next_page_url": "ae_01gq7s3f2m0y9h2t7z1w7q3v9k",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -25101,8 +25236,8 @@
                       "changes": {
                         "object": "list",
                         "page_info": {
-                          "next_cursor": null,
-                          "prev_cursor": null,
+                          "next_page_url": null,
+                          "previous_page_url": null,
                           "has_next_page": false,
                           "has_prev_page": false
                         },
@@ -25117,7 +25252,30 @@
                       "metadata": {
                         "reason": "operator override"
                       },
-                      "request_id": "req_01gq7s3f2m0y9h2t7z1w7q3v9k",
+                      "request": {
+                        "id": "rq_01jm4r6700f8nwq3v5hx2d9ktp",
+                        "object": "request_log",
+                        "method": "",
+                        "host": "",
+                        "path": "",
+                        "normalized_route": "",
+                        "query_params": null,
+                        "status_code": 0,
+                        "latency_us": 0,
+                        "api_version": null,
+                        "client_ip": null,
+                        "user_agent": null,
+                        "referrer": null,
+                        "error_code": null,
+                        "error_message": null,
+                        "occurred_at": "0001-01-01T00:00:00Z",
+                        "created_at": "0001-01-01T00:00:00Z",
+                        "account": null,
+                        "actor": null,
+                        "idempotency_key": null,
+                        "request_body": null,
+                        "response_body": null
+                      },
                       "idempotency_key": null,
                       "source_ip": "198.51.100.8",
                       "occurred_at": "2026-05-10T00:00:00Z",
@@ -25161,8 +25319,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": null,
-                    "prev_cursor": null,
+                    "next_page_url": null,
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -25219,7 +25377,8 @@
                 "enum": [
                   "actor",
                   "changes",
-                  "metadata"
+                  "metadata",
+                  "request"
                 ],
                 "type": "string"
               },
@@ -25276,8 +25435,8 @@
                   "changes": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -25292,7 +25451,30 @@
                   "metadata": {
                     "reason": "operator override"
                   },
-                  "request_id": "req_01gq7s3f2m0y9h2t7z1w7q3v9k",
+                  "request": {
+                    "id": "rq_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "object": "request_log",
+                    "method": "",
+                    "host": "",
+                    "path": "",
+                    "normalized_route": "",
+                    "query_params": null,
+                    "status_code": 0,
+                    "latency_us": 0,
+                    "api_version": null,
+                    "client_ip": null,
+                    "user_agent": null,
+                    "referrer": null,
+                    "error_code": null,
+                    "error_message": null,
+                    "occurred_at": "0001-01-01T00:00:00Z",
+                    "created_at": "0001-01-01T00:00:00Z",
+                    "account": null,
+                    "actor": null,
+                    "idempotency_key": null,
+                    "request_body": null,
+                    "response_body": null
+                  },
                   "idempotency_key": null,
                   "source_ip": "198.51.100.8",
                   "occurred_at": "2026-05-10T00:00:00Z",
@@ -25329,7 +25511,7 @@
         "operationId": "list-email-logs",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -25380,8 +25562,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "eml_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "eml_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -25395,7 +25577,6 @@
                       ],
                       "subject": "Order Confirmation #1001",
                       "filename": "invoice_1001.pdf",
-                      "ses_message_id": null,
                       "sent_by": {
                         "id": "us_01gf7a8200e9pvbd6bgyq395ae",
                         "object": "actor",
@@ -25507,7 +25688,6 @@
                   ],
                   "subject": "Order Confirmation #1001",
                   "filename": "invoice_1001.pdf",
-                  "ses_message_id": null,
                   "sent_by": {
                     "id": "us_01gf7a8200e9pvbd6bgyq395ae",
                     "object": "actor",
@@ -25578,7 +25758,7 @@
         "operationId": "list-request-logs",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -25819,8 +25999,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "rq_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "rq_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -25900,8 +26080,8 @@
                         "page_info": {
                           "has_next_page": false,
                           "has_prev_page": false,
-                          "next_cursor": null,
-                          "prev_cursor": null
+                          "next_page_url": null,
+                          "previous_page_url": null
                         }
                       }
                     }
@@ -26049,8 +26229,8 @@
                     "page_info": {
                       "has_next_page": false,
                       "has_prev_page": false,
-                      "next_cursor": null,
-                      "prev_cursor": null
+                      "next_page_url": null,
+                      "previous_page_url": null
                     }
                   }
                 },
@@ -26085,7 +26265,7 @@
         "operationId": "list-sandboxes",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -26136,8 +26316,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "sbac_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "sbac_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -26398,7 +26578,7 @@
         "operationId": "list-payment-terms",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -26450,8 +26630,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "pytm_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "pytm_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -26784,7 +26964,7 @@
         "operationId": "list-account-users",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -26865,8 +27045,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "acus_01gf7a8200er3ar3pkfrb6kk29",
-                    "prev_cursor": null,
+                    "next_page_url": "acus_01gf7a8200er3ar3pkfrb6kk29",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -27421,7 +27601,7 @@
         "operationId": "list-roles",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -27495,8 +27675,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "rl_01gf7a8200er3ar3pkfrb6kk29",
-                    "prev_cursor": null,
+                    "next_page_url": "rl_01gf7a8200er3ar3pkfrb6kk29",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -27906,7 +28086,7 @@
         "operationId": "list-carriers",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -27959,8 +28139,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -28120,7 +28300,7 @@
         "operationId": "list-service-levels",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -28800,7 +28980,7 @@
         "operationId": "list-location-types",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -28834,8 +29014,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "lc_01gf7a8200er3ar3pkfrb6kk31",
-                    "prev_cursor": null,
+                    "next_page_url": "lc_01gf7a8200er3ar3pkfrb6kk31",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -28933,7 +29113,7 @@
         "operationId": "list-locations",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -29056,8 +29236,8 @@
                   "children": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -29192,8 +29372,8 @@
                   "children": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -29296,8 +29476,8 @@
                   "children": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -29348,7 +29528,7 @@
         "operationId": "list-scanning-stations",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -29718,7 +29898,7 @@
         "operationId": "list-shipping-terms",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -29773,8 +29953,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "shtm_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "shtm_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -29794,8 +29974,8 @@
                       "free_shipping_service_levels": {
                         "object": "list",
                         "page_info": {
-                          "next_cursor": null,
-                          "prev_cursor": null,
+                          "next_page_url": null,
+                          "previous_page_url": null,
                           "has_next_page": false,
                           "has_prev_page": false
                         },
@@ -29889,8 +30069,8 @@
                   "free_shipping_service_levels": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -30023,8 +30203,8 @@
                   "free_shipping_service_levels": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -30127,8 +30307,8 @@
                   "free_shipping_service_levels": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -30168,7 +30348,7 @@
         "operationId": "list-account-groups",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -30215,8 +30395,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "acgp_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "acgp_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -30486,7 +30666,7 @@
         "operationId": "list-account-statuses",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -30537,8 +30717,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "acss_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "acss_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -30663,7 +30843,7 @@
         "operationId": "list-addresses",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -30710,8 +30890,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "ad_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "ad_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -31021,7 +31201,7 @@
         "operationId": "list-customers",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -31288,8 +31468,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "ac_01gf7a8200er3ar3pkfrb6kk29",
-                    "prev_cursor": null,
+                    "next_page_url": "ac_01gf7a8200er3ar3pkfrb6kk29",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
@@ -31419,8 +31599,8 @@
                           "free_shipping_service_levels": {
                             "object": "list",
                             "page_info": {
-                              "next_cursor": null,
-                              "prev_cursor": null,
+                              "next_page_url": null,
+                              "previous_page_url": null,
                               "has_next_page": false,
                               "has_prev_page": false
                             },
@@ -31543,8 +31723,8 @@
                       "price_groups": {
                         "object": "list",
                         "page_info": {
-                          "next_cursor": null,
-                          "prev_cursor": null,
+                          "next_page_url": null,
+                          "previous_page_url": null,
                           "has_next_page": false,
                           "has_prev_page": false
                         },
@@ -31794,8 +31974,8 @@
                       "free_shipping_service_levels": {
                         "object": "list",
                         "page_info": {
-                          "next_cursor": null,
-                          "prev_cursor": null,
+                          "next_page_url": null,
+                          "previous_page_url": null,
                           "has_next_page": false,
                           "has_prev_page": false
                         },
@@ -31918,8 +32098,8 @@
                   "price_groups": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -32188,8 +32368,8 @@
                       "free_shipping_service_levels": {
                         "object": "list",
                         "page_info": {
-                          "next_cursor": null,
-                          "prev_cursor": null,
+                          "next_page_url": null,
+                          "previous_page_url": null,
                           "has_next_page": false,
                           "has_prev_page": false
                         },
@@ -32312,8 +32492,8 @@
                   "price_groups": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -32553,8 +32733,8 @@
                       "free_shipping_service_levels": {
                         "object": "list",
                         "page_info": {
-                          "next_cursor": null,
-                          "prev_cursor": null,
+                          "next_page_url": null,
+                          "previous_page_url": null,
                           "has_next_page": false,
                           "has_prev_page": false
                         },
@@ -32677,8 +32857,8 @@
                   "price_groups": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -32918,8 +33098,8 @@
                       "free_shipping_service_levels": {
                         "object": "list",
                         "page_info": {
-                          "next_cursor": null,
-                          "prev_cursor": null,
+                          "next_page_url": null,
+                          "previous_page_url": null,
                           "has_next_page": false,
                           "has_prev_page": false
                         },
@@ -33042,8 +33222,8 @@
                   "price_groups": {
                     "object": "list",
                     "page_info": {
-                      "next_cursor": null,
-                      "prev_cursor": null,
+                      "next_page_url": null,
+                      "previous_page_url": null,
                       "has_next_page": false,
                       "has_prev_page": false
                     },
@@ -33097,7 +33277,7 @@
         "operationId": "list-priorities",
         "parameters": [
           {
-            "description": "Cursor from a previous response's `next_cursor` field, used to fetch the next page.",
+            "description": "Cursor token used to retrieve the next or previous page of results.",
             "example": "example",
             "in": "query",
             "name": "cursor",
@@ -33148,8 +33328,8 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_cursor": "pi_01jm4r6700f8nwq3v5hx2d9ktp",
-                    "prev_cursor": null,
+                    "next_page_url": "pi_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
