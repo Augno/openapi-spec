@@ -3124,7 +3124,6 @@
         },
         "required": [
           "sku",
-          "description",
           "category_id",
           "attribute_ids"
         ],
@@ -3192,8 +3191,6 @@
         "description": "CreateProductRequest is the request to create a product.",
         "example": {
           "sku": "ALM-2024-1001",
-          "description": null,
-          "notes": null,
           "type": "sale",
           "product_line_id": null,
           "category_id": "ic_01jm4r6700f8nwq3v5hx2d9ktp"
@@ -3280,8 +3277,6 @@
         },
         "required": [
           "sku",
-          "description",
-          "notes",
           "type",
           "product_line_id",
           "category_id",
@@ -14390,7 +14385,8 @@
       "UpdateAccountGroupRequest": {
         "description": "Request to partially update an account group.",
         "example": {
-          "name": "Updated Wholesale Customers"
+          "name": "Updated Wholesale Customers",
+          "description": null
         },
         "properties": {
           "name": {
@@ -14586,8 +14582,7 @@
           "name": "Acme Corp Updated",
           "note": "Updated account notes",
           "freight_policy": "billed_freight",
-          "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
-          "credit_limit": {}
+          "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp"
         },
         "properties": {
           "name": {
@@ -14737,9 +14732,6 @@
             "x-nullable-clear": true
           }
         },
-        "required": [
-          "credit_limit"
-        ],
         "type": "object"
       },
       "UpdateItemCategoryRequest": {
@@ -14762,8 +14754,7 @@
       "UpdateLocationRequest": {
         "description": "Request to partially update a location.",
         "example": {
-          "name": "Warehouse B",
-          "child_ids": {}
+          "name": "Warehouse B"
         },
         "properties": {
           "name": {
@@ -14798,9 +14789,6 @@
             "x-nullable-clear": true
           }
         },
-        "required": [
-          "child_ids"
-        ],
         "type": "object"
       },
       "UpdateMaterialRequest": {
@@ -14853,8 +14841,7 @@
         "description": "Request to partially update a part.",
         "example": {
           "sku": "BRG-6204-2RS",
-          "description": "Deep groove ball bearing, 20x47x14mm",
-          "notes": null
+          "description": "Deep groove ball bearing, 20x47x14mm"
         },
         "properties": {
           "sku": {
@@ -14874,10 +14861,6 @@
             "x-nullable-clear": true
           }
         },
-        "required": [
-          "description",
-          "notes"
-        ],
         "type": "object"
       },
       "UpdatePaymentTermRequest": {
@@ -14929,7 +14912,9 @@
       "UpdateProductRequest": {
         "description": "UpdateProductRequest is the request to partially update a product.",
         "example": {
-          "sku": "SKU-002"
+          "sku": "SKU-002",
+          "description": null,
+          "notes": null
         },
         "properties": {
           "sku": {
@@ -15003,10 +14988,6 @@
             "type": "array"
           }
         },
-        "required": [
-          "name",
-          "permissions"
-        ],
         "type": "object"
       },
       "UpdateScanningStationRequest": {
@@ -15086,10 +15067,7 @@
       "UpdateShippingTermRequest": {
         "description": "Request to partially update a shipping term.\nAll fields are optional. Absent fields are left unchanged. Send an explicit\nJSON null for flat_rate, minimum_order_value, or free_shipping_service_level_ids\nto clear the existing value.",
         "example": {
-          "name": "Collect",
-          "flat_rate": {},
-          "minimum_order_value": {},
-          "free_shipping_service_level_ids": {}
+          "name": "Collect"
         },
         "properties": {
           "name": {
@@ -15135,11 +15113,6 @@
             "x-nullable-clear": true
           }
         },
-        "required": [
-          "flat_rate",
-          "minimum_order_value",
-          "free_shipping_service_level_ids"
-        ],
         "type": "object"
       },
       "UpdateUnitGroupRequest": {
@@ -20429,8 +20402,7 @@
             "application/json": {
               "example": {
                 "sku": "BRG-6204-2RS",
-                "description": "Deep groove ball bearing, 20x47x14mm",
-                "notes": null
+                "description": "Deep groove ball bearing, 20x47x14mm"
               },
               "schema": {
                 "$ref": "#/components/schemas/UpdatePartRequest"
@@ -21457,8 +21429,6 @@
             "application/json": {
               "example": {
                 "sku": "ALM-2024-1001",
-                "description": null,
-                "notes": null,
                 "type": "sale",
                 "product_line_id": null,
                 "category_id": "ic_01jm4r6700f8nwq3v5hx2d9ktp"
@@ -22256,7 +22226,9 @@
           "content": {
             "application/json": {
               "example": {
-                "sku": "SKU-002"
+                "sku": "SKU-002",
+                "description": null,
+                "notes": null
               },
               "schema": {
                 "$ref": "#/components/schemas/UpdateProductRequest"
@@ -29453,8 +29425,7 @@
           "content": {
             "application/json": {
               "example": {
-                "name": "Warehouse B",
-                "child_ids": {}
+                "name": "Warehouse B"
               },
               "schema": {
                 "$ref": "#/components/schemas/UpdateLocationRequest"
@@ -30276,10 +30247,7 @@
           "content": {
             "application/json": {
               "example": {
-                "name": "Collect",
-                "flat_rate": {},
-                "minimum_order_value": {},
-                "free_shipping_service_level_ids": {}
+                "name": "Collect"
               },
               "schema": {
                 "$ref": "#/components/schemas/UpdateShippingTermRequest"
@@ -30611,7 +30579,8 @@
           "content": {
             "application/json": {
               "example": {
-                "name": "Updated Wholesale Customers"
+                "name": "Updated Wholesale Customers",
+                "description": null
               },
               "schema": {
                 "$ref": "#/components/schemas/UpdateAccountGroupRequest"
@@ -32594,8 +32563,7 @@
                 "name": "Acme Corp Updated",
                 "note": "Updated account notes",
                 "freight_policy": "billed_freight",
-                "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp",
-                "credit_limit": {}
+                "default_carrier_id": "cr_01jm4r6700f8nwq3v5hx2d9ktp"
               },
               "schema": {
                 "$ref": "#/components/schemas/UpdateCustomerRequest"
