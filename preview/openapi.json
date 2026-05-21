@@ -9933,6 +9933,60 @@
         ],
         "type": "object"
       },
+      "List_TransactionMethod": {
+        "description": "List represents a paginated list of resources.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": "txmd_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
+            "has_next_page": true,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "txmd_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "transaction_method",
+              "name": "Credit Card",
+              "code": "credit_card"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata.",
+            "example": {}
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/TransactionMethod"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
       "List_TransactionType": {
         "description": "List represents a paginated list of resources.",
         "example": {
@@ -15114,6 +15168,50 @@
           "free_shipping_service_levels",
           "created_at",
           "updated_at"
+        ],
+        "type": "object"
+      },
+      "TransactionMethod": {
+        "description": "Transaction method resource.",
+        "example": {
+          "id": "txmd_01jm4r6700f8nwq3v5hx2d9ktp",
+          "object": "transaction_method",
+          "name": "Credit Card",
+          "code": "credit_card"
+        },
+        "properties": {
+          "id": {
+            "description": "Transaction method ID.",
+            "type": "string"
+          },
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "transaction_method"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "Display name.",
+            "type": "string"
+          },
+          "code": {
+            "description": "Machine-readable code.",
+            "enum": [
+              "cash",
+              "check",
+              "credit_card",
+              "gift_card",
+              "ach"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "name",
+          "code"
         ],
         "type": "object"
       },
@@ -27512,6 +27610,85 @@
         "summary": "Update Payment Term",
         "tags": [
           "Payment Terms Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/finance/transaction-methods": {
+      "get": {
+        "description": "Returns a paginated list of transaction methods.",
+        "operationId": "list-transaction-methods",
+        "parameters": [
+          {
+            "description": "Cursor token used to retrieve the next or previous page of results.",
+            "example": "it_01jm4r6700f8nwq3v5hx2d9ktp",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results per page (default: 100, max: 1000).",
+            "example": 100,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Search query used to filter results.",
+            "example": "6061",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": "txmd_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "txmd_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "transaction_method",
+                      "name": "Credit Card",
+                      "code": "credit_card"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_TransactionMethod"
+                }
+              }
+            },
+            "description": "Successful response for List Transaction Methods"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Transaction Methods",
+        "tags": [
+          "Transactions"
         ],
         "x-preview": true
       }
