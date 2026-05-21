@@ -1177,6 +1177,81 @@
         ],
         "type": "object"
       },
+      "AdjustmentType": {
+        "description": "Adjustment type resource.",
+        "example": {
+          "id": "adjt_01jm4r6700f8nwq3v5hx2d9ktp",
+          "object": "adjustment_type",
+          "name": "Discount",
+          "code": "discount",
+          "owner": {
+            "object": "owner",
+            "type": "system"
+          },
+          "created_at": "2026-05-10T00:00:00Z",
+          "updated_at": "2026-05-10T00:23:00Z"
+        },
+        "properties": {
+          "id": {
+            "description": "Adjustment ID.",
+            "type": "string"
+          },
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "adjustment_type"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "Display name.",
+            "type": "string"
+          },
+          "code": {
+            "description": "Machine-readable code.",
+            "enum": [
+              "discount",
+              "shipping_discrepancy",
+              "short_payment",
+              "write_off",
+              "fee",
+              "refund"
+            ],
+            "type": "string"
+          },
+          "owner": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Owner"
+              }
+            ],
+            "description": "Resource owner.",
+            "example": {},
+            "nullable": true,
+            "x-expandable": true
+          },
+          "created_at": {
+            "description": "Creation timestamp.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last updated timestamp.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "name",
+          "code",
+          "owner",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
       "Attribute": {
         "description": "Value option within a property.",
         "example": {
@@ -6314,6 +6389,66 @@
         ],
         "type": "object"
       },
+      "List_AdjustmentType": {
+        "description": "List represents a paginated list of resources.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": "adjt_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
+            "has_next_page": true,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "adjt_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "adjustment_type",
+              "name": "Discount",
+              "code": "discount",
+              "owner": {
+                "object": "owner",
+                "type": "system"
+              },
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata.",
+            "example": {}
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/AdjustmentType"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
       "List_Attribute": {
         "description": "List represents a paginated list of resources.",
         "example": {
@@ -9482,6 +9617,66 @@
         ],
         "type": "object"
       },
+      "List_SalesOrderStatus": {
+        "description": "List represents a paginated list of resources.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": "orss_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
+            "has_next_page": true,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "orss_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "sales_order_status",
+              "code": "estimate",
+              "name": "Estimate",
+              "owner": {
+                "object": "owner",
+                "type": "system"
+              },
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata.",
+            "example": {}
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/SalesOrderStatus"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
       "List_Sandbox": {
         "description": "List represents a paginated list of resources.",
         "example": {
@@ -9724,6 +9919,60 @@
             "description": "Resources in this page.",
             "items": {
               "$ref": "#/components/schemas/ShippingTerm"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_TransactionType": {
+        "description": "List represents a paginated list of resources.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": "txtp_01jm4r6700f8nwq3v5hx2d9ktp",
+            "previous_page_url": null,
+            "has_next_page": true,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "txtp_01jm4r6700f8nwq3v5hx2d9ktp",
+              "object": "transaction_type",
+              "name": "Payment",
+              "code": "payment"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata.",
+            "example": {}
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/TransactionType"
             },
             "type": "array",
             "x-stainless-pagination-property": {
@@ -13861,6 +14110,78 @@
         },
         "type": "object"
       },
+      "SalesOrderStatus": {
+        "description": "Sales order status lookup value.",
+        "example": {
+          "id": "orss_01jm4r6700f8nwq3v5hx2d9ktp",
+          "object": "sales_order_status",
+          "code": "estimate",
+          "name": "Estimate",
+          "owner": {
+            "object": "owner",
+            "type": "system"
+          },
+          "created_at": "2026-05-10T00:00:00Z",
+          "updated_at": "2026-05-10T00:23:00Z"
+        },
+        "properties": {
+          "id": {
+            "description": "Sales order status ID.",
+            "type": "string"
+          },
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "sales_order_status"
+            ],
+            "type": "string"
+          },
+          "code": {
+            "description": "Machine-readable status code.",
+            "enum": [
+              "estimate",
+              "issued",
+              "fulfilled"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "Display name.",
+            "type": "string"
+          },
+          "owner": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Owner"
+              }
+            ],
+            "description": "Owner.",
+            "example": {},
+            "nullable": true,
+            "x-expandable": true
+          },
+          "created_at": {
+            "description": "Creation timestamp.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last updated timestamp.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "code",
+          "name",
+          "owner",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
       "Sandbox": {
         "description": "Sandbox account for isolated testing.",
         "example": {
@@ -14793,6 +15114,49 @@
           "free_shipping_service_levels",
           "created_at",
           "updated_at"
+        ],
+        "type": "object"
+      },
+      "TransactionType": {
+        "description": "Transaction type resource.",
+        "example": {
+          "id": "txtp_01jm4r6700f8nwq3v5hx2d9ktp",
+          "object": "transaction_type",
+          "name": "Payment",
+          "code": "payment"
+        },
+        "properties": {
+          "id": {
+            "description": "Transaction ID.",
+            "type": "string"
+          },
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "transaction_type"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "Display name.",
+            "type": "string"
+          },
+          "code": {
+            "description": "Machine-readable code.",
+            "enum": [
+              "payment",
+              "credit_memo",
+              "adjustment",
+              "rebate"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "name",
+          "code"
         ],
         "type": "object"
       },
@@ -26665,6 +27029,108 @@
         "x-preview": true
       }
     },
+    "/v1/finance/adjustment-types": {
+      "get": {
+        "description": "Returns a paginated list of adjustment types.",
+        "operationId": "list-adjustment-types",
+        "parameters": [
+          {
+            "description": "Cursor token used to retrieve the next or previous page of results.",
+            "example": "it_01jm4r6700f8nwq3v5hx2d9ktp",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results per page (default: 100, max: 1000).",
+            "example": 100,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Search query used to filter results.",
+            "example": "6061",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": "adjt_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "adjt_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "adjustment_type",
+                      "name": "Discount",
+                      "code": "discount",
+                      "owner": {
+                        "object": "owner",
+                        "type": "system"
+                      },
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_AdjustmentType"
+                }
+              }
+            },
+            "description": "Successful response for List Adjustment Types"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Adjustment Types",
+        "tags": [
+          "Transactions"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/finance/payment-terms": {
       "get": {
         "description": "Returns a paginated list of payment terms. Includes both account-specific and system default payment terms.",
@@ -27046,6 +27512,85 @@
         "summary": "Update Payment Term",
         "tags": [
           "Payment Terms Management"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/finance/transaction-types": {
+      "get": {
+        "description": "Returns a paginated list of transaction types.",
+        "operationId": "list-transaction-types",
+        "parameters": [
+          {
+            "description": "Cursor token used to retrieve the next or previous page of results.",
+            "example": "it_01jm4r6700f8nwq3v5hx2d9ktp",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results per page (default: 100, max: 1000).",
+            "example": 100,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Search query used to filter results.",
+            "example": "6061",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": "txtp_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "txtp_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "transaction_type",
+                      "name": "Payment",
+                      "code": "payment"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_TransactionType"
+                }
+              }
+            },
+            "description": "Successful response for List Transaction Types"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Transaction Types",
+        "tags": [
+          "Transactions"
         ],
         "x-preview": true
       }
@@ -33272,6 +33817,108 @@
         ],
         "x-preview": true
       }
+    },
+    "/v1/sales/sales-orders/statuses": {
+      "get": {
+        "description": "Returns a paginated list of sales order statuses.",
+        "operationId": "list-sales-order-statuses",
+        "parameters": [
+          {
+            "description": "Cursor token used to retrieve the next or previous page of results.",
+            "example": "it_01jm4r6700f8nwq3v5hx2d9ktp",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results per page (default: 100, max: 1000).",
+            "example": 100,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Search query used to filter results.",
+            "example": "6061",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "owner"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "owner"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": "orss_01jm4r6700f8nwq3v5hx2d9ktp",
+                    "previous_page_url": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "orss_01jm4r6700f8nwq3v5hx2d9ktp",
+                      "object": "sales_order_status",
+                      "code": "estimate",
+                      "name": "Estimate",
+                      "owner": {
+                        "object": "owner",
+                        "type": "system"
+                      },
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_SalesOrderStatus"
+                }
+              }
+            },
+            "description": "Successful response for List Sales Order Statuses"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Sales Order Statuses",
+        "tags": [
+          "Sales Order Statuses"
+        ],
+        "x-preview": true
+      }
     }
   },
   "security": [
@@ -33392,6 +34039,14 @@
     {
       "description": "List and manage products.",
       "name": "Products Management"
+    },
+    {
+      "description": "List sales order statuses.",
+      "name": "Sales Order Statuses"
+    },
+    {
+      "description": "Create, view, update, and delete transactions.",
+      "name": "Transactions"
     },
     {
       "description": "List and manage locations.",
