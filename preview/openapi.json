@@ -16603,11 +16603,6 @@
       }
     },
     "securitySchemes": {
-      "AugnoApiKey": {
-        "in": "header",
-        "name": "X-Augno-API-Key",
-        "type": "apiKey"
-      },
       "BearerAuth": {
         "scheme": "bearer",
         "type": "http"
@@ -34102,9 +34097,7 @@
     {
       "BearerAuth": []
     },
-    {
-      "AugnoApiKey": []
-    }
+    {}
   ],
   "servers": [
     {
