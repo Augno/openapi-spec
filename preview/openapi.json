@@ -2757,7 +2757,7 @@
           },
           "customer_portal_visibility": {
             "default": "visible",
-            "description": "Whether this carrier will be available for customers to select in the customer portal.",
+            "description": "Carrier visibility in the customer portal.\n\nIf `visible`, this carrier will be available for your customers to utilize when they go to checkout. If `hidden`, this carrier will not be an option on checkout.",
             "enum": [
               "visible",
               "hidden"
@@ -15822,7 +15822,7 @@
             "type": "string"
           },
           "customer_portal_visibility": {
-            "description": "Whether this carrier will be available for customers to select in the customer portal.",
+            "description": "Carrier visibility in the customer portal.\n\nIf `visible`, this carrier will be available for your customers to utilize when they go to checkout. If `hidden`, this carrier will not be an option on checkout.",
             "enum": [
               "visible",
               "hidden"
