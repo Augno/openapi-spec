@@ -432,7 +432,7 @@
             "type": "string"
           },
           "commission_policy": {
-            "description": "Commission policy.",
+            "description": "Commission policy.\n\n- `commission_exempt`: no commission applies.\n- `commission_applied`: commission applies; if the account group is within a sales rep's territory, it will be assigned to that rep unless overridden.",
             "enum": [
               "commission_applied",
               "commission_exempt"
@@ -440,7 +440,7 @@
             "type": "string"
           },
           "freight_policy": {
-            "description": "Freight policy.",
+            "description": "Freight policy.\n\n- `free_freight`: customers within this group will not have to pay for freight.\n- `billed_freight`: freight will be applied to any order within this account group, unless overridden elsewhere.",
             "enum": [
               "free_freight",
               "billed_freight"
@@ -448,7 +448,7 @@
             "type": "string"
           },
           "type": {
-            "description": "Account group type.\n\nThe type `pricing_group` indicates this account group is utilized for pricing rules. For example, you may have a 'Preferred' price group that receives a special discount rate. The type `type_group` indicates the account group is utilized to categorize a set of accounts. For example, you may have a group of accounts that are 'Consumers' or 'Distributors'.",
+            "description": "Account group type.\n\n- `pricing_group`: used for pricing rules, such as a \"Preferred\" group that receives a special discount.\n- `type_group`: used to categorize accounts, such as \"Consumers\" or \"Distributors\".",
             "enum": [
               "pricing_group",
               "type_group"
@@ -601,6 +601,7 @@
         "description": "Account user with profile, role, and department.",
         "example": {
           "id": "acus_01ea9983ddb41dacc44ecf997c",
+          "user_id": "us_0151164dcaea4cbded27b50aae",
           "object": "account_user",
           "name": "John Doe",
           "email": "john@augno.com",
@@ -636,6 +637,10 @@
         "properties": {
           "id": {
             "description": "Account user ID.",
+            "type": "string"
+          },
+          "user_id": {
+            "description": "Underlying user ID.",
             "type": "string"
           },
           "object": {
@@ -803,6 +808,7 @@
         },
         "required": [
           "id",
+          "user_id",
           "object",
           "name",
           "email",
@@ -1081,12 +1087,10 @@
           },
           "phone": {
             "description": "Phone number associated with the address.",
-            "nullable": true,
             "type": "string"
           },
           "email": {
             "description": "Email address associated with the address.",
-            "nullable": true,
             "type": "string"
           },
           "type": {
@@ -1100,27 +1104,22 @@
           },
           "street_line_1": {
             "description": "First line of the street address.",
-            "nullable": true,
             "type": "string"
           },
           "street_line_2": {
             "description": "Second line of the street address.",
-            "nullable": true,
             "type": "string"
           },
           "locality": {
             "description": "City or locality.",
-            "nullable": true,
             "type": "string"
           },
           "state": {
             "description": "State or administrative area.",
-            "nullable": true,
             "type": "string"
           },
           "postal_code": {
             "description": "Postal or ZIP code.",
-            "nullable": true,
             "type": "string"
           },
           "country": {
@@ -1493,6 +1492,10 @@
               "account",
               "actor",
               "entity",
+              "record",
+              "freight",
+              "sales_order_totals",
+              "sales_order_related",
               "user",
               "address",
               "api_key",
@@ -2583,7 +2586,7 @@
             "type": "string"
           },
           "type": {
-            "description": "Account group type.",
+            "description": "Account group type.\n\nCannot be changed after creation.\n- `pricing_group`: used for pricing rules, such as a \"Preferred\" group that receives a special discount.\n- `type_group`: used to categorize accounts, such as \"Consumers\" or \"Distributors\".",
             "enum": [
               "pricing_group",
               "type_group"
@@ -2592,7 +2595,7 @@
           },
           "commission_policy": {
             "default": "commission_exempt",
-            "description": "Commission policy.",
+            "description": "Commission policy. Defaults to `commission_exempt`.\n\n- `commission_exempt`: no commission applies.\n- `commission_applied`: commission applies; if the account group is within a sales rep's territory, it will be assigned to that rep unless overridden.",
             "enum": [
               "commission_applied",
               "commission_exempt"
@@ -2601,7 +2604,7 @@
           },
           "freight_policy": {
             "default": "billed_freight",
-            "description": "Freight policy.",
+            "description": "Freight policy. Defaults to `billed_freight`.\n\n- `free_freight`: customers within this group will not have to pay for freight.\n- `billed_freight`: freight will be applied to any order within this account group, unless overridden elsewhere.",
             "enum": [
               "free_freight",
               "billed_freight"
@@ -2622,10 +2625,6 @@
       "CreateAccountUserRequest": {
         "description": "Request to create an account user.",
         "example": {
-          "name": "John Doe",
-          "email": "jdoe@augno.com",
-          "username": "jdoe",
-          "password": "QgS7Z8Hhj3\u00261",
           "preferences": [
             {
               "notification_type": "order_acknowledgement",
@@ -2636,32 +2635,26 @@
         "properties": {
           "name": {
             "description": "User display name.",
-            "nullable": true,
             "type": "string"
           },
           "email": {
             "description": "User email address.",
-            "nullable": true,
             "type": "string"
           },
           "username": {
             "description": "Unique username (3–255 chars; letters, numbers, underscores, hyphens).",
-            "nullable": true,
             "type": "string"
           },
           "password": {
             "description": "Password. Only used for scanner-role users (scanning stations).\nMust be 8–72 chars and include upper, lower, number, and special character.",
-            "nullable": true,
             "type": "string"
           },
           "role_id": {
             "description": "Role assigned to the user.",
-            "nullable": true,
             "type": "string"
           },
           "department_id": {
             "description": "Department assigned to the user.",
-            "nullable": true,
             "type": "string"
           },
           "preferences": {
@@ -2672,19 +2665,12 @@
             "type": "array"
           }
         },
-        "required": [
-          "name",
-          "email",
-          "username",
-          "password"
-        ],
         "type": "object"
       },
       "CreateAttributeRequest": {
         "description": "Request to create an attribute.",
         "example": {
-          "value": "Red",
-          "sort_order": 1
+          "value": "Red"
         },
         "properties": {
           "value": {
@@ -2703,31 +2689,24 @@
               "pink",
               "purple",
               "red",
-              "yellow",
-              null
+              "yellow"
             ],
-            "nullable": true,
             "type": "string"
           },
           "sort_order": {
             "description": "Display order. Defaults to last position if not provided.",
-            "nullable": true,
             "type": "integer"
           }
         },
         "required": [
-          "value",
-          "sort_order"
+          "value"
         ],
         "type": "object"
       },
       "CreateCarrierRequest": {
         "description": "Request to create a carrier.",
         "example": {
-          "name": "FedEx",
-          "code": "fedex",
-          "account_number": "1234567890",
-          "customer_portal_visibility": "visible"
+          "name": "FedEx"
         },
         "properties": {
           "name": {
@@ -2744,15 +2723,12 @@
               "delivery",
               "ltl",
               "ltl1",
-              "freight_collect",
-              null
+              "freight_collect"
             ],
-            "nullable": true,
             "type": "string"
           },
           "account_number": {
             "description": "Carrier account number. Required for UPS and USPS carriers.",
-            "nullable": true,
             "type": "string"
           },
           "customer_portal_visibility": {
@@ -2766,9 +2742,7 @@
           }
         },
         "required": [
-          "name",
-          "code",
-          "account_number"
+          "name"
         ],
         "type": "object"
       },
@@ -2776,7 +2750,6 @@
         "description": "Request to create a customer.",
         "example": {
           "name": "Acme Inc.",
-          "note": "Key enterprise account",
           "default_carrier_id": "cr_01784fd54c9ba197bb4e42f0e6",
           "default_payment_term_id": "pytm_018694d6601ea771cd1b52e890",
           "default_shipping_term_id": "shtm_014341ab4bb5bf94d5b6936f86",
@@ -3009,7 +2982,6 @@
           },
           "parent_id": {
             "description": "Parent location ID. Null for top-level locations.",
-            "nullable": true,
             "type": "string"
           },
           "child_ids": {
@@ -3017,7 +2989,6 @@
             "items": {
               "type": "string"
             },
-            "nullable": true,
             "type": "array"
           }
         },
@@ -3040,12 +3011,10 @@
           },
           "description": {
             "description": "Description.",
-            "nullable": true,
             "type": "string"
           },
           "notes": {
             "description": "Notes.",
-            "nullable": true,
             "type": "string"
           },
           "category_id": {
@@ -3059,8 +3028,7 @@
               }
             ],
             "description": "Order point quantity.",
-            "example": {},
-            "nullable": true
+            "example": {}
           },
           "lead_time": {
             "allOf": [
@@ -3069,8 +3037,7 @@
               }
             ],
             "description": "Lead time quantity.",
-            "example": {},
-            "nullable": true
+            "example": {}
           },
           "unit_price": {
             "allOf": [
@@ -3079,8 +3046,7 @@
               }
             ],
             "description": "Initial unit price. When set, numerator must be a currency unit and\ndenominator must not be.",
-            "example": {},
-            "nullable": true
+            "example": {}
           },
           "unit_cost": {
             "allOf": [
@@ -3089,8 +3055,7 @@
               }
             ],
             "description": "Initial unit cost. Same currency rule as unit_price.",
-            "example": {},
-            "nullable": true
+            "example": {}
           },
           "attribute_ids": {
             "description": "Attribute IDs to connect to the material at creation time.",
@@ -3119,12 +3084,10 @@
           },
           "description": {
             "description": "Description.",
-            "nullable": true,
             "type": "string"
           },
           "notes": {
             "description": "Notes.",
-            "nullable": true,
             "type": "string"
           },
           "category_id": {
@@ -3138,8 +3101,7 @@
               }
             ],
             "description": "Initial unit price. When set, numerator must be a currency unit and\ndenominator must not be.",
-            "example": {},
-            "nullable": true
+            "example": {}
           },
           "unit_cost": {
             "allOf": [
@@ -3148,8 +3110,7 @@
               }
             ],
             "description": "Initial unit cost. Same currency rule as unit_price.",
-            "example": {},
-            "nullable": true
+            "example": {}
           },
           "attribute_ids": {
             "description": "Attribute IDs to connect to the part at creation time.",
@@ -3237,12 +3198,10 @@
           },
           "description": {
             "description": "Description.",
-            "nullable": true,
             "type": "string"
           },
           "notes": {
             "description": "Notes.",
-            "nullable": true,
             "type": "string"
           },
           "type": {
@@ -3259,7 +3218,6 @@
           },
           "product_line_id": {
             "description": "Product line ID.",
-            "nullable": true,
             "type": "string"
           },
           "category_id": {
@@ -3282,8 +3240,7 @@
               }
             ],
             "description": "Initial unit price. When set, numerator must be a currency unit and\ndenominator must not be.",
-            "example": {},
-            "nullable": true
+            "example": {}
           },
           "unit_cost": {
             "allOf": [
@@ -3292,8 +3249,7 @@
               }
             ],
             "description": "Initial unit cost. Same currency rule as unit_price.",
-            "example": {},
-            "nullable": true
+            "example": {}
           },
           "attribute_ids": {
             "description": "Attribute IDs to connect to the product at creation time.",
@@ -3306,7 +3262,6 @@
         "required": [
           "sku",
           "type",
-          "product_line_id",
           "category_id"
         ],
         "type": "object"
@@ -3372,10 +3327,8 @@
             "description": "Controls whether the sandbox is blank or seeded with sample data.",
             "enum": [
               "blank",
-              "seeded",
-              null
+              "seeded"
             ],
-            "nullable": true,
             "type": "string"
           }
         },
@@ -3390,9 +3343,7 @@
           "name": "Packaging Line 1",
           "type": "init_batch",
           "operator_requirement": "none",
-          "department_id": "dp_01791c25ab59da4704cba61874",
-          "label_size": "1x1",
-          "label_type": "tag"
+          "department_id": "dp_01791c25ab59da4704cba61874"
         },
         "properties": {
           "name": {
@@ -3517,8 +3468,7 @@
               }
             ],
             "description": "Flat rate for this shipping term.",
-            "example": {},
-            "nullable": true
+            "example": {}
           },
           "minimum_order_value": {
             "allOf": [
@@ -3527,8 +3477,7 @@
               }
             ],
             "description": "Minimum order value for free shipping.",
-            "example": {},
-            "nullable": true
+            "example": {}
           },
           "free_shipping_service_level_ids": {
             "description": "Service level IDs that qualify for free shipping.",
@@ -3552,10 +3501,7 @@
           "base_unit_id": "un_01966263f74a5a0cae356000a1",
           "associated_units": [
             {
-              "unit_id": "un_01966263f74a5a0cae356000a1",
-              "discount_percentage": 1,
-              "discount_fixed": 0,
-              "customer_portal_visibility": "visible"
+              "unit_id": "un_01966263f74a5a0cae356000a1"
             }
           ]
         },
@@ -3638,10 +3584,7 @@
       "CreateUnitGroupUnitRequest": {
         "description": "CreateUnitGroupUnitRequest is a request to create an associated unit within a unit group.",
         "example": {
-          "unit_id": "un_01966263f74a5a0cae356000a1",
-          "discount_percentage": 1,
-          "discount_fixed": 0,
-          "customer_portal_visibility": "visible"
+          "unit_id": "un_01966263f74a5a0cae356000a1"
         },
         "properties": {
           "unit_id": {
@@ -3970,6 +3913,7 @@
             },
             "sales_rep": {
               "id": "acus_01ea9983ddb41dacc44ecf997c",
+              "user_id": "us_0151164dcaea4cbded27b50aae",
               "object": "account_user",
               "name": "John Doe",
               "email": "john@augno.com",
@@ -4457,6 +4401,7 @@
                     },
                     "sales_rep": {
                       "id": "acus_01ea9983ddb41dacc44ecf997c",
+                      "user_id": "us_0151164dcaea4cbded27b50aae",
                       "object": "account_user",
                       "name": "John Doe",
                       "email": "john@augno.com",
@@ -4731,6 +4676,7 @@
             "description": "Default sales rep.",
             "example": {
               "id": "acus_01ea9983ddb41dacc44ecf997c",
+              "user_id": "us_0151164dcaea4cbded27b50aae",
               "object": "account_user",
               "name": "John Doe",
               "email": "john@augno.com",
@@ -6180,6 +6126,7 @@
           "data": [
             {
               "id": "acus_01ea9983ddb41dacc44ecf997c",
+              "user_id": "us_0151164dcaea4cbded27b50aae",
               "object": "account_user",
               "name": "John Doe",
               "email": "john@augno.com",
@@ -7110,6 +7057,7 @@
                 },
                 "sales_rep": {
                   "id": "acus_01ea9983ddb41dacc44ecf997c",
+                  "user_id": "us_0151164dcaea4cbded27b50aae",
                   "object": "account_user",
                   "name": "John Doe",
                   "email": "john@augno.com",
@@ -7973,6 +7921,10 @@
                 "account",
                 "actor",
                 "entity",
+                "record",
+                "freight",
+                "sales_order_totals",
+                "sales_order_related",
                 "user",
                 "address",
                 "api_key",
@@ -13518,6 +13470,7 @@
         "type": "object"
       },
       "RateInput": {
+        "description": "RateInput represents the input for creating or updating a rate.",
         "example": {},
         "properties": {
           "value": {
@@ -13832,7 +13785,7 @@
                 "$ref": "#/components/schemas/Account"
               }
             ],
-            "description": "Account _targeted_ by the request.",
+            "description": "Account _targeted_ by the request — your own account, since that is the only account you can view request logs for.\n\nThis is the request's target, not the acting account. To filter by who acted (which may be another account\noperating on yours), use the `account_ids` query parameter, which matches the acting account instead.",
             "example": {
               "id": "ac_01148680966698341a9c0976db",
               "object": "account",
@@ -15646,9 +15599,7 @@
       },
       "UpdateAccountGroupRequest": {
         "description": "Request to partially update an account group.",
-        "example": {
-          "name": "Updated Wholesale Customers"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name.",
@@ -15657,11 +15608,10 @@
           "description": {
             "description": "Description.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "commission_policy": {
-            "description": "Commission policy.",
+            "description": "Commission policy.\n\n- `commission_exempt`: no commission applies.\n- `commission_applied`: commission applies; if the account group is within a sales rep's territory, it will be assigned to that rep unless overridden.",
             "enum": [
               "commission_applied",
               "commission_exempt"
@@ -15669,7 +15619,7 @@
             "type": "string"
           },
           "freight_policy": {
-            "description": "Freight policy.",
+            "description": "Freight policy.\n\n- `free_freight`: customers within this group will not have to pay for freight.\n- `billed_freight`: freight will be applied to any order within this account group, unless overridden elsewhere.",
             "enum": [
               "free_freight",
               "billed_freight"
@@ -15681,9 +15631,7 @@
       },
       "UpdateAccountUserRequest": {
         "description": "Request to partially update an account user.",
-        "example": {
-          "name": "John Doe"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "User display name.",
@@ -15700,14 +15648,12 @@
           "role_id": {
             "description": "Role assigned to the user.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "department_id": {
             "description": "Department assigned to the user.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "preferences": {
             "description": "Notification preferences to update (external targets only).",
@@ -15721,9 +15667,7 @@
       },
       "UpdateAddressRequest": {
         "description": "Request to partially update an address.",
-        "example": {
-          "name": "Warehouse"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name of the address.",
@@ -15732,14 +15676,12 @@
           "phone": {
             "description": "Phone number associated with the address.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "email": {
             "description": "Email address associated with the address.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "type": {
             "description": "Address type.",
@@ -15756,8 +15698,7 @@
           "street_line_2": {
             "description": "Second line of the street address.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "locality": {
             "description": "City or locality.",
@@ -15780,9 +15721,7 @@
       },
       "UpdateAttributeRequest": {
         "description": "Request to update an attribute.",
-        "example": {
-          "value": "Blue"
-        },
+        "example": {},
         "properties": {
           "value": {
             "description": "Attribute value.",
@@ -15813,9 +15752,7 @@
       },
       "UpdateCarrierRequest": {
         "description": "Request to update a carrier.",
-        "example": {
-          "name": "FedEx Express"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name.",
@@ -15834,11 +15771,7 @@
       },
       "UpdateCustomerRequest": {
         "description": "Request to partially update a customer.",
-        "example": {
-          "name": "Acme Corp Updated",
-          "freight_policy": "billed_freight",
-          "default_carrier_id": "cr_01784fd54c9ba197bb4e42f0e6"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Customer name.",
@@ -15851,8 +15784,7 @@
           "note": {
             "description": "Note.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "status": {
             "description": "Account status code.",
@@ -15867,20 +15799,17 @@
           "email": {
             "description": "Email address. Send null to clear.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "phone": {
             "description": "Phone number. Send null to clear.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "url": {
             "description": "Website URL. Send null to clear.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "edi_status": {
             "description": "EDI status.",
@@ -15913,8 +15842,7 @@
           "default_service_level_id": {
             "description": "Default service level ID.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "default_payment_term_id": {
             "description": "Default payment term ID.",
@@ -15936,20 +15864,17 @@
           "default_sales_rep_id": {
             "description": "The ID of the account user to assign as the default sales rep.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "bill_to_address_id": {
             "description": "Bill-to address ID.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "ship_to_address_id": {
             "description": "Ship-to address ID.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "customer_price_group_ids": {
             "description": "Price group IDs. Replaces all existing price groups when provided.",
@@ -15973,8 +15898,7 @@
           "carrier_billing_account": {
             "description": "Carrier billing account number.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "credit_limit": {
             "allOf": [
@@ -15984,17 +15908,14 @@
             ],
             "description": "Credit limit. Send null to clear.",
             "example": {},
-            "nullable": true,
-            "x-nullable-clear": true
+            "nullable": true
           }
         },
         "type": "object"
       },
       "UpdateItemCategoryRequest": {
         "description": "Request to partially update an item category.",
-        "example": {
-          "name": "Electronic Components"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name.",
@@ -16009,9 +15930,7 @@
       },
       "UpdateLocationRequest": {
         "description": "Request to partially update a location.",
-        "example": {
-          "name": "Warehouse B"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name.",
@@ -16032,8 +15951,7 @@
           "parent_id": {
             "description": "Parent location ID. Send null to clear.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "child_ids": {
             "description": "Child location IDs. Replaces all current children when provided. Send null to clear.",
@@ -16041,17 +15959,14 @@
               "type": "string"
             },
             "nullable": true,
-            "type": "array",
-            "x-nullable-clear": true
+            "type": "array"
           }
         },
         "type": "object"
       },
       "UpdateMaterialRequest": {
         "description": "Request to update a material.",
-        "example": {
-          "sku": "MAT-001-UPDATED"
-        },
+        "example": {},
         "properties": {
           "sku": {
             "description": "SKU code.",
@@ -16090,17 +16005,14 @@
               }
             ],
             "description": "Updated unit cost. Same currency rule as on create.",
-            "example": {},
-            "nullable": true
+            "example": {}
           }
         },
         "type": "object"
       },
       "UpdatePartRequest": {
         "description": "Request to partially update a part.",
-        "example": {
-          "sku": "BRG-6204-2RS"
-        },
+        "example": {},
         "properties": {
           "sku": {
             "description": "SKU.",
@@ -16109,23 +16021,19 @@
           "description": {
             "description": "Description.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "notes": {
             "description": "Notes.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           }
         },
         "type": "object"
       },
       "UpdatePaymentTermRequest": {
         "description": "Request to partially update a payment term.",
-        "example": {
-          "name": "Net 60"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name.",
@@ -16136,9 +16044,7 @@
       },
       "UpdateProductLineRequest": {
         "description": "Request to partially update a product line.",
-        "example": {
-          "name": "Updated Product Line"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name.",
@@ -16169,9 +16075,7 @@
       },
       "UpdateProductRequest": {
         "description": "UpdateProductRequest is the request to partially update a product.",
-        "example": {
-          "sku": "SKU-002"
-        },
+        "example": {},
         "properties": {
           "sku": {
             "description": "SKU.",
@@ -16180,14 +16084,12 @@
           "description": {
             "description": "Description.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "notes": {
             "description": "Notes.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "portal_visibility": {
             "description": "Whether visible in the customer portal.",
@@ -16204,17 +16106,14 @@
               }
             ],
             "description": "Updated unit price. Numerator must be a currency unit; denominator must not be.",
-            "example": {},
-            "nullable": true
+            "example": {}
           }
         },
         "type": "object"
       },
       "UpdatePropertyRequest": {
         "description": "Request to update a property.",
-        "example": {
-          "name": "Size"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Name.",
@@ -16225,13 +16124,7 @@
       },
       "UpdateRoleRequest": {
         "description": "UpdateRoleRequest is a request to update a role.",
-        "example": {
-          "name": "Updated Manager",
-          "permissions": [
-            "customers:read",
-            "customers:update"
-          ]
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name.",
@@ -16249,9 +16142,7 @@
       },
       "UpdateScanningStationRequest": {
         "description": "Request to partially update a scanning station.",
-        "example": {
-          "name": "Station B"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name.",
@@ -16260,8 +16151,7 @@
           "notes": {
             "description": "Notes.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "label_size": {
             "description": "Label size code.",
@@ -16295,7 +16185,6 @@
       "UpdateServiceLevelRequest": {
         "description": "Request to update a service level.",
         "example": {
-          "name": "Express Shipping",
           "is_default": false
         },
         "properties": {
@@ -16324,9 +16213,7 @@
       },
       "UpdateShippingTermRequest": {
         "description": "Request to partially update a shipping term.\nAll fields are optional. Absent fields are left unchanged. Send an explicit\nJSON null for flat_rate, minimum_order_value, or free_shipping_service_level_ids\nto clear the existing value.",
-        "example": {
-          "name": "Collect"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name.",
@@ -16349,8 +16236,7 @@
             ],
             "description": "Flat rate. Send null to clear.",
             "example": {},
-            "nullable": true,
-            "x-nullable-clear": true
+            "nullable": true
           },
           "minimum_order_value": {
             "allOf": [
@@ -16360,8 +16246,7 @@
             ],
             "description": "Minimum order value for free shipping. Send null to clear.",
             "example": {},
-            "nullable": true,
-            "x-nullable-clear": true
+            "nullable": true
           },
           "free_shipping_service_level_ids": {
             "description": "Service level IDs that qualify for free shipping. Send null to clear.",
@@ -16369,18 +16254,14 @@
               "type": "string"
             },
             "nullable": true,
-            "type": "array",
-            "x-nullable-clear": true
+            "type": "array"
           }
         },
         "type": "object"
       },
       "UpdateUnitGroupRequest": {
         "description": "UpdateUnitGroupRequest is a request to partially update a unit group.",
-        "example": {
-          "name": "Weight Units (Updated)",
-          "base_unit_id": "un_01966263f74a5a0cae356000a1"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name.",
@@ -16389,8 +16270,7 @@
           "notes": {
             "description": "Notes. Set to null to clear.",
             "nullable": true,
-            "type": "string",
-            "x-nullable-clear": true
+            "type": "string"
           },
           "base_unit_id": {
             "description": "Base unit ID.",
@@ -16408,10 +16288,7 @@
       },
       "UpdateUnitGroupUnitRequest": {
         "description": "UpdateUnitGroupUnitRequest is a request to update an associated unit.",
-        "example": {
-          "unit_id": "un_01966263f74a5a0cae356000a1",
-          "discount_percentage": 0.9
-        },
+        "example": {},
         "properties": {
           "unit_id": {
             "description": "Unit ID.",
@@ -16438,10 +16315,7 @@
       },
       "UpdateUnitRequest": {
         "description": "Request to partially update a unit.",
-        "example": {
-          "name": "Kilogram",
-          "abbreviation": "kg"
-        },
+        "example": {},
         "properties": {
           "name": {
             "description": "Display name of the unit.",
@@ -16586,6 +16460,7 @@
     },
     "securitySchemes": {
       "BearerAuth": {
+        "description": "API key authentication. Provide your API key as a Bearer token in the `Authorization` header.",
         "scheme": "bearer",
         "type": "http"
       }
@@ -17474,9 +17349,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Electronic Components"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateItemCategoryRequest"
               }
@@ -19845,9 +19718,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "sku": "MAT-001-UPDATED"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateMaterialRequest"
               }
@@ -20862,9 +20733,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "sku": "BRG-6204-2RS"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdatePartRequest"
               }
@@ -21362,9 +21231,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Updated Product Line"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateProductLineRequest"
               }
@@ -22417,9 +22284,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "sku": "SKU-002"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateProductRequest"
               }
@@ -23122,9 +22987,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Size"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdatePropertyRequest"
               }
@@ -23278,8 +23141,7 @@
           "content": {
             "application/json": {
               "example": {
-                "value": "Red",
-                "sort_order": 1
+                "value": "Red"
               },
               "schema": {
                 "$ref": "#/components/schemas/CreateAttributeRequest"
@@ -23472,9 +23334,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "value": "Blue"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateAttributeRequest"
               }
@@ -23695,10 +23555,7 @@
                 "base_unit_id": "un_01966263f74a5a0cae356000a1",
                 "associated_units": [
                   {
-                    "unit_id": "un_01966263f74a5a0cae356000a1",
-                    "discount_percentage": 1,
-                    "discount_fixed": 0,
-                    "customer_portal_visibility": "visible"
+                    "unit_id": "un_01966263f74a5a0cae356000a1"
                   }
                 ]
               },
@@ -23945,10 +23802,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Weight Units (Updated)",
-                "base_unit_id": "un_01966263f74a5a0cae356000a1"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateUnitGroupRequest"
               }
@@ -24150,10 +24004,7 @@
           "content": {
             "application/json": {
               "example": {
-                "unit_id": "un_01966263f74a5a0cae356000a1",
-                "discount_percentage": 1,
-                "discount_fixed": 0,
-                "customer_portal_visibility": "visible"
+                "unit_id": "un_01966263f74a5a0cae356000a1"
               },
               "schema": {
                 "$ref": "#/components/schemas/CreateUnitGroupUnitRequest"
@@ -24416,10 +24267,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "unit_id": "un_01966263f74a5a0cae356000a1",
-                "discount_percentage": 0.9
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateUnitGroupUnitRequest"
               }
@@ -24874,10 +24722,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Kilogram",
-                "abbreviation": "kg"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateUnitRequest"
               }
@@ -25134,6 +24979,10 @@
                   "account",
                   "actor",
                   "entity",
+                  "record",
+                  "freight",
+                  "sales_order_totals",
+                  "sales_order_related",
                   "user",
                   "address",
                   "api_key",
@@ -25340,7 +25189,7 @@
             }
           },
           {
-            "description": "Filter by the actor identifier.\n\nWill be `account_user.id` when `identity_type`=`user` or an `api_key.id` when `identity_type`=`api_key`.",
+            "description": "Filter by the actor identifier.\n\nWill be `user.id` when `identity_type`=`user` or an `api_key.id` when `identity_type`=`api_key`.",
             "example": [
               "us_0151164dcaea4cbded27b50aae"
             ],
@@ -26135,6 +25984,20 @@
             }
           },
           {
+            "description": "Filter by the HTTP status class: 1–5 for 1xx–5xx. Combined with `status_codes`\nusing OR — e.g. status_codes=401 and status_code_classes=5 matches 401 and any 5xx.",
+            "example": [
+              5
+            ],
+            "in": "query",
+            "name": "status_code_classes[]",
+            "schema": {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            }
+          },
+          {
             "description": "Filter by API error code.",
             "example": [
               "expired_token"
@@ -26183,7 +26046,7 @@
             }
           },
           {
-            "description": "Filter by the account ID _targeted_ by the request. The actor may be operating on behalf of a separate account.",
+            "description": "Filter by the _acting_ account: the account the actor belongs to, not the account targeted by the request.\n\nThis is usually your own account, but differs when another account acts on yours — for example a customer using a customer-portal API key, whose acting account is the customer's account. The request's target account is always your own account (the only account you are authorized to view request logs for), so this filter narrows by _who acted_, not by which account was acted upon.",
             "example": [
               "ac_01148680966698341a9c0976db"
             ],
@@ -26197,7 +26060,7 @@
             }
           },
           {
-            "description": "Filter by the actor identifier. `account_user.id` when `identity_type`=`user`, or an `api_key.id` when `identity_type`=`api_key`.",
+            "description": "Filter by the actor identifier.\n\nThis is the `user.id` when `identity_type`=`user` and an `api_key.id` when `identity_type`=`api_key`.",
             "example": [
               "us_0151164dcaea4cbded27b50aae"
             ],
@@ -26230,7 +26093,7 @@
             }
           },
           {
-            "description": "Filter by the _normalized_ route template. For example `PATCH /v1/sales/customers/{id}` is the normalized route for a request route `PUT /v1/sales/customers/ac_...`.",
+            "description": "Filter by the _normalized_ route template.\n\nFor example `PATCH /v1/sales/customers/{id}` is the normalized route for a request route `PUT /v1/sales/customers/ac_...`.",
             "example": [
               "/v1/catalog/items"
             ],
@@ -27543,9 +27406,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Net 60"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdatePaymentTermRequest"
               }
@@ -27847,6 +27708,7 @@
                   "data": [
                     {
                       "id": "acus_01ea9983ddb41dacc44ecf997c",
+                      "user_id": "us_0151164dcaea4cbded27b50aae",
                       "object": "account_user",
                       "name": "John Doe",
                       "email": "john@augno.com",
@@ -27932,10 +27794,6 @@
           "content": {
             "application/json": {
               "example": {
-                "name": "John Doe",
-                "email": "jdoe@augno.com",
-                "username": "jdoe",
-                "password": "QgS7Z8Hhj3\u00261",
                 "preferences": [
                   {
                     "notification_type": "order_acknowledgement",
@@ -27956,6 +27814,7 @@
               "application/json": {
                 "example": {
                   "id": "acus_01ea9983ddb41dacc44ecf997c",
+                  "user_id": "us_0151164dcaea4cbded27b50aae",
                   "object": "account_user",
                   "name": "John Doe",
                   "email": "john@augno.com",
@@ -28053,6 +27912,7 @@
               "application/json": {
                 "example": {
                   "id": "acus_01ea9983ddb41dacc44ecf997c",
+                  "user_id": "us_0151164dcaea4cbded27b50aae",
                   "object": "account_user",
                   "name": "John Doe",
                   "email": "john@augno.com",
@@ -28145,9 +28005,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "John Doe"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateAccountUserRequest"
               }
@@ -28161,6 +28019,7 @@
               "application/json": {
                 "example": {
                   "id": "acus_01ea9983ddb41dacc44ecf997c",
+                  "user_id": "us_0151164dcaea4cbded27b50aae",
                   "object": "account_user",
                   "name": "John Doe",
                   "email": "john@augno.com",
@@ -28763,13 +28622,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Updated Manager",
-                "permissions": [
-                  "customers:read",
-                  "customers:update"
-                ]
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateRoleRequest"
               }
@@ -28970,10 +28823,7 @@
           "content": {
             "application/json": {
               "example": {
-                "name": "FedEx",
-                "code": "fedex",
-                "account_number": "1234567890",
-                "customer_portal_visibility": "visible"
+                "name": "FedEx"
               },
               "schema": {
                 "$ref": "#/components/schemas/CreateCarrierRequest"
@@ -29445,7 +29295,6 @@
           "content": {
             "application/json": {
               "example": {
-                "name": "Express Shipping",
                 "is_default": false
               },
               "schema": {
@@ -29670,9 +29519,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "FedEx Express"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateCarrierRequest"
               }
@@ -30231,9 +30078,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Warehouse B"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateLocationRequest"
               }
@@ -30422,9 +30267,7 @@
                 "name": "Packaging Line 1",
                 "type": "init_batch",
                 "operator_requirement": "none",
-                "department_id": "dp_01791c25ab59da4704cba61874",
-                "label_size": "1x1",
-                "label_type": "tag"
+                "department_id": "dp_01791c25ab59da4704cba61874"
               },
               "schema": {
                 "$ref": "#/components/schemas/CreateScanningStationRequest"
@@ -30623,9 +30466,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Station B"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateScanningStationRequest"
               }
@@ -31043,9 +30884,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Collect"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateShippingTermRequest"
               }
@@ -31370,9 +31209,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Updated Wholesale Customers"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateAccountGroupRequest"
               }
@@ -31884,9 +31721,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Warehouse"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateAddressRequest"
               }
@@ -32358,6 +32193,7 @@
                         },
                         "sales_rep": {
                           "id": "acus_01ea9983ddb41dacc44ecf997c",
+                          "user_id": "us_0151164dcaea4cbded27b50aae",
                           "object": "account_user",
                           "name": "John Doe",
                           "email": "john@augno.com",
@@ -32530,7 +32366,6 @@
             "application/json": {
               "example": {
                 "name": "Acme Inc.",
-                "note": "Key enterprise account",
                 "default_carrier_id": "cr_01784fd54c9ba197bb4e42f0e6",
                 "default_payment_term_id": "pytm_018694d6601ea771cd1b52e890",
                 "default_shipping_term_id": "shtm_014341ab4bb5bf94d5b6936f86",
@@ -32680,6 +32515,7 @@
                     },
                     "sales_rep": {
                       "id": "acus_01ea9983ddb41dacc44ecf997c",
+                      "user_id": "us_0151164dcaea4cbded27b50aae",
                       "object": "account_user",
                       "name": "John Doe",
                       "email": "john@augno.com",
@@ -33031,6 +32867,7 @@
                     },
                     "sales_rep": {
                       "id": "acus_01ea9983ddb41dacc44ecf997c",
+                      "user_id": "us_0151164dcaea4cbded27b50aae",
                       "object": "account_user",
                       "name": "John Doe",
                       "email": "john@augno.com",
@@ -33209,11 +33046,7 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "example": {
-                "name": "Acme Corp Updated",
-                "freight_policy": "billed_freight",
-                "default_carrier_id": "cr_01784fd54c9ba197bb4e42f0e6"
-              },
+              "example": {},
               "schema": {
                 "$ref": "#/components/schemas/UpdateCustomerRequest"
               }
@@ -33350,6 +33183,7 @@
                     },
                     "sales_rep": {
                       "id": "acus_01ea9983ddb41dacc44ecf997c",
+                      "user_id": "us_0151164dcaea4cbded27b50aae",
                       "object": "account_user",
                       "name": "John Doe",
                       "email": "john@augno.com",
@@ -33671,6 +33505,7 @@
                     },
                     "sales_rep": {
                       "id": "acus_01ea9983ddb41dacc44ecf997c",
+                      "user_id": "us_0151164dcaea4cbded27b50aae",
                       "object": "account_user",
                       "name": "John Doe",
                       "email": "john@augno.com",
