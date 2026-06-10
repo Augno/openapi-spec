@@ -27,7 +27,15 @@ jobs:
 
             - name: Download public spec from S3
               run: |
-                  aws s3 cp s3://augno-public-openapi-specs/openapi.json preview/openapi.json
+                  # api-release dispatches carry the API version (e.g. 1.0.forge-preview.2),
+                  # which keys the version-pinned S3 artifact — fetch exactly the spec for
+                  # the release that triggered us. Manual runs fall back to the latest.
+                  API_VERSION="${{ github.event.client_payload.api_version || '' }}"
+                  if [ -n "$API_VERSION" ]; then
+                    aws s3 cp "s3://augno-public-openapi-specs/${API_VERSION}.json" preview/openapi.json
+                  else
+                    aws s3 cp s3://augno-public-openapi-specs/openapi.json preview/openapi.json
+                  fi
 
             - name: Check for changes
               id: diff
