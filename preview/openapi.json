@@ -2,7 +2,7 @@
   "components": {
     "schemas": {
       "APIErrorResponse": {
-        "description": "APIErrorResponse is the top-level envelope wrapping a ResponseError.\nAll API error responses use this shape: { \"error\": { ... } }.",
+        "description": "APIErrorResponse is the top-level envelope wrapping a ResponseError. All API error responses use this shape: { \"error\": { ... } }.",
         "example": {
           "error": {
             "code": "validation_failed",
@@ -1699,6 +1699,7 @@
               "freight",
               "sales_order_totals",
               "sales_order_related",
+              "order_contact",
               "user",
               "address",
               "api_key",
@@ -9209,6 +9210,7 @@
                 "freight",
                 "sales_order_totals",
                 "sales_order_related",
+                "order_contact",
                 "user",
                 "address",
                 "api_key",
@@ -16243,7 +16245,7 @@
         "type": "object"
       },
       "QuotaInfo": {
-        "description": "QuotaInfo provides machine-readable details about a plan-imposed resource limit.\nIncluded in limit_exceeded errors so clients can display upgrade prompts, usage bars,\nor implement programmatic retry/backoff logic.",
+        "description": "QuotaInfo provides machine-readable details about a plan-imposed resource limit. Included in limit_exceeded errors so clients can display upgrade prompts, usage bars, or implement programmatic retry/backoff logic.",
         "properties": {
           "limit": {
             "description": "Limit is the maximum number of resources allowed by the current plan.",
@@ -16717,7 +16719,7 @@
         "type": "object"
       },
       "ResponseError": {
-        "description": "ResponseError is the JSON-serializable error body returned to API clients. It contains\nonly public information. This struct is used by the OpenAPI schema generator to produce\ndocumentation.",
+        "description": "ResponseError is the JSON-serializable error body returned to API clients. It contains only public information. This struct is used by the OpenAPI schema generator to produce documentation.",
         "example": {
           "code": "validation_failed",
           "type": "invalid_request_error",
@@ -16804,7 +16806,7 @@
             "nullable": true
           },
           "request_log_url": {
-            "description": "RequestLogURL is a link to the dashboard page for this request's log entry.\nNil when no request log is available.",
+            "description": "RequestLogURL is a link to the dashboard page for this request's log entry. Nil when no request log is available.",
             "nullable": true,
             "type": "string"
           }
@@ -30240,6 +30242,7 @@
                   "freight",
                   "sales_order_totals",
                   "sales_order_related",
+                  "order_contact",
                   "user",
                   "address",
                   "api_key",
@@ -33439,262 +33442,6 @@
         "summary": "Remove Account User",
         "tags": [
           "Account Users Management"
-        ],
-        "x-preview": true
-      }
-    },
-    "/v1/identity/integrations": {
-      "get": {
-        "description": "Returns a paginated list of account integrations for the target account.",
-        "operationId": "list-account-integrations",
-        "parameters": [
-          {
-            "description": "Opaque cursor token identifying where the page of results starts.\n\nUse the `cursor` value embedded in a previous response's `next_page_url` or `previous_page_url` to fetch the adjacent page. Omit to start from the first page.",
-            "example": "eyJjIjoiMjAyNi0wNS0xMFQwMDowMDowMFoiLCJzIjoiaXRfMDEzMWUzODZhYzY4M2U4YzI5YTcxZjZmMWYiLCJkIjoiZiJ9.OYJkAzZb60Q9lpBfzfGOMA5FWZSFXA6Wf9zn1-PJjo4",
-            "in": "query",
-            "name": "cursor",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Maximum number of results to return in a single page.",
-            "example": 100,
-            "in": "query",
-            "name": "limit",
-            "schema": {
-              "type": "integer"
-            }
-          },
-          {
-            "description": "Free-text search term used to filter results.\n\nWhich fields are matched against the term varies by endpoint.",
-            "example": "6061",
-            "in": "query",
-            "name": "q",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "object": "list",
-                  "page_info": {
-                    "next_page_url": "/v1/identity/integrations?cursor=eyJjIjoiMjAyNi0wNS0xMFQwMDowMDowMFoiLCJzIjoiYWNpZ18wMTc3NzcyZWFlMTEzNDMxZjY0ZDQ3MzEyNCIsImQiOiJmIn0.BWZdti4lF3a5fZAg2m_q5kmq6KuqRTL3snVnKiZ8POk",
-                    "previous_page_url": null,
-                    "has_next_page": true,
-                    "has_prev_page": false
-                  },
-                  "data": [
-                    {
-                      "id": "acig_0177772eae113431f64d473124",
-                      "object": "account_integration",
-                      "name": "My Stripe Integration",
-                      "provider": "stripe",
-                      "status": "active",
-                      "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
-                    }
-                  ]
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/List_AccountIntegration"
-                }
-              }
-            },
-            "description": "Successful response for List Account Integrations"
-          },
-          "4XX": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
-                }
-              }
-            },
-            "description": "Error response"
-          }
-        },
-        "summary": "List Account Integrations",
-        "tags": [
-          "Account Integrations"
-        ],
-        "x-preview": true
-      },
-      "post": {
-        "description": "Creates an account integration, or updates the name and credentials of an existing one with the same integration code.\n\nCredentials are validated for the provider, encrypted at rest, and never returned in API responses. An account can have at most one integration per integration code.",
-        "operationId": "create-account-integration",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "example": {
-                "name": "My Stripe Integration",
-                "provider": "stripe",
-                "credentials": "{\"private_key\":\"sk_test_...\",\"publishable_key\":\"pk_test_...\",\"webhook_secret\":\"whsec_...\"}"
-              },
-              "schema": {
-                "$ref": "#/components/schemas/CreateAccountIntegrationRequest"
-              }
-            }
-          },
-          "description": "The request body for Create Account Integration"
-        },
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "id": "acig_0177772eae113431f64d473124",
-                  "object": "account_integration",
-                  "name": "My Stripe Integration",
-                  "provider": "stripe",
-                  "status": "active",
-                  "created_at": "2026-05-10T00:00:00Z",
-                  "updated_at": "2026-05-10T00:23:00Z"
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/AccountIntegration"
-                }
-              }
-            },
-            "description": "Successful response for Create Account Integration"
-          },
-          "4XX": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
-                }
-              }
-            },
-            "description": "Error response"
-          }
-        },
-        "summary": "Create Account Integration",
-        "tags": [
-          "Account Integrations"
-        ],
-        "x-preview": true
-      }
-    },
-    "/v1/identity/integrations/{id}": {
-      "delete": {
-        "description": "Deletes an account integration and returns the deleted resource.",
-        "operationId": "delete-account-integration",
-        "parameters": [
-          {
-            "description": "Account integration ID.",
-            "example": "acig_0177772eae113431f64d473124",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "id": "acig_0177772eae113431f64d473124",
-                  "object": "account_integration",
-                  "name": "My Stripe Integration",
-                  "provider": "stripe",
-                  "status": "active",
-                  "created_at": "2026-05-10T00:00:00Z",
-                  "updated_at": "2026-05-10T00:23:00Z"
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/AccountIntegration"
-                }
-              }
-            },
-            "description": "Successful response for Delete Account Integration"
-          },
-          "4XX": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
-                }
-              }
-            },
-            "description": "Error response"
-          }
-        },
-        "summary": "Delete Account Integration",
-        "tags": [
-          "Account Integrations"
-        ],
-        "x-preview": true
-      },
-      "put": {
-        "description": "Updates an account integration's name and active status.\n\nOmitted fields are left unchanged. Credentials cannot be changed with this endpoint; to rotate credentials, call Create Account Integration again with the same integration code.",
-        "operationId": "update-account-integration",
-        "parameters": [
-          {
-            "description": "Account integration ID.",
-            "example": "acig_0177772eae113431f64d473124",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "example": {
-                "name": "Updated Stripe Integration"
-              },
-              "schema": {
-                "$ref": "#/components/schemas/UpdateAccountIntegrationRequest"
-              }
-            }
-          },
-          "description": "The request body for Update Account Integration"
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "id": "acig_0177772eae113431f64d473124",
-                  "object": "account_integration",
-                  "name": "My Stripe Integration",
-                  "provider": "stripe",
-                  "status": "active",
-                  "created_at": "2026-05-10T00:00:00Z",
-                  "updated_at": "2026-05-10T00:23:00Z"
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/AccountIntegration"
-                }
-              }
-            },
-            "description": "Successful response for Update Account Integration"
-          },
-          "4XX": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
-                }
-              }
-            },
-            "description": "Error response"
-          }
-        },
-        "summary": "Update Account Integration",
-        "tags": [
-          "Account Integrations"
         ],
         "x-preview": true
       }
@@ -39859,6 +39606,262 @@
         "summary": "List Sales Order Statuses",
         "tags": [
           "Sales Order Statuses"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/settings/integrations": {
+      "get": {
+        "description": "Returns a paginated list of account integrations for the target account.",
+        "operationId": "list-account-integrations",
+        "parameters": [
+          {
+            "description": "Opaque cursor token identifying where the page of results starts.\n\nUse the `cursor` value embedded in a previous response's `next_page_url` or `previous_page_url` to fetch the adjacent page. Omit to start from the first page.",
+            "example": "eyJjIjoiMjAyNi0wNS0xMFQwMDowMDowMFoiLCJzIjoiaXRfMDEzMWUzODZhYzY4M2U4YzI5YTcxZjZmMWYiLCJkIjoiZiJ9.OYJkAzZb60Q9lpBfzfGOMA5FWZSFXA6Wf9zn1-PJjo4",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of results to return in a single page.",
+            "example": 100,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Free-text search term used to filter results.\n\nWhich fields are matched against the term varies by endpoint.",
+            "example": "6061",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": "/v1/settings/integrations?cursor=eyJjIjoiMjAyNi0wNS0xMFQwMDowMDowMFoiLCJzIjoiYWNpZ18wMTc3NzcyZWFlMTEzNDMxZjY0ZDQ3MzEyNCIsImQiOiJmIn0.BWZdti4lF3a5fZAg2m_q5kmq6KuqRTL3snVnKiZ8POk",
+                    "previous_page_url": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "acig_0177772eae113431f64d473124",
+                      "object": "account_integration",
+                      "name": "My Stripe Integration",
+                      "provider": "stripe",
+                      "status": "active",
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_AccountIntegration"
+                }
+              }
+            },
+            "description": "Successful response for List Account Integrations"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Account Integrations",
+        "tags": [
+          "Account Integrations"
+        ],
+        "x-preview": true
+      },
+      "post": {
+        "description": "Creates an account integration, or updates the name and credentials of an existing one with the same integration code.\n\nCredentials are validated for the provider, encrypted at rest, and never returned in API responses. An account can have at most one integration per integration code.",
+        "operationId": "create-account-integration",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "My Stripe Integration",
+                "provider": "stripe",
+                "credentials": "{\"private_key\":\"sk_test_...\",\"publishable_key\":\"pk_test_...\",\"webhook_secret\":\"whsec_...\"}"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/CreateAccountIntegrationRequest"
+              }
+            }
+          },
+          "description": "The request body for Create Account Integration"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "acig_0177772eae113431f64d473124",
+                  "object": "account_integration",
+                  "name": "My Stripe Integration",
+                  "provider": "stripe",
+                  "status": "active",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/AccountIntegration"
+                }
+              }
+            },
+            "description": "Successful response for Create Account Integration"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Create Account Integration",
+        "tags": [
+          "Account Integrations"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/settings/integrations/{id}": {
+      "delete": {
+        "description": "Deletes an account integration and returns the deleted resource.",
+        "operationId": "delete-account-integration",
+        "parameters": [
+          {
+            "description": "Account integration ID.",
+            "example": "acig_0177772eae113431f64d473124",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "acig_0177772eae113431f64d473124",
+                  "object": "account_integration",
+                  "name": "My Stripe Integration",
+                  "provider": "stripe",
+                  "status": "active",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/AccountIntegration"
+                }
+              }
+            },
+            "description": "Successful response for Delete Account Integration"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Delete Account Integration",
+        "tags": [
+          "Account Integrations"
+        ],
+        "x-preview": true
+      },
+      "put": {
+        "description": "Updates an account integration's name and active status.\n\nOmitted fields are left unchanged. Credentials cannot be changed with this endpoint; to rotate credentials, call Create Account Integration again with the same integration code.",
+        "operationId": "update-account-integration",
+        "parameters": [
+          {
+            "description": "Account integration ID.",
+            "example": "acig_0177772eae113431f64d473124",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "name": "Updated Stripe Integration"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAccountIntegrationRequest"
+              }
+            }
+          },
+          "description": "The request body for Update Account Integration"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "acig_0177772eae113431f64d473124",
+                  "object": "account_integration",
+                  "name": "My Stripe Integration",
+                  "provider": "stripe",
+                  "status": "active",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/AccountIntegration"
+                }
+              }
+            },
+            "description": "Successful response for Update Account Integration"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Update Account Integration",
+        "tags": [
+          "Account Integrations"
         ],
         "x-preview": true
       }
