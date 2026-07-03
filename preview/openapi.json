@@ -11106,6 +11106,7 @@
             "updated_at": "0001-01-01T00:00:00Z"
           },
           "address": "support@acme.com",
+          "forwarding_address": null,
           "from_name": "Acme Support",
           "agent_config": {
             "id": "agdf_01b9ef28feb99e6954201aca63",
@@ -11170,6 +11171,11 @@
           },
           "address": {
             "description": "The full inbox address (e.g. `support@acme.com`).",
+            "type": "string"
+          },
+          "forwarding_address": {
+            "description": "A forwarding address on an Augno-owned domain that also routes to this inbox.\n\nUse this when your domain's mail is hosted elsewhere (e.g. Google Workspace, Microsoft 365) and you cannot point its MX records at Augno: forward mail from `address` to this address instead, and it will still be threaded into a conversation. `null` when domain forwarding is not configured.",
+            "nullable": true,
             "type": "string"
           },
           "from_name": {
@@ -11310,6 +11316,7 @@
           "status",
           "email_domain",
           "address",
+          "forwarding_address",
           "from_name",
           "agent_config",
           "agent_trigger_policy",
@@ -16512,6 +16519,7 @@
                 "updated_at": "0001-01-01T00:00:00Z"
               },
               "address": "support@acme.com",
+              "forwarding_address": null,
               "from_name": "Acme Support",
               "agent_config": {
                 "id": "agdf_01b9ef28feb99e6954201aca63",
@@ -66575,6 +66583,7 @@
                         "updated_at": "0001-01-01T00:00:00Z"
                       },
                       "address": "support@acme.com",
+                      "forwarding_address": null,
                       "from_name": "Acme Support",
                       "agent_config": {
                         "id": "agdf_01b9ef28feb99e6954201aca63",
@@ -66687,6 +66696,7 @@
                     "updated_at": "0001-01-01T00:00:00Z"
                   },
                   "address": "support@acme.com",
+                  "forwarding_address": null,
                   "from_name": "Acme Support",
                   "agent_config": {
                     "id": "agdf_01b9ef28feb99e6954201aca63",
@@ -66833,6 +66843,7 @@
                     "updated_at": "0001-01-01T00:00:00Z"
                   },
                   "address": "support@acme.com",
+                  "forwarding_address": null,
                   "from_name": "Acme Support",
                   "agent_config": {
                     "id": "agdf_01b9ef28feb99e6954201aca63",
@@ -66952,6 +66963,7 @@
                     "updated_at": "0001-01-01T00:00:00Z"
                   },
                   "address": "support@acme.com",
+                  "forwarding_address": null,
                   "from_name": "Acme Support",
                   "agent_config": {
                     "id": "agdf_01b9ef28feb99e6954201aca63",
