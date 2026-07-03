@@ -1289,6 +1289,7 @@
               "announcement",
               "conversation",
               "conversation_participant",
+              "read_cursor",
               "chat_message",
               "notification_unread_summary_account",
               "messaging_block",
@@ -4107,6 +4108,7 @@
               "announcement",
               "conversation",
               "conversation_participant",
+              "read_cursor",
               "chat_message",
               "notification_unread_summary_account",
               "messaging_block",
@@ -6279,7 +6281,13 @@
                   "role": null
                 },
                 "agent_trigger_policy": null,
-                "agent_trigger_keywords": []
+                "agent_trigger_keywords": [],
+                "read_cursor": {
+                  "object": "",
+                  "sequence": 0,
+                  "message_id": null,
+                  "read_at": null
+                }
               }
             ]
           },
@@ -6508,7 +6516,13 @@
                     "role": null
                   },
                   "agent_trigger_policy": null,
-                  "agent_trigger_keywords": []
+                  "agent_trigger_keywords": [],
+                  "read_cursor": {
+                    "object": "read_cursor",
+                    "sequence": 12,
+                    "message_id": null,
+                    "read_at": null
+                  }
                 }
               ]
             },
@@ -6592,7 +6606,13 @@
                         "role": null
                       },
                       "agent_trigger_policy": null,
-                      "agent_trigger_keywords": []
+                      "agent_trigger_keywords": [],
+                      "read_cursor": {
+                        "object": "",
+                        "sequence": 0,
+                        "message_id": null,
+                        "read_at": null
+                      }
                     }
                   ]
                 },
@@ -6773,7 +6793,13 @@
                     "role": null
                   },
                   "agent_trigger_policy": null,
-                  "agent_trigger_keywords": []
+                  "agent_trigger_keywords": [],
+                  "read_cursor": {
+                    "object": "",
+                    "sequence": 0,
+                    "message_id": null,
+                    "read_at": null
+                  }
                 }
               ]
             },
@@ -6881,7 +6907,13 @@
                       "role": null
                     },
                     "agent_trigger_policy": null,
-                    "agent_trigger_keywords": []
+                    "agent_trigger_keywords": [],
+                    "read_cursor": {
+                      "object": "",
+                      "sequence": 0,
+                      "message_id": null,
+                      "read_at": null
+                    }
                   }
                 ]
               },
@@ -6977,7 +7009,13 @@
             "role": null
           },
           "agent_trigger_policy": null,
-          "agent_trigger_keywords": []
+          "agent_trigger_keywords": [],
+          "read_cursor": {
+            "object": "read_cursor",
+            "sequence": 12,
+            "message_id": null,
+            "read_at": null
+          }
         },
         "properties": {
           "id": {
@@ -7092,6 +7130,14 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "read_cursor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReadCursor"
+              }
+            ],
+            "description": "The participant's read position in the conversation (read receipts): how far they have read."
           }
         },
         "required": [
@@ -7103,7 +7149,8 @@
           "notifications",
           "actor",
           "agent_trigger_policy",
-          "agent_trigger_keywords"
+          "agent_trigger_keywords",
+          "read_cursor"
         ],
         "type": "object"
       },
@@ -7457,6 +7504,7 @@
               "announcement",
               "conversation",
               "conversation_participant",
+              "read_cursor",
               "chat_message",
               "notification_unread_summary_account",
               "messaging_block",
@@ -7943,6 +7991,10 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "group_id": {
+            "description": "The messaging group (roster) whose members are seated on every conversation this inbox opens.",
+            "type": "string"
           }
         },
         "required": [
@@ -11127,6 +11179,7 @@
           },
           "agent_trigger_policy": "always",
           "agent_trigger_keywords": [],
+          "group_id": null,
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
         },
@@ -11299,6 +11352,11 @@
             },
             "type": "array"
           },
+          "group_id": {
+            "description": "The messaging group (roster) whose members are added to every conversation this inbox opens.\n\nEveryone in the group — the human team plus any agents — is seated on each new email thread so they can read, edit, and approve replies alongside the bound agent. `null` when no group is set.",
+            "nullable": true,
+            "type": "string"
+          },
           "created_at": {
             "description": "Creation timestamp.",
             "format": "date-time",
@@ -11321,6 +11379,7 @@
           "agent_config",
           "agent_trigger_policy",
           "agent_trigger_keywords",
+          "group_id",
           "created_at",
           "updated_at"
         ],
@@ -11551,6 +11610,7 @@
               "announcement",
               "conversation",
               "conversation_participant",
+              "read_cursor",
               "chat_message",
               "notification_unread_summary_account",
               "messaging_block",
@@ -15700,7 +15760,13 @@
                       "role": null
                     },
                     "agent_trigger_policy": null,
-                    "agent_trigger_keywords": []
+                    "agent_trigger_keywords": [],
+                    "read_cursor": {
+                      "object": "",
+                      "sequence": 0,
+                      "message_id": null,
+                      "read_at": null
+                    }
                   }
                 ]
               },
@@ -15830,7 +15896,13 @@
                         "role": null
                       },
                       "agent_trigger_policy": null,
-                      "agent_trigger_keywords": []
+                      "agent_trigger_keywords": [],
+                      "read_cursor": {
+                        "object": "",
+                        "sequence": 0,
+                        "message_id": null,
+                        "read_at": null
+                      }
                     }
                   ]
                 },
@@ -15946,7 +16018,13 @@
                 "role": null
               },
               "agent_trigger_policy": null,
-              "agent_trigger_keywords": []
+              "agent_trigger_keywords": [],
+              "read_cursor": {
+                "object": "read_cursor",
+                "sequence": 12,
+                "message_id": null,
+                "read_at": null
+              }
             }
           ]
         },
@@ -16540,6 +16618,7 @@
               },
               "agent_trigger_policy": "always",
               "agent_trigger_keywords": [],
+              "group_id": null,
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             }
@@ -17917,7 +17996,13 @@
                         "role": null
                       },
                       "agent_trigger_policy": null,
-                      "agent_trigger_keywords": []
+                      "agent_trigger_keywords": [],
+                      "read_cursor": {
+                        "object": "",
+                        "sequence": 0,
+                        "message_id": null,
+                        "read_at": null
+                      }
                     }
                   ]
                 },
@@ -18692,6 +18777,7 @@
                 "announcement",
                 "conversation",
                 "conversation_participant",
+                "read_cursor",
                 "chat_message",
                 "notification_unread_summary_account",
                 "messaging_block",
@@ -25139,7 +25225,13 @@
                     "role": null
                   },
                   "agent_trigger_policy": null,
-                  "agent_trigger_keywords": []
+                  "agent_trigger_keywords": [],
+                  "read_cursor": {
+                    "object": "",
+                    "sequence": 0,
+                    "message_id": null,
+                    "read_at": null
+                  }
                 }
               ]
             },
@@ -25333,7 +25425,13 @@
                       "role": null
                     },
                     "agent_trigger_policy": null,
-                    "agent_trigger_keywords": []
+                    "agent_trigger_keywords": [],
+                    "read_cursor": {
+                      "object": "",
+                      "sequence": 0,
+                      "message_id": null,
+                      "read_at": null
+                    }
                   }
                 ]
               },
@@ -32463,6 +32561,40 @@
         ],
         "type": "object"
       },
+      "ReadCursor": {
+        "description": "A participant's read position in a conversation — the basis for read receipts (\"who has seen this\").",
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "read_cursor"
+            ],
+            "type": "string"
+          },
+          "sequence": {
+            "description": "The sequence number of the last message the participant has read in the conversation.\n\nA message is \"seen\" by this participant when its `sequence` is `\u003c=` this value. `0` means they have not read any message in the conversation yet.",
+            "type": "integer"
+          },
+          "message_id": {
+            "description": "The id of the last message the participant has read.\n\n`null` if they have not read any message yet.",
+            "nullable": true,
+            "type": "string"
+          },
+          "read_at": {
+            "description": "When the participant last advanced their read cursor.\n\n`null` if they have not read any message yet.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "object",
+          "sequence",
+          "message_id",
+          "read_at"
+        ],
+        "type": "object"
+      },
       "Record": {
         "description": "Record is a lightweight reference to a business record — a sales order, purchase order, pick, shipment, production run, invoice, etc.\n\nLike Actor and Entity, it carries just enough to identify and label the referenced record without embedding its full resource. The optional status and metadata fields hold type-specific detail that varies by the kind of record referenced.",
         "example": {
@@ -38709,6 +38841,7 @@
               "announcement",
               "conversation",
               "conversation_participant",
+              "read_cursor",
               "chat_message",
               "notification_unread_summary_account",
               "messaging_block",
@@ -39031,6 +39164,7 @@
               "announcement",
               "conversation",
               "conversation_participant",
+              "read_cursor",
               "chat_message",
               "notification_unread_summary_account",
               "messaging_block",
@@ -40689,6 +40823,10 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "group_id": {
+            "description": "The messaging group (roster) whose members are seated on every conversation this inbox opens.",
+            "type": "string"
           }
         },
         "required": [
@@ -56052,6 +56190,7 @@
                   "announcement",
                   "conversation",
                   "conversation_participant",
+                  "read_cursor",
                   "chat_message",
                   "notification_unread_summary_account",
                   "messaging_block",
@@ -58382,6 +58521,7 @@
                   "announcement",
                   "conversation",
                   "conversation_participant",
+                  "read_cursor",
                   "chat_message",
                   "notification_unread_summary_account",
                   "messaging_block",
@@ -61953,6 +62093,7 @@
                 "announcement",
                 "conversation",
                 "conversation_participant",
+                "read_cursor",
                 "chat_message",
                 "notification_unread_summary_account",
                 "messaging_block",
@@ -62281,7 +62422,13 @@
                               "role": null
                             },
                             "agent_trigger_policy": null,
-                            "agent_trigger_keywords": []
+                            "agent_trigger_keywords": [],
+                            "read_cursor": {
+                              "object": "",
+                              "sequence": 0,
+                              "message_id": null,
+                              "read_at": null
+                            }
                           }
                         ]
                       },
@@ -62442,7 +62589,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -62593,7 +62746,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -62755,7 +62914,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -62906,7 +63071,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -63071,7 +63242,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -63222,7 +63399,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -63373,7 +63556,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -63537,7 +63726,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -63701,7 +63896,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -63852,7 +64053,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -64017,7 +64224,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -64181,7 +64394,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -64345,7 +64564,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -64496,7 +64721,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -64647,7 +64878,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -64798,7 +65035,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -65056,7 +65299,13 @@
                                 "role": null
                               },
                               "agent_trigger_policy": null,
-                              "agent_trigger_keywords": []
+                              "agent_trigger_keywords": [],
+                              "read_cursor": {
+                                "object": "",
+                                "sequence": 0,
+                                "message_id": null,
+                                "read_at": null
+                              }
                             }
                           ]
                         },
@@ -65234,7 +65483,13 @@
                             "role": null
                           },
                           "agent_trigger_policy": null,
-                          "agent_trigger_keywords": []
+                          "agent_trigger_keywords": [],
+                          "read_cursor": {
+                            "object": "",
+                            "sequence": 0,
+                            "message_id": null,
+                            "read_at": null
+                          }
                         }
                       ]
                     },
@@ -65523,7 +65778,13 @@
                                 "role": null
                               },
                               "agent_trigger_policy": null,
-                              "agent_trigger_keywords": []
+                              "agent_trigger_keywords": [],
+                              "read_cursor": {
+                                "object": "",
+                                "sequence": 0,
+                                "message_id": null,
+                                "read_at": null
+                              }
                             }
                           ]
                         },
@@ -65782,7 +66043,13 @@
                             "role": null
                           },
                           "agent_trigger_policy": null,
-                          "agent_trigger_keywords": []
+                          "agent_trigger_keywords": [],
+                          "read_cursor": {
+                            "object": "",
+                            "sequence": 0,
+                            "message_id": null,
+                            "read_at": null
+                          }
                         }
                       ]
                     },
@@ -66005,7 +66272,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -66233,7 +66506,13 @@
                           "role": null
                         },
                         "agent_trigger_policy": null,
-                        "agent_trigger_keywords": []
+                        "agent_trigger_keywords": [],
+                        "read_cursor": {
+                          "object": "",
+                          "sequence": 0,
+                          "message_id": null,
+                          "read_at": null
+                        }
                       }
                     ]
                   },
@@ -66604,6 +66883,7 @@
                       },
                       "agent_trigger_policy": "always",
                       "agent_trigger_keywords": [],
+                      "group_id": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
@@ -66717,6 +66997,7 @@
                   },
                   "agent_trigger_policy": "always",
                   "agent_trigger_keywords": [],
+                  "group_id": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -66864,6 +67145,7 @@
                   },
                   "agent_trigger_policy": "always",
                   "agent_trigger_keywords": [],
+                  "group_id": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -66984,6 +67266,7 @@
                   },
                   "agent_trigger_policy": "always",
                   "agent_trigger_keywords": [],
+                  "group_id": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -67659,7 +67942,13 @@
                             "role": null
                           },
                           "agent_trigger_policy": null,
-                          "agent_trigger_keywords": []
+                          "agent_trigger_keywords": [],
+                          "read_cursor": {
+                            "object": "",
+                            "sequence": 0,
+                            "message_id": null,
+                            "read_at": null
+                          }
                         }
                       ]
                     },
@@ -67893,7 +68182,13 @@
                             "role": null
                           },
                           "agent_trigger_policy": null,
-                          "agent_trigger_keywords": []
+                          "agent_trigger_keywords": [],
+                          "read_cursor": {
+                            "object": "",
+                            "sequence": 0,
+                            "message_id": null,
+                            "read_at": null
+                          }
                         }
                       ]
                     },
@@ -68114,7 +68409,13 @@
                             "role": null
                           },
                           "agent_trigger_policy": null,
-                          "agent_trigger_keywords": []
+                          "agent_trigger_keywords": [],
+                          "read_cursor": {
+                            "object": "",
+                            "sequence": 0,
+                            "message_id": null,
+                            "read_at": null
+                          }
                         }
                       ]
                     },
@@ -68335,7 +68636,13 @@
                             "role": null
                           },
                           "agent_trigger_policy": null,
-                          "agent_trigger_keywords": []
+                          "agent_trigger_keywords": [],
+                          "read_cursor": {
+                            "object": "",
+                            "sequence": 0,
+                            "message_id": null,
+                            "read_at": null
+                          }
                         }
                       ]
                     },
