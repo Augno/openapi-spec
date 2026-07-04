@@ -66695,6 +66695,51 @@
       }
     },
     "/v1/messaging/email-domains/{id}": {
+      "delete": {
+        "description": "Deregisters a customer-owned domain from the email bridge.\n\nThe domain's SES identity is removed. The domain must have no inboxes bound to it.\n\nThis endpoint requires the permission: `messaging:delete`.",
+        "operationId": "delete-email-domain",
+        "parameters": [
+          {
+            "description": "Email domain ID.",
+            "example": "emdom_018e88072d1320808dc9aaa01",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Delete Email Domain"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Delete Email Domain",
+        "tags": [
+          "Email Domains"
+        ],
+        "x-preview": true
+      },
       "get": {
         "description": "Returns a single email domain owned by the account.\n\nThis endpoint requires the permission: `messaging:read`.",
         "operationId": "get-email-domain",
