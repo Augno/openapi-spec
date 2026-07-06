@@ -1356,6 +1356,8 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "portal_domain",
+              "dns_record",
               "inventory_change_log",
               "invoice",
               "invoice_summary",
@@ -4175,6 +4177,8 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "portal_domain",
+              "dns_record",
               "inventory_change_log",
               "invoice",
               "invoice_summary",
@@ -7571,6 +7575,8 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "portal_domain",
+              "dns_record",
               "inventory_change_log",
               "invoice",
               "invoice_summary",
@@ -8285,6 +8291,22 @@
         },
         "required": [
           "name"
+        ],
+        "type": "object"
+      },
+      "CreatePortalDomainRequest": {
+        "description": "Request to connect a custom domain to the account's customer portal.",
+        "example": {
+          "domain": "shop.acme.com"
+        },
+        "properties": {
+          "domain": {
+            "description": "The fully-qualified domain name to connect (e.g. `shop.acme.com`). Subdomains are recommended; apex domains are supported via an A record.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "domain"
         ],
         "type": "object"
       },
@@ -10833,6 +10855,51 @@
         ],
         "type": "object"
       },
+      "DNSRecord": {
+        "description": "A DNS record the customer must publish for their portal domain.",
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "dns_record"
+            ],
+            "type": "string"
+          },
+          "type": {
+            "description": "Record type.",
+            "enum": [
+              "CNAME",
+              "A",
+              "TXT"
+            ],
+            "type": "string"
+          },
+          "name": {
+            "description": "Record name (host) to publish.",
+            "type": "string"
+          },
+          "value": {
+            "description": "Record value to publish.",
+            "type": "string"
+          },
+          "reason": {
+            "description": "Why the record is needed.\n\nRouting records point traffic at the portal's serving infrastructure; ownership records prove control of a domain that is claimed elsewhere.",
+            "enum": [
+              "routing",
+              "ownership"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "object",
+          "type",
+          "name",
+          "value",
+          "reason"
+        ],
+        "type": "object"
+      },
       "Department": {
         "description": "A functional area of a production operation, such as fabrication or packaging, that groups scanning stations and machines.",
         "example": {
@@ -11677,6 +11744,8 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "portal_domain",
+              "dns_record",
               "inventory_change_log",
               "invoice",
               "invoice_summary",
@@ -16511,6 +16580,52 @@
         ],
         "type": "object"
       },
+      "List_DNSRecord": {
+        "description": "List represents a paginated list of resources.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": []
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/DNSRecord"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
       "List_EmailDomain": {
         "description": "List represents a paginated list of resources.",
         "example": {
@@ -18844,6 +18959,8 @@
                 "email_log",
                 "email_domain",
                 "email_inbox",
+                "portal_domain",
+                "dns_record",
                 "inventory_change_log",
                 "invoice",
                 "invoice_summary",
@@ -19395,6 +19512,80 @@
             "description": "Resources in this page.",
             "items": {
               "$ref": "#/components/schemas/PaymentTerm"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_PortalDomain": {
+        "description": "List represents a paginated list of resources.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "podn_018e88072d1320808dc9aab42",
+              "object": "portal_domain",
+              "domain": "shop.acme.com",
+              "status": "pending",
+              "dns_records": {
+                "object": "list",
+                "page_info": {
+                  "next_page_url": null,
+                  "previous_page_url": null,
+                  "has_next_page": false,
+                  "has_prev_page": false
+                },
+                "data": [
+                  {
+                    "object": "dns_record",
+                    "type": "CNAME",
+                    "name": "shop.acme.com",
+                    "value": "cname.vercel-dns.com",
+                    "reason": "routing"
+                  }
+                ]
+              },
+              "verified_at": null,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/PortalDomain"
             },
             "type": "array",
             "x-stainless-pagination-property": {
@@ -28127,6 +28318,108 @@
           "name",
           "status",
           "owner",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "PortalDomain": {
+        "description": "A custom domain that serves the account's customer portal (e.g. `shop.acme.com`).\n\nAfter creation the domain starts in `pending`; publish the returned DNS records, then poll the verify action until it flips to `verified`. Once verified, the customer portal is served on the domain with TLS provisioned automatically.",
+        "example": {
+          "id": "podn_018e88072d1320808dc9aab42",
+          "object": "portal_domain",
+          "domain": "shop.acme.com",
+          "status": "pending",
+          "dns_records": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "object": "dns_record",
+                "type": "CNAME",
+                "name": "shop.acme.com",
+                "value": "cname.vercel-dns.com",
+                "reason": "routing"
+              }
+            ]
+          },
+          "verified_at": null,
+          "created_at": "2026-05-10T00:00:00Z",
+          "updated_at": "2026-05-10T00:23:00Z"
+        },
+        "properties": {
+          "id": {
+            "description": "Portal domain ID.",
+            "type": "string"
+          },
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "portal_domain"
+            ],
+            "type": "string"
+          },
+          "domain": {
+            "description": "The fully-qualified domain name (e.g. `shop.acme.com`).",
+            "type": "string"
+          },
+          "status": {
+            "description": "Verification status.\n\n- pending domains await DNS configuration\n- verified domains serve the portal\n- failed domains were rejected and cannot be used",
+            "enum": [
+              "pending",
+              "verified",
+              "failed"
+            ],
+            "type": "string"
+          },
+          "dns_records": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_DNSRecord"
+              }
+            ],
+            "description": "The DNS records the customer must publish for the domain to route and verify.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": []
+            },
+            "nullable": true
+          },
+          "verified_at": {
+            "description": "When the domain's DNS configuration was confirmed.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Creation timestamp.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last updated timestamp.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "domain",
+          "status",
+          "dns_records",
+          "verified_at",
           "created_at",
           "updated_at"
         ],
@@ -38908,6 +39201,8 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "portal_domain",
+              "dns_record",
               "inventory_change_log",
               "invoice",
               "invoice_summary",
@@ -39231,6 +39526,8 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "portal_domain",
+              "dns_record",
               "inventory_change_log",
               "invoice",
               "invoice_summary",
@@ -56257,6 +56554,8 @@
                   "email_log",
                   "email_domain",
                   "email_inbox",
+                  "portal_domain",
+                  "dns_record",
                   "inventory_change_log",
                   "invoice",
                   "invoice_summary",
@@ -58588,6 +58887,8 @@
                   "email_log",
                   "email_domain",
                   "email_inbox",
+                  "portal_domain",
+                  "dns_record",
                   "inventory_change_log",
                   "invoice",
                   "invoice_summary",
@@ -62160,6 +62461,8 @@
                 "email_log",
                 "email_domain",
                 "email_inbox",
+                "portal_domain",
+                "dns_record",
                 "inventory_change_log",
                 "invoice",
                 "invoice_summary",
@@ -79589,6 +79892,337 @@
         ],
         "x-preview": true
       }
+    },
+    "/v1/settings/portal-domains": {
+      "get": {
+        "description": "Lists the account's portal domains.\n\nAccounts currently have at most one custom portal domain.\n\nThis endpoint requires the permission: `self:read`.",
+        "operationId": "list-portal-domains",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": "/v1/settings/portal-domains?cursor=eyJjIjoiMjAyNi0wNS0xMFQwMDowMDowMFoiLCJzIjoicG9kbl8wMThlODgwNzJkMTMyMDgwOGRjOWFhYjQyIiwiZCI6ImYifQ.PCe6y5ET_w360qNKfsbVFqIm7IY5a4vJzlbWyZl5cO4",
+                    "previous_page_url": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "podn_018e88072d1320808dc9aab42",
+                      "object": "portal_domain",
+                      "domain": "shop.acme.com",
+                      "status": "pending",
+                      "dns_records": {
+                        "object": "list",
+                        "page_info": {
+                          "next_page_url": null,
+                          "previous_page_url": null,
+                          "has_next_page": false,
+                          "has_prev_page": false
+                        },
+                        "data": [
+                          {
+                            "object": "dns_record",
+                            "type": "CNAME",
+                            "name": "shop.acme.com",
+                            "value": "cname.vercel-dns.com",
+                            "reason": "routing"
+                          }
+                        ]
+                      },
+                      "verified_at": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_PortalDomain"
+                }
+              }
+            },
+            "description": "Successful response for List Portal Domains"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Portal Domains",
+        "tags": [
+          "Portal Domains"
+        ],
+        "x-preview": true
+      },
+      "post": {
+        "description": "Connects a custom domain to the account's customer portal and returns the DNS records to publish.\n\nEach account can have one custom domain. The domain starts in `pending` until its DNS is verified.\n\nThis endpoint requires the permission: `self:update`.",
+        "operationId": "create-portal-domain",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "domain": "shop.acme.com"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/CreatePortalDomainRequest"
+              }
+            }
+          },
+          "description": "The request body for Create Portal Domain"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "podn_018e88072d1320808dc9aab42",
+                  "object": "portal_domain",
+                  "domain": "shop.acme.com",
+                  "status": "pending",
+                  "dns_records": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "dns_record",
+                        "type": "CNAME",
+                        "name": "shop.acme.com",
+                        "value": "cname.vercel-dns.com",
+                        "reason": "routing"
+                      }
+                    ]
+                  },
+                  "verified_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/PortalDomain"
+                }
+              }
+            },
+            "description": "Successful response for Create Portal Domain"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Create Portal Domain",
+        "tags": [
+          "Portal Domains"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/settings/portal-domains/{id}": {
+      "delete": {
+        "description": "Disconnects the custom domain from the account's customer portal.\n\nThe domain is detached from the serving infrastructure and immediately stops serving the portal.\n\nThis endpoint requires the permission: `self:update`.",
+        "operationId": "delete-portal-domain",
+        "parameters": [
+          {
+            "description": "Portal domain ID.",
+            "example": "podn_018e88072d1320808dc9aab42",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Delete Portal Domain"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Delete Portal Domain",
+        "tags": [
+          "Portal Domains"
+        ],
+        "x-preview": true
+      },
+      "get": {
+        "description": "Returns a single portal domain, including the DNS records the customer must publish.\n\nThis endpoint requires the permission: `self:read`.",
+        "operationId": "get-portal-domain",
+        "parameters": [
+          {
+            "description": "Portal domain ID.",
+            "example": "podn_018e88072d1320808dc9aab42",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "podn_018e88072d1320808dc9aab42",
+                  "object": "portal_domain",
+                  "domain": "shop.acme.com",
+                  "status": "pending",
+                  "dns_records": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "dns_record",
+                        "type": "CNAME",
+                        "name": "shop.acme.com",
+                        "value": "cname.vercel-dns.com",
+                        "reason": "routing"
+                      }
+                    ]
+                  },
+                  "verified_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/PortalDomain"
+                }
+              }
+            },
+            "description": "Successful response for Get Portal Domain"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Get Portal Domain",
+        "tags": [
+          "Portal Domains"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/settings/portal-domains/{id}/actions/verify": {
+      "post": {
+        "description": "Re-checks the domain's DNS configuration and flips it to `verified` once the published records are confirmed.\n\nReturns the updated domain (still `pending` if DNS has not propagated yet) along with the currently required DNS records.\n\nThis endpoint requires the permission: `self:update`.",
+        "operationId": "verify-portal-domain",
+        "parameters": [
+          {
+            "description": "Portal domain ID.",
+            "example": "podn_018e88072d1320808dc9aab42",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "podn_018e88072d1320808dc9aab42",
+                  "object": "portal_domain",
+                  "domain": "shop.acme.com",
+                  "status": "pending",
+                  "dns_records": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "dns_record",
+                        "type": "CNAME",
+                        "name": "shop.acme.com",
+                        "value": "cname.vercel-dns.com",
+                        "reason": "routing"
+                      }
+                    ]
+                  },
+                  "verified_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/PortalDomain"
+                }
+              }
+            },
+            "description": "Successful response for Verify Portal Domain"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Verify Portal Domain",
+        "tags": [
+          "Portal Domains"
+        ],
+        "x-preview": true
+      }
     }
   },
   "security": [
@@ -79715,6 +80349,10 @@
     {
       "description": "List and manage properties and their attributes.",
       "name": "Properties"
+    },
+    {
+      "description": "Connect a custom domain to the account's customer portal, verify its DNS, and resolve custom hosts to portal accounts.",
+      "name": "Portal Domains"
     },
     {
       "description": "List and manage third-party account integrations.",
