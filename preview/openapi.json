@@ -1485,7 +1485,10 @@
               "reply_draft",
               "conversation_link",
               "messaging_group",
-              "messaging_group_member"
+              "messaging_group_member",
+              "portal_profile",
+              "portal_registration_session",
+              "portal_registration_session_data"
             ],
             "type": "string"
           },
@@ -4306,7 +4309,10 @@
               "reply_draft",
               "conversation_link",
               "messaging_group",
-              "messaging_group_member"
+              "messaging_group_member",
+              "portal_profile",
+              "portal_registration_session",
+              "portal_registration_session_data"
             ],
             "type": "string"
           },
@@ -7704,7 +7710,10 @@
               "reply_draft",
               "conversation_link",
               "messaging_group",
-              "messaging_group_member"
+              "messaging_group_member",
+              "portal_profile",
+              "portal_registration_session",
+              "portal_registration_session_data"
             ],
             "type": "string"
           },
@@ -11873,7 +11882,10 @@
               "reply_draft",
               "conversation_link",
               "messaging_group",
-              "messaging_group_member"
+              "messaging_group_member",
+              "portal_profile",
+              "portal_registration_session",
+              "portal_registration_session_data"
             ],
             "type": "string"
           },
@@ -19088,7 +19100,10 @@
                 "reply_draft",
                 "conversation_link",
                 "messaging_group",
-                "messaging_group_member"
+                "messaging_group_member",
+                "portal_profile",
+                "portal_registration_session",
+                "portal_registration_session_data"
               ],
               "type": "string"
             },
@@ -21716,6 +21731,7 @@
               "status": "estimate",
               "priority": "normal",
               "payment_status": "unpaid",
+              "payment_intent_ids": [],
               "acknowledgment_status": "not_sent",
               "customer": {
                 "id": "ac_0170df1ac58e4d24c66fc89f5f",
@@ -33621,6 +33637,7 @@
           "status": "estimate",
           "priority": "normal",
           "payment_status": "unpaid",
+          "payment_intent_ids": [],
           "acknowledgment_status": "not_sent",
           "customer": {
             "id": "ac_0170df1ac58e4d24c66fc89f5f",
@@ -34907,13 +34924,20 @@
             "type": "string"
           },
           "payment_status": {
-            "description": "Payment state of the order.\n\nPayment tracking is not yet wired up, so this currently always reports `unpaid`.",
+            "description": "Payment state of the order, derived from settlement allocations, invoices, and Stripe payments.",
             "enum": [
               "unpaid",
               "partially_paid",
               "paid"
             ],
             "type": "string"
+          },
+          "payment_intent_ids": {
+            "description": "Stripe payment intent IDs recorded against this order.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           },
           "acknowledgment_status": {
             "description": "Whether an order acknowledgment has been sent to the customer.",
@@ -36316,6 +36340,7 @@
           "status",
           "priority",
           "payment_status",
+          "payment_intent_ids",
           "acknowledgment_status",
           "customer",
           "sales_rep",
@@ -39331,7 +39356,10 @@
               "reply_draft",
               "conversation_link",
               "messaging_group",
-              "messaging_group_member"
+              "messaging_group_member",
+              "portal_profile",
+              "portal_registration_session",
+              "portal_registration_session_data"
             ],
             "type": "string"
           },
@@ -39656,7 +39684,10 @@
               "reply_draft",
               "conversation_link",
               "messaging_group",
-              "messaging_group_member"
+              "messaging_group_member",
+              "portal_profile",
+              "portal_registration_session",
+              "portal_registration_session_data"
             ],
             "type": "string"
           },
@@ -56684,7 +56715,10 @@
                   "reply_draft",
                   "conversation_link",
                   "messaging_group",
-                  "messaging_group_member"
+                  "messaging_group_member",
+                  "portal_profile",
+                  "portal_registration_session",
+                  "portal_registration_session_data"
                 ],
                 "type": "string"
               },
@@ -59017,7 +59051,10 @@
                   "reply_draft",
                   "conversation_link",
                   "messaging_group",
-                  "messaging_group_member"
+                  "messaging_group_member",
+                  "portal_profile",
+                  "portal_registration_session",
+                  "portal_registration_session_data"
                 ],
                 "type": "string"
               },
@@ -62591,7 +62628,10 @@
                 "reply_draft",
                 "conversation_link",
                 "messaging_group",
-                "messaging_group_member"
+                "messaging_group_member",
+                "portal_profile",
+                "portal_registration_session",
+                "portal_registration_session_data"
               ],
               "type": "string"
             }
@@ -76870,8 +76910,13 @@
                   "lines.product.item",
                   "lines.product.product_line",
                   "lines.quantity_ordered",
+                  "lines.quantity_ordered.unit",
                   "lines.unit_price",
+                  "lines.unit_price.numerator_unit",
+                  "lines.unit_price.denominator_unit",
                   "lines.unit_cost",
+                  "lines.unit_cost.numerator_unit",
+                  "lines.unit_cost.denominator_unit",
                   "lines.totals"
                 ],
                 "type": "string"
@@ -76902,6 +76947,7 @@
                       "status": "estimate",
                       "priority": "normal",
                       "payment_status": "unpaid",
+                      "payment_intent_ids": [],
                       "acknowledgment_status": "not_sent",
                       "customer": {
                         "id": "ac_0170df1ac58e4d24c66fc89f5f",
@@ -78199,8 +78245,13 @@
                   "lines",
                   "lines.product",
                   "lines.quantity_ordered",
+                  "lines.quantity_ordered.unit",
                   "lines.unit_price",
+                  "lines.unit_price.numerator_unit",
+                  "lines.unit_price.denominator_unit",
                   "lines.unit_cost",
+                  "lines.unit_cost.numerator_unit",
+                  "lines.unit_cost.denominator_unit",
                   "lines.totals"
                 ],
                 "type": "string"
@@ -78268,6 +78319,7 @@
                   "status": "estimate",
                   "priority": "normal",
                   "payment_status": "unpaid",
+                  "payment_intent_ids": [],
                   "acknowledgment_status": "not_sent",
                   "customer": {
                     "id": "ac_0170df1ac58e4d24c66fc89f5f",
