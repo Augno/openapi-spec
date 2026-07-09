@@ -22954,7 +22954,8 @@
                 "object": "sales_order_related",
                 "pick": null,
                 "production_run": null,
-                "shipments": null
+                "shipments": null,
+                "invoices": null
               },
               "contacts": {
                 "object": "order_contact",
@@ -34860,7 +34861,8 @@
             "object": "sales_order_related",
             "pick": null,
             "production_run": null,
-            "shipments": null
+            "shipments": null,
+            "invoices": null
           },
           "contacts": {
             "object": "order_contact",
@@ -37623,13 +37625,45 @@
             },
             "nullable": true,
             "x-expandable": true
+          },
+          "invoices": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_Record"
+              }
+            ],
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": [
+                {
+                  "id": "shp_01h2xcejqtf2nbrexx3vqjhp41",
+                  "object": "record",
+                  "type": "shipment",
+                  "number": "SHIP-001",
+                  "status": "fulfilled",
+                  "metadata": {
+                    "carrier": "UPS",
+                    "tracking_number": "1Z999AA10123456784"
+                  }
+                }
+              ]
+            },
+            "nullable": true,
+            "x-expandable": true
           }
         },
         "required": [
           "object",
           "pick",
           "production_run",
-          "shipments"
+          "shipments",
+          "invoices"
         ],
         "type": "object"
       },
@@ -76905,6 +76939,7 @@
                   "related.pick",
                   "related.production_run",
                   "related.shipments",
+                  "related.invoices",
                   "lines",
                   "lines.product",
                   "lines.product.item",
@@ -78170,7 +78205,8 @@
                         "object": "sales_order_related",
                         "pick": null,
                         "production_run": null,
-                        "shipments": null
+                        "shipments": null,
+                        "invoices": null
                       },
                       "contacts": {
                         "object": "order_contact",
@@ -78242,6 +78278,7 @@
                   "related.pick",
                   "related.production_run",
                   "related.shipments",
+                  "related.invoices",
                   "lines",
                   "lines.product",
                   "lines.quantity_ordered",
@@ -79542,7 +79579,8 @@
                     "object": "sales_order_related",
                     "pick": null,
                     "production_run": null,
-                    "shipments": null
+                    "shipments": null,
+                    "invoices": null
                   },
                   "contacts": {
                     "object": "order_contact",
