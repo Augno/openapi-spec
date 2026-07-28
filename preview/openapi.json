@@ -61024,7 +61024,7 @@
             }
           },
           {
-            "description": "Filter the search to specific resource types.\n\nOmit to search every supported type the caller can read.",
+            "description": "Filter the search to specific resource types.\n\nAttempting to read a type you do not have permission to read will result in a `403` error. Omit to search every supported type the caller can read.",
             "example": [
               "account"
             ],
