@@ -1340,6 +1340,7 @@
               "carrier",
               "service_level",
               "item",
+              "item_lot_default",
               "item_inventory",
               "product",
               "batch",
@@ -1351,6 +1352,24 @@
               "production_step",
               "production_run",
               "machine",
+              "machine_status",
+              "machine_downtime_event",
+              "demand_override",
+              "demand_override_type",
+              "machine_downtime_reason",
+              "production_schedule_preview",
+              "production_schedule_regenerate_preview",
+              "production_schedule",
+              "production_schedule_line",
+              "production_schedule_deviation",
+              "production_schedule_derived_line",
+              "production_schedule_settings",
+              "production_schedule_resource_setting",
+              "schedule_deviation_type",
+              "production_schedule_finished_policy",
+              "production_schedule_week_release",
+              "production_schedule_week_release_preview",
+              "production_schedule_item_policy",
               "child_account",
               "unit_group",
               "unit_group_unit",
@@ -1453,7 +1472,9 @@
               "analyze_manufacturing_batch_response",
               "analyze_quarterly_orders_response",
               "analyze_new_customers_response",
+              "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
               "catalog_product",
@@ -4179,6 +4200,7 @@
               "carrier",
               "service_level",
               "item",
+              "item_lot_default",
               "item_inventory",
               "product",
               "batch",
@@ -4190,6 +4212,24 @@
               "production_step",
               "production_run",
               "machine",
+              "machine_status",
+              "machine_downtime_event",
+              "demand_override",
+              "demand_override_type",
+              "machine_downtime_reason",
+              "production_schedule_preview",
+              "production_schedule_regenerate_preview",
+              "production_schedule",
+              "production_schedule_line",
+              "production_schedule_deviation",
+              "production_schedule_derived_line",
+              "production_schedule_settings",
+              "production_schedule_resource_setting",
+              "schedule_deviation_type",
+              "production_schedule_finished_policy",
+              "production_schedule_week_release",
+              "production_schedule_week_release_preview",
+              "production_schedule_item_policy",
               "child_account",
               "unit_group",
               "unit_group_unit",
@@ -4292,7 +4332,9 @@
               "analyze_manufacturing_batch_response",
               "analyze_quarterly_orders_response",
               "analyze_new_customers_response",
+              "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
               "catalog_product",
@@ -7668,6 +7710,7 @@
               "carrier",
               "service_level",
               "item",
+              "item_lot_default",
               "item_inventory",
               "product",
               "batch",
@@ -7679,6 +7722,24 @@
               "production_step",
               "production_run",
               "machine",
+              "machine_status",
+              "machine_downtime_event",
+              "demand_override",
+              "demand_override_type",
+              "machine_downtime_reason",
+              "production_schedule_preview",
+              "production_schedule_regenerate_preview",
+              "production_schedule",
+              "production_schedule_line",
+              "production_schedule_deviation",
+              "production_schedule_derived_line",
+              "production_schedule_settings",
+              "production_schedule_resource_setting",
+              "schedule_deviation_type",
+              "production_schedule_finished_policy",
+              "production_schedule_week_release",
+              "production_schedule_week_release_preview",
+              "production_schedule_item_policy",
               "child_account",
               "unit_group",
               "unit_group_unit",
@@ -7781,7 +7842,9 @@
               "analyze_manufacturing_batch_response",
               "analyze_quarterly_orders_response",
               "analyze_new_customers_response",
+              "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
               "catalog_product",
@@ -8469,6 +8532,14 @@
             ],
             "type": "string"
           },
+          "default_lot": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/QuantityInput"
+              }
+            ],
+            "description": "The lot products in this line are made in — a doff, a pallet.\n\nSizes the campaigns a production schedule plans, and defaults the quantity when a batch is added to a production run. The unit is part of the value, since 60 pairs and 60 eaches are different lots, and it must belong to this product line's unit group."
+          },
           "freight_policy": {
             "description": "Default freight policy for products in this product line.\n\n- `free_freight`: these products do not incur a freight charge.\n- `billed_freight`: freight is billed for these products, unless overridden elsewhere.",
             "enum": [
@@ -8493,7 +8564,7 @@
           "description": "Wireless barcode scanner with charging cradle",
           "notes": "Ships with a 2-year warranty; register for extended coverage.",
           "type": "sale",
-          "product_line_id": "pl_01996357326a0d3f7b129542ea",
+          "product_line_id": "pdln_01996357326a0d3f7b129542ea",
           "category_id": "ic_01ae7bd7bfd21ca0ab81e1357e",
           "portal_visibility": "visible",
           "unit_price": {
@@ -11900,6 +11971,7 @@
               "carrier",
               "service_level",
               "item",
+              "item_lot_default",
               "item_inventory",
               "product",
               "batch",
@@ -11911,6 +11983,24 @@
               "production_step",
               "production_run",
               "machine",
+              "machine_status",
+              "machine_downtime_event",
+              "demand_override",
+              "demand_override_type",
+              "machine_downtime_reason",
+              "production_schedule_preview",
+              "production_schedule_regenerate_preview",
+              "production_schedule",
+              "production_schedule_line",
+              "production_schedule_deviation",
+              "production_schedule_derived_line",
+              "production_schedule_settings",
+              "production_schedule_resource_setting",
+              "schedule_deviation_type",
+              "production_schedule_finished_policy",
+              "production_schedule_week_release",
+              "production_schedule_week_release_preview",
+              "production_schedule_item_policy",
               "child_account",
               "unit_group",
               "unit_group_unit",
@@ -12013,7 +12103,9 @@
               "analyze_manufacturing_batch_response",
               "analyze_quarterly_orders_response",
               "analyze_new_customers_response",
+              "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
               "catalog_product",
@@ -19157,6 +19249,7 @@
                 "carrier",
                 "service_level",
                 "item",
+                "item_lot_default",
                 "item_inventory",
                 "product",
                 "batch",
@@ -19168,6 +19261,24 @@
                 "production_step",
                 "production_run",
                 "machine",
+                "machine_status",
+                "machine_downtime_event",
+                "demand_override",
+                "demand_override_type",
+                "machine_downtime_reason",
+                "production_schedule_preview",
+                "production_schedule_regenerate_preview",
+                "production_schedule",
+                "production_schedule_line",
+                "production_schedule_deviation",
+                "production_schedule_derived_line",
+                "production_schedule_settings",
+                "production_schedule_resource_setting",
+                "schedule_deviation_type",
+                "production_schedule_finished_policy",
+                "production_schedule_week_release",
+                "production_schedule_week_release_preview",
+                "production_schedule_item_policy",
                 "child_account",
                 "unit_group",
                 "unit_group_unit",
@@ -19270,7 +19381,9 @@
                 "analyze_manufacturing_batch_response",
                 "analyze_quarterly_orders_response",
                 "analyze_new_customers_response",
+                "analyze_demand_forecast_response",
                 "analyze_oee_response",
+                "analyze_schedule_attainment_response",
                 "catalog_product_line",
                 "catalog_category",
                 "catalog_product",
@@ -19915,7 +20028,7 @@
               "type": "sale",
               "portal_visibility": "visible",
               "product_line": {
-                "id": "pl_01996357326a0d3f7b129542ea",
+                "id": "pdln_01996357326a0d3f7b129542ea",
                 "object": "product_line",
                 "name": "Industrial Fasteners",
                 "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -19998,6 +20111,31 @@
                   },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "default_lot": {
+                  "id": "qty_015a85becc1a6afdfb1afc27ff",
+                  "object": "quantity",
+                  "value": "1234.56",
+                  "display_value": "$1,234.56",
+                  "unit": {
+                    "id": "un_01966263f74a5a0cae356000a1",
+                    "object": "unit",
+                    "name": "US Dollar",
+                    "abbreviation": "$",
+                    "type": "currency",
+                    "ratio_numerator": "1",
+                    "ratio_denominator": "1",
+                    "offset_numerator": "0",
+                    "offset_denominator": "1",
+                    "is_base_unit": true,
+                    "owner": {
+                      "object": "owner",
+                      "type": "system",
+                      "account": null
+                    },
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  }
                 },
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
@@ -20361,7 +20499,7 @@
           },
           "data": [
             {
-              "id": "pl_01996357326a0d3f7b129542ea",
+              "id": "pdln_01996357326a0d3f7b129542ea",
               "object": "product_line",
               "name": "Industrial Fasteners",
               "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -20444,6 +20582,31 @@
                 },
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "default_lot": {
+                "id": "qty_015a85becc1a6afdfb1afc27ff",
+                "object": "quantity",
+                "value": "1234.56",
+                "display_value": "$1,234.56",
+                "unit": {
+                  "id": "un_01966263f74a5a0cae356000a1",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "$",
+                  "type": "currency",
+                  "ratio_numerator": "1",
+                  "ratio_denominator": "1",
+                  "offset_numerator": "0",
+                  "offset_denominator": "1",
+                  "is_base_unit": true,
+                  "owner": {
+                    "object": "owner",
+                    "type": "system",
+                    "account": null
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
               },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -22687,7 +22850,7 @@
                       "type": "sale",
                       "portal_visibility": "visible",
                       "product_line": {
-                        "id": "pl_01996357326a0d3f7b129542ea",
+                        "id": "pdln_01996357326a0d3f7b129542ea",
                         "object": "product_line",
                         "name": "Industrial Fasteners",
                         "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -22770,6 +22933,31 @@
                           },
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
+                        },
+                        "default_lot": {
+                          "id": "qty_015a85becc1a6afdfb1afc27ff",
+                          "object": "quantity",
+                          "value": "1234.56",
+                          "display_value": "$1,234.56",
+                          "unit": {
+                            "id": "un_01966263f74a5a0cae356000a1",
+                            "object": "unit",
+                            "name": "US Dollar",
+                            "abbreviation": "$",
+                            "type": "currency",
+                            "ratio_numerator": "1",
+                            "ratio_denominator": "1",
+                            "offset_numerator": "0",
+                            "offset_denominator": "1",
+                            "is_base_unit": true,
+                            "owner": {
+                              "object": "owner",
+                              "type": "system",
+                              "account": null
+                            },
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
+                          }
                         },
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
@@ -23329,7 +23517,7 @@
                 "type": "sale",
                 "portal_visibility": "visible",
                 "product_line": {
-                  "id": "pl_01996357326a0d3f7b129542ea",
+                  "id": "pdln_01996357326a0d3f7b129542ea",
                   "object": "product_line",
                   "name": "Industrial Fasteners",
                   "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -23412,6 +23600,31 @@
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
+                  },
+                  "default_lot": {
+                    "id": "qty_015a85becc1a6afdfb1afc27ff",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
+                    "unit": {
+                      "id": "un_01966263f74a5a0cae356000a1",
+                      "object": "unit",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "1",
+                      "ratio_denominator": "1",
+                      "offset_numerator": "0",
+                      "offset_denominator": "1",
+                      "is_base_unit": true,
+                      "owner": {
+                        "object": "owner",
+                        "type": "system",
+                        "account": null
+                      },
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
                   },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -28866,7 +29079,7 @@
           "type": "sale",
           "portal_visibility": "visible",
           "product_line": {
-            "id": "pl_01996357326a0d3f7b129542ea",
+            "id": "pdln_01996357326a0d3f7b129542ea",
             "object": "product_line",
             "name": "Industrial Fasteners",
             "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -28949,6 +29162,31 @@
               },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "default_lot": {
+              "id": "qty_015a85becc1a6afdfb1afc27ff",
+              "object": "quantity",
+              "value": "1234.56",
+              "display_value": "$1,234.56",
+              "unit": {
+                "id": "un_01966263f74a5a0cae356000a1",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "$",
+                "type": "currency",
+                "ratio_numerator": "1",
+                "ratio_denominator": "1",
+                "offset_numerator": "0",
+                "offset_denominator": "1",
+                "is_base_unit": true,
+                "owner": {
+                  "object": "owner",
+                  "type": "system",
+                  "account": null
+                },
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              }
             },
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z"
@@ -29304,7 +29542,7 @@
             ],
             "description": "The product line this product is assigned to, if any.",
             "example": {
-              "id": "pl_01996357326a0d3f7b129542ea",
+              "id": "pdln_01996357326a0d3f7b129542ea",
               "object": "product_line",
               "name": "Industrial Fasteners",
               "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -29387,6 +29625,31 @@
                 },
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "default_lot": {
+                "id": "qty_015a85becc1a6afdfb1afc27ff",
+                "object": "quantity",
+                "value": "1234.56",
+                "display_value": "$1,234.56",
+                "unit": {
+                  "id": "un_01966263f74a5a0cae356000a1",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "$",
+                  "type": "currency",
+                  "ratio_numerator": "1",
+                  "ratio_denominator": "1",
+                  "offset_numerator": "0",
+                  "offset_denominator": "1",
+                  "is_base_unit": true,
+                  "owner": {
+                    "object": "owner",
+                    "type": "system",
+                    "account": null
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
               },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -29738,7 +30001,7 @@
       "ProductLine": {
         "description": "Product line resource.\n\nA product line groups related products in your catalog and carries the default commission policy, freight policy, and unit group for those products.",
         "example": {
-          "id": "pl_01996357326a0d3f7b129542ea",
+          "id": "pdln_01996357326a0d3f7b129542ea",
           "object": "product_line",
           "name": "Industrial Fasteners",
           "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -29821,6 +30084,31 @@
             },
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z"
+          },
+          "default_lot": {
+            "id": "qty_015a85becc1a6afdfb1afc27ff",
+            "object": "quantity",
+            "value": "1234.56",
+            "display_value": "$1,234.56",
+            "unit": {
+              "id": "un_01966263f74a5a0cae356000a1",
+              "object": "unit",
+              "name": "US Dollar",
+              "abbreviation": "$",
+              "type": "currency",
+              "ratio_numerator": "1",
+              "ratio_denominator": "1",
+              "offset_numerator": "0",
+              "offset_denominator": "1",
+              "is_base_unit": true,
+              "owner": {
+                "object": "owner",
+                "type": "system",
+                "account": null
+              },
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            }
           },
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
@@ -29974,6 +30262,41 @@
             "nullable": true,
             "x-expandable": true
           },
+          "default_lot": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Quantity"
+              }
+            ],
+            "description": "The lot products in this line are made in — a doff, a pallet.\n\nSizes the campaigns a production schedule plans, and defaults the quantity when a batch is added to a production run. The unit is part of the value: 60 counted in pairs and 60 counted in eaches are different lots. Null when the line has no lot convention, in which case planning falls back to the account default. The unit always belongs to this product line's unit group.",
+            "example": {
+              "id": "qty_015a85becc1a6afdfb1afc27ff",
+              "object": "quantity",
+              "value": "1234.56",
+              "display_value": "$1,234.56",
+              "unit": {
+                "id": "un_01966263f74a5a0cae356000a1",
+                "object": "unit",
+                "name": "US Dollar",
+                "abbreviation": "$",
+                "type": "currency",
+                "ratio_numerator": "1",
+                "ratio_denominator": "1",
+                "offset_numerator": "0",
+                "offset_denominator": "1",
+                "is_base_unit": true,
+                "owner": {
+                  "object": "owner",
+                  "type": "system",
+                  "account": null
+                },
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              }
+            },
+            "nullable": true,
+            "x-expandable": true
+          },
           "created_at": {
             "description": "Creation timestamp.",
             "format": "date-time",
@@ -29995,6 +30318,7 @@
           "freight_policy",
           "owner",
           "unit_group",
+          "default_lot",
           "created_at",
           "updated_at"
         ],
@@ -33515,7 +33839,7 @@
                   "type": "sale",
                   "portal_visibility": "visible",
                   "product_line": {
-                    "id": "pl_01996357326a0d3f7b129542ea",
+                    "id": "pdln_01996357326a0d3f7b129542ea",
                     "object": "product_line",
                     "name": "Industrial Fasteners",
                     "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -33598,6 +33922,31 @@
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "default_lot": {
+                      "id": "qty_015a85becc1a6afdfb1afc27ff",
+                      "object": "quantity",
+                      "value": "1234.56",
+                      "display_value": "$1,234.56",
+                      "unit": {
+                        "id": "un_01966263f74a5a0cae356000a1",
+                        "object": "unit",
+                        "name": "US Dollar",
+                        "abbreviation": "$",
+                        "type": "currency",
+                        "ratio_numerator": "1",
+                        "ratio_denominator": "1",
+                        "offset_numerator": "0",
+                        "offset_denominator": "1",
+                        "is_base_unit": true,
+                        "owner": {
+                          "object": "owner",
+                          "type": "system",
+                          "account": null
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      }
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -34016,7 +34365,7 @@
               "type": "sale",
               "portal_visibility": "visible",
               "product_line": {
-                "id": "pl_01996357326a0d3f7b129542ea",
+                "id": "pdln_01996357326a0d3f7b129542ea",
                 "object": "product_line",
                 "name": "Industrial Fasteners",
                 "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -34099,6 +34448,31 @@
                   },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "default_lot": {
+                  "id": "qty_015a85becc1a6afdfb1afc27ff",
+                  "object": "quantity",
+                  "value": "1234.56",
+                  "display_value": "$1,234.56",
+                  "unit": {
+                    "id": "un_01966263f74a5a0cae356000a1",
+                    "object": "unit",
+                    "name": "US Dollar",
+                    "abbreviation": "$",
+                    "type": "currency",
+                    "ratio_numerator": "1",
+                    "ratio_denominator": "1",
+                    "offset_numerator": "0",
+                    "offset_denominator": "1",
+                    "is_base_unit": true,
+                    "owner": {
+                      "object": "owner",
+                      "type": "system",
+                      "account": null
+                    },
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  }
                 },
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
@@ -36084,7 +36458,7 @@
                   "type": "sale",
                   "portal_visibility": "visible",
                   "product_line": {
-                    "id": "pl_01996357326a0d3f7b129542ea",
+                    "id": "pdln_01996357326a0d3f7b129542ea",
                     "object": "product_line",
                     "name": "Industrial Fasteners",
                     "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -36167,6 +36541,31 @@
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "default_lot": {
+                      "id": "qty_015a85becc1a6afdfb1afc27ff",
+                      "object": "quantity",
+                      "value": "1234.56",
+                      "display_value": "$1,234.56",
+                      "unit": {
+                        "id": "un_01966263f74a5a0cae356000a1",
+                        "object": "unit",
+                        "name": "US Dollar",
+                        "abbreviation": "$",
+                        "type": "currency",
+                        "ratio_numerator": "1",
+                        "ratio_denominator": "1",
+                        "offset_numerator": "0",
+                        "offset_denominator": "1",
+                        "is_base_unit": true,
+                        "owner": {
+                          "object": "owner",
+                          "type": "system",
+                          "account": null
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      }
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -37516,7 +37915,7 @@
                     "type": "sale",
                     "portal_visibility": "visible",
                     "product_line": {
-                      "id": "pl_01996357326a0d3f7b129542ea",
+                      "id": "pdln_01996357326a0d3f7b129542ea",
                       "object": "product_line",
                       "name": "Industrial Fasteners",
                       "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -37599,6 +37998,31 @@
                         },
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
+                      },
+                      "default_lot": {
+                        "id": "qty_015a85becc1a6afdfb1afc27ff",
+                        "object": "quantity",
+                        "value": "1234.56",
+                        "display_value": "$1,234.56",
+                        "unit": {
+                          "id": "un_01966263f74a5a0cae356000a1",
+                          "object": "unit",
+                          "name": "US Dollar",
+                          "abbreviation": "$",
+                          "type": "currency",
+                          "ratio_numerator": "1",
+                          "ratio_denominator": "1",
+                          "offset_numerator": "0",
+                          "offset_denominator": "1",
+                          "is_base_unit": true,
+                          "owner": {
+                            "object": "owner",
+                            "type": "system",
+                            "account": null
+                          },
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -38194,7 +38618,7 @@
             "type": "sale",
             "portal_visibility": "visible",
             "product_line": {
-              "id": "pl_01996357326a0d3f7b129542ea",
+              "id": "pdln_01996357326a0d3f7b129542ea",
               "object": "product_line",
               "name": "Industrial Fasteners",
               "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -38277,6 +38701,31 @@
                 },
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "default_lot": {
+                "id": "qty_015a85becc1a6afdfb1afc27ff",
+                "object": "quantity",
+                "value": "1234.56",
+                "display_value": "$1,234.56",
+                "unit": {
+                  "id": "un_01966263f74a5a0cae356000a1",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "$",
+                  "type": "currency",
+                  "ratio_numerator": "1",
+                  "ratio_denominator": "1",
+                  "offset_numerator": "0",
+                  "offset_denominator": "1",
+                  "is_base_unit": true,
+                  "owner": {
+                    "object": "owner",
+                    "type": "system",
+                    "account": null
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
               },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -38769,7 +39218,7 @@
               "type": "sale",
               "portal_visibility": "visible",
               "product_line": {
-                "id": "pl_01996357326a0d3f7b129542ea",
+                "id": "pdln_01996357326a0d3f7b129542ea",
                 "object": "product_line",
                 "name": "Industrial Fasteners",
                 "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -38852,6 +39301,31 @@
                   },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "default_lot": {
+                  "id": "qty_015a85becc1a6afdfb1afc27ff",
+                  "object": "quantity",
+                  "value": "1234.56",
+                  "display_value": "$1,234.56",
+                  "unit": {
+                    "id": "un_01966263f74a5a0cae356000a1",
+                    "object": "unit",
+                    "name": "US Dollar",
+                    "abbreviation": "$",
+                    "type": "currency",
+                    "ratio_numerator": "1",
+                    "ratio_denominator": "1",
+                    "offset_numerator": "0",
+                    "offset_denominator": "1",
+                    "is_base_unit": true,
+                    "owner": {
+                      "object": "owner",
+                      "type": "system",
+                      "account": null
+                    },
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  }
                 },
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
@@ -41172,6 +41646,7 @@
               "carrier",
               "service_level",
               "item",
+              "item_lot_default",
               "item_inventory",
               "product",
               "batch",
@@ -41183,6 +41658,24 @@
               "production_step",
               "production_run",
               "machine",
+              "machine_status",
+              "machine_downtime_event",
+              "demand_override",
+              "demand_override_type",
+              "machine_downtime_reason",
+              "production_schedule_preview",
+              "production_schedule_regenerate_preview",
+              "production_schedule",
+              "production_schedule_line",
+              "production_schedule_deviation",
+              "production_schedule_derived_line",
+              "production_schedule_settings",
+              "production_schedule_resource_setting",
+              "schedule_deviation_type",
+              "production_schedule_finished_policy",
+              "production_schedule_week_release",
+              "production_schedule_week_release_preview",
+              "production_schedule_item_policy",
               "child_account",
               "unit_group",
               "unit_group_unit",
@@ -41285,7 +41778,9 @@
               "analyze_manufacturing_batch_response",
               "analyze_quarterly_orders_response",
               "analyze_new_customers_response",
+              "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
               "catalog_product",
@@ -41513,6 +42008,7 @@
               "carrier",
               "service_level",
               "item",
+              "item_lot_default",
               "item_inventory",
               "product",
               "batch",
@@ -41524,6 +42020,24 @@
               "production_step",
               "production_run",
               "machine",
+              "machine_status",
+              "machine_downtime_event",
+              "demand_override",
+              "demand_override_type",
+              "machine_downtime_reason",
+              "production_schedule_preview",
+              "production_schedule_regenerate_preview",
+              "production_schedule",
+              "production_schedule_line",
+              "production_schedule_deviation",
+              "production_schedule_derived_line",
+              "production_schedule_settings",
+              "production_schedule_resource_setting",
+              "schedule_deviation_type",
+              "production_schedule_finished_policy",
+              "production_schedule_week_release",
+              "production_schedule_week_release_preview",
+              "production_schedule_item_policy",
               "child_account",
               "unit_group",
               "unit_group_unit",
@@ -41626,7 +42140,9 @@
               "analyze_manufacturing_batch_response",
               "analyze_quarterly_orders_response",
               "analyze_new_customers_response",
+              "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
               "catalog_product",
@@ -43379,6 +43895,15 @@
               "billed_freight"
             ],
             "type": "string"
+          },
+          "default_lot": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/QuantityInput"
+              }
+            ],
+            "description": "The lot products in this line are made in — a doff, a pallet.\n\nSizes the campaigns a production schedule plans, and defaults the quantity when a batch is added to a production run. The unit is part of the value, since 60 pairs and 60 eaches are different lots, and it must belong to this product line's unit group. Send `null` to remove the line's lot convention.",
+            "nullable": true
           },
           "unit_group_id": {
             "description": "ID of the unit group to associate with this product line.\n\nThe unit group determines the set of units available to products in this product line.",
@@ -45846,7 +46371,7 @@
           {
             "description": "Filter by product line IDs (only items whose product belongs to one of these lines).",
             "example": [
-              "pl_01996357326a0d3f7b129542ea"
+              "pdln_01996357326a0d3f7b129542ea"
             ],
             "in": "query",
             "name": "product_line_ids[]",
@@ -52259,7 +52784,9 @@
                 "enum": [
                   "owner",
                   "owner.account",
-                  "unit_group"
+                  "unit_group",
+                  "default_lot",
+                  "default_lot.unit"
                 ],
                 "type": "string"
               },
@@ -52274,14 +52801,14 @@
                 "example": {
                   "object": "list",
                   "page_info": {
-                    "next_page_url": "/v1/catalog/product-lines?cursor=eyJjIjoiMjAyNi0wNS0xMFQwMDowMDowMFoiLCJzIjoicGxfMDE5OTYzNTczMjZhMGQzZjdiMTI5NTQyZWEiLCJkIjoiZiJ9.kmJVFqf8ZXNgOBoEfoY8oQr6CLRfvZE4flqRnntLBz8",
+                    "next_page_url": "/v1/catalog/product-lines?cursor=eyJjIjoiMjAyNi0wNS0xMFQwMDowMDowMFoiLCJzIjoicGRsbl8wMTk5NjM1NzMyNmEwZDNmN2IxMjk1NDJlYSIsImQiOiJmIn0.Y6KO6V6QbdVnzgsrUO_SO88l5MR99ZW8z2_bnhv2c9M",
                     "previous_page_url": null,
                     "has_next_page": true,
                     "has_prev_page": false
                   },
                   "data": [
                     {
-                      "id": "pl_01996357326a0d3f7b129542ea",
+                      "id": "pdln_01996357326a0d3f7b129542ea",
                       "object": "product_line",
                       "name": "Industrial Fasteners",
                       "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -52365,6 +52892,31 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
+                      "default_lot": {
+                        "id": "qty_015a85becc1a6afdfb1afc27ff",
+                        "object": "quantity",
+                        "value": "1234.56",
+                        "display_value": "$1,234.56",
+                        "unit": {
+                          "id": "un_01966263f74a5a0cae356000a1",
+                          "object": "unit",
+                          "name": "US Dollar",
+                          "abbreviation": "$",
+                          "type": "currency",
+                          "ratio_numerator": "1",
+                          "ratio_denominator": "1",
+                          "offset_numerator": "0",
+                          "offset_denominator": "1",
+                          "is_base_unit": true,
+                          "owner": {
+                            "object": "owner",
+                            "type": "system",
+                            "account": null
+                          },
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
@@ -52410,7 +52962,9 @@
                 "enum": [
                   "owner",
                   "owner.account",
-                  "unit_group"
+                  "unit_group",
+                  "default_lot",
+                  "default_lot.unit"
                 ],
                 "type": "string"
               },
@@ -52439,7 +52993,7 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "pl_01996357326a0d3f7b129542ea",
+                  "id": "pdln_01996357326a0d3f7b129542ea",
                   "object": "product_line",
                   "name": "Industrial Fasteners",
                   "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -52523,6 +53077,31 @@
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
+                  "default_lot": {
+                    "id": "qty_015a85becc1a6afdfb1afc27ff",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
+                    "unit": {
+                      "id": "un_01966263f74a5a0cae356000a1",
+                      "object": "unit",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "1",
+                      "ratio_denominator": "1",
+                      "offset_numerator": "0",
+                      "offset_denominator": "1",
+                      "is_base_unit": true,
+                      "owner": {
+                        "object": "owner",
+                        "type": "system",
+                        "account": null
+                      },
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -52558,7 +53137,7 @@
         "parameters": [
           {
             "description": "Product line ID.",
-            "example": "pl_01996357326a0d3f7b129542ea",
+            "example": "pdln_01996357326a0d3f7b129542ea",
             "in": "path",
             "name": "id",
             "required": true,
@@ -52603,7 +53182,7 @@
         "parameters": [
           {
             "description": "Product line ID.",
-            "example": "pl_01996357326a0d3f7b129542ea",
+            "example": "pdln_01996357326a0d3f7b129542ea",
             "in": "path",
             "name": "id",
             "required": true,
@@ -52623,7 +53202,9 @@
                 "enum": [
                   "owner",
                   "owner.account",
-                  "unit_group"
+                  "unit_group",
+                  "default_lot",
+                  "default_lot.unit"
                 ],
                 "type": "string"
               },
@@ -52636,7 +53217,7 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "pl_01996357326a0d3f7b129542ea",
+                  "id": "pdln_01996357326a0d3f7b129542ea",
                   "object": "product_line",
                   "name": "Industrial Fasteners",
                   "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -52719,6 +53300,31 @@
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
+                  },
+                  "default_lot": {
+                    "id": "qty_015a85becc1a6afdfb1afc27ff",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
+                    "unit": {
+                      "id": "un_01966263f74a5a0cae356000a1",
+                      "object": "unit",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "1",
+                      "ratio_denominator": "1",
+                      "offset_numerator": "0",
+                      "offset_denominator": "1",
+                      "is_base_unit": true,
+                      "owner": {
+                        "object": "owner",
+                        "type": "system",
+                        "account": null
+                      },
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
                   },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -52753,7 +53359,7 @@
         "parameters": [
           {
             "description": "Product line ID.",
-            "example": "pl_01996357326a0d3f7b129542ea",
+            "example": "pdln_01996357326a0d3f7b129542ea",
             "in": "path",
             "name": "id",
             "required": true,
@@ -52773,7 +53379,9 @@
                 "enum": [
                   "owner",
                   "owner.account",
-                  "unit_group"
+                  "unit_group",
+                  "default_lot",
+                  "default_lot.unit"
                 ],
                 "type": "string"
               },
@@ -52802,7 +53410,7 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "pl_01996357326a0d3f7b129542ea",
+                  "id": "pdln_01996357326a0d3f7b129542ea",
                   "object": "product_line",
                   "name": "Industrial Fasteners",
                   "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -52885,6 +53493,31 @@
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
+                  },
+                  "default_lot": {
+                    "id": "qty_015a85becc1a6afdfb1afc27ff",
+                    "object": "quantity",
+                    "value": "1234.56",
+                    "display_value": "$1,234.56",
+                    "unit": {
+                      "id": "un_01966263f74a5a0cae356000a1",
+                      "object": "unit",
+                      "name": "US Dollar",
+                      "abbreviation": "$",
+                      "type": "currency",
+                      "ratio_numerator": "1",
+                      "ratio_denominator": "1",
+                      "offset_numerator": "0",
+                      "offset_denominator": "1",
+                      "is_base_unit": true,
+                      "owner": {
+                        "object": "owner",
+                        "type": "system",
+                        "account": null
+                      },
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
                   },
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -52963,7 +53596,7 @@
           {
             "description": "Filter by product line IDs.",
             "example": [
-              "pl_01996357326a0d3f7b129542ea"
+              "pdln_01996357326a0d3f7b129542ea"
             ],
             "in": "query",
             "name": "product_line_ids[]",
@@ -53087,7 +53720,7 @@
                       "type": "sale",
                       "portal_visibility": "visible",
                       "product_line": {
-                        "id": "pl_01996357326a0d3f7b129542ea",
+                        "id": "pdln_01996357326a0d3f7b129542ea",
                         "object": "product_line",
                         "name": "Industrial Fasteners",
                         "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -53170,6 +53803,31 @@
                           },
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
+                        },
+                        "default_lot": {
+                          "id": "qty_015a85becc1a6afdfb1afc27ff",
+                          "object": "quantity",
+                          "value": "1234.56",
+                          "display_value": "$1,234.56",
+                          "unit": {
+                            "id": "un_01966263f74a5a0cae356000a1",
+                            "object": "unit",
+                            "name": "US Dollar",
+                            "abbreviation": "$",
+                            "type": "currency",
+                            "ratio_numerator": "1",
+                            "ratio_denominator": "1",
+                            "offset_numerator": "0",
+                            "offset_denominator": "1",
+                            "is_base_unit": true,
+                            "owner": {
+                              "object": "owner",
+                              "type": "system",
+                              "account": null
+                            },
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
+                          }
                         },
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
@@ -53556,7 +54214,7 @@
                 "description": "Wireless barcode scanner with charging cradle",
                 "notes": "Ships with a 2-year warranty; register for extended coverage.",
                 "type": "sale",
-                "product_line_id": "pl_01996357326a0d3f7b129542ea",
+                "product_line_id": "pdln_01996357326a0d3f7b129542ea",
                 "category_id": "ic_01ae7bd7bfd21ca0ab81e1357e",
                 "portal_visibility": "visible",
                 "unit_price": {
@@ -53590,7 +54248,7 @@
                   "type": "sale",
                   "portal_visibility": "visible",
                   "product_line": {
-                    "id": "pl_01996357326a0d3f7b129542ea",
+                    "id": "pdln_01996357326a0d3f7b129542ea",
                     "object": "product_line",
                     "name": "Industrial Fasteners",
                     "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -53673,6 +54331,31 @@
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "default_lot": {
+                      "id": "qty_015a85becc1a6afdfb1afc27ff",
+                      "object": "quantity",
+                      "value": "1234.56",
+                      "display_value": "$1,234.56",
+                      "unit": {
+                        "id": "un_01966263f74a5a0cae356000a1",
+                        "object": "unit",
+                        "name": "US Dollar",
+                        "abbreviation": "$",
+                        "type": "currency",
+                        "ratio_numerator": "1",
+                        "ratio_denominator": "1",
+                        "offset_numerator": "0",
+                        "offset_denominator": "1",
+                        "is_base_unit": true,
+                        "owner": {
+                          "object": "owner",
+                          "type": "system",
+                          "account": null
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      }
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -54071,7 +54754,7 @@
                   "type": "sale",
                   "portal_visibility": "visible",
                   "product_line": {
-                    "id": "pl_01996357326a0d3f7b129542ea",
+                    "id": "pdln_01996357326a0d3f7b129542ea",
                     "object": "product_line",
                     "name": "Industrial Fasteners",
                     "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -54154,6 +54837,31 @@
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "default_lot": {
+                      "id": "qty_015a85becc1a6afdfb1afc27ff",
+                      "object": "quantity",
+                      "value": "1234.56",
+                      "display_value": "$1,234.56",
+                      "unit": {
+                        "id": "un_01966263f74a5a0cae356000a1",
+                        "object": "unit",
+                        "name": "US Dollar",
+                        "abbreviation": "$",
+                        "type": "currency",
+                        "ratio_numerator": "1",
+                        "ratio_denominator": "1",
+                        "offset_numerator": "0",
+                        "offset_denominator": "1",
+                        "is_base_unit": true,
+                        "owner": {
+                          "object": "owner",
+                          "type": "system",
+                          "account": null
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      }
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -54550,7 +55258,7 @@
                   "type": "sale",
                   "portal_visibility": "visible",
                   "product_line": {
-                    "id": "pl_01996357326a0d3f7b129542ea",
+                    "id": "pdln_01996357326a0d3f7b129542ea",
                     "object": "product_line",
                     "name": "Industrial Fasteners",
                     "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -54633,6 +55341,31 @@
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "default_lot": {
+                      "id": "qty_015a85becc1a6afdfb1afc27ff",
+                      "object": "quantity",
+                      "value": "1234.56",
+                      "display_value": "$1,234.56",
+                      "unit": {
+                        "id": "un_01966263f74a5a0cae356000a1",
+                        "object": "unit",
+                        "name": "US Dollar",
+                        "abbreviation": "$",
+                        "type": "currency",
+                        "ratio_numerator": "1",
+                        "ratio_denominator": "1",
+                        "offset_numerator": "0",
+                        "offset_denominator": "1",
+                        "is_base_unit": true,
+                        "owner": {
+                          "object": "owner",
+                          "type": "system",
+                          "account": null
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      }
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -55050,7 +55783,7 @@
                   "type": "sale",
                   "portal_visibility": "visible",
                   "product_line": {
-                    "id": "pl_01996357326a0d3f7b129542ea",
+                    "id": "pdln_01996357326a0d3f7b129542ea",
                     "object": "product_line",
                     "name": "Industrial Fasteners",
                     "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -55133,6 +55866,31 @@
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "default_lot": {
+                      "id": "qty_015a85becc1a6afdfb1afc27ff",
+                      "object": "quantity",
+                      "value": "1234.56",
+                      "display_value": "$1,234.56",
+                      "unit": {
+                        "id": "un_01966263f74a5a0cae356000a1",
+                        "object": "unit",
+                        "name": "US Dollar",
+                        "abbreviation": "$",
+                        "type": "currency",
+                        "ratio_numerator": "1",
+                        "ratio_denominator": "1",
+                        "offset_numerator": "0",
+                        "offset_denominator": "1",
+                        "is_base_unit": true,
+                        "owner": {
+                          "object": "owner",
+                          "type": "system",
+                          "account": null
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      }
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -55490,7 +56248,7 @@
           },
           {
             "description": "ID of the product line to assign to the product.",
-            "example": "pl_01996357326a0d3f7b129542ea",
+            "example": "pdln_01996357326a0d3f7b129542ea",
             "in": "path",
             "name": "product_line_id",
             "required": true,
@@ -55541,7 +56299,7 @@
                   "type": "sale",
                   "portal_visibility": "visible",
                   "product_line": {
-                    "id": "pl_01996357326a0d3f7b129542ea",
+                    "id": "pdln_01996357326a0d3f7b129542ea",
                     "object": "product_line",
                     "name": "Industrial Fasteners",
                     "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -55624,6 +56382,31 @@
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "default_lot": {
+                      "id": "qty_015a85becc1a6afdfb1afc27ff",
+                      "object": "quantity",
+                      "value": "1234.56",
+                      "display_value": "$1,234.56",
+                      "unit": {
+                        "id": "un_01966263f74a5a0cae356000a1",
+                        "object": "unit",
+                        "name": "US Dollar",
+                        "abbreviation": "$",
+                        "type": "currency",
+                        "ratio_numerator": "1",
+                        "ratio_denominator": "1",
+                        "offset_numerator": "0",
+                        "offset_denominator": "1",
+                        "is_base_unit": true,
+                        "owner": {
+                          "object": "owner",
+                          "type": "system",
+                          "account": null
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      }
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -58713,6 +59496,7 @@
                   "carrier",
                   "service_level",
                   "item",
+                  "item_lot_default",
                   "item_inventory",
                   "product",
                   "batch",
@@ -58724,6 +59508,24 @@
                   "production_step",
                   "production_run",
                   "machine",
+                  "machine_status",
+                  "machine_downtime_event",
+                  "demand_override",
+                  "demand_override_type",
+                  "machine_downtime_reason",
+                  "production_schedule_preview",
+                  "production_schedule_regenerate_preview",
+                  "production_schedule",
+                  "production_schedule_line",
+                  "production_schedule_deviation",
+                  "production_schedule_derived_line",
+                  "production_schedule_settings",
+                  "production_schedule_resource_setting",
+                  "schedule_deviation_type",
+                  "production_schedule_finished_policy",
+                  "production_schedule_week_release",
+                  "production_schedule_week_release_preview",
+                  "production_schedule_item_policy",
                   "child_account",
                   "unit_group",
                   "unit_group_unit",
@@ -58826,7 +59628,9 @@
                   "analyze_manufacturing_batch_response",
                   "analyze_quarterly_orders_response",
                   "analyze_new_customers_response",
+                  "analyze_demand_forecast_response",
                   "analyze_oee_response",
+                  "analyze_schedule_attainment_response",
                   "catalog_product_line",
                   "catalog_category",
                   "catalog_product",
@@ -58994,6 +59798,7 @@
                 "carrier",
                 "service_level",
                 "item",
+                "item_lot_default",
                 "item_inventory",
                 "product",
                 "batch",
@@ -59005,6 +59810,24 @@
                 "production_step",
                 "production_run",
                 "machine",
+                "machine_status",
+                "machine_downtime_event",
+                "demand_override",
+                "demand_override_type",
+                "machine_downtime_reason",
+                "production_schedule_preview",
+                "production_schedule_regenerate_preview",
+                "production_schedule",
+                "production_schedule_line",
+                "production_schedule_deviation",
+                "production_schedule_derived_line",
+                "production_schedule_settings",
+                "production_schedule_resource_setting",
+                "schedule_deviation_type",
+                "production_schedule_finished_policy",
+                "production_schedule_week_release",
+                "production_schedule_week_release_preview",
+                "production_schedule_item_policy",
                 "child_account",
                 "unit_group",
                 "unit_group_unit",
@@ -59107,7 +59930,9 @@
                 "analyze_manufacturing_batch_response",
                 "analyze_quarterly_orders_response",
                 "analyze_new_customers_response",
+                "analyze_demand_forecast_response",
                 "analyze_oee_response",
+                "analyze_schedule_attainment_response",
                 "catalog_product_line",
                 "catalog_category",
                 "catalog_product",
@@ -59170,7 +59995,9 @@
           },
           {
             "description": "Filter by the root resource.",
-            "example": "example",
+            "example": [
+              "us_0151164dcaea4cbded27b50aae"
+            ],
             "in": "query",
             "name": "root_resource_id",
             "schema": {
@@ -61391,6 +62218,7 @@
                   "carrier",
                   "service_level",
                   "item",
+                  "item_lot_default",
                   "item_inventory",
                   "product",
                   "batch",
@@ -61402,6 +62230,24 @@
                   "production_step",
                   "production_run",
                   "machine",
+                  "machine_status",
+                  "machine_downtime_event",
+                  "demand_override",
+                  "demand_override_type",
+                  "machine_downtime_reason",
+                  "production_schedule_preview",
+                  "production_schedule_regenerate_preview",
+                  "production_schedule",
+                  "production_schedule_line",
+                  "production_schedule_deviation",
+                  "production_schedule_derived_line",
+                  "production_schedule_settings",
+                  "production_schedule_resource_setting",
+                  "schedule_deviation_type",
+                  "production_schedule_finished_policy",
+                  "production_schedule_week_release",
+                  "production_schedule_week_release_preview",
+                  "production_schedule_item_policy",
                   "child_account",
                   "unit_group",
                   "unit_group_unit",
@@ -61504,7 +62350,9 @@
                   "analyze_manufacturing_batch_response",
                   "analyze_quarterly_orders_response",
                   "analyze_new_customers_response",
+                  "analyze_demand_forecast_response",
                   "analyze_oee_response",
+                  "analyze_schedule_attainment_response",
                   "catalog_product_line",
                   "catalog_category",
                   "catalog_product",
@@ -65035,6 +65883,7 @@
                 "carrier",
                 "service_level",
                 "item",
+                "item_lot_default",
                 "item_inventory",
                 "product",
                 "batch",
@@ -65046,6 +65895,24 @@
                 "production_step",
                 "production_run",
                 "machine",
+                "machine_status",
+                "machine_downtime_event",
+                "demand_override",
+                "demand_override_type",
+                "machine_downtime_reason",
+                "production_schedule_preview",
+                "production_schedule_regenerate_preview",
+                "production_schedule",
+                "production_schedule_line",
+                "production_schedule_deviation",
+                "production_schedule_derived_line",
+                "production_schedule_settings",
+                "production_schedule_resource_setting",
+                "schedule_deviation_type",
+                "production_schedule_finished_policy",
+                "production_schedule_week_release",
+                "production_schedule_week_release_preview",
+                "production_schedule_item_policy",
                 "child_account",
                 "unit_group",
                 "unit_group_unit",
@@ -65148,7 +66015,9 @@
                 "analyze_manufacturing_batch_response",
                 "analyze_quarterly_orders_response",
                 "analyze_new_customers_response",
+                "analyze_demand_forecast_response",
                 "analyze_oee_response",
+                "analyze_schedule_attainment_response",
                 "catalog_product_line",
                 "catalog_category",
                 "catalog_product",
@@ -79451,7 +80320,7 @@
           {
             "description": "Filter by product line IDs.",
             "example": [
-              "pl_01996357326a0d3f7b129542ea"
+              "pdln_01996357326a0d3f7b129542ea"
             ],
             "in": "query",
             "name": "product_line_ids[]",
@@ -80281,7 +81150,7 @@
                               "type": "sale",
                               "portal_visibility": "visible",
                               "product_line": {
-                                "id": "pl_01996357326a0d3f7b129542ea",
+                                "id": "pdln_01996357326a0d3f7b129542ea",
                                 "object": "product_line",
                                 "name": "Industrial Fasteners",
                                 "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -80364,6 +81233,31 @@
                                   },
                                   "created_at": "2026-05-10T00:00:00Z",
                                   "updated_at": "2026-05-10T00:23:00Z"
+                                },
+                                "default_lot": {
+                                  "id": "qty_015a85becc1a6afdfb1afc27ff",
+                                  "object": "quantity",
+                                  "value": "1234.56",
+                                  "display_value": "$1,234.56",
+                                  "unit": {
+                                    "id": "un_01966263f74a5a0cae356000a1",
+                                    "object": "unit",
+                                    "name": "US Dollar",
+                                    "abbreviation": "$",
+                                    "type": "currency",
+                                    "ratio_numerator": "1",
+                                    "ratio_denominator": "1",
+                                    "offset_numerator": "0",
+                                    "offset_denominator": "1",
+                                    "is_base_unit": true,
+                                    "owner": {
+                                      "object": "owner",
+                                      "type": "system",
+                                      "account": null
+                                    },
+                                    "created_at": "2026-05-10T00:00:00Z",
+                                    "updated_at": "2026-05-10T00:23:00Z"
+                                  }
                                 },
                                 "created_at": "2026-05-10T00:00:00Z",
                                 "updated_at": "2026-05-10T00:23:00Z"
@@ -81681,7 +82575,7 @@
                           "type": "sale",
                           "portal_visibility": "visible",
                           "product_line": {
-                            "id": "pl_01996357326a0d3f7b129542ea",
+                            "id": "pdln_01996357326a0d3f7b129542ea",
                             "object": "product_line",
                             "name": "Industrial Fasteners",
                             "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -81764,6 +82658,31 @@
                               },
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "default_lot": {
+                              "id": "qty_015a85becc1a6afdfb1afc27ff",
+                              "object": "quantity",
+                              "value": "1234.56",
+                              "display_value": "$1,234.56",
+                              "unit": {
+                                "id": "un_01966263f74a5a0cae356000a1",
+                                "object": "unit",
+                                "name": "US Dollar",
+                                "abbreviation": "$",
+                                "type": "currency",
+                                "ratio_numerator": "1",
+                                "ratio_denominator": "1",
+                                "offset_numerator": "0",
+                                "offset_denominator": "1",
+                                "is_base_unit": true,
+                                "owner": {
+                                  "object": "owner",
+                                  "type": "system",
+                                  "account": null
+                                },
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
                             },
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
@@ -82388,7 +83307,7 @@
                           "type": "sale",
                           "portal_visibility": "visible",
                           "product_line": {
-                            "id": "pl_01996357326a0d3f7b129542ea",
+                            "id": "pdln_01996357326a0d3f7b129542ea",
                             "object": "product_line",
                             "name": "Industrial Fasteners",
                             "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -82471,6 +83390,31 @@
                               },
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "default_lot": {
+                              "id": "qty_015a85becc1a6afdfb1afc27ff",
+                              "object": "quantity",
+                              "value": "1234.56",
+                              "display_value": "$1,234.56",
+                              "unit": {
+                                "id": "un_01966263f74a5a0cae356000a1",
+                                "object": "unit",
+                                "name": "US Dollar",
+                                "abbreviation": "$",
+                                "type": "currency",
+                                "ratio_numerator": "1",
+                                "ratio_denominator": "1",
+                                "offset_numerator": "0",
+                                "offset_denominator": "1",
+                                "is_base_unit": true,
+                                "owner": {
+                                  "object": "owner",
+                                  "type": "system",
+                                  "account": null
+                                },
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
                             },
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
@@ -83770,7 +84714,7 @@
                           "type": "sale",
                           "portal_visibility": "visible",
                           "product_line": {
-                            "id": "pl_01996357326a0d3f7b129542ea",
+                            "id": "pdln_01996357326a0d3f7b129542ea",
                             "object": "product_line",
                             "name": "Industrial Fasteners",
                             "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -83853,6 +84797,31 @@
                               },
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "default_lot": {
+                              "id": "qty_015a85becc1a6afdfb1afc27ff",
+                              "object": "quantity",
+                              "value": "1234.56",
+                              "display_value": "$1,234.56",
+                              "unit": {
+                                "id": "un_01966263f74a5a0cae356000a1",
+                                "object": "unit",
+                                "name": "US Dollar",
+                                "abbreviation": "$",
+                                "type": "currency",
+                                "ratio_numerator": "1",
+                                "ratio_denominator": "1",
+                                "offset_numerator": "0",
+                                "offset_denominator": "1",
+                                "is_base_unit": true,
+                                "owner": {
+                                  "object": "owner",
+                                  "type": "system",
+                                  "account": null
+                                },
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
                             },
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
@@ -85148,7 +86117,7 @@
                           "type": "sale",
                           "portal_visibility": "visible",
                           "product_line": {
-                            "id": "pl_01996357326a0d3f7b129542ea",
+                            "id": "pdln_01996357326a0d3f7b129542ea",
                             "object": "product_line",
                             "name": "Industrial Fasteners",
                             "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -85231,6 +86200,31 @@
                               },
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "default_lot": {
+                              "id": "qty_015a85becc1a6afdfb1afc27ff",
+                              "object": "quantity",
+                              "value": "1234.56",
+                              "display_value": "$1,234.56",
+                              "unit": {
+                                "id": "un_01966263f74a5a0cae356000a1",
+                                "object": "unit",
+                                "name": "US Dollar",
+                                "abbreviation": "$",
+                                "type": "currency",
+                                "ratio_numerator": "1",
+                                "ratio_denominator": "1",
+                                "offset_numerator": "0",
+                                "offset_denominator": "1",
+                                "is_base_unit": true,
+                                "owner": {
+                                  "object": "owner",
+                                  "type": "system",
+                                  "account": null
+                                },
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
                             },
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
@@ -86471,7 +87465,7 @@
                           "type": "sale",
                           "portal_visibility": "visible",
                           "product_line": {
-                            "id": "pl_01996357326a0d3f7b129542ea",
+                            "id": "pdln_01996357326a0d3f7b129542ea",
                             "object": "product_line",
                             "name": "Industrial Fasteners",
                             "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -86554,6 +87548,31 @@
                               },
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "default_lot": {
+                              "id": "qty_015a85becc1a6afdfb1afc27ff",
+                              "object": "quantity",
+                              "value": "1234.56",
+                              "display_value": "$1,234.56",
+                              "unit": {
+                                "id": "un_01966263f74a5a0cae356000a1",
+                                "object": "unit",
+                                "name": "US Dollar",
+                                "abbreviation": "$",
+                                "type": "currency",
+                                "ratio_numerator": "1",
+                                "ratio_denominator": "1",
+                                "offset_numerator": "0",
+                                "offset_denominator": "1",
+                                "is_base_unit": true,
+                                "owner": {
+                                  "object": "owner",
+                                  "type": "system",
+                                  "account": null
+                                },
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
                             },
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
@@ -88012,7 +89031,7 @@
                           "type": "sale",
                           "portal_visibility": "visible",
                           "product_line": {
-                            "id": "pl_01996357326a0d3f7b129542ea",
+                            "id": "pdln_01996357326a0d3f7b129542ea",
                             "object": "product_line",
                             "name": "Industrial Fasteners",
                             "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -88095,6 +89114,31 @@
                               },
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "default_lot": {
+                              "id": "qty_015a85becc1a6afdfb1afc27ff",
+                              "object": "quantity",
+                              "value": "1234.56",
+                              "display_value": "$1,234.56",
+                              "unit": {
+                                "id": "un_01966263f74a5a0cae356000a1",
+                                "object": "unit",
+                                "name": "US Dollar",
+                                "abbreviation": "$",
+                                "type": "currency",
+                                "ratio_numerator": "1",
+                                "ratio_denominator": "1",
+                                "offset_numerator": "0",
+                                "offset_denominator": "1",
+                                "is_base_unit": true,
+                                "owner": {
+                                  "object": "owner",
+                                  "type": "system",
+                                  "account": null
+                                },
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
                             },
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
@@ -89335,7 +90379,7 @@
                           "type": "sale",
                           "portal_visibility": "visible",
                           "product_line": {
-                            "id": "pl_01996357326a0d3f7b129542ea",
+                            "id": "pdln_01996357326a0d3f7b129542ea",
                             "object": "product_line",
                             "name": "Industrial Fasteners",
                             "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -89418,6 +90462,31 @@
                               },
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "default_lot": {
+                              "id": "qty_015a85becc1a6afdfb1afc27ff",
+                              "object": "quantity",
+                              "value": "1234.56",
+                              "display_value": "$1,234.56",
+                              "unit": {
+                                "id": "un_01966263f74a5a0cae356000a1",
+                                "object": "unit",
+                                "name": "US Dollar",
+                                "abbreviation": "$",
+                                "type": "currency",
+                                "ratio_numerator": "1",
+                                "ratio_denominator": "1",
+                                "offset_numerator": "0",
+                                "offset_denominator": "1",
+                                "is_base_unit": true,
+                                "owner": {
+                                  "object": "owner",
+                                  "type": "system",
+                                  "account": null
+                                },
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
                             },
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
@@ -90748,7 +91817,7 @@
                           "type": "sale",
                           "portal_visibility": "visible",
                           "product_line": {
-                            "id": "pl_01996357326a0d3f7b129542ea",
+                            "id": "pdln_01996357326a0d3f7b129542ea",
                             "object": "product_line",
                             "name": "Industrial Fasteners",
                             "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -90831,6 +91900,31 @@
                               },
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "default_lot": {
+                              "id": "qty_015a85becc1a6afdfb1afc27ff",
+                              "object": "quantity",
+                              "value": "1234.56",
+                              "display_value": "$1,234.56",
+                              "unit": {
+                                "id": "un_01966263f74a5a0cae356000a1",
+                                "object": "unit",
+                                "name": "US Dollar",
+                                "abbreviation": "$",
+                                "type": "currency",
+                                "ratio_numerator": "1",
+                                "ratio_denominator": "1",
+                                "offset_numerator": "0",
+                                "offset_denominator": "1",
+                                "is_base_unit": true,
+                                "owner": {
+                                  "object": "owner",
+                                  "type": "system",
+                                  "account": null
+                                },
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
                             },
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
@@ -91489,7 +92583,7 @@
                     "type": "sale",
                     "portal_visibility": "visible",
                     "product_line": {
-                      "id": "pl_01996357326a0d3f7b129542ea",
+                      "id": "pdln_01996357326a0d3f7b129542ea",
                       "object": "product_line",
                       "name": "Industrial Fasteners",
                       "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -91572,6 +92666,31 @@
                         },
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
+                      },
+                      "default_lot": {
+                        "id": "qty_015a85becc1a6afdfb1afc27ff",
+                        "object": "quantity",
+                        "value": "1234.56",
+                        "display_value": "$1,234.56",
+                        "unit": {
+                          "id": "un_01966263f74a5a0cae356000a1",
+                          "object": "unit",
+                          "name": "US Dollar",
+                          "abbreviation": "$",
+                          "type": "currency",
+                          "ratio_numerator": "1",
+                          "ratio_denominator": "1",
+                          "offset_numerator": "0",
+                          "offset_denominator": "1",
+                          "is_base_unit": true,
+                          "owner": {
+                            "object": "owner",
+                            "type": "system",
+                            "account": null
+                          },
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -92253,7 +93372,7 @@
                     "type": "sale",
                     "portal_visibility": "visible",
                     "product_line": {
-                      "id": "pl_01996357326a0d3f7b129542ea",
+                      "id": "pdln_01996357326a0d3f7b129542ea",
                       "object": "product_line",
                       "name": "Industrial Fasteners",
                       "description": "Bolts, screws, and anchors for heavy industrial assembly.",
@@ -92336,6 +93455,31 @@
                         },
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
+                      },
+                      "default_lot": {
+                        "id": "qty_015a85becc1a6afdfb1afc27ff",
+                        "object": "quantity",
+                        "value": "1234.56",
+                        "display_value": "$1,234.56",
+                        "unit": {
+                          "id": "un_01966263f74a5a0cae356000a1",
+                          "object": "unit",
+                          "name": "US Dollar",
+                          "abbreviation": "$",
+                          "type": "currency",
+                          "ratio_numerator": "1",
+                          "ratio_denominator": "1",
+                          "offset_numerator": "0",
+                          "offset_denominator": "1",
+                          "is_base_unit": true,
+                          "owner": {
+                            "object": "owner",
+                            "type": "system",
+                            "account": null
+                          },
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
