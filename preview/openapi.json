@@ -8624,12 +8624,13 @@
             "description": "What the override targets.",
             "enum": [
               "item",
-              "product_line"
+              "product_line",
+              "account"
             ],
             "type": "string"
           },
           "scope_ref_id": {
-            "description": "ID of the item or product line the override targets.",
+            "description": "ID of the item or product line the override targets. Omit for an `account`-wide override, which targets every planned item.",
             "type": "string"
           },
           "period_starts_at": {
@@ -11847,7 +11848,7 @@
         "type": "object"
       },
       "DemandOverride": {
-        "description": "An adjustment to the demand a production schedule plans against.\n\nSales history cannot see a large customer that is about to order, a promotion, or a line that is being discontinued. An override is how management tells the planner about it. The period bounds the demand months the adjustment applies to; `effective_from` and `expires_at` bound when the override is consulted at all, which is a different question — an override for next quarter typically stops applying once the real orders arrive.\n\nA product-line override is distributed across the line's items in proportion to each item's baseline demand.",
+        "description": "An adjustment to the demand a production schedule plans against.\n\nSales history cannot see a large customer that is about to order, a promotion, or a line that is being discontinued. An override is how management tells the planner about it. The period bounds the demand months the adjustment applies to; `effective_from` and `expires_at` bound when the override is consulted at all, which is a different question — an override for next quarter typically stops applying once the real orders arrive.\n\nA product-line override applies to each of the line's items; an account-wide override applies to every planned item, which is how a global growth assumption (e.g. \"plan for double demand\") is expressed.",
         "example": {
           "id": "deov_0192b7d38c4f5a9b02d3e16f88",
           "object": "demand_override",
@@ -11925,7 +11926,8 @@
             "description": "What kind of resource the override targets. Mirrors `scope.type`, which is only present when the scope is expanded.",
             "enum": [
               "item",
-              "product_line"
+              "product_line",
+              "account"
             ],
             "type": "string"
           },
@@ -11935,7 +11937,7 @@
                 "$ref": "#/components/schemas/Entity"
               }
             ],
-            "description": "The item or product line the override targets. Expandable.\n\nThis is a single reference rather than one field per scope because a given override targets exactly one of them; `scope.type` names which.",
+            "description": "The item or product line the override targets. Expandable. Null for an account-wide override, which targets everything.\n\nThis is a single reference rather than one field per scope because a given override targets exactly one of them; `scope.type` names which.",
             "example": {
               "id": "us_0151164dcaea4cbded27b50aae",
               "object": "entity",
@@ -83588,7 +83590,8 @@
               "items": {
                 "enum": [
                   "item",
-                  "product_line"
+                  "product_line",
+                  "account"
                 ],
                 "type": "string"
               },
@@ -83783,7 +83786,7 @@
         "x-preview": true
       },
       "post": {
-        "description": "Creates a demand override.\n\nThe scope reference is validated against the account's items or product lines, so an override can never silently match nothing. An `absolute` value replaces the forecast for the period, `delta_units` adds to it, and `delta_percent` scales it; a percent override cannot reduce demand by more than 100%.\n\nThis endpoint requires the permission: `demand_overrides:create`.",
+        "description": "Creates a demand override.\n\nThe scope reference is validated against the account's items or product lines, so an override can never silently match nothing. An `account`-scoped override applies to every planned item and takes no scope reference; it must be a delta, not an absolute value. An `absolute` value replaces the forecast for the period, `delta_units` adds to it, and `delta_percent` scales it; a percent override cannot reduce demand by more than 100%.\n\nThis endpoint requires the permission: `demand_overrides:create`.",
         "operationId": "create-demand-override",
         "parameters": [
           {
