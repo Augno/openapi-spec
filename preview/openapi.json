@@ -3626,10 +3626,6 @@
                 "downtime_breakdown": null,
                 "scheduled_seconds": 0,
                 "run_time_seconds": 0,
-                "measured_ideal_seconds": 0,
-                "measured_run_seconds": 0,
-                "performance_ticket_count": 0,
-                "performance_basis": null,
                 "availability_pct": null,
                 "performance_pct": null,
                 "quality_pct": null,
@@ -34681,7 +34677,7 @@
             "type": "number"
           },
           "standard_seconds_earned": {
-            "description": "The time this output should have taken at each production step's own labor rate. This is the numerator of Performance.",
+            "description": "The time this output should have taken at each production step's own labor rate: ideal cycle time multiplied by the units produced. This is the numerator of Performance.",
             "type": "number"
           },
           "estimated_runtime_hours": {
@@ -34739,35 +34735,13 @@
             "description": "Scheduled time net of availability losses, in seconds.",
             "type": "number"
           },
-          "measured_ideal_seconds": {
-            "description": "The ideal time of the batch tickets in the performance sample, in seconds: what their output should have taken at each production step's ideal cycle time.",
-            "type": "number"
-          },
-          "measured_run_seconds": {
-            "description": "The actual time the sampled tickets took, in seconds, measured from the gaps between consecutive batch-ticket scans per machine, net of downtime already charged elsewhere.",
-            "type": "number"
-          },
-          "performance_ticket_count": {
-            "description": "The number of batch tickets in the performance sample.",
-            "type": "integer"
-          },
-          "performance_basis": {
-            "description": "How performance_pct was obtained: measured from scan intervals, or fallen back to the shift-pattern run-time estimate. Null when performance_pct is null.",
-            "enum": [
-              "scan_intervals",
-              "run_time_estimate",
-              null
-            ],
-            "nullable": true,
-            "type": "string"
-          },
           "availability_pct": {
             "description": "Run time divided by scheduled time.",
             "nullable": true,
             "type": "number"
           },
           "performance_pct": {
-            "description": "Ideal time over actual time for the sampled batch tickets (measured), or standard seconds earned divided by run time (estimated fallback).",
+            "description": "Standard seconds earned divided by run time: how fast the department ran against the designed speed of its production steps.",
             "nullable": true,
             "type": "number"
           },
@@ -34816,10 +34790,6 @@
           "downtime_breakdown",
           "scheduled_seconds",
           "run_time_seconds",
-          "measured_ideal_seconds",
-          "measured_run_seconds",
-          "performance_ticket_count",
-          "performance_basis",
           "availability_pct",
           "performance_pct",
           "quality_pct",
@@ -75735,10 +75705,6 @@
                         "downtime_breakdown": null,
                         "scheduled_seconds": 0,
                         "run_time_seconds": 0,
-                        "measured_ideal_seconds": 0,
-                        "measured_run_seconds": 0,
-                        "performance_ticket_count": 0,
-                        "performance_basis": null,
                         "availability_pct": null,
                         "performance_pct": null,
                         "quality_pct": null,
