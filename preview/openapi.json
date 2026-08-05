@@ -1476,6 +1476,7 @@
               "analyze_new_customers_response",
               "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_oee_trend_response",
               "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
@@ -3553,19 +3554,19 @@
       "AnalyzeOeeRequest": {
         "description": "AnalyzeOeeRequest is the request to analyze Overall Equipment Effectiveness (OEE).",
         "example": {
-          "start_date": "2026-05-10T00:00:00Z",
-          "end_date": "2026-05-10T00:23:00Z",
+          "starts_at": "2026-05-10T00:00:00Z",
+          "ends_at": "2026-05-10T00:23:00Z",
           "department_ids": [
             "dp_m0jayebxnkos"
           ]
         },
         "properties": {
-          "start_date": {
+          "starts_at": {
             "description": "The start date for the analysis period.",
             "format": "date-time",
             "type": "string"
           },
-          "end_date": {
+          "ends_at": {
             "description": "The end date for the analysis period.",
             "format": "date-time",
             "type": "string"
@@ -3586,8 +3587,8 @@
           }
         },
         "required": [
-          "start_date",
-          "end_date"
+          "starts_at",
+          "ends_at"
         ],
         "type": "object"
       },
@@ -3670,20 +3671,122 @@
         ],
         "type": "object"
       },
-      "AnalyzeScheduleAttainmentRequest": {
-        "description": "AnalyzeScheduleAttainmentRequest is the request to measure production against plan.",
+      "AnalyzeOeeTrendRequest": {
+        "description": "AnalyzeOeeTrendRequest is the request to analyze Overall Equipment Effectiveness (OEE) over time.",
         "example": {
-          "start_date": "2026-05-10T00:00:00Z",
-          "end_date": "2026-05-10T00:23:00Z",
-          "group_by": "week"
+          "starts_at": "2026-05-10T00:00:00Z",
+          "ends_at": "2026-05-10T00:23:00Z",
+          "department_ids": [
+            "dp_m0jayebxnkos"
+          ]
         },
         "properties": {
-          "start_date": {
+          "starts_at": {
             "description": "The start date for the analysis period.",
             "format": "date-time",
             "type": "string"
           },
-          "end_date": {
+          "ends_at": {
+            "description": "The end date for the analysis period.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "department_ids": {
+            "description": "Restrict the analysis to these departments.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "starts_at",
+          "ends_at"
+        ],
+        "type": "object"
+      },
+      "AnalyzeOeeTrendResponse": {
+        "description": "AnalyzeOeeTrendResponse represents the response from the OEE trend endpoint.",
+        "example": {
+          "object": "analyze_oee_trend_response",
+          "periods": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "starts_at": "2026-05-10T00:00:00Z",
+                "ends_at": "2026-05-10T00:23:00Z",
+                "good_units": 980,
+                "waste_units": 20,
+                "seconds_units": 5,
+                "standard_seconds_earned": 126000,
+                "scheduled_seconds": 165000,
+                "run_time_seconds": 150150,
+                "availability_loss_seconds": 14850,
+                "not_scheduled_seconds": 3600,
+                "availability_pct": 0.91,
+                "performance_pct": 0.84,
+                "quality_pct": 0.98,
+                "oee_pct": 0.749112,
+                "measurement_status": "measured",
+                "downtime_event_count": 6
+              }
+            ]
+          }
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "analyze_oee_trend_response"
+            ],
+            "type": "string"
+          },
+          "periods": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_OeeTrendPeriod"
+              }
+            ],
+            "description": "One entry per production week in the requested window, oldest first.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": []
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "object",
+          "periods"
+        ],
+        "type": "object"
+      },
+      "AnalyzeScheduleAttainmentRequest": {
+        "description": "AnalyzeScheduleAttainmentRequest is the request to measure production against plan.",
+        "example": {
+          "starts_at": "2026-05-10T00:00:00Z",
+          "ends_at": "2026-05-10T00:23:00Z",
+          "group_by": "week"
+        },
+        "properties": {
+          "starts_at": {
+            "description": "The start date for the analysis period.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "ends_at": {
             "description": "The end date for the analysis period.",
             "format": "date-time",
             "type": "string"
@@ -3714,8 +3817,8 @@
           }
         },
         "required": [
-          "start_date",
-          "end_date"
+          "starts_at",
+          "ends_at"
         ],
         "type": "object"
       },
@@ -4898,6 +5001,7 @@
               "analyze_new_customers_response",
               "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_oee_trend_response",
               "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
@@ -8610,6 +8714,7 @@
               "analyze_new_customers_response",
               "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_oee_trend_response",
               "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
@@ -10044,18 +10149,18 @@
       "CreateSalesTargetRequest": {
         "description": "Request to create a sales target.",
         "example": {
-          "start_date": "2026-01-01T00:00:00Z",
-          "end_date": "2026-03-31T00:00:00Z",
+          "starts_at": "2026-01-01T00:00:00Z",
+          "ends_at": "2026-03-31T00:00:00Z",
           "amount_value": "50000.00",
           "amount_unit_id": "un_82bd37dae5po"
         },
         "properties": {
-          "start_date": {
+          "starts_at": {
             "description": "Start of the period the target applies to (inclusive).",
             "format": "date-time",
             "type": "string"
           },
-          "end_date": {
+          "ends_at": {
             "description": "End of the period the target applies to.",
             "format": "date-time",
             "type": "string"
@@ -10070,8 +10175,8 @@
           }
         },
         "required": [
-          "start_date",
-          "end_date",
+          "starts_at",
+          "ends_at",
           "amount_value",
           "amount_unit_id"
         ],
@@ -13692,6 +13797,7 @@
               "analyze_new_customers_response",
               "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_oee_trend_response",
               "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
@@ -22892,6 +22998,7 @@
                 "analyze_new_customers_response",
                 "analyze_demand_forecast_response",
                 "analyze_oee_response",
+                "analyze_oee_trend_response",
                 "analyze_schedule_attainment_response",
                 "catalog_product_line",
                 "catalog_category",
@@ -23043,6 +23150,52 @@
             "description": "Resources in this page.",
             "items": {
               "$ref": "#/components/schemas/OeeDowntimeReason"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_OeeTrendPeriod": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": []
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/OeeTrendPeriod"
             },
             "type": "array",
             "x-stainless-pagination-property": {
@@ -28902,15 +29055,11 @@
               "start_at": "2026-05-10T00:00:00Z",
               "end_at": "2026-06-10T00:00:00Z",
               "sales_rep": {
-                "id": "us_43irtlt2ajz6",
-                "object": "user",
-                "email": "jdoe@augno.com",
-                "name": "John Doe",
-                "username": "jdoe",
-                "email_verified_at": "2026-06-10T00:00:00Z",
-                "image_url": "https://cdn.augno.com/avatars/us_43irtlt2ajz6.jpg",
-                "created_at": "2026-05-10T00:00:00Z",
-                "updated_at": "2026-05-10T00:23:00Z"
+                "id": "acus_e5zu8bde0z3h",
+                "object": "entity",
+                "type": "account_user",
+                "name": null,
+                "handle": null
               },
               "amount": {
                 "id": "qty_8hnxbigf0bod",
@@ -34861,6 +35010,104 @@
         ],
         "type": "object"
       },
+      "OeeTrendPeriod": {
+        "description": "OeeTrendPeriod represents one production week of OEE, rolled up across the departments that had scheduled time in it. Departments with no scheduled time have no OEE and take no part in the roll-up, so their output is not counted here either.",
+        "properties": {
+          "starts_at": {
+            "description": "The first instant this period covers. Weeks start on Monday; the first and last periods of a window are clipped to the window itself.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "ends_at": {
+            "description": "The instant this period ends, exclusive.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "good_units": {
+            "description": "The number of good units produced.",
+            "type": "number"
+          },
+          "waste_units": {
+            "description": "The number of waste units.",
+            "type": "number"
+          },
+          "seconds_units": {
+            "description": "The number of seconds units.",
+            "type": "number"
+          },
+          "standard_seconds_earned": {
+            "description": "The time this output should have taken at each production step's own labor rate: ideal cycle time multiplied by the units produced.",
+            "type": "number"
+          },
+          "scheduled_seconds": {
+            "description": "Planned time net of not-scheduled downtime, in seconds.",
+            "type": "number"
+          },
+          "run_time_seconds": {
+            "description": "Scheduled time net of availability losses, in seconds.",
+            "type": "number"
+          },
+          "availability_loss_seconds": {
+            "description": "Logged downtime charged against availability, in seconds.",
+            "type": "number"
+          },
+          "not_scheduled_seconds": {
+            "description": "Time nobody planned to run, removed from the denominator rather than counted as a loss.",
+            "type": "number"
+          },
+          "availability_pct": {
+            "description": "Run time divided by scheduled time.",
+            "nullable": true,
+            "type": "number"
+          },
+          "performance_pct": {
+            "description": "Standard seconds earned divided by run time.",
+            "nullable": true,
+            "type": "number"
+          },
+          "quality_pct": {
+            "description": "Good units divided by total units produced.",
+            "nullable": true,
+            "type": "number"
+          },
+          "oee_pct": {
+            "description": "Availability multiplied by performance multiplied by quality.",
+            "nullable": true,
+            "type": "number"
+          },
+          "measurement_status": {
+            "description": "Whether availability was measured from logged downtime or estimated from runtime.",
+            "enum": [
+              "measured",
+              "estimated"
+            ],
+            "type": "string"
+          },
+          "downtime_event_count": {
+            "description": "Number of downtime events overlapping this period.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "starts_at",
+          "ends_at",
+          "good_units",
+          "waste_units",
+          "seconds_units",
+          "standard_seconds_earned",
+          "scheduled_seconds",
+          "run_time_seconds",
+          "availability_loss_seconds",
+          "not_scheduled_seconds",
+          "availability_pct",
+          "performance_pct",
+          "quality_pct",
+          "oee_pct",
+          "measurement_status",
+          "downtime_event_count"
+        ],
+        "type": "object"
+      },
       "OrderContact": {
         "description": "A sales order's email recipients, grouped by the notification they receive.",
         "properties": {
@@ -39512,17 +39759,13 @@
             "nullable": true
           },
           "before": {
-            "additionalProperties": {
-              "type": "object"
-            },
-            "description": "Snapshot of the line before the change.",
+            "description": "Snapshot of the line before the change, null when the change created it. Encoded as a JSON value (object, array, string, number, boolean, or null), not a JSON-encoded string.",
+            "nullable": true,
             "type": "object"
           },
           "after": {
-            "additionalProperties": {
-              "type": "object"
-            },
-            "description": "Snapshot of the line after the change.",
+            "description": "Snapshot of the line after the change, null when the change removed it. Encoded as a JSON value (object, array, string, number, boolean, or null), not a JSON-encoded string.",
+            "nullable": true,
             "type": "object"
           },
           "delta_quantity": {
@@ -51302,15 +51545,11 @@
           "start_at": "2026-05-10T00:00:00Z",
           "end_at": "2026-06-10T00:00:00Z",
           "sales_rep": {
-            "id": "us_43irtlt2ajz6",
-            "object": "user",
-            "email": "jdoe@augno.com",
-            "name": "John Doe",
-            "username": "jdoe",
-            "email_verified_at": "2026-06-10T00:00:00Z",
-            "image_url": "https://cdn.augno.com/avatars/us_43irtlt2ajz6.jpg",
-            "created_at": "2026-05-10T00:00:00Z",
-            "updated_at": "2026-05-10T00:23:00Z"
+            "id": "acus_e5zu8bde0z3h",
+            "object": "entity",
+            "type": "account_user",
+            "name": null,
+            "handle": null
           },
           "amount": {
             "id": "qty_8hnxbigf0bod",
@@ -51365,23 +51604,18 @@
           "sales_rep": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/Entity"
               }
             ],
-            "description": "The sales rep this target is assigned to.\n\nThis is the rep's account-user record, identified by the same ID the `/v1/identity/account-users` endpoints return. Only the `id` is populated.",
+            "description": "The sales rep this target is assigned to, referencing the account-user record the `/v1/identity/account-users` endpoints return.\n\nA reference rather than the full record: it was tagged expandable but no include ever resolved it, so callers received an account user whose every field except the id was empty.",
             "example": {
               "id": "us_43irtlt2ajz6",
-              "object": "user",
-              "email": "jdoe@augno.com",
+              "object": "entity",
+              "type": "user",
               "name": "John Doe",
-              "username": "jdoe",
-              "email_verified_at": "2026-06-10T00:00:00Z",
-              "image_url": "https://cdn.augno.com/avatars/us_43irtlt2ajz6.jpg",
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
+              "handle": "jdoe@augno.com"
             },
-            "nullable": true,
-            "x-expandable": true
+            "nullable": true
           },
           "amount": {
             "allOf": [
@@ -53573,6 +53807,7 @@
               "analyze_new_customers_response",
               "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_oee_trend_response",
               "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
@@ -53935,6 +54170,7 @@
               "analyze_new_customers_response",
               "analyze_demand_forecast_response",
               "analyze_oee_response",
+              "analyze_oee_trend_response",
               "analyze_schedule_attainment_response",
               "catalog_product_line",
               "catalog_category",
@@ -57063,18 +57299,18 @@
       "UpsertSalesTargetRequest": {
         "description": "Request to create or update a sales target.",
         "example": {
-          "start_date": "2026-04-01T00:00:00Z",
-          "end_date": "2026-06-30T00:00:00Z",
+          "starts_at": "2026-04-01T00:00:00Z",
+          "ends_at": "2026-06-30T00:00:00Z",
           "amount_value": "75000.00",
           "amount_unit_id": "un_82bd37dae5po"
         },
         "properties": {
-          "start_date": {
+          "starts_at": {
             "description": "Start of the period the target applies to (inclusive).\n\nOnly applied when creating a new target; the dates on an existing target are not changed.",
             "format": "date-time",
             "type": "string"
           },
-          "end_date": {
+          "ends_at": {
             "description": "End of the period the target applies to.\n\nOnly applied when creating a new target; the dates on an existing target are not changed.",
             "format": "date-time",
             "type": "string"
@@ -57089,8 +57325,8 @@
           }
         },
         "required": [
-          "start_date",
-          "end_date",
+          "starts_at",
+          "ends_at",
           "amount_value",
           "amount_unit_id"
         ],
@@ -62554,7 +62790,7 @@
             "description": "Filter to items created on or after this date.",
             "example": "2026-05-10T00:00:00Z",
             "in": "query",
-            "name": "start_date",
+            "name": "starts_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -62564,7 +62800,7 @@
             "description": "Filter to items created on or before this date.",
             "example": "2026-05-10T00:23:00Z",
             "in": "query",
-            "name": "end_date",
+            "name": "ends_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -64844,7 +65080,7 @@
             "description": "Filter to materials created on or after this date.",
             "example": "2026-05-10T00:00:00Z",
             "in": "query",
-            "name": "start_date",
+            "name": "starts_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -64854,7 +65090,7 @@
             "description": "Filter to materials created on or before this date.",
             "example": "2026-05-10T00:23:00Z",
             "in": "query",
-            "name": "end_date",
+            "name": "ends_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -67110,7 +67346,7 @@
             "description": "Only return parts created at or after this time.",
             "example": "2026-05-10T00:00:00Z",
             "in": "query",
-            "name": "start_date",
+            "name": "starts_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -67120,7 +67356,7 @@
             "description": "Only return parts created at or before this time.",
             "example": "2026-05-10T00:23:00Z",
             "in": "query",
-            "name": "end_date",
+            "name": "ends_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -69936,7 +70172,7 @@
             "description": "Start of creation date range.",
             "example": "2026-05-10T00:00:00Z",
             "in": "query",
-            "name": "start_date",
+            "name": "starts_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -69946,7 +70182,7 @@
             "description": "End of creation date range.",
             "example": "2026-05-10T00:23:00Z",
             "in": "query",
-            "name": "end_date",
+            "name": "ends_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -75655,8 +75891,8 @@
           "content": {
             "application/json": {
               "example": {
-                "start_date": "2026-05-10T00:00:00Z",
-                "end_date": "2026-05-10T00:23:00Z",
+                "starts_at": "2026-05-10T00:00:00Z",
+                "ends_at": "2026-05-10T00:23:00Z",
                 "department_ids": [
                   "dp_m0jayebxnkos"
                 ]
@@ -75740,6 +75976,88 @@
         "x-preview": true
       }
     },
+    "/v1/core/analytics/oee-trend": {
+      "put": {
+        "description": "Returns Overall Equipment Effectiveness (OEE) by production week.\n\nEach period carries the same four terms `/v1/core/analytics/oee` reports for a single window, rolled up across departments and weighted by seconds rather than averaged, so a department that ran for an hour does not weigh as heavily as one that ran all week. Weeks start on Monday, and the first and last period of a window are clipped to the window itself.\n\nOnly departments with scheduled time take part: a department with no machines has no availability, so counting its output in quality would leave the three terms describing different plants. Compare two windows by calling this twice.\n\nThis endpoint requires the permission: `machine_downtime:read`.",
+        "operationId": "analyze-oee-trend",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "starts_at": "2026-05-10T00:00:00Z",
+                "ends_at": "2026-05-10T00:23:00Z",
+                "department_ids": [
+                  "dp_m0jayebxnkos"
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/AnalyzeOeeTrendRequest"
+              }
+            }
+          },
+          "description": "The request body for Analyze OEE trend"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "analyze_oee_trend_response",
+                  "periods": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "starts_at": "2026-05-10T00:00:00Z",
+                        "ends_at": "2026-05-10T00:23:00Z",
+                        "good_units": 980,
+                        "waste_units": 20,
+                        "seconds_units": 5,
+                        "standard_seconds_earned": 126000,
+                        "scheduled_seconds": 165000,
+                        "run_time_seconds": 150150,
+                        "availability_loss_seconds": 14850,
+                        "not_scheduled_seconds": 3600,
+                        "availability_pct": 0.91,
+                        "performance_pct": 0.84,
+                        "quality_pct": 0.98,
+                        "oee_pct": 0.749112,
+                        "measurement_status": "measured",
+                        "downtime_event_count": 6
+                      }
+                    ]
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/AnalyzeOeeTrendResponse"
+                }
+              }
+            },
+            "description": "Successful response for Analyze OEE trend"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Analyze OEE trend",
+        "tags": [
+          "Analytics"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/core/analytics/schedule-attainment": {
       "put": {
         "description": "Returns actual production measured against the plan that was live at the time.\n\nThe baseline for each week is the schedule version published on or before that week began, so republishing mid-horizon cannot rewrite a week the floor has already worked. `baseline_schedules` names the versions used.\n\nTwo ratios are returned because either alone misleads: `attainment_pct` caps each campaign at what was asked for, so over-building one SKU cannot hide a miss on another, while `output_ratio_pct` is uncapped and is what reveals over-production. Production with no matching planned campaign is reported as `unplanned_quantity` rather than discarded — that number is the clearest signal a schedule is being worked around.\n\nEvery ratio is null rather than zero when nothing was planned, and `has_baseline` is false when nothing was ever published over the period.\n\nThis endpoint requires the permission: `production_schedules:read`.",
@@ -75748,8 +76066,8 @@
           "content": {
             "application/json": {
               "example": {
-                "start_date": "2026-05-10T00:00:00Z",
-                "end_date": "2026-05-10T00:23:00Z",
+                "starts_at": "2026-05-10T00:00:00Z",
+                "ends_at": "2026-05-10T00:23:00Z",
                 "group_by": "week"
               },
               "schema": {
@@ -75919,7 +76237,7 @@
             "description": "Restricts results to audit events on or after this timestamp.",
             "example": "2026-05-10T00:00:00Z",
             "in": "query",
-            "name": "start_date",
+            "name": "starts_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -75929,7 +76247,7 @@
             "description": "Restricts results to audit events on or before this timestamp.",
             "example": "2026-05-10T00:23:00Z",
             "in": "query",
-            "name": "end_date",
+            "name": "ends_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -76163,6 +76481,7 @@
                   "analyze_new_customers_response",
                   "analyze_demand_forecast_response",
                   "analyze_oee_response",
+                  "analyze_oee_trend_response",
                   "analyze_schedule_attainment_response",
                   "catalog_product_line",
                   "catalog_category",
@@ -76465,6 +76784,7 @@
                 "analyze_new_customers_response",
                 "analyze_demand_forecast_response",
                 "analyze_oee_response",
+                "analyze_oee_trend_response",
                 "analyze_schedule_attainment_response",
                 "catalog_product_line",
                 "catalog_category",
@@ -77631,7 +77951,7 @@
             "description": "Restricts results to request logs on or after this timestamp.",
             "example": "2026-05-10T00:00:00Z",
             "in": "query",
-            "name": "start_date",
+            "name": "starts_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -77641,7 +77961,7 @@
             "description": "Restricts results to request logs on or before this timestamp.",
             "example": "2026-05-10T00:23:00Z",
             "in": "query",
-            "name": "end_date",
+            "name": "ends_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -78885,6 +79205,7 @@
                   "analyze_new_customers_response",
                   "analyze_demand_forecast_response",
                   "analyze_oee_response",
+                  "analyze_oee_trend_response",
                   "analyze_schedule_attainment_response",
                   "catalog_product_line",
                   "catalog_category",
@@ -82681,6 +83002,7 @@
                 "analyze_new_customers_response",
                 "analyze_demand_forecast_response",
                 "analyze_oee_response",
+                "analyze_oee_trend_response",
                 "analyze_schedule_attainment_response",
                 "catalog_product_line",
                 "catalog_category",
@@ -91439,19 +91761,19 @@
             }
           },
           {
-            "description": "Only return overrides whose period ends on or after this timestamp, formatted as RFC3339.",
+            "description": "The start of the window to match against. Only return overrides whose period ends on or after this timestamp, formatted as RFC3339.",
             "example": "2026-05-10T00:00:00Z",
             "in": "query",
-            "name": "period_start",
+            "name": "starts_at",
             "schema": {
               "type": "string"
             }
           },
           {
-            "description": "Only return overrides whose period starts on or before this timestamp, formatted as RFC3339.",
+            "description": "The end of the window to match against. Only return overrides whose period starts on or before this timestamp, formatted as RFC3339.",
             "example": "2026-05-10T00:23:00Z",
             "in": "query",
-            "name": "period_end",
+            "name": "ends_at",
             "schema": {
               "type": "string"
             }
@@ -93465,7 +93787,7 @@
             "description": "Only return events that started on or after this timestamp, formatted as RFC3339.",
             "example": "2026-05-10T00:00:00Z",
             "in": "query",
-            "name": "start_date",
+            "name": "starts_at",
             "schema": {
               "type": "string"
             }
@@ -93474,7 +93796,7 @@
             "description": "Only return events that started on or before this timestamp, formatted as RFC3339.",
             "example": "2026-05-10T00:23:00Z",
             "in": "query",
-            "name": "end_date",
+            "name": "ends_at",
             "schema": {
               "type": "string"
             }
@@ -101613,15 +101935,11 @@
                       "start_at": "2026-05-10T00:00:00Z",
                       "end_at": "2026-06-10T00:00:00Z",
                       "sales_rep": {
-                        "id": "us_43irtlt2ajz6",
-                        "object": "user",
-                        "email": "jdoe@augno.com",
-                        "name": "John Doe",
-                        "username": "jdoe",
-                        "email_verified_at": "2026-06-10T00:00:00Z",
-                        "image_url": "https://cdn.augno.com/avatars/us_43irtlt2ajz6.jpg",
-                        "created_at": "2026-05-10T00:00:00Z",
-                        "updated_at": "2026-05-10T00:23:00Z"
+                        "id": "acus_e5zu8bde0z3h",
+                        "object": "entity",
+                        "type": "account_user",
+                        "name": null,
+                        "handle": null
                       },
                       "amount": {
                         "id": "qty_8hnxbigf0bod",
@@ -101696,8 +102014,8 @@
           "content": {
             "application/json": {
               "example": {
-                "start_date": "2026-01-01T00:00:00Z",
-                "end_date": "2026-03-31T00:00:00Z",
+                "starts_at": "2026-01-01T00:00:00Z",
+                "ends_at": "2026-03-31T00:00:00Z",
                 "amount_value": "50000.00",
                 "amount_unit_id": "un_82bd37dae5po"
               },
@@ -101718,15 +102036,11 @@
                   "start_at": "2026-05-10T00:00:00Z",
                   "end_at": "2026-06-10T00:00:00Z",
                   "sales_rep": {
-                    "id": "us_43irtlt2ajz6",
-                    "object": "user",
-                    "email": "jdoe@augno.com",
-                    "name": "John Doe",
-                    "username": "jdoe",
-                    "email_verified_at": "2026-06-10T00:00:00Z",
-                    "image_url": "https://cdn.augno.com/avatars/us_43irtlt2ajz6.jpg",
-                    "created_at": "2026-05-10T00:00:00Z",
-                    "updated_at": "2026-05-10T00:23:00Z"
+                    "id": "acus_e5zu8bde0z3h",
+                    "object": "entity",
+                    "type": "account_user",
+                    "name": null,
+                    "handle": null
                   },
                   "amount": {
                     "id": "qty_8hnxbigf0bod",
@@ -101811,8 +102125,8 @@
           "content": {
             "application/json": {
               "example": {
-                "start_date": "2026-04-01T00:00:00Z",
-                "end_date": "2026-06-30T00:00:00Z",
+                "starts_at": "2026-04-01T00:00:00Z",
+                "ends_at": "2026-06-30T00:00:00Z",
                 "amount_value": "75000.00",
                 "amount_unit_id": "un_82bd37dae5po"
               },
@@ -101833,15 +102147,11 @@
                   "start_at": "2026-05-10T00:00:00Z",
                   "end_at": "2026-06-10T00:00:00Z",
                   "sales_rep": {
-                    "id": "us_43irtlt2ajz6",
-                    "object": "user",
-                    "email": "jdoe@augno.com",
-                    "name": "John Doe",
-                    "username": "jdoe",
-                    "email_verified_at": "2026-06-10T00:00:00Z",
-                    "image_url": "https://cdn.augno.com/avatars/us_43irtlt2ajz6.jpg",
-                    "created_at": "2026-05-10T00:00:00Z",
-                    "updated_at": "2026-05-10T00:23:00Z"
+                    "id": "acus_e5zu8bde0z3h",
+                    "object": "entity",
+                    "type": "account_user",
+                    "name": null,
+                    "handle": null
                   },
                   "amount": {
                     "id": "qty_8hnxbigf0bod",
@@ -102807,7 +103117,7 @@
             "description": "Filter to customers created at or after this timestamp (inclusive).",
             "example": "2026-05-10T00:00:00Z",
             "in": "query",
-            "name": "start_date",
+            "name": "starts_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -102817,7 +103127,7 @@
             "description": "Filter to customers created at or before this timestamp (inclusive).",
             "example": "2026-05-10T00:23:00Z",
             "in": "query",
-            "name": "end_date",
+            "name": "ends_at",
             "schema": {
               "format": "date-time",
               "type": "string"
@@ -105677,7 +105987,7 @@
             "description": "Earliest order creation date to include, in `YYYY-MM-DD` format.",
             "example": "2026-05-10T00:00:00Z",
             "in": "query",
-            "name": "start_date",
+            "name": "starts_at",
             "schema": {
               "type": "string"
             }
@@ -105686,7 +105996,7 @@
             "description": "Latest order creation date to include, in `YYYY-MM-DD` format.\n\nCompared against the creation timestamp at the start of that day, so orders created later on the end date itself are excluded; pass the following day to include them.",
             "example": "2026-05-10T00:23:00Z",
             "in": "query",
-            "name": "end_date",
+            "name": "ends_at",
             "schema": {
               "type": "string"
             }
