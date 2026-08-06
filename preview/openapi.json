@@ -1533,7 +1533,8 @@
               "pack_list_party",
               "pack_list_line_item",
               "pack_list_back_order",
-              "pack_list_case"
+              "pack_list_case",
+              "job"
             ],
             "type": "string"
           },
@@ -4772,6 +4773,7 @@
             "enum": [
               "create",
               "update",
+              "upsert",
               "delete",
               "restore",
               "archive",
@@ -5058,7 +5060,8 @@
               "pack_list_party",
               "pack_list_line_item",
               "pack_list_back_order",
-              "pack_list_case"
+              "pack_list_case",
+              "job"
             ],
             "type": "string"
           },
@@ -5547,6 +5550,262 @@
         },
         "required": [
           "sales_order_ids"
+        ],
+        "type": "object"
+      },
+      "BulkUpsertItemCategoriesRequest": {
+        "description": "BulkUpsertItemCategoriesRequest is the request to bulk upsert item categories.",
+        "example": {
+          "item_categories": [
+            {
+              "name": "Electronics",
+              "type": "material_category",
+              "unit_group": {
+                "id": "ug_andst6m79n41"
+              },
+              "property_names": [],
+              "notes": null
+            }
+          ]
+        },
+        "properties": {
+          "item_categories": {
+            "description": "Item categories to create or update, matched by name within the account.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertItemCategoryInput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "item_categories"
+        ],
+        "type": "object"
+      },
+      "BulkUpsertLocationsRequest": {
+        "description": "BulkUpsertLocationsRequest is the request to bulk upsert locations.",
+        "example": {
+          "locations": [
+            {
+              "name": "Warehouse A",
+              "type": "building"
+            }
+          ]
+        },
+        "properties": {
+          "locations": {
+            "description": "Locations to create or update, matched by name within the account.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertLocationInput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "locations"
+        ],
+        "type": "object"
+      },
+      "BulkUpsertMaterialsRequest": {
+        "description": "Request to bulk upsert materials.",
+        "example": {
+          "materials": [
+            {
+              "sku": "MAT-001",
+              "category": {
+                "id": "ic_d06g9c6yc9ck"
+              },
+              "properties": []
+            }
+          ]
+        },
+        "properties": {
+          "materials": {
+            "description": "Materials to create or update, matched by SKU within the account.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertMaterialInput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "materials"
+        ],
+        "type": "object"
+      },
+      "BulkUpsertPartsRequest": {
+        "description": "BulkUpsertPartsRequest is the request to bulk upsert parts.",
+        "example": {
+          "parts": [
+            {
+              "sku": "BRG-6204-2RS",
+              "category": {
+                "id": "ic_d06g9c6yc9ck"
+              },
+              "properties": []
+            }
+          ]
+        },
+        "properties": {
+          "parts": {
+            "description": "Parts to create or update, matched by SKU within the account.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertPartInput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "parts"
+        ],
+        "type": "object"
+      },
+      "BulkUpsertProductLinesRequest": {
+        "description": "BulkUpsertProductLinesRequest is the request to bulk upsert product lines.",
+        "example": {
+          "product_lines": [
+            {
+              "name": "Industrial Fasteners",
+              "unit_group": {
+                "id": "ug_andst6m79n41"
+              },
+              "commission_policy": "commission_exempt",
+              "freight_policy": "billed_freight"
+            }
+          ]
+        },
+        "properties": {
+          "product_lines": {
+            "description": "Product lines to create or update, matched by name within the account.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertProductLineInput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "product_lines"
+        ],
+        "type": "object"
+      },
+      "BulkUpsertProductsRequest": {
+        "description": "Request to bulk upsert products.",
+        "example": {
+          "products": [
+            {
+              "sku": "ALM-2024-1001",
+              "category": {
+                "id": "ic_d06g9c6yc9ck"
+              },
+              "properties": []
+            }
+          ]
+        },
+        "properties": {
+          "products": {
+            "description": "Products to create or update, matched by SKU within the account.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertProductInput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "products"
+        ],
+        "type": "object"
+      },
+      "BulkUpsertPropertiesRequest": {
+        "description": "carries the properties to bulk upsert",
+        "example": {
+          "properties": [
+            {
+              "name": "Color",
+              "attributes": [
+                {
+                  "value": "Premium",
+                  "color": "red"
+                }
+              ]
+            }
+          ]
+        },
+        "properties": {
+          "properties": {
+            "description": "Properties to create or update, matched by name (case-insensitive) within the account.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertPropertyInput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "properties"
+        ],
+        "type": "object"
+      },
+      "BulkUpsertUnitGroupsRequest": {
+        "description": "BulkUpsertUnitGroupsRequest is the request to bulk upsert unit groups.",
+        "example": {
+          "unit_groups": [
+            {
+              "name": "Weight",
+              "type": "mass",
+              "base_unit": {
+                "id": "un_82bd37dae5po"
+              },
+              "unit_conversions": [
+                {
+                  "unit": {
+                    "id": "un_82bd37dae5po"
+                  },
+                  "discount_percentage": 1
+                }
+              ]
+            }
+          ]
+        },
+        "properties": {
+          "unit_groups": {
+            "description": "Unit groups to create or update, matched by name within the account.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertUnitGroupInput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "unit_groups"
+        ],
+        "type": "object"
+      },
+      "BulkUpsertUnitsRequest": {
+        "description": "BulkUpsertUnitsRequest is the request to bulk upsert units.",
+        "example": {
+          "units": [
+            {
+              "name": "Kilogram",
+              "abbreviation": "kg",
+              "type": "mass",
+              "ratio_numerator": "1000",
+              "ratio_denominator": "1",
+              "offset_numerator": "0",
+              "offset_denominator": "1",
+              "is_base_unit": false
+            }
+          ]
+        },
+        "properties": {
+          "units": {
+            "description": "Units to create or update, matched by name or abbreviation within the account.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertUnitInput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "units"
         ],
         "type": "object"
       },
@@ -8771,7 +9030,8 @@
               "pack_list_party",
               "pack_list_line_item",
               "pack_list_back_order",
-              "pack_list_case"
+              "pack_list_case",
+              "job"
             ],
             "type": "string"
           },
@@ -13854,7 +14114,8 @@
               "pack_list_party",
               "pack_list_line_item",
               "pack_list_back_order",
-              "pack_list_case"
+              "pack_list_case",
+              "job"
             ],
             "type": "string"
           },
@@ -15763,6 +16024,223 @@
           "unit",
           "source",
           "product_line"
+        ],
+        "type": "object"
+      },
+      "Job": {
+        "description": "Records a piece of work the API accepted and carries out asynchronously. Endpoints\nanswering `202 Accepted` point at one with a `Location` header; poll it for the outcome.",
+        "example": {
+          "id": "jb_01k0a5smf9ekb8rqg1",
+          "object": "job",
+          "type": "bulkcreate",
+          "status": "completed",
+          "created_by_id": null,
+          "created_by_name": null,
+          "created_by_username": null,
+          "created_by_email": null,
+          "results": [
+            {
+              "index": 0,
+              "id": "prru_sglzcyflxk59",
+              "action": "created",
+              "sub_resource_ids": [
+                "bt_fuies8j4pk45"
+              ]
+            }
+          ],
+          "errors": [],
+          "error_summary": null,
+          "export": null,
+          "started_at": "2026-05-10T00:00:00Z",
+          "completed_at": "2026-05-10T00:00:00Z",
+          "failed_at": null,
+          "cancelled_at": null,
+          "created_at": "2026-05-10T00:00:00Z",
+          "updated_at": "2026-05-10T00:00:00Z"
+        },
+        "properties": {
+          "id": {
+            "description": "Job ID.",
+            "type": "string"
+          },
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "job"
+            ],
+            "type": "string"
+          },
+          "type": {
+            "description": "The kind of work the job carries out.",
+            "enum": [
+              "bulkcreate",
+              "bulkupsert",
+              "export"
+            ],
+            "type": "string"
+          },
+          "status": {
+            "description": "How far the job has got. `completed` means the work was processed, not that every\nrow succeeded — read `errors`.",
+            "enum": [
+              "created",
+              "started",
+              "completed",
+              "failed",
+              "cancelled"
+            ],
+            "type": "string"
+          },
+          "created_by_id": {
+            "description": "The ID of the account user who requested the work.",
+            "nullable": true,
+            "type": "string"
+          },
+          "created_by_name": {
+            "description": "Name of the account user who requested the work.",
+            "nullable": true,
+            "type": "string"
+          },
+          "created_by_username": {
+            "description": "Username of the account user who requested the work.",
+            "nullable": true,
+            "type": "string"
+          },
+          "created_by_email": {
+            "description": "Email of the account user who requested the work.",
+            "nullable": true,
+            "type": "string"
+          },
+          "results": {
+            "description": "One entry per request row that produced a resource. A bulk create records these when\nit accepts the request, so they stay provisional until `status` is `completed`.",
+            "items": {
+              "$ref": "#/components/schemas/JobResult"
+            },
+            "type": "array",
+            "x-expandable": true
+          },
+          "errors": {
+            "description": "One entry per failure, so a `completed` job can still carry failed rows. A whole-job\nfailure records a single entry with no `index`.",
+            "items": {
+              "$ref": "#/components/schemas/RowError"
+            },
+            "type": "array",
+            "x-expandable": true
+          },
+          "error_summary": {
+            "description": "A one-line reason the last attempt failed.",
+            "nullable": true,
+            "type": "string"
+          },
+          "export": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/JobExport"
+              }
+            ],
+            "description": "Where a completed export job's file can be downloaded. Null on every other job, and\nreturned only to a caller asking for JSON — otherwise retrieving the job redirects to it.",
+            "nullable": true
+          },
+          "started_at": {
+            "description": "When the job began executing.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "completed_at": {
+            "description": "When the job finished processing, whether or not every row succeeded.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "failed_at": {
+            "description": "When the most recent attempt failed. A retry that succeeds leaves this alongside `completed_at`.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "cancelled_at": {
+            "description": "When the job was cancelled.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "created_at": {
+            "description": "When the job was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "When the job was last updated.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "type",
+          "status",
+          "created_by_id",
+          "created_by_name",
+          "created_by_username",
+          "created_by_email",
+          "results",
+          "errors",
+          "error_summary",
+          "export",
+          "started_at",
+          "completed_at",
+          "failed_at",
+          "cancelled_at",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "JobExport": {
+        "description": "Points a completed export job at the file it produced.",
+        "properties": {
+          "url": {
+            "description": "Presigned link to the file, valid for five minutes — read the job again for a fresh one.\nIt carries its own authorization, so treat it as a credential: do not log it, store it, or pass it on.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "type": "object"
+      },
+      "JobResult": {
+        "description": "Accounts for one request row that produced a resource. With `errors`, also row-indexed,\nevery submitted row lands in exactly one of the two once the job completes.",
+        "properties": {
+          "index": {
+            "description": "Zero-based row of the request this result names.",
+            "type": "integer"
+          },
+          "id": {
+            "description": "ID of the resource this row produced.",
+            "type": "string"
+          },
+          "action": {
+            "description": "Whether the resource was created or updated.",
+            "enum": [
+              "created",
+              "updated"
+            ],
+            "type": "string"
+          },
+          "sub_resource_ids": {
+            "description": "Resources created alongside this row's own resource — for a bulk production run\ncreate, the ids of its batches. Omitted for operations that produce none.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "index",
+          "id",
+          "action"
         ],
         "type": "object"
       },
@@ -23055,7 +23533,8 @@
                 "pack_list_party",
                 "pack_list_line_item",
                 "pack_list_back_order",
-                "pack_list_case"
+                "pack_list_case",
+                "job"
               ],
               "type": "string"
             },
@@ -34794,6 +35273,24 @@
         ],
         "type": "object"
       },
+      "ObjectIdentifier": {
+        "description": "-------------------------- Named Object --------------------------\nIdentifies an object by its id or its name. An id wins when both are given.",
+        "properties": {
+          "id": {
+            "description": "Object ID.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Object name, matched case-insensitively.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object"
+      },
       "OeeDepartment": {
         "description": "OeeDepartment represents OEE metrics for a single department.",
         "properties": {
@@ -43788,6 +44285,7 @@
         "properties": {
           "value": {
             "description": "Decimal value of the quantity.",
+            "format": "decimal",
             "type": "string"
           },
           "unit_id": {
@@ -47097,6 +47595,50 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "RowError": {
+        "description": "pairs one row of a bulk request with the failure it produced; a failure of the request\nas a whole carries no index",
+        "example": {
+          "index": 2,
+          "error": {
+            "code": "validation_failed",
+            "type": "invalid_request_error",
+            "message": "The request was invalid.",
+            "param": "email",
+            "doc_url": "https://docs.augno.com/api/errors#validation_failed",
+            "is_transient": false,
+            "quota": null,
+            "request_log_url": "https://augno.com/dashboard/request-logs/rq_fbv1ygmybo3eauykr74"
+          }
+        },
+        "properties": {
+          "index": {
+            "description": "Zero-based row of the request this failure names. Absent for a failure of the whole request.",
+            "type": "integer"
+          },
+          "error": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResponseError"
+              }
+            ],
+            "description": "What went wrong — the same error object a synchronous error response carries.",
+            "example": {
+              "code": "validation_failed",
+              "type": "invalid_request_error",
+              "message": "The request was invalid.",
+              "param": "email",
+              "doc_url": "https://docs.augno.com/api/errors#validation_failed",
+              "is_transient": false,
+              "quota": null,
+              "request_log_url": "https://augno.com/dashboard/request-logs/rq_fbv1ygmybo3eauykr74"
+            }
+          }
+        },
+        "required": [
+          "error"
+        ],
         "type": "object"
       },
       "SalesOrder": {
@@ -53864,7 +54406,8 @@
               "pack_list_party",
               "pack_list_line_item",
               "pack_list_back_order",
-              "pack_list_case"
+              "pack_list_case",
+              "job"
             ],
             "type": "string"
           },
@@ -54227,7 +54770,8 @@
               "pack_list_party",
               "pack_list_line_item",
               "pack_list_back_order",
-              "pack_list_case"
+              "pack_list_case",
+              "job"
             ],
             "type": "string"
           },
@@ -55417,6 +55961,29 @@
           "customer_portal_visibility",
           "created_at",
           "updated_at"
+        ],
+        "type": "object"
+      },
+      "UnitIdentifier": {
+        "description": "-------------------------- UNIT --------------------------\nIdentifies a unit by its id, its name, or its abbreviation, in that order of precedence.",
+        "properties": {
+          "id": {
+            "description": "Unit ID.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Unit name, matched case-insensitively against the account's units.",
+            "type": "string"
+          },
+          "abbreviation": {
+            "description": "Unit abbreviation, matched case-insensitively against the account's units.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "abbreviation"
         ],
         "type": "object"
       },
@@ -56970,21 +57537,25 @@
             "type": "string"
           },
           "label_size": {
-            "description": "Size of the labels printed at this station, given as width-by-height (for example, `1x1`).",
+            "description": "Size of the labels printed at this station, given as width-by-height (for example, `1x1`).\n\nSend `null` or an empty string to clear.",
             "enum": [
               "1x1",
               "1x3",
               "1x4",
-              "2x4"
+              "2x4",
+              null
             ],
+            "nullable": true,
             "type": "string"
           },
           "label_type": {
-            "description": "Type of label printed at this station.\n\n- `tag`: a label attached to the physical product.\n- `traveler`: a routing sheet that accompanies the batch through every production step.",
+            "description": "Type of label printed at this station.\n\n- `tag`: a label attached to the physical product.\n- `traveler`: a routing sheet that accompanies the batch through every production step.\n\nSend `null` or an empty string to clear.",
             "enum": [
               "tag",
-              "traveler"
+              "traveler",
+              null
             ],
+            "nullable": true,
             "type": "string"
           },
           "operator_requirement": {
@@ -57203,6 +57774,179 @@
         },
         "type": "object"
       },
+      "UpsertItemCategoryInput": {
+        "description": "UpsertItemCategoryInput is the input for a single item category in a bulk upsert operation.",
+        "properties": {
+          "name": {
+            "description": "Display name of the item category, used to match existing categories.",
+            "type": "string"
+          },
+          "type": {
+            "description": "Item category type code. Create-only.",
+            "enum": [
+              "material_category",
+              "product_category"
+            ],
+            "type": "string"
+          },
+          "unit_group": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObjectIdentifier"
+              }
+            ],
+            "description": "Unit group to associate with this item category, referenced by `id` or `name`."
+          },
+          "property_names": {
+            "default": "[]",
+            "description": "Optional list of property names to attach to this category. Properties are matched\nby name (case-insensitive) within the account; names not found are created automatically.\nRelations are additive — existing relations are not removed.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "notes": {
+            "default": "null",
+            "description": "Optional notes.",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "unit_group",
+          "property_names",
+          "notes"
+        ],
+        "type": "object"
+      },
+      "UpsertLocationInput": {
+        "description": "UpsertLocationInput is the input for a single location in a bulk upsert operation.",
+        "properties": {
+          "name": {
+            "description": "Display name of the location, used to match existing locations.",
+            "type": "string"
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LocationTypeCode"
+              }
+            ],
+            "description": "Location type code."
+          },
+          "parent": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObjectIdentifier"
+              }
+            ],
+            "description": "Parent location, referenced by `id` or `name`, or by name for a location in the same\nbatch. Omitted, a new location is top-level and an existing one keeps its parent."
+          },
+          "children": {
+            "description": "Child locations to re-parent under this one, referenced by `id` or `name`, or by name\nfor a location in the same batch. Redundant with `parent` on each child.",
+            "items": {
+              "$ref": "#/components/schemas/ObjectIdentifier"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "name",
+          "type"
+        ],
+        "type": "object"
+      },
+      "UpsertMaterialInput": {
+        "description": "Input for a single material in a bulk upsert operation.",
+        "properties": {
+          "sku": {
+            "description": "SKU for the material, used to match an existing material within the account. If it\nexists the material is updated in place; otherwise a new material is created. A SKU\nalready used by a non-material item fails that row.",
+            "type": "string"
+          },
+          "description": {
+            "description": "Material description.",
+            "type": "string"
+          },
+          "notes": {
+            "description": "Material notes.",
+            "type": "string"
+          },
+          "category": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObjectIdentifier"
+              }
+            ],
+            "description": "Item category to place the material in, referenced by `id` or `name`. Create-only."
+          },
+          "order_point": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/QuantityInputRequest"
+              }
+            ],
+            "description": "Reorder threshold quantity. When omitted on create it defaults to a zero quantity in\nthe category's base unit."
+          },
+          "lead_time": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/QuantityInputRequest"
+              }
+            ],
+            "description": "Expected lead time quantity. When omitted on create it defaults to a zero quantity in\nthe category's base unit."
+          },
+          "unit_price": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RateInput"
+              }
+            ],
+            "description": "Selling price per unit. Numerator must be a currency unit, denominator the per-unit\nbasis. Defaults to a zero rate in the category's base unit on create; unchanged when\nomitted on update."
+          },
+          "unit_cost": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RateInput"
+              }
+            ],
+            "description": "Cost per unit. Same currency-vs-non-currency rule as `unit_price`."
+          },
+          "properties": {
+            "default": "[]",
+            "description": "Properties to attach to the material, matched/created by name + value. Additive —\nexisting attributes are not removed.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertMaterialProperty"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "sku",
+          "category",
+          "properties"
+        ],
+        "type": "object"
+      },
+      "UpsertMaterialProperty": {
+        "description": "Property name + value pair attached to a material. The property and its value (an\nattribute) are created if they do not yet exist.",
+        "properties": {
+          "name": {
+            "description": "Property name (e.g. \"Grade\"). Matched case-insensitively; created if missing.",
+            "type": "string"
+          },
+          "value": {
+            "description": "Property value (e.g. \"A36\"). Matched case-insensitively; created under the property\nif missing. A value already in use under a different property fails the whole job.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "value"
+        ],
+        "type": "object"
+      },
       "UpsertNotificationPreferenceRequest": {
         "description": "Request to create or replace one of the caller's notification preferences.\n\nA user has at most one preference per category, so sending the same category again replaces the previous settings outright — every channel is written from this request, not merged with what was there before.\n\nChat notifications are the only ones these settings currently govern: notifications in every other category reach the in-app feed and are never emailed, whatever is stored here.",
         "example": {
@@ -57246,6 +57990,272 @@
           "in_app_enabled",
           "email_enabled",
           "push_enabled"
+        ],
+        "type": "object"
+      },
+      "UpsertPartInput": {
+        "description": "UpsertPartInput is the input for a single part in a bulk upsert operation.",
+        "properties": {
+          "sku": {
+            "description": "SKU for the part, matched against existing parts in the account: a match updates in\nplace, otherwise a part is created. A SKU held by a non-part item fails that row.",
+            "type": "string"
+          },
+          "description": {
+            "description": "Free-form description of the part.",
+            "type": "string"
+          },
+          "notes": {
+            "description": "Free-form notes about the part.",
+            "type": "string"
+          },
+          "category": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObjectIdentifier"
+              }
+            ],
+            "description": "Item category to place the part in, referenced by `id` or `name`. Create-only; its\nunit group determines the base unit of the part's rates."
+          },
+          "unit_price": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RateInput"
+              }
+            ],
+            "description": "Selling price per unit — a currency numerator over a per-unit denominator. Omitted, it\ndefaults to a zero rate in the category's base unit and is left unchanged on update."
+          },
+          "unit_cost": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RateInput"
+              }
+            ],
+            "description": "Cost per unit. Same unit rule and omission behaviour as `unit_price`."
+          },
+          "properties": {
+            "default": "[]",
+            "description": "Properties to attach to the part, matched/created by name + value. Additive —\nexisting attributes are not removed.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertPartProperty"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "sku",
+          "category",
+          "properties"
+        ],
+        "type": "object"
+      },
+      "UpsertPartProperty": {
+        "description": "UpsertPartProperty is a property name + value pair attached to a part. The property\nand its value (an attribute) are created if they do not yet exist.",
+        "properties": {
+          "name": {
+            "description": "Property name (e.g. \"Material\"). Matched case-insensitively; created if missing.",
+            "type": "string"
+          },
+          "value": {
+            "description": "Property value (e.g. \"Steel\"). Matched exactly; created under the property if missing.",
+            "format": "decimal",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "value"
+        ],
+        "type": "object"
+      },
+      "UpsertProductInput": {
+        "description": "Input for a single product in a bulk upsert operation.",
+        "properties": {
+          "sku": {
+            "description": "SKU for the product, used to match an existing product within the account. If it\nexists the product is updated in place; otherwise a new product is created. A SKU\nalready used by a non-product item fails that row.",
+            "type": "string"
+          },
+          "type": {
+            "description": "Product type. Create-only; defaults to `sale` when omitted.",
+            "enum": [
+              "sale",
+              "service",
+              "shipping",
+              "credit",
+              "return",
+              "tax"
+            ],
+            "type": "string"
+          },
+          "description": {
+            "description": "Product description.",
+            "type": "string"
+          },
+          "notes": {
+            "description": "Product notes.",
+            "type": "string"
+          },
+          "category": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObjectIdentifier"
+              }
+            ],
+            "description": "Item category to place the product in, referenced by `id` or `name`. Create-only."
+          },
+          "product_line": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObjectIdentifier"
+              }
+            ],
+            "description": "Product line to assign, referenced by `id` or `name`. Create-only."
+          },
+          "portal_visibility": {
+            "description": "Whether the product is shown to buyers in the customer portal. Defaults to `hidden`\non create; preserved when omitted on update.",
+            "enum": [
+              "visible",
+              "hidden"
+            ],
+            "type": "string"
+          },
+          "unit_price": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RateInput"
+              }
+            ],
+            "description": "Selling price per unit. Numerator must be a currency unit, denominator the per-unit\nbasis. Defaults to a zero rate in the category's base unit on create; unchanged when\nomitted on update."
+          },
+          "unit_cost": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RateInput"
+              }
+            ],
+            "description": "Cost per unit. Same currency-vs-non-currency rule as `unit_price`."
+          },
+          "properties": {
+            "default": "[]",
+            "description": "Properties to attach to the product, matched/created by name + value. Additive —\nexisting attributes are not removed.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertProductProperty"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "sku",
+          "category",
+          "properties"
+        ],
+        "type": "object"
+      },
+      "UpsertProductLineInput": {
+        "description": "UpsertProductLineInput is the input for a single product line in a bulk upsert operation.",
+        "properties": {
+          "name": {
+            "description": "Display name of the product line, matched case-insensitively against existing lines.\nA row matching a system product line fails — system lines cannot be modified.",
+            "type": "string"
+          },
+          "unit_group": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObjectIdentifier"
+              }
+            ],
+            "description": "Unit group to associate with this product line, referenced by `id` or `name`."
+          },
+          "commission_policy": {
+            "description": "Default commission policy for products in this product line.\n\n- `commission_exempt`: no commission applies to these products.\n- `commission_applied`: commission applies to these products, unless overridden elsewhere.",
+            "enum": [
+              "commission_applied",
+              "commission_exempt"
+            ],
+            "type": "string"
+          },
+          "freight_policy": {
+            "description": "Default freight policy for products in this product line.\n\n- `free_freight`: these products do not incur a freight charge.\n- `billed_freight`: freight is billed for these products, unless overridden elsewhere.",
+            "enum": [
+              "free_freight",
+              "billed_freight"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "unit_group",
+          "commission_policy",
+          "freight_policy"
+        ],
+        "type": "object"
+      },
+      "UpsertProductProperty": {
+        "description": "Property name + value pair attached to a product. The property and its value (an\nattribute) are created if they do not yet exist.",
+        "properties": {
+          "name": {
+            "description": "Property name (e.g. \"Color\"). Matched case-insensitively; created if missing.",
+            "type": "string"
+          },
+          "value": {
+            "description": "Property value (e.g. \"Red\"). Matched case-insensitively; created under the property\nif missing. A value already in use under a different property fails the whole job.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "value"
+        ],
+        "type": "object"
+      },
+      "UpsertPropertyAttributeInput": {
+        "description": "carries one attribute under a bulk-upserted property",
+        "properties": {
+          "value": {
+            "description": "The selectable value this attribute represents, such as `Red`.\n\nMust be unique across all attributes in the account, not just within the property. Leading and trailing whitespace is trimmed.",
+            "type": "string"
+          },
+          "color": {
+            "description": "Swatch color used to display this attribute in the UI.\n\nWhen omitted, one of the nine named colors is assigned. Ignored for a value the property already defines.",
+            "enum": [
+              "blue",
+              "brown",
+              "default",
+              "gray",
+              "green",
+              "orange",
+              "pink",
+              "purple",
+              "red",
+              "yellow"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "type": "object"
+      },
+      "UpsertPropertyInput": {
+        "description": "carries one property in a bulk upsert",
+        "properties": {
+          "name": {
+            "description": "Display name of the property, used to match existing properties within the account.",
+            "type": "string"
+          },
+          "attributes": {
+            "default": "[]",
+            "description": "The selectable values to define under this property, in the order they should be arranged.\n\nAdditive — values the property already defines are left as they stand, and none are removed. New values are appended after the existing ones.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertPropertyAttributeInput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "name",
+          "attributes"
         ],
         "type": "object"
       },
@@ -57329,6 +58339,139 @@
           "ends_at",
           "amount_value",
           "amount_unit_id"
+        ],
+        "type": "object"
+      },
+      "UpsertUnitGroupConversionInput": {
+        "description": "UpsertUnitGroupConversionInput is the input for a single unit conversion within a bulk upsert unit group.",
+        "properties": {
+          "unit": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UnitIdentifier"
+              }
+            ],
+            "description": "Unit for this conversion, referenced by `id`, `name`, or `abbreviation`."
+          },
+          "discount_percentage": {
+            "default": "1",
+            "description": "Discount percentage to apply for this unit conversion.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "unit"
+        ],
+        "type": "object"
+      },
+      "UpsertUnitGroupInput": {
+        "description": "UpsertUnitGroupInput is the input for a single unit group in a bulk upsert operation.",
+        "properties": {
+          "name": {
+            "description": "Display name of the unit group, matched case-insensitively against existing groups.\nA row matching a system unit group fails — system groups cannot be modified.",
+            "type": "string"
+          },
+          "notes": {
+            "default": "null",
+            "description": "Free-form notes about the unit group. Preserved when omitted on update.",
+            "type": "string"
+          },
+          "type": {
+            "description": "Unit dimension type. Create-only — an existing group keeps its stored type.",
+            "enum": [
+              "currency",
+              "quantity",
+              "time",
+              "mass",
+              "volume",
+              "length",
+              "temperature",
+              "area"
+            ],
+            "type": "string"
+          },
+          "base_unit": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UnitIdentifier"
+              }
+            ],
+            "description": "Base unit for this group, referenced by `id`, `name`, or `abbreviation`."
+          },
+          "unit_conversions": {
+            "description": "Units to associate with the group. Replaces the existing set on update; the base\nunit is always kept.",
+            "items": {
+              "$ref": "#/components/schemas/UpsertUnitGroupConversionInput"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "base_unit"
+        ],
+        "type": "object"
+      },
+      "UpsertUnitInput": {
+        "description": "UpsertUnitInput is the input for a single unit in a bulk upsert operation.",
+        "properties": {
+          "name": {
+            "description": "Display name of the unit (e.g. \"Gram\"). A row matching a system unit fails — system\nunits cannot be modified.",
+            "type": "string"
+          },
+          "abbreviation": {
+            "description": "Short abbreviation for the unit (e.g. \"g\"). Also used for matching — see `name`.",
+            "type": "string"
+          },
+          "type": {
+            "description": "Unit dimension code. Create-only — a row that changes an existing unit's dimension fails.",
+            "enum": [
+              "currency",
+              "quantity",
+              "time",
+              "mass",
+              "volume",
+              "length",
+              "temperature",
+              "area"
+            ],
+            "type": "string"
+          },
+          "ratio_numerator": {
+            "description": "Conversion ratio numerator relative to the base unit, as a decimal string.",
+            "format": "decimal",
+            "type": "string"
+          },
+          "ratio_denominator": {
+            "description": "Conversion ratio denominator relative to the base unit, as a decimal string.",
+            "format": "decimal",
+            "type": "string"
+          },
+          "offset_numerator": {
+            "description": "Conversion offset numerator, as a decimal string.",
+            "format": "decimal",
+            "type": "string"
+          },
+          "offset_denominator": {
+            "description": "Conversion offset denominator, as a decimal string.",
+            "format": "decimal",
+            "type": "string"
+          },
+          "is_base_unit": {
+            "description": "Whether the unit is its dimension's base unit. Bulk upsert never creates a base unit\nand rejects a change to an existing one.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "abbreviation",
+          "type",
+          "ratio_numerator",
+          "ratio_denominator",
+          "offset_numerator",
+          "offset_denominator",
+          "is_base_unit"
         ],
         "type": "object"
       },
@@ -62077,6 +63220,91 @@
         "x-preview": true
       }
     },
+    "/v1/catalog/item-categories/actions/bulk-upsert": {
+      "post": {
+        "description": "Creates or updates multiple item categories for the account, matched by name\n(case-insensitive), then writes asynchronously — 202 with a job to poll.",
+        "operationId": "bulk-upsert-item-categories",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "item_categories": [
+                  {
+                    "name": "Electronics",
+                    "type": "material_category",
+                    "unit_group": {
+                      "id": "ug_andst6m79n41"
+                    },
+                    "property_names": [],
+                    "notes": null
+                  }
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpsertItemCategoriesRequest"
+              }
+            }
+          },
+          "description": "The request body for Bulk Upsert Item Categories"
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "object": "job",
+                  "type": "bulkcreate",
+                  "status": "completed",
+                  "created_by_id": null,
+                  "created_by_name": null,
+                  "created_by_username": null,
+                  "created_by_email": null,
+                  "results": [
+                    {
+                      "index": 0,
+                      "id": "prru_sglzcyflxk59",
+                      "action": "created",
+                      "sub_resource_ids": [
+                        "bt_fuies8j4pk45"
+                      ]
+                    }
+                  ],
+                  "errors": [],
+                  "error_summary": null,
+                  "export": null,
+                  "started_at": "2026-05-10T00:00:00Z",
+                  "completed_at": "2026-05-10T00:00:00Z",
+                  "failed_at": null,
+                  "cancelled_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:00:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful response for Bulk Upsert Item Categories"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Bulk Upsert Item Categories",
+        "tags": [
+          "Item Categories"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/catalog/item-categories/{id}": {
       "delete": {
         "description": "Deletes an item category owned by your account.\n\nSystem-owned categories cannot be deleted. Deleting a category that was already deleted returns an already-deleted error rather than a not-found error.\n\nThis endpoint requires the permission: `item_categories:delete`.",
@@ -65983,6 +67211,89 @@
         "x-preview": true
       }
     },
+    "/v1/catalog/materials/actions/bulk-upsert": {
+      "post": {
+        "description": "Creates or updates multiple materials for the account, matched by SKU. Validates and\nresolves synchronously, then writes asynchronously — 202 with a job to poll.",
+        "operationId": "bulk-upsert-materials",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "materials": [
+                  {
+                    "sku": "MAT-001",
+                    "category": {
+                      "id": "ic_d06g9c6yc9ck"
+                    },
+                    "properties": []
+                  }
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpsertMaterialsRequest"
+              }
+            }
+          },
+          "description": "The request body for Bulk Upsert Materials"
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "object": "job",
+                  "type": "bulkcreate",
+                  "status": "completed",
+                  "created_by_id": null,
+                  "created_by_name": null,
+                  "created_by_username": null,
+                  "created_by_email": null,
+                  "results": [
+                    {
+                      "index": 0,
+                      "id": "prru_sglzcyflxk59",
+                      "action": "created",
+                      "sub_resource_ids": [
+                        "bt_fuies8j4pk45"
+                      ]
+                    }
+                  ],
+                  "errors": [],
+                  "error_summary": null,
+                  "export": null,
+                  "started_at": "2026-05-10T00:00:00Z",
+                  "completed_at": "2026-05-10T00:00:00Z",
+                  "failed_at": null,
+                  "cancelled_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:00:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful response for Bulk Upsert Materials"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Bulk Upsert Materials",
+        "tags": [
+          "Materials"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/catalog/materials/{id}": {
       "delete": {
         "description": "Deletes a material.\n\nThis is a soft delete: the material and the catalog item behind it stop being returned by other endpoints, but the records are retained. The response is the material as it stood immediately before deletion, and deleting an already-deleted material returns an error.\n\nThis endpoint requires the permissions: `materials:delete`, `customers:update`, `suppliers:update`.",
@@ -68139,6 +69450,89 @@
         "x-preview": true
       }
     },
+    "/v1/catalog/parts/actions/bulk-upsert": {
+      "post": {
+        "description": "Creates or updates multiple parts for the account, matched by SKU, then writes\nasynchronously — 202 with a job to poll.",
+        "operationId": "bulk-upsert-parts",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "parts": [
+                  {
+                    "sku": "BRG-6204-2RS",
+                    "category": {
+                      "id": "ic_d06g9c6yc9ck"
+                    },
+                    "properties": []
+                  }
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpsertPartsRequest"
+              }
+            }
+          },
+          "description": "The request body for Bulk Upsert Parts"
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "object": "job",
+                  "type": "bulkcreate",
+                  "status": "completed",
+                  "created_by_id": null,
+                  "created_by_name": null,
+                  "created_by_username": null,
+                  "created_by_email": null,
+                  "results": [
+                    {
+                      "index": 0,
+                      "id": "prru_sglzcyflxk59",
+                      "action": "created",
+                      "sub_resource_ids": [
+                        "bt_fuies8j4pk45"
+                      ]
+                    }
+                  ],
+                  "errors": [],
+                  "error_summary": null,
+                  "export": null,
+                  "started_at": "2026-05-10T00:00:00Z",
+                  "completed_at": "2026-05-10T00:00:00Z",
+                  "failed_at": null,
+                  "cancelled_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:00:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful response for Bulk Upsert Parts"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Bulk Upsert Parts",
+        "tags": [
+          "Parts"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/catalog/parts/{id}": {
       "delete": {
         "description": "Deletes a part.\n\nThis is a soft delete: the part is marked deleted and no longer returned by other endpoints, but the record is retained. Deleting an already-deleted part returns an error.\n\nThis endpoint requires the permissions: `parts:delete`, `customers:update`, `suppliers:update`.",
@@ -69657,6 +71051,90 @@
           }
         },
         "summary": "Create Product Line",
+        "tags": [
+          "Product Lines"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/catalog/product-lines/actions/bulk-upsert": {
+      "post": {
+        "description": "Creates or updates multiple product lines for the account, matched by name\n(case-insensitive), then writes asynchronously — 202 with a job to poll.",
+        "operationId": "bulk-upsert-product-lines",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "product_lines": [
+                  {
+                    "name": "Industrial Fasteners",
+                    "unit_group": {
+                      "id": "ug_andst6m79n41"
+                    },
+                    "commission_policy": "commission_exempt",
+                    "freight_policy": "billed_freight"
+                  }
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpsertProductLinesRequest"
+              }
+            }
+          },
+          "description": "The request body for Bulk Upsert Product Lines"
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "object": "job",
+                  "type": "bulkcreate",
+                  "status": "completed",
+                  "created_by_id": null,
+                  "created_by_name": null,
+                  "created_by_username": null,
+                  "created_by_email": null,
+                  "results": [
+                    {
+                      "index": 0,
+                      "id": "prru_sglzcyflxk59",
+                      "action": "created",
+                      "sub_resource_ids": [
+                        "bt_fuies8j4pk45"
+                      ]
+                    }
+                  ],
+                  "errors": [],
+                  "error_summary": null,
+                  "export": null,
+                  "started_at": "2026-05-10T00:00:00Z",
+                  "completed_at": "2026-05-10T00:00:00Z",
+                  "failed_at": null,
+                  "cancelled_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:00:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful response for Bulk Upsert Product Lines"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Bulk Upsert Product Lines",
         "tags": [
           "Product Lines"
         ],
@@ -71223,6 +72701,89 @@
           }
         },
         "summary": "Create Product",
+        "tags": [
+          "Products"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/catalog/products/actions/bulk-upsert": {
+      "post": {
+        "description": "Creates or updates multiple products for the account, matched by SKU. Validates and\nresolves synchronously, then writes asynchronously — 202 with a job to poll.",
+        "operationId": "bulk-upsert-products",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "products": [
+                  {
+                    "sku": "ALM-2024-1001",
+                    "category": {
+                      "id": "ic_d06g9c6yc9ck"
+                    },
+                    "properties": []
+                  }
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpsertProductsRequest"
+              }
+            }
+          },
+          "description": "The request body for Bulk Upsert Products"
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "object": "job",
+                  "type": "bulkcreate",
+                  "status": "completed",
+                  "created_by_id": null,
+                  "created_by_name": null,
+                  "created_by_username": null,
+                  "created_by_email": null,
+                  "results": [
+                    {
+                      "index": 0,
+                      "id": "prru_sglzcyflxk59",
+                      "action": "created",
+                      "sub_resource_ids": [
+                        "bt_fuies8j4pk45"
+                      ]
+                    }
+                  ],
+                  "errors": [],
+                  "error_summary": null,
+                  "export": null,
+                  "started_at": "2026-05-10T00:00:00Z",
+                  "completed_at": "2026-05-10T00:00:00Z",
+                  "failed_at": null,
+                  "cancelled_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:00:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful response for Bulk Upsert Products"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Bulk Upsert Products",
         "tags": [
           "Products"
         ],
@@ -73503,6 +75064,91 @@
         "x-preview": true
       }
     },
+    "/v1/catalog/properties/actions/bulk-upsert": {
+      "post": {
+        "description": "Creates or updates multiple properties and their attributes for the account, matched by\nname (case-insensitive), then writes asynchronously — 202 with a job to poll.",
+        "operationId": "bulk-upsert-properties",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "properties": [
+                  {
+                    "name": "Color",
+                    "attributes": [
+                      {
+                        "value": "Premium",
+                        "color": "red"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpsertPropertiesRequest"
+              }
+            }
+          },
+          "description": "The request body for Bulk Upsert Properties"
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "object": "job",
+                  "type": "bulkcreate",
+                  "status": "completed",
+                  "created_by_id": null,
+                  "created_by_name": null,
+                  "created_by_username": null,
+                  "created_by_email": null,
+                  "results": [
+                    {
+                      "index": 0,
+                      "id": "prru_sglzcyflxk59",
+                      "action": "created",
+                      "sub_resource_ids": [
+                        "bt_fuies8j4pk45"
+                      ]
+                    }
+                  ],
+                  "errors": [],
+                  "error_summary": null,
+                  "export": null,
+                  "started_at": "2026-05-10T00:00:00Z",
+                  "completed_at": "2026-05-10T00:00:00Z",
+                  "failed_at": null,
+                  "cancelled_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:00:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful response for Bulk Upsert Properties"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Bulk Upsert Properties",
+        "tags": [
+          "Properties"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/catalog/properties/{id}": {
       "delete": {
         "description": "Deletes a property and every attribute defined under it.\n\nItems previously classified by those attributes lose that classification.\n\nThis endpoint requires the permission: `properties:delete`.",
@@ -74467,6 +76113,97 @@
           }
         },
         "summary": "Create Unit Group",
+        "tags": [
+          "Unit Groups"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/catalog/unit-groups/actions/bulk-upsert": {
+      "post": {
+        "description": "Creates or updates multiple unit groups for the account, matched by name\n(case-insensitive), then writes asynchronously — 202 with a job to poll.",
+        "operationId": "bulk-upsert-unit-groups",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "unit_groups": [
+                  {
+                    "name": "Weight",
+                    "type": "mass",
+                    "base_unit": {
+                      "id": "un_82bd37dae5po"
+                    },
+                    "unit_conversions": [
+                      {
+                        "unit": {
+                          "id": "un_82bd37dae5po"
+                        },
+                        "discount_percentage": 1
+                      }
+                    ]
+                  }
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpsertUnitGroupsRequest"
+              }
+            }
+          },
+          "description": "The request body for Bulk Upsert Unit Groups"
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "object": "job",
+                  "type": "bulkcreate",
+                  "status": "completed",
+                  "created_by_id": null,
+                  "created_by_name": null,
+                  "created_by_username": null,
+                  "created_by_email": null,
+                  "results": [
+                    {
+                      "index": 0,
+                      "id": "prru_sglzcyflxk59",
+                      "action": "created",
+                      "sub_resource_ids": [
+                        "bt_fuies8j4pk45"
+                      ]
+                    }
+                  ],
+                  "errors": [],
+                  "error_summary": null,
+                  "export": null,
+                  "started_at": "2026-05-10T00:00:00Z",
+                  "completed_at": "2026-05-10T00:00:00Z",
+                  "failed_at": null,
+                  "cancelled_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:00:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful response for Bulk Upsert Unit Groups"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Bulk Upsert Unit Groups",
         "tags": [
           "Unit Groups"
         ],
@@ -75519,6 +77256,92 @@
         "x-preview": true
       }
     },
+    "/v1/catalog/units/actions/bulk-upsert": {
+      "post": {
+        "description": "Creates or updates multiple units of measure for the account, matched by name or\nabbreviation, then writes asynchronously — 202 with a job to poll.",
+        "operationId": "bulk-upsert-units",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "units": [
+                  {
+                    "name": "Kilogram",
+                    "abbreviation": "kg",
+                    "type": "mass",
+                    "ratio_numerator": "1000",
+                    "ratio_denominator": "1",
+                    "offset_numerator": "0",
+                    "offset_denominator": "1",
+                    "is_base_unit": false
+                  }
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpsertUnitsRequest"
+              }
+            }
+          },
+          "description": "The request body for Bulk Upsert Units"
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "object": "job",
+                  "type": "bulkcreate",
+                  "status": "completed",
+                  "created_by_id": null,
+                  "created_by_name": null,
+                  "created_by_username": null,
+                  "created_by_email": null,
+                  "results": [
+                    {
+                      "index": 0,
+                      "id": "prru_sglzcyflxk59",
+                      "action": "created",
+                      "sub_resource_ids": [
+                        "bt_fuies8j4pk45"
+                      ]
+                    }
+                  ],
+                  "errors": [],
+                  "error_summary": null,
+                  "export": null,
+                  "started_at": "2026-05-10T00:00:00Z",
+                  "completed_at": "2026-05-10T00:00:00Z",
+                  "failed_at": null,
+                  "cancelled_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:00:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful response for Bulk Upsert Units"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Bulk Upsert Units",
+        "tags": [
+          "Units"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/catalog/units/{id}": {
       "delete": {
         "description": "Deletes a unit owned by your account.\n\nThe unit is also removed from every unit group it belongs to. System units, which are shared across all accounts, cannot be deleted.\n\nThis endpoint requires the permission: `units:delete`.",
@@ -76538,7 +78361,8 @@
                   "pack_list_party",
                   "pack_list_line_item",
                   "pack_list_back_order",
-                  "pack_list_case"
+                  "pack_list_case",
+                  "job"
                 ],
                 "type": "string"
               },
@@ -76841,7 +78665,8 @@
                 "pack_list_party",
                 "pack_list_line_item",
                 "pack_list_back_order",
-                "pack_list_case"
+                "pack_list_case",
+                "job"
               ],
               "type": "string"
             }
@@ -76903,6 +78728,7 @@
                 "enum": [
                   "create",
                   "update",
+                  "upsert",
                   "delete",
                   "restore",
                   "archive",
@@ -77911,6 +79737,154 @@
         "summary": "Retrieve Email Log",
         "tags": [
           "Email Logs"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/core/jobs/{id}": {
+      "get": {
+        "description": "Returns a job by ID — poll the job named in a `202 Accepted` response's `Location` to observe its outcome.\nA completed export carries the link to its file on `export.url`.",
+        "operationId": "retrieve-job",
+        "parameters": [
+          {
+            "description": "Job ID.",
+            "example": "jb_01k0a5smf9ekb8rqg1",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "object": "job",
+                  "type": "bulkcreate",
+                  "status": "completed",
+                  "created_by_id": null,
+                  "created_by_name": null,
+                  "created_by_username": null,
+                  "created_by_email": null,
+                  "results": [
+                    {
+                      "index": 0,
+                      "id": "prru_sglzcyflxk59",
+                      "action": "created",
+                      "sub_resource_ids": [
+                        "bt_fuies8j4pk45"
+                      ]
+                    }
+                  ],
+                  "errors": [],
+                  "error_summary": null,
+                  "export": null,
+                  "started_at": "2026-05-10T00:00:00Z",
+                  "completed_at": "2026-05-10T00:00:00Z",
+                  "failed_at": null,
+                  "cancelled_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:00:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful response for Retrieve Job"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Retrieve Job",
+        "tags": [
+          "Jobs"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/core/jobs/{id}/cancel": {
+      "post": {
+        "description": "Cancels a job and returns it carrying its `cancelled` status.\nWork in flight is not interrupted but can no longer settle, and a finished job cannot be cancelled.",
+        "operationId": "cancel-job",
+        "parameters": [
+          {
+            "description": "Job ID.",
+            "example": "jb_01k0a5smf9ekb8rqg1",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "object": "job",
+                  "type": "bulkcreate",
+                  "status": "completed",
+                  "created_by_id": null,
+                  "created_by_name": null,
+                  "created_by_username": null,
+                  "created_by_email": null,
+                  "results": [
+                    {
+                      "index": 0,
+                      "id": "prru_sglzcyflxk59",
+                      "action": "created",
+                      "sub_resource_ids": [
+                        "bt_fuies8j4pk45"
+                      ]
+                    }
+                  ],
+                  "errors": [],
+                  "error_summary": null,
+                  "export": null,
+                  "started_at": "2026-05-10T00:00:00Z",
+                  "completed_at": "2026-05-10T00:00:00Z",
+                  "failed_at": null,
+                  "cancelled_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:00:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful response for Cancel Job"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Cancel Job",
+        "tags": [
+          "Jobs"
         ],
         "x-preview": true
       }
@@ -79262,7 +81236,8 @@
                   "pack_list_party",
                   "pack_list_line_item",
                   "pack_list_back_order",
-                  "pack_list_case"
+                  "pack_list_case",
+                  "job"
                 ],
                 "type": "string"
               },
@@ -81013,7 +82988,7 @@
             }
           },
           {
-            "description": "Header parameter: Content-Type for Upload Account Favicon",
+            "description": "Content type of the image (e.g., image/png).\n\nThe image is stored as `image/png` if this header is omitted, so set it to match the actual format you upload.",
             "in": "header",
             "name": "Content-Type",
             "schema": {
@@ -83059,7 +85034,8 @@
                 "pack_list_party",
                 "pack_list_line_item",
                 "pack_list_back_order",
-                "pack_list_case"
+                "pack_list_case",
+                "job"
               ],
               "type": "string"
             }
@@ -93437,6 +95413,86 @@
           }
         },
         "summary": "Create Location",
+        "tags": [
+          "Location"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/locations/actions/bulk-upsert": {
+      "post": {
+        "description": "Creates or updates multiple locations for the account, matched by name\n(case-insensitive), then writes asynchronously — 202 with a job to poll.",
+        "operationId": "bulk-upsert-locations",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "locations": [
+                  {
+                    "name": "Warehouse A",
+                    "type": "building"
+                  }
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/BulkUpsertLocationsRequest"
+              }
+            }
+          },
+          "description": "The request body for Bulk Upsert Locations"
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "object": "job",
+                  "type": "bulkcreate",
+                  "status": "completed",
+                  "created_by_id": null,
+                  "created_by_name": null,
+                  "created_by_username": null,
+                  "created_by_email": null,
+                  "results": [
+                    {
+                      "index": 0,
+                      "id": "prru_sglzcyflxk59",
+                      "action": "created",
+                      "sub_resource_ids": [
+                        "bt_fuies8j4pk45"
+                      ]
+                    }
+                  ],
+                  "errors": [],
+                  "error_summary": null,
+                  "export": null,
+                  "started_at": "2026-05-10T00:00:00Z",
+                  "completed_at": "2026-05-10T00:00:00Z",
+                  "failed_at": null,
+                  "cancelled_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:00:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Job"
+                }
+              }
+            },
+            "description": "Successful response for Bulk Upsert Locations"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Bulk Upsert Locations",
         "tags": [
           "Location"
         ],
@@ -120383,6 +122439,10 @@
     {
       "description": "List sales order statuses.",
       "name": "Sales Order Statuses"
+    },
+    {
+      "description": "View the jobs that track asynchronous work. Endpoints that answer 202 Accepted raise one and point at it with a Location header.",
+      "name": "Jobs"
     },
     {
       "description": "Log and review machine stoppages. Downtime is the source of OEE availability and changeover time.",
