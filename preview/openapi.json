@@ -509,6 +509,7 @@
           "description": null,
           "commission_policy": "commission_applied",
           "freight_policy": "billed_freight",
+          "default_lead_time_days": null,
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
         },
@@ -557,6 +558,11 @@
             ],
             "type": "string"
           },
+          "default_lead_time_days": {
+            "description": "Calendar days between an order being issued and it being due to ship, inherited by every customer in this group that has not set its own.",
+            "nullable": true,
+            "type": "integer"
+          },
           "created_at": {
             "description": "Creation timestamp.",
             "format": "date-time",
@@ -576,6 +582,7 @@
           "description",
           "commission_policy",
           "freight_policy",
+          "default_lead_time_days",
           "created_at",
           "updated_at"
         ],
@@ -1367,7 +1374,16 @@
               "production_schedule_derived_line",
               "production_schedule_settings",
               "production_schedule_resource_setting",
+              "production_schedule_item_setting",
+              "fulfillment_recommendation",
+              "analyze_delivery_performance_response",
+              "delivery_performance",
+              "delivery_backlog_bucket",
+              "schedule_order_coverage",
+              "schedule_order_coverage_line",
+              "promise_date_quote",
               "schedule_deviation_type",
+              "schedule_at_risk_order",
               "production_schedule_finished_policy",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
@@ -1440,6 +1456,7 @@
               "customer_contact_info",
               "customer_freight_preferences",
               "customer_defaults",
+              "customer_lead_time",
               "customer_notification_preferences",
               "order_notification_recipient",
               "order_discount",
@@ -3552,6 +3569,159 @@
         ],
         "type": "object"
       },
+      "AnalyzeDeliveryPerformanceRequest": {
+        "description": "AnalyzeDeliveryPerformanceRequest is the request to measure promises against shipments.",
+        "example": {
+          "starts_at": "2026-05-10T00:00:00Z",
+          "ends_at": "2026-05-10T00:23:00Z",
+          "granularity": "week"
+        },
+        "properties": {
+          "starts_at": {
+            "description": "The start date for the analysis period.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "ends_at": {
+            "description": "The end date for the analysis period.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "granularity": {
+            "description": "The period to break the results down by. Defaults to `week`.",
+            "enum": [
+              "day",
+              "week",
+              "month"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "starts_at",
+          "ends_at"
+        ],
+        "type": "object"
+      },
+      "AnalyzeDeliveryPerformanceResponse": {
+        "description": "How reliably promised delivery dates were met.",
+        "example": {
+          "object": "analyze_delivery_performance_response",
+          "overall": {
+            "object": "delivery_performance",
+            "period_start": null,
+            "committed_order_count": 26,
+            "shipped_order_count": 24,
+            "on_time_order_count": 24,
+            "on_time_in_full_count": 23,
+            "late_order_count": 2,
+            "not_yet_shipped_count": 2,
+            "on_time_pct": 92.31,
+            "on_time_in_full_pct": 88.46,
+            "average_days_late": 4.5,
+            "average_lead_time_days": 26,
+            "average_committed_lead_time_days": 30
+          },
+          "periods": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": []
+          },
+          "backlog": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "object": "delivery_backlog_bucket",
+                "label": "1_7_days",
+                "min_days_late": 1,
+                "max_days_late": 7,
+                "order_count": 2,
+                "units": 340
+              }
+            ]
+          },
+          "uncommitted_order_count": 0
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "analyze_delivery_performance_response"
+            ],
+            "type": "string"
+          },
+          "overall": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DeliveryPerformance"
+              }
+            ],
+            "description": "The whole window as one figure.",
+            "nullable": true
+          },
+          "periods": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_DeliveryPerformance"
+              }
+            ],
+            "description": "The same figures broken into periods, by the date each order was due.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": []
+            },
+            "nullable": true
+          },
+          "backlog": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_DeliveryBacklogBucket"
+              }
+            ],
+            "description": "Orders already past their promise and still unshipped, by how late they are.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": []
+            },
+            "nullable": true
+          },
+          "uncommitted_order_count": {
+            "description": "Issued orders in the window carrying no ship-by date, excluded from every rate above.\n\nReported so the exclusion is visible: a delivery score computed over half the order book, silently, is worse than one that says which half. A non-zero count here means orders placed before commitments were tracked still need a ship-by date.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "object",
+          "overall",
+          "periods",
+          "backlog",
+          "uncommitted_order_count"
+        ],
+        "type": "object"
+      },
       "AnalyzeOeeRequest": {
         "description": "AnalyzeOeeRequest is the request to analyze Overall Equipment Effectiveness (OEE).",
         "example": {
@@ -4206,6 +4376,27 @@
           "dismissed_at",
           "created_at",
           "updated_at"
+        ],
+        "type": "object"
+      },
+      "ApplyFulfillmentRecommendationsRequest": {
+        "description": "Request to adopt fulfillment recommendations for specific items.",
+        "example": {
+          "item_ids": [
+            "it_pej07ckhvu62"
+          ]
+        },
+        "properties": {
+          "item_ids": {
+            "description": "Items whose recommendation should be adopted.\n\nNamed explicitly rather than applied wholesale: adopting advice in bulk without saying what is being adopted is how a plant changes what it builds by accident. Items not named here are left exactly as they are.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "item_ids"
         ],
         "type": "object"
       },
@@ -4894,7 +5085,16 @@
               "production_schedule_derived_line",
               "production_schedule_settings",
               "production_schedule_resource_setting",
+              "production_schedule_item_setting",
+              "fulfillment_recommendation",
+              "analyze_delivery_performance_response",
+              "delivery_performance",
+              "delivery_backlog_bucket",
+              "schedule_order_coverage",
+              "schedule_order_coverage_line",
+              "promise_date_quote",
               "schedule_deviation_type",
+              "schedule_at_risk_order",
               "production_schedule_finished_policy",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
@@ -4967,6 +5167,7 @@
               "customer_contact_info",
               "customer_freight_preferences",
               "customer_defaults",
+              "customer_lead_time",
               "customer_notification_preferences",
               "order_notification_recipient",
               "order_discount",
@@ -8422,6 +8623,10 @@
             ],
             "type": "string"
           },
+          "default_lead_time_days": {
+            "description": "Calendar days between an order being issued and it being due to ship, inherited by every customer in this group that has not set its own.",
+            "type": "integer"
+          },
           "description": {
             "description": "Free-form description of the account group.",
             "type": "string"
@@ -8864,7 +9069,16 @@
               "production_schedule_derived_line",
               "production_schedule_settings",
               "production_schedule_resource_setting",
+              "production_schedule_item_setting",
+              "fulfillment_recommendation",
+              "analyze_delivery_performance_response",
+              "delivery_performance",
+              "delivery_backlog_bucket",
+              "schedule_order_coverage",
+              "schedule_order_coverage_line",
+              "promise_date_quote",
               "schedule_deviation_type",
+              "schedule_at_risk_order",
               "production_schedule_finished_policy",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
@@ -8937,6 +9151,7 @@
               "customer_contact_info",
               "customer_freight_preferences",
               "customer_defaults",
+              "customer_lead_time",
               "customer_notification_preferences",
               "order_notification_recipient",
               "order_discount",
@@ -9154,6 +9369,10 @@
               "billed_freight"
             ],
             "type": "string"
+          },
+          "lead_time_days": {
+            "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. Leave unset to inherit the customer's account group lead time, then the account default.",
+            "type": "integer"
           },
           "default_carrier_id": {
             "description": "ID of the carrier used on this customer's orders when the order does not specify one.",
@@ -9966,6 +10185,14 @@
               }
             ],
             "description": "The lot products in this line are made in — a doff, a pallet.\n\nSizes the campaigns a production schedule plans, and defaults the quantity when a batch is added to a production run. The unit is part of the value, since 60 pairs and 60 eaches are different lots, and it must belong to the unit group given by `unit_group_id`. The value must be greater than zero. Leave this out for a line with no lot convention, and planning falls back to the lot of the line an item feeds into, and then to the account-wide default lot size."
+          },
+          "fulfillment_policy": {
+            "description": "How products in this line are produced when they do not say for themselves.\n\n- `make_to_stock`: built to the forecast, holding a safety stock against its variability.\n- `make_to_order`: built only against orders already on the book, holding no buffer.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order"
+            ],
+            "type": "string"
           },
           "freight_policy": {
             "description": "Default freight policy for products in this product line.\n\n- `free_freight`: these products do not incur a freight charge.\n- `billed_freight`: freight is billed for these products, unless overridden elsewhere.",
@@ -11380,7 +11607,8 @@
               "last_used_at": "2026-05-10T00:23:00Z",
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
-            }
+            },
+            "lead_time_days": null
           },
           "notification_preferences": {
             "object": "customer_notification_preferences",
@@ -11434,6 +11662,7 @@
             "description": null,
             "commission_policy": "commission_applied",
             "freight_policy": "billed_freight",
+            "default_lead_time_days": null,
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z"
           },
@@ -11454,6 +11683,7 @@
                 "description": null,
                 "commission_policy": "commission_applied",
                 "freight_policy": "billed_freight",
+                "default_lead_time_days": null,
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               }
@@ -11674,6 +11904,7 @@
               "description": null,
               "commission_policy": "commission_applied",
               "freight_policy": "billed_freight",
+              "default_lead_time_days": null,
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             },
@@ -11704,6 +11935,7 @@
                   "description": null,
                   "commission_policy": "commission_applied",
                   "freight_policy": "billed_freight",
+                  "default_lead_time_days": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 }
@@ -12057,7 +12289,8 @@
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
-                    }
+                    },
+                    "lead_time_days": null
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -12111,6 +12344,7 @@
                     "description": null,
                     "commission_policy": "commission_applied",
                     "freight_policy": "billed_freight",
+                    "default_lead_time_days": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -12131,6 +12365,7 @@
                         "description": null,
                         "commission_policy": "commission_applied",
                         "freight_policy": "billed_freight",
+                        "default_lead_time_days": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
@@ -12450,6 +12685,11 @@
             },
             "nullable": true,
             "x-expandable": true
+          },
+          "lead_time_days": {
+            "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. With none set here the customer inherits its account group's lead time, then the account default.",
+            "nullable": true,
+            "type": "integer"
           }
         },
         "required": [
@@ -12457,7 +12697,8 @@
           "payment_term",
           "shipping_term",
           "priority",
-          "sales_rep"
+          "sales_rep",
+          "lead_time_days"
         ],
         "type": "object"
       },
@@ -12612,6 +12853,85 @@
         ],
         "type": "object"
       },
+      "CustomerLeadTime": {
+        "description": "The ship-by lead time a new order for this customer would be committed to.",
+        "example": {
+          "object": "customer_lead_time",
+          "customer": {
+            "id": "ac_opnlh43ymyee",
+            "object": "entity",
+            "type": "customer",
+            "name": null,
+            "handle": null
+          },
+          "days": 30,
+          "source": "account",
+          "account_group": null
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "customer_lead_time"
+            ],
+            "type": "string"
+          },
+          "customer": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The customer the lead time was resolved for.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "days": {
+            "description": "Calendar days between an order being issued and it being due to ship.\n\n`0` means same-day: an order issued today would be due to ship today.",
+            "type": "integer"
+          },
+          "source": {
+            "description": "Which rule in the chain produced this lead time.\n\n- `customer`: a lead time set on the customer itself.\n- `account_group`: inherited from the customer's account group.\n- `account`: the account-wide fallback.\n\nThe shared `manual` value cannot appear here: it means a promised date was set on one specific order, which is a fact about that order rather than about the customer.",
+            "enum": [
+              "customer",
+              "account_group",
+              "account",
+              "manual"
+            ],
+            "type": "string"
+          },
+          "account_group": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The account group the lead time was inherited from.\n\nPresent only when `source` is `account_group`. A customer that belongs to a group but sets its own lead time inherited nothing.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "object",
+          "customer",
+          "days",
+          "source",
+          "account_group"
+        ],
+        "type": "object"
+      },
       "CustomerNotificationPreferences": {
         "description": "Customer notification settings.",
         "properties": {
@@ -12675,6 +12995,130 @@
           "name",
           "value",
           "reason"
+        ],
+        "type": "object"
+      },
+      "DeliveryBacklogBucket": {
+        "description": "One age band of orders past their promise and still unshipped.",
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "delivery_backlog_bucket"
+            ],
+            "type": "string"
+          },
+          "label": {
+            "description": "Name of the band.",
+            "type": "string"
+          },
+          "min_days_late": {
+            "description": "Lower bound of the band in days late.",
+            "type": "integer"
+          },
+          "max_days_late": {
+            "description": "Upper bound in days late; `0` means unbounded.",
+            "type": "integer"
+          },
+          "order_count": {
+            "description": "Orders in the band.",
+            "type": "integer"
+          },
+          "units": {
+            "description": "Quantity still owed across them, which is what remains unpacked rather than what was ordered.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "object",
+          "label",
+          "min_days_late",
+          "max_days_late",
+          "order_count",
+          "units"
+        ],
+        "type": "object"
+      },
+      "DeliveryPerformance": {
+        "description": "Delivery reliability for one period, or for a whole window.",
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "delivery_performance"
+            ],
+            "type": "string"
+          },
+          "period_start": {
+            "description": "First day of the period; absent on the overall figure.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "committed_order_count": {
+            "description": "Orders whose promised ship date fell in this period.\n\nThis is the denominator for both rates below — orders that were due, not orders that shipped. Measuring against shipments only would let unshipped late orders disappear from the score.",
+            "type": "integer"
+          },
+          "shipped_order_count": {
+            "description": "How many of them have shipped at all.",
+            "type": "integer"
+          },
+          "on_time_order_count": {
+            "description": "How many shipped on or before the promised date.",
+            "type": "integer"
+          },
+          "on_time_in_full_count": {
+            "description": "How many shipped on time and complete.",
+            "type": "integer"
+          },
+          "late_order_count": {
+            "description": "How many shipped late, plus those already past their date and still unshipped.",
+            "type": "integer"
+          },
+          "not_yet_shipped_count": {
+            "description": "How many due in this period have not shipped at all.\n\nThese count against on-time: a promise not yet met is not a promise kept.",
+            "type": "integer"
+          },
+          "on_time_pct": {
+            "description": "Share of due orders that shipped on time, as a percentage.\n\nNull rather than zero when nothing was due, so a quiet week does not render as total failure.",
+            "nullable": true,
+            "type": "number"
+          },
+          "on_time_in_full_pct": {
+            "description": "Share of due orders that shipped on time and complete, as a percentage.",
+            "nullable": true,
+            "type": "number"
+          },
+          "average_days_late": {
+            "description": "Average days late, over late orders only.\n\nAveraging over every order would dilute a real problem into a number that looks fine.",
+            "nullable": true,
+            "type": "number"
+          },
+          "average_lead_time_days": {
+            "description": "Average days from issue to first shipment, over orders that have shipped.",
+            "nullable": true,
+            "type": "number"
+          },
+          "average_committed_lead_time_days": {
+            "description": "Average lead time these orders were promised.\n\nThe gap between this and `average_lead_time_days` is what a lead time is renegotiated on.",
+            "nullable": true,
+            "type": "number"
+          }
+        },
+        "required": [
+          "object",
+          "period_start",
+          "committed_order_count",
+          "shipped_order_count",
+          "on_time_order_count",
+          "on_time_in_full_count",
+          "late_order_count",
+          "not_yet_shipped_count",
+          "on_time_pct",
+          "on_time_in_full_pct",
+          "average_days_late",
+          "average_lead_time_days",
+          "average_committed_lead_time_days"
         ],
         "type": "object"
       },
@@ -13948,7 +14392,16 @@
               "production_schedule_derived_line",
               "production_schedule_settings",
               "production_schedule_resource_setting",
+              "production_schedule_item_setting",
+              "fulfillment_recommendation",
+              "analyze_delivery_performance_response",
+              "delivery_performance",
+              "delivery_backlog_bucket",
+              "schedule_order_coverage",
+              "schedule_order_coverage_line",
+              "promise_date_quote",
               "schedule_deviation_type",
+              "schedule_at_risk_order",
               "production_schedule_finished_policy",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
@@ -14021,6 +14474,7 @@
               "customer_contact_info",
               "customer_freight_preferences",
               "customer_defaults",
+              "customer_lead_time",
               "customer_notification_preferences",
               "order_notification_recipient",
               "order_discount",
@@ -14470,6 +14924,168 @@
           "line_adherence_pct",
           "units_adherence_pct",
           "frozen_through_at"
+        ],
+        "type": "object"
+      },
+      "FulfillmentRecommendation": {
+        "description": "The engine's advice on how one SKU should be produced, with the measurements behind it.",
+        "example": {
+          "object": "fulfillment_recommendation",
+          "item": {
+            "id": "it_pej07ckhvu62",
+            "object": "entity",
+            "type": "item",
+            "name": null,
+            "handle": "LKN-001"
+          },
+          "sku": "LKN-001",
+          "product_line": {
+            "id": "pdln_k9bnlgvxhxjh",
+            "object": "entity",
+            "type": "product_line",
+            "name": null,
+            "handle": null
+          },
+          "current_policy": "make_to_stock",
+          "recommended_policy": "make_to_order",
+          "changes": true,
+          "reason": "lumpy_demand",
+          "average_demand_interval": 3,
+          "coefficient_of_variation": 1.8,
+          "top_customer_share_pct": 95,
+          "top_customer_name": "Contract Co",
+          "demand_weighted_lead_time_days": 90,
+          "annual_cogs": 4000,
+          "months_since_last_sale": 1,
+          "mixed_stream_share_pct": 95
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "fulfillment_recommendation"
+            ],
+            "type": "string"
+          },
+          "item": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The item the advice is about.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "sku": {
+            "description": "SKU of that item.",
+            "type": "string"
+          },
+          "product_line": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The product line it sells under, when it sells under one.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "current_policy": {
+            "description": "How the item is planned today.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order"
+            ],
+            "type": "string"
+          },
+          "recommended_policy": {
+            "description": "How the engine thinks it should be planned.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order"
+            ],
+            "type": "string"
+          },
+          "changes": {
+            "description": "Whether adopting the recommendation would change anything.",
+            "type": "boolean"
+          },
+          "reason": {
+            "description": "The rule that decided.\n\n- `lead_time_infeasible`: customers are promised less time than production needs, so the stock has to exist before the order does. Checked first, because producing to order is not possible rather than not preferred.\n- `no_recent_demand`: nothing has sold for long enough that a buffer is dead stock.\n- `single_customer`: effectively one customer buys it, and that customer is served to order.\n- `lumpy_demand`: demand arrives rarely and in wildly different sizes, which is the shape a safety stock sizes worst.\n- `slow_moving_high_value`: expensive units, few sold — the buffer costs more than the service it buys.\n- `steady_demand`: regular enough to forecast, which is what stocking is for.",
+            "enum": [
+              "lead_time_infeasible",
+              "no_recent_demand",
+              "single_customer",
+              "lumpy_demand",
+              "slow_moving_high_value",
+              "steady_demand"
+            ],
+            "type": "string"
+          },
+          "average_demand_interval": {
+            "description": "Months observed divided by months with demand: 1 means it sells every month, 3 means once a quarter on average.\n\nMeasured on monthly buckets, which cannot distinguish two orders in one month from one.",
+            "type": "number"
+          },
+          "coefficient_of_variation": {
+            "description": "Squared coefficient of variation over the months that had demand, measuring how uneven the quantities are.",
+            "type": "number"
+          },
+          "top_customer_share_pct": {
+            "description": "The largest customer's share of this item's demand, as a percentage.",
+            "type": "number"
+          },
+          "top_customer_name": {
+            "description": "Name of that customer.",
+            "nullable": true,
+            "type": "string"
+          },
+          "demand_weighted_lead_time_days": {
+            "description": "Calendar days customers are promised on average, weighted by how much each buys.",
+            "type": "number"
+          },
+          "annual_cogs": {
+            "description": "Annual cost of goods for this item: demand times unit cost.",
+            "type": "number"
+          },
+          "months_since_last_sale": {
+            "description": "Months since anything last sold, capped at the observation window.",
+            "type": "integer"
+          },
+          "mixed_stream_share_pct": {
+            "description": "Percentage of demand from customers whose own stated policy disagrees with the recommendation.\n\nA policy is resolved per SKU, so an item sold to both a stocking distributor and a contract customer gets one answer either way. A high share here is the signal that the single answer is uncomfortable.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "object",
+          "item",
+          "sku",
+          "product_line",
+          "current_policy",
+          "recommended_policy",
+          "changes",
+          "reason",
+          "average_demand_interval",
+          "coefficient_of_variation",
+          "top_customer_share_pct",
+          "top_customer_name",
+          "demand_weighted_lead_time_days",
+          "annual_cogs",
+          "months_since_last_sale",
+          "mixed_stream_share_pct"
         ],
         "type": "object"
       },
@@ -16350,6 +16966,7 @@
               "description": null,
               "commission_policy": "commission_applied",
               "freight_policy": "billed_freight",
+              "default_lead_time_days": null,
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             }
@@ -19787,7 +20404,8 @@
                   "last_used_at": "2026-05-10T00:23:00Z",
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
-                }
+                },
+                "lead_time_days": null
               },
               "notification_preferences": {
                 "object": "customer_notification_preferences",
@@ -19841,6 +20459,7 @@
                 "description": null,
                 "commission_policy": "commission_applied",
                 "freight_policy": "billed_freight",
+                "default_lead_time_days": null,
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
@@ -19861,6 +20480,7 @@
                     "description": null,
                     "commission_policy": "commission_applied",
                     "freight_policy": "billed_freight",
+                    "default_lead_time_days": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   }
@@ -19939,6 +20559,98 @@
             "description": "Resources in this page.",
             "items": {
               "$ref": "#/components/schemas/DNSRecord"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_DeliveryBacklogBucket": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": []
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/DeliveryBacklogBucket"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_DeliveryPerformance": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": []
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/DeliveryPerformance"
             },
             "type": "array",
             "x-stainless-pagination-property": {
@@ -20595,6 +21307,83 @@
             "description": "Resources in this page.",
             "items": {
               "$ref": "#/components/schemas/FrozenAdherence"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_FulfillmentRecommendation": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "object": "fulfillment_recommendation",
+              "item": {
+                "id": "it_pej07ckhvu62",
+                "object": "entity",
+                "type": "item",
+                "name": null,
+                "handle": "LKN-001"
+              },
+              "sku": "LKN-001",
+              "product_line": {
+                "id": "pdln_k9bnlgvxhxjh",
+                "object": "entity",
+                "type": "product_line",
+                "name": null,
+                "handle": null
+              },
+              "current_policy": "make_to_stock",
+              "recommended_policy": "make_to_order",
+              "changes": true,
+              "reason": "lumpy_demand",
+              "average_demand_interval": 3,
+              "coefficient_of_variation": 1.8,
+              "top_customer_share_pct": 95,
+              "top_customer_name": "Contract Co",
+              "demand_weighted_lead_time_days": 90,
+              "annual_cogs": 4000,
+              "months_since_last_sale": 1,
+              "mixed_stream_share_pct": 95
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/FulfillmentRecommendation"
             },
             "type": "array",
             "x-stainless-pagination-property": {
@@ -23367,7 +24156,16 @@
                 "production_schedule_derived_line",
                 "production_schedule_settings",
                 "production_schedule_resource_setting",
+                "production_schedule_item_setting",
+                "fulfillment_recommendation",
+                "analyze_delivery_performance_response",
+                "delivery_performance",
+                "delivery_backlog_bucket",
+                "schedule_order_coverage",
+                "schedule_order_coverage_line",
+                "promise_date_quote",
                 "schedule_deviation_type",
+                "schedule_at_risk_order",
                 "production_schedule_finished_policy",
                 "production_schedule_week_release",
                 "production_schedule_week_release_preview",
@@ -23440,6 +24238,7 @@
                 "customer_contact_info",
                 "customer_freight_preferences",
                 "customer_defaults",
+                "customer_lead_time",
                 "customer_notification_preferences",
                 "order_notification_recipient",
                 "order_discount",
@@ -24509,6 +25308,7 @@
                     "updated_at": "2026-05-10T00:23:00Z"
                   }
                 },
+                "fulfillment_policy": null,
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
@@ -24980,6 +25780,7 @@
                   "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
+              "fulfillment_policy": null,
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             }
@@ -25098,6 +25899,41 @@
                       "after": 3667,
                       "adjustment": "delta_units",
                       "reason": "new_customer"
+                    }
+                  ]
+                },
+                "firm_demand_units": 12480,
+                "undated_firm_order_count": 0,
+                "make_to_order_item_count": 2,
+                "at_risk_orders": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": null,
+                    "previous_page_url": null,
+                    "has_next_page": false,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "object": "schedule_at_risk_order",
+                      "sales_order": {
+                        "id": "or_9lqo07quiwyb",
+                        "object": "entity",
+                        "type": "sales_order",
+                        "name": null,
+                        "handle": null
+                      },
+                      "item": {
+                        "id": "it_pej07ckhvu62",
+                        "object": "entity",
+                        "type": "item",
+                        "name": null,
+                        "handle": "MZ-GREIGE-CREW"
+                      },
+                      "sku": "MZ-GREIGE-CREW",
+                      "units": 1800,
+                      "due_week": 0,
+                      "reason": "past_due"
                     }
                   ]
                 }
@@ -25567,6 +26403,10 @@
                 "name": null,
                 "handle": "MZ-GREIGE-CREW"
               },
+              "fulfillment_policy": "",
+              "policy_source": "",
+              "firm_demand_units": 0,
+              "forecast_demand_units": 0,
               "sku": "MZ-GREIGE-CREW",
               "unit": {
                 "id": "un_82bd37dae5po",
@@ -25653,6 +26493,69 @@
             "description": "Resources in this page.",
             "items": {
               "$ref": "#/components/schemas/ProductionScheduleItemPolicy"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_ProductionScheduleItemSetting": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "pnscitsd_kw83nzq4mrt6",
+              "object": "production_schedule_item_setting",
+              "item": {
+                "id": "it_pej07ckhvu62",
+                "object": "entity",
+                "type": "item",
+                "name": null,
+                "handle": "LKN-001"
+              },
+              "participation_status": "included",
+              "lot_multiple_units": 60,
+              "fulfillment_policy": "make_to_order",
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/ProductionScheduleItemSetting"
             },
             "type": "array",
             "x-stainless-pagination-property": {
@@ -27826,7 +28729,8 @@
                     "last_used_at": "2026-05-10T00:23:00Z",
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
-                  }
+                  },
+                  "lead_time_days": null
                 },
                 "notification_preferences": {
                   "object": "customer_notification_preferences",
@@ -27880,6 +28784,7 @@
                   "description": null,
                   "commission_policy": "commission_applied",
                   "freight_policy": "billed_freight",
+                  "default_lead_time_days": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -27900,6 +28805,7 @@
                       "description": null,
                       "commission_policy": "commission_applied",
                       "freight_policy": "billed_freight",
+                      "default_lead_time_days": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
@@ -28301,6 +29207,7 @@
                             "updated_at": "2026-05-10T00:23:00Z"
                           }
                         },
+                        "fulfillment_policy": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
@@ -28797,6 +29704,9 @@
               "first_ship_at": null,
               "expired_at": null,
               "promised_at": "2026-06-10T00:00:00Z",
+              "ship_by_date": null,
+              "lead_time_days": null,
+              "lead_time_source": null,
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             }
@@ -28968,6 +29878,7 @@
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
+                  "fulfillment_policy": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -29776,6 +30687,52 @@
         ],
         "type": "object"
       },
+      "List_ScheduleAtRiskOrder": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": []
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleAtRiskOrder"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
       "List_ScheduleCampaign": {
         "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
         "example": {
@@ -29909,6 +30866,151 @@
             "description": "Resources in this page.",
             "items": {
               "$ref": "#/components/schemas/ScheduleDiffLine"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_ScheduleOrderCoverage": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "object": "schedule_order_coverage",
+              "sales_order": {
+                "id": "or_9lqo07quiwyb",
+                "object": "entity",
+                "type": "sales_order",
+                "name": null,
+                "handle": null
+              },
+              "item": {
+                "id": "it_pej07ckhvu62",
+                "object": "entity",
+                "type": "item",
+                "name": null,
+                "handle": "MZ-GREIGE-CREW"
+              },
+              "sku": "MZ-GREIGE-CREW",
+              "units_at_risk": 200,
+              "due_week": 0,
+              "reason": "past_due",
+              "ship_by_date": null,
+              "covering_lines": {
+                "object": "list",
+                "page_info": {
+                  "next_page_url": null,
+                  "previous_page_url": null,
+                  "has_next_page": false,
+                  "has_prev_page": false
+                },
+                "data": [
+                  {
+                    "object": "schedule_order_coverage_line",
+                    "production_schedule_line": {
+                      "id": "pnscln_l28dutdpl81r",
+                      "object": "entity",
+                      "type": "production_schedule_line",
+                      "name": null,
+                      "handle": null
+                    },
+                    "week_index": 0,
+                    "machine": {
+                      "id": "mc_ffcfk9dxixis",
+                      "object": "entity",
+                      "type": "machine",
+                      "name": null,
+                      "handle": null
+                    },
+                    "allocated_quantity": 300
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleOrderCoverage"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_ScheduleOrderCoverageLine": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": []
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleOrderCoverageLine"
             },
             "type": "array",
             "x-stainless-pagination-property": {
@@ -37212,6 +38314,7 @@
                 "updated_at": "2026-05-10T00:23:00Z"
               }
             },
+            "fulfillment_policy": null,
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z"
           },
@@ -37675,6 +38778,7 @@
                   "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
+              "fulfillment_policy": null,
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             },
@@ -38134,6 +39238,7 @@
               "updated_at": "2026-05-10T00:23:00Z"
             }
           },
+          "fulfillment_policy": null,
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
         },
@@ -38321,6 +39426,16 @@
             "nullable": true,
             "x-expandable": true
           },
+          "fulfillment_policy": {
+            "description": "How products in this line are produced when they do not say for themselves.\n\n- `make_to_stock`: built to the forecast, holding a safety stock against its variability.\n- `make_to_order`: built only against orders already on the book, holding no buffer.\n\nNull falls through to the account default.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
+          },
           "created_at": {
             "description": "Creation timestamp.",
             "format": "date-time",
@@ -38343,6 +39458,7 @@
           "owner",
           "unit_group",
           "default_lot",
+          "fulfillment_policy",
           "created_at",
           "updated_at"
         ],
@@ -39490,6 +40606,41 @@
                   "reason": "new_customer"
                 }
               ]
+            },
+            "firm_demand_units": 12480,
+            "undated_firm_order_count": 0,
+            "make_to_order_item_count": 2,
+            "at_risk_orders": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": [
+                {
+                  "object": "schedule_at_risk_order",
+                  "sales_order": {
+                    "id": "or_9lqo07quiwyb",
+                    "object": "entity",
+                    "type": "sales_order",
+                    "name": null,
+                    "handle": null
+                  },
+                  "item": {
+                    "id": "it_pej07ckhvu62",
+                    "object": "entity",
+                    "type": "item",
+                    "name": null,
+                    "handle": "MZ-GREIGE-CREW"
+                  },
+                  "sku": "MZ-GREIGE-CREW",
+                  "units": 1800,
+                  "due_week": 0,
+                  "reason": "past_due"
+                }
+              ]
             }
           },
           "error_message": null,
@@ -40569,6 +41720,10 @@
             "name": null,
             "handle": "MZ-GREIGE-CREW"
           },
+          "fulfillment_policy": "",
+          "policy_source": "",
+          "firm_demand_units": 0,
+          "forecast_demand_units": 0,
           "sku": "MZ-GREIGE-CREW",
           "unit": {
             "id": "un_82bd37dae5po",
@@ -40676,6 +41831,31 @@
               "handle": "jdoe@augno.com"
             },
             "nullable": true
+          },
+          "fulfillment_policy": {
+            "description": "How this item was planned.\n\n- `make_to_stock`: built to the forecast, holding a safety stock against its variability.\n- `make_to_order`: built only against orders already on the book, holding no buffer, so its safety stocks and reorder point are all zero.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order"
+            ],
+            "type": "string"
+          },
+          "policy_source": {
+            "description": "Which rule decided that policy: the item itself, its product line, or the account default.",
+            "enum": [
+              "item",
+              "product_line",
+              "account_default"
+            ],
+            "type": "string"
+          },
+          "firm_demand_units": {
+            "description": "Outstanding quantity the order book already owed for this item over the horizon.",
+            "type": "number"
+          },
+          "forecast_demand_units": {
+            "description": "Quantity the forecast projected for the same window.",
+            "type": "number"
           },
           "sku": {
             "description": "SKU of the item.",
@@ -40863,6 +42043,10 @@
           "object",
           "production_schedule",
           "item",
+          "fulfillment_policy",
+          "policy_source",
+          "firm_demand_units",
+          "forecast_demand_units",
           "sku",
           "unit",
           "unit_abbreviation",
@@ -40892,6 +42076,98 @@
           "annual_run_hours",
           "abc_class",
           "constraints",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "ProductionScheduleItemSetting": {
+        "description": "Planning overrides for one item, on top of the account-wide assumptions.",
+        "example": {
+          "id": "pnscitsd_kw83nzq4mrt6",
+          "object": "production_schedule_item_setting",
+          "item": {
+            "id": "it_pej07ckhvu62",
+            "object": "entity",
+            "type": "item",
+            "name": null,
+            "handle": "LKN-001"
+          },
+          "participation_status": "included",
+          "lot_multiple_units": 60,
+          "fulfillment_policy": "make_to_order",
+          "created_at": "2026-05-10T00:00:00Z",
+          "updated_at": "2026-05-10T00:23:00Z"
+        },
+        "properties": {
+          "id": {
+            "description": "Item setting ID.",
+            "type": "string"
+          },
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "production_schedule_item_setting"
+            ],
+            "type": "string"
+          },
+          "item": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The item these overrides apply to.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "participation_status": {
+            "description": "Whether this item takes part in planning.\n\nAn excluded item is left out of the plan entirely: no campaigns, no policy, no capacity.",
+            "enum": [
+              "included",
+              "excluded"
+            ],
+            "type": "string"
+          },
+          "lot_multiple_units": {
+            "description": "Units in one production lot for this item, overriding the lot its product line would supply.",
+            "nullable": true,
+            "type": "number"
+          },
+          "fulfillment_policy": {
+            "description": "How this item is produced.\n\n- `make_to_stock`: built to the forecast, holding a safety stock against its variability.\n- `make_to_order`: built only against orders already on the book, holding no buffer.\n\nNull inherits from the item's product line, then from the account default.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Creation timestamp.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last updated timestamp.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "item",
+          "participation_status",
+          "lot_multiple_units",
+          "fulfillment_policy",
           "created_at",
           "updated_at"
         ],
@@ -41265,6 +42541,10 @@
                   "handle": "MZ-GREIGE-CREW"
                 },
                 "sku": "MZ-GREIGE-CREW",
+                "fulfillment_policy": "",
+                "policy_source": "",
+                "firm_demand_units": 0,
+                "forecast_demand_units": 0,
                 "annual_demand": 5200,
                 "weekly_demand": 100,
                 "seconds_per_unit": 30,
@@ -41401,6 +42681,41 @@
                   "after": 3667,
                   "adjustment": "delta_units",
                   "reason": "new_customer"
+                }
+              ]
+            },
+            "firm_demand_units": 12480,
+            "undated_firm_order_count": 0,
+            "make_to_order_item_count": 2,
+            "at_risk_orders": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": [
+                {
+                  "object": "schedule_at_risk_order",
+                  "sales_order": {
+                    "id": "or_9lqo07quiwyb",
+                    "object": "entity",
+                    "type": "sales_order",
+                    "name": null,
+                    "handle": null
+                  },
+                  "item": {
+                    "id": "it_pej07ckhvu62",
+                    "object": "entity",
+                    "type": "item",
+                    "name": null,
+                    "handle": "MZ-GREIGE-CREW"
+                  },
+                  "sku": "MZ-GREIGE-CREW",
+                  "units": 1800,
+                  "due_week": 0,
+                  "reason": "past_due"
                 }
               ]
             }
@@ -41801,6 +43116,8 @@
           "weeks_per_year": 52,
           "capacity_headroom_pct": 0.9,
           "default_lot_units": 60,
+          "default_customer_lead_time_days": 30,
+          "default_fulfillment_policy": "make_to_stock",
           "cadence_status": "active",
           "generation_cron": "0 6 * * 1",
           "generation_timezone": "America/New_York",
@@ -41934,6 +43251,18 @@
             "description": "Units in a default production lot.\n\nThe last resort in the lot-size chain: a lot set on the item, on its product line, or on the finished goods an intermediate item becomes all take precedence.",
             "type": "number"
           },
+          "default_customer_lead_time_days": {
+            "description": "Calendar days between an order being issued and it being due to ship.\n\nThe last resort in the ship-by chain: a lead time set on the customer, or on the customer's account group, takes precedence. Zero means same-day shipping.",
+            "type": "integer"
+          },
+          "default_fulfillment_policy": {
+            "description": "How a SKU is produced when neither it nor its product line says.\n\n- `make_to_stock`: built to the forecast, holding a safety stock against its variability.\n- `make_to_order`: built only against orders already on the book, holding no buffer.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order"
+            ],
+            "type": "string"
+          },
           "cadence_status": {
             "description": "Whether schedules are generated automatically on a recurring cadence.\n\nWhile active, each due tick queues a new schedule version; a generation cron expression is required for the cadence to be saved.",
             "enum": [
@@ -42011,6 +43340,8 @@
           "weeks_per_year",
           "capacity_headroom_pct",
           "default_lot_units",
+          "default_customer_lead_time_days",
+          "default_fulfillment_policy",
           "cadence_status",
           "generation_cron",
           "generation_timezone",
@@ -44062,6 +45393,106 @@
         ],
         "type": "object"
       },
+      "PromiseDateQuote": {
+        "description": "The earliest date the published plan could ship a quantity of an item.",
+        "example": {
+          "object": "promise_date_quote",
+          "item": {
+            "id": "it_pej07ckhvu62",
+            "object": "entity",
+            "type": "item",
+            "name": null,
+            "handle": "MZ-GREIGE-CREW"
+          },
+          "quantity": 1200,
+          "is_promisable": true,
+          "earliest_ship_date": "2026-07-06T00:00:00Z",
+          "earliest_week_index": 4,
+          "production_schedule": {
+            "id": "pnsc_m4zt3z8g8src",
+            "object": "entity",
+            "type": "production_schedule",
+            "name": null,
+            "handle": null
+          },
+          "production_schedule_version": 7
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "promise_date_quote"
+            ],
+            "type": "string"
+          },
+          "item": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The item being quoted.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "quantity": {
+            "description": "The quantity being quoted.",
+            "type": "number"
+          },
+          "is_promisable": {
+            "description": "Whether the published horizon can supply it at all.\n\nFalse means the plan as published runs out before it could cover this quantity. That is not the same as \"never\" — it is the honest limit of a plan that only runs so many weeks.",
+            "type": "boolean"
+          },
+          "earliest_ship_date": {
+            "description": "Earliest date the quantity could ship, allowing for finishing after the constraint stage completes.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "earliest_week_index": {
+            "description": "Horizon week the constraint stage would complete in.",
+            "nullable": true,
+            "type": "integer"
+          },
+          "production_schedule": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The published version this was quoted from.\n\nQuoted from what the floor is working to rather than a fresh solve, and net of everything already promised to other orders.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "production_schedule_version": {
+            "description": "Version number of that schedule.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "object",
+          "item",
+          "quantity",
+          "is_promisable",
+          "earliest_ship_date",
+          "earliest_week_index",
+          "production_schedule",
+          "production_schedule_version"
+        ],
+        "type": "object"
+      },
       "Property": {
         "description": "A named characteristic used to classify items, such as `Color` or `Size`.\n\nEach property defines a set of attributes — the selectable values (e.g. `Red`, `Blue`) that can be assigned to items.",
         "example": {
@@ -44324,6 +45755,28 @@
         ],
         "type": "object"
       },
+      "QuotePromiseDateRequest": {
+        "description": "Request to quote the earliest date a quantity could ship.",
+        "example": {
+          "item_id": "it_pej07ckhvu62",
+          "quantity": 1200
+        },
+        "properties": {
+          "item_id": {
+            "description": "Item being quoted.",
+            "type": "string"
+          },
+          "quantity": {
+            "description": "Quantity being quoted, in the item's own unit.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "item_id",
+          "quantity"
+        ],
+        "type": "object"
+      },
       "QuoteSalesOrderFreightResponse": {
         "description": "The freshly estimated freight charge for a sales order.",
         "example": {
@@ -44580,6 +46033,7 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
                     },
+                    "fulfillment_policy": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -45106,6 +46560,7 @@
                     "updated_at": "2026-05-10T00:23:00Z"
                   }
                 },
+                "fulfillment_policy": null,
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
@@ -47973,7 +49428,8 @@
                 "last_used_at": "2026-05-10T00:23:00Z",
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
-              }
+              },
+              "lead_time_days": null
             },
             "notification_preferences": {
               "object": "customer_notification_preferences",
@@ -48027,6 +49483,7 @@
               "description": null,
               "commission_policy": "commission_applied",
               "freight_policy": "billed_freight",
+              "default_lead_time_days": null,
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             },
@@ -48047,6 +49504,7 @@
                   "description": null,
                   "commission_policy": "commission_applied",
                   "freight_policy": "billed_freight",
+                  "default_lead_time_days": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 }
@@ -48448,6 +49906,7 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
                     },
+                    "fulfillment_policy": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -48944,6 +50403,9 @@
           "first_ship_at": null,
           "expired_at": null,
           "promised_at": "2026-06-10T00:00:00Z",
+          "ship_by_date": null,
+          "lead_time_days": null,
+          "lead_time_source": null,
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
         },
@@ -49341,7 +50803,8 @@
                   "last_used_at": "2026-05-10T00:23:00Z",
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
-                }
+                },
+                "lead_time_days": null
               },
               "notification_preferences": {
                 "object": "customer_notification_preferences",
@@ -49395,6 +50858,7 @@
                 "description": null,
                 "commission_policy": "commission_applied",
                 "freight_policy": "billed_freight",
+                "default_lead_time_days": null,
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
@@ -49415,6 +50879,7 @@
                     "description": null,
                     "commission_policy": "commission_applied",
                     "freight_policy": "billed_freight",
+                    "default_lead_time_days": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   }
@@ -49906,6 +51371,7 @@
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
+                      "fulfillment_policy": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -50427,6 +51893,29 @@
             "nullable": true,
             "type": "string"
           },
+          "ship_by_date": {
+            "description": "Date this order is contractually due to ship.\n\nStamped when the order is issued, from the promised date if one was set, otherwise from the lead time on the customer, its account group, or the account. It is not recomputed afterwards, so renegotiating a customer's lead time leaves commitments already made where they are. Cleared if the order is unissued.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "lead_time_days": {
+            "description": "Calendar days between issue and the ship-by date.",
+            "nullable": true,
+            "type": "integer"
+          },
+          "lead_time_source": {
+            "description": "Which rule produced the ship-by date.",
+            "enum": [
+              "customer",
+              "account_group",
+              "account",
+              "manual",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
+          },
           "created_at": {
             "description": "Creation timestamp.",
             "format": "date-time",
@@ -50468,6 +51957,9 @@
           "first_ship_at",
           "expired_at",
           "promised_at",
+          "ship_by_date",
+          "lead_time_days",
+          "lead_time_source",
           "created_at",
           "updated_at"
         ],
@@ -50609,6 +52101,7 @@
                   "updated_at": "2026-05-10T00:23:00Z"
                 }
               },
+              "fulfillment_policy": null,
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             },
@@ -51209,6 +52702,7 @@
                     "updated_at": "2026-05-10T00:23:00Z"
                   }
                 },
+                "fulfillment_policy": null,
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
@@ -53575,6 +55069,81 @@
         ],
         "type": "object"
       },
+      "ScheduleAtRiskOrder": {
+        "description": "An order commitment the plan does not meet.",
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "schedule_at_risk_order"
+            ],
+            "type": "string"
+          },
+          "sales_order": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The order at risk.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "item": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The item that has to be produced to meet it.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "sku": {
+            "description": "SKU of that item.",
+            "type": "string"
+          },
+          "units": {
+            "description": "Outstanding quantity still owed.",
+            "type": "number"
+          },
+          "due_week": {
+            "description": "Horizon week the constraint stage has to finish in for the order to ship on time.",
+            "type": "integer"
+          },
+          "reason": {
+            "description": "Why the commitment is at risk.\n\n- `past_due`: production needed to start before this plan begins.\n- `undated`: the order carries no ship-by commitment, so it is treated as owed now.\n- `short`: the plan projects less stock than the order needs in the week it is needed.",
+            "enum": [
+              "past_due",
+              "undated",
+              "short"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "object",
+          "sales_order",
+          "item",
+          "sku",
+          "units",
+          "due_week",
+          "reason"
+        ],
+        "type": "object"
+      },
       "ScheduleCampaign": {
         "description": "One planned production block: make this item, on this machine, in this week.",
         "properties": {
@@ -53774,6 +55343,37 @@
               "data": []
             },
             "nullable": true
+          },
+          "firm_demand_units": {
+            "description": "Outstanding order quantity this plan owes, expressed in the constraint item's own unit.\n\nZero means nothing is on order and the plan is driven purely by the forecast.",
+            "type": "number"
+          },
+          "undated_firm_order_count": {
+            "description": "Open orders carrying no ship-by commitment, dated at the front of the horizon because they are issued and unshipped.\n\nA non-zero count means orders placed before commitments were tracked still need a ship-by date.",
+            "type": "integer"
+          },
+          "make_to_order_item_count": {
+            "description": "Planned items built only against the order book rather than to a forecast.",
+            "type": "integer"
+          },
+          "at_risk_orders": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_ScheduleAtRiskOrder"
+              }
+            ],
+            "description": "Commitments this plan does not meet.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": []
+            },
+            "nullable": true
           }
         },
         "required": [
@@ -53787,7 +55387,11 @@
           "machines_without_step",
           "changeover_slope_minutes",
           "average_inputs_added",
-          "applied_overrides"
+          "applied_overrides",
+          "firm_demand_units",
+          "undated_firm_order_count",
+          "make_to_order_item_count",
+          "at_risk_orders"
         ],
         "type": "object"
       },
@@ -53869,6 +55473,220 @@
         ],
         "type": "object"
       },
+      "ScheduleOrderCoverage": {
+        "description": "An order this schedule does not build in time, with the campaigns covering the part it does.",
+        "example": {
+          "object": "schedule_order_coverage",
+          "sales_order": {
+            "id": "or_9lqo07quiwyb",
+            "object": "entity",
+            "type": "sales_order",
+            "name": null,
+            "handle": null
+          },
+          "item": {
+            "id": "it_pej07ckhvu62",
+            "object": "entity",
+            "type": "item",
+            "name": null,
+            "handle": "MZ-GREIGE-CREW"
+          },
+          "sku": "MZ-GREIGE-CREW",
+          "units_at_risk": 200,
+          "due_week": 0,
+          "reason": "past_due",
+          "ship_by_date": null,
+          "covering_lines": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "object": "schedule_order_coverage_line",
+                "production_schedule_line": {
+                  "id": "pnscln_l28dutdpl81r",
+                  "object": "entity",
+                  "type": "production_schedule_line",
+                  "name": null,
+                  "handle": null
+                },
+                "week_index": 0,
+                "machine": {
+                  "id": "mc_ffcfk9dxixis",
+                  "object": "entity",
+                  "type": "machine",
+                  "name": null,
+                  "handle": null
+                },
+                "allocated_quantity": 300
+              }
+            ]
+          }
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "schedule_order_coverage"
+            ],
+            "type": "string"
+          },
+          "sales_order": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The order at risk.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "item": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The item that has to be produced to meet it.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "sku": {
+            "description": "SKU of that item.",
+            "type": "string"
+          },
+          "units_at_risk": {
+            "description": "Quantity the plan does not build in time.\n\nLess than the whole order when the plan builds part of it — a mostly-built order is mostly built, and reporting the full quantity would read as a total miss.",
+            "type": "number"
+          },
+          "due_week": {
+            "description": "Horizon week the constraint stage has to finish in for the order to ship on time.",
+            "type": "integer"
+          },
+          "reason": {
+            "description": "Why the commitment is at risk.",
+            "enum": [
+              "past_due",
+              "undated",
+              "short"
+            ],
+            "type": "string"
+          },
+          "ship_by_date": {
+            "description": "The date this order is contractually due to ship.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "covering_lines": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_ScheduleOrderCoverageLine"
+              }
+            ],
+            "description": "Campaigns earmarked for this order, covering the part of it the plan does build.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": []
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "object",
+          "sales_order",
+          "item",
+          "sku",
+          "units_at_risk",
+          "due_week",
+          "reason",
+          "ship_by_date",
+          "covering_lines"
+        ],
+        "type": "object"
+      },
+      "ScheduleOrderCoverageLine": {
+        "description": "One campaign earmarked for an order.",
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "schedule_order_coverage_line"
+            ],
+            "type": "string"
+          },
+          "production_schedule_line": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The campaign.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "week_index": {
+            "description": "Horizon week it runs in.",
+            "type": "integer"
+          },
+          "machine": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The machine it runs on.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "allocated_quantity": {
+            "description": "Quantity of that campaign earmarked for this order.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "object",
+          "production_schedule_line",
+          "week_index",
+          "machine",
+          "allocated_quantity"
+        ],
+        "type": "object"
+      },
       "SchedulePolicy": {
         "description": "The inventory policy computed for one item.",
         "properties": {
@@ -53891,6 +55709,31 @@
           "sku": {
             "description": "SKU of the item.",
             "type": "string"
+          },
+          "fulfillment_policy": {
+            "description": "How this item was planned.\n\n- `make_to_stock`: built to the forecast, holding a safety stock against its variability.\n- `make_to_order`: built only against orders already on the book, holding no buffer, so its safety stocks and reorder point are all zero.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order"
+            ],
+            "type": "string"
+          },
+          "policy_source": {
+            "description": "Which rule decided that policy: the item itself, its product line, or the account default.",
+            "enum": [
+              "item",
+              "product_line",
+              "account_default"
+            ],
+            "type": "string"
+          },
+          "firm_demand_units": {
+            "description": "Outstanding quantity the order book already owed for this item over the horizon.",
+            "type": "number"
+          },
+          "forecast_demand_units": {
+            "description": "Quantity the forecast projected for the same window.",
+            "type": "number"
           },
           "annual_demand": {
             "description": "Demand used for planning, annualized.",
@@ -53983,6 +55826,10 @@
         "required": [
           "item",
           "sku",
+          "fulfillment_policy",
+          "policy_source",
+          "firm_demand_units",
+          "forecast_demand_units",
           "annual_demand",
           "weekly_demand",
           "seconds_per_unit",
@@ -54240,7 +56087,16 @@
               "production_schedule_derived_line",
               "production_schedule_settings",
               "production_schedule_resource_setting",
+              "production_schedule_item_setting",
+              "fulfillment_recommendation",
+              "analyze_delivery_performance_response",
+              "delivery_performance",
+              "delivery_backlog_bucket",
+              "schedule_order_coverage",
+              "schedule_order_coverage_line",
+              "promise_date_quote",
               "schedule_deviation_type",
+              "schedule_at_risk_order",
               "production_schedule_finished_policy",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
@@ -54313,6 +56169,7 @@
               "customer_contact_info",
               "customer_freight_preferences",
               "customer_defaults",
+              "customer_lead_time",
               "customer_notification_preferences",
               "order_notification_recipient",
               "order_discount",
@@ -54604,7 +56461,16 @@
               "production_schedule_derived_line",
               "production_schedule_settings",
               "production_schedule_resource_setting",
+              "production_schedule_item_setting",
+              "fulfillment_recommendation",
+              "analyze_delivery_performance_response",
+              "delivery_performance",
+              "delivery_backlog_bucket",
+              "schedule_order_coverage",
+              "schedule_order_coverage_line",
+              "promise_date_quote",
               "schedule_deviation_type",
+              "schedule_at_risk_order",
               "production_schedule_finished_policy",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
@@ -54677,6 +56543,7 @@
               "customer_contact_info",
               "customer_freight_preferences",
               "customer_defaults",
+              "customer_lead_time",
               "customer_notification_preferences",
               "order_notification_recipient",
               "order_discount",
@@ -56020,6 +57887,11 @@
               "billed_freight"
             ],
             "type": "string"
+          },
+          "default_lead_time_days": {
+            "description": "Calendar days between an order being issued and it being due to ship, inherited by every customer in this group that has not set its own. Clearing it returns the group's customers to the account default.",
+            "nullable": true,
+            "type": "integer"
           }
         },
         "type": "object"
@@ -56406,6 +58278,11 @@
               "billed_freight"
             ],
             "type": "string"
+          },
+          "lead_time_days": {
+            "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. Leave unset to inherit the customer's account group lead time, then the account default.",
+            "nullable": true,
+            "type": "integer"
           },
           "default_carrier_id": {
             "description": "ID of the carrier used on this customer's orders when the order does not specify one.",
@@ -57011,6 +58888,16 @@
             "description": "The lot products in this line are made in — a doff, a pallet.\n\nSizes the campaigns a production schedule plans, and defaults the quantity when a batch is added to a production run. The unit is part of the value, since 60 pairs and 60 eaches are different lots, and it must belong to the line's unit group — the new one when `unit_group_id` changes in the same request. Send `null` to remove the line's lot convention, after which planning falls back to the lot of the line an item feeds into, and then to the account-wide default lot size.",
             "nullable": true
           },
+          "fulfillment_policy": {
+            "description": "How products in this line are produced when they do not say for themselves.\n\n- `make_to_stock`: built to the forecast, holding a safety stock against its variability.\n- `make_to_order`: built only against orders already on the book, holding no buffer.\n\nClearing it returns the line's products to the account default.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
+          },
           "unit_group_id": {
             "description": "ID of the unit group to associate with this product line.\n\nThe unit group determines the set of units available to products in this product line. It must be a unit group your account owns or one of the shared system unit groups. A lot already stored on the line is not rechecked when the group changes, so send `default_lot` alongside to keep the two consistent.",
             "type": "string"
@@ -57156,6 +59043,8 @@
           "weeks_per_year": 52,
           "capacity_headroom_pct": 0.9,
           "default_lot_units": 60,
+          "default_customer_lead_time_days": 30,
+          "default_fulfillment_policy": "make_to_stock",
           "cadence_status": "inactive",
           "generation_timezone": "UTC",
           "auto_publish_status": "inactive"
@@ -57266,6 +59155,18 @@
             "description": "Units in a default production lot.\n\nThe last resort in the lot-size chain: a lot set on the item, on its product line, or on the finished goods an intermediate item becomes all take precedence.",
             "type": "number"
           },
+          "default_customer_lead_time_days": {
+            "description": "Calendar days between an order being issued and it being due to ship.\n\nThe last resort in the ship-by chain: a lead time set on the customer, or on the customer's account group, takes precedence. Zero commits the account to same-day shipping on every order that falls through to it, so this update replaces the whole settings object and omitting the field is not the same as leaving it alone.",
+            "type": "integer"
+          },
+          "default_fulfillment_policy": {
+            "description": "How a SKU is produced when neither it nor its product line says.\n\n- `make_to_stock`: built to the forecast, holding a safety stock against its variability.\n- `make_to_order`: built only against orders already on the book, holding no buffer.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order"
+            ],
+            "type": "string"
+          },
           "cadence_status": {
             "description": "Whether schedules are generated automatically on a recurring cadence.\n\nWhile active, each due tick queues a new schedule version.",
             "enum": [
@@ -57317,6 +59218,8 @@
           "weeks_per_year",
           "capacity_headroom_pct",
           "default_lot_units",
+          "default_customer_lead_time_days",
+          "default_fulfillment_policy",
           "cadence_status",
           "generation_timezone",
           "auto_publish_status"
@@ -57818,6 +59721,41 @@
           "unit_group",
           "property_names",
           "notes"
+        ],
+        "type": "object"
+      },
+      "UpsertItemSettingRequest": {
+        "description": "Request to write one item's planning overrides.",
+        "example": {
+          "participation_status": "included",
+          "fulfillment_policy": "make_to_order"
+        },
+        "properties": {
+          "participation_status": {
+            "description": "Whether this item takes part in planning.\n\nAn excluded item is left out of the plan entirely: no campaigns, no policy, no capacity.",
+            "enum": [
+              "included",
+              "excluded"
+            ],
+            "type": "string"
+          },
+          "lot_multiple_units": {
+            "description": "Units in one production lot for this item, overriding the lot its product line would supply.",
+            "type": "number"
+          },
+          "fulfillment_policy": {
+            "description": "How this item is produced.\n\n- `make_to_stock`: built to the forecast, holding a safety stock against its variability.\n- `make_to_order`: built only against orders already on the book, holding no buffer.\n\nClearing it returns the item to its product line's policy, then to the account default.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "participation_status"
         ],
         "type": "object"
       },
@@ -70844,6 +72782,7 @@
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
+                      "fulfillment_policy": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
@@ -71029,6 +72968,7 @@
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
+                  "fulfillment_policy": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -71337,6 +73277,7 @@
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
+                  "fulfillment_policy": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -71530,6 +73471,7 @@
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
                   },
+                  "fulfillment_policy": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -71840,6 +73782,7 @@
                             "updated_at": "2026-05-10T00:23:00Z"
                           }
                         },
+                        "fulfillment_policy": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
@@ -72368,6 +74311,7 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
                     },
+                    "fulfillment_policy": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -72957,6 +74901,7 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
                     },
+                    "fulfillment_policy": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -73461,6 +75406,7 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
                     },
+                    "fulfillment_policy": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -73986,6 +75932,7 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
                     },
+                    "fulfillment_policy": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -74502,6 +76449,7 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
                     },
+                    "fulfillment_policy": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -77706,6 +79654,102 @@
         "x-preview": true
       }
     },
+    "/v1/core/analytics/delivery-performance": {
+      "put": {
+        "description": "Returns how reliably promised delivery dates were met.\n\nOrders are counted in the period their promise came due, not the period they shipped — an order promised in March and shipped in May is March's miss. On time means the first shipment left on or before the promised date, because the promise is that the order starts moving by then; judging on the last shipment would fail an order the customer received on time in two boxes. On time in full adds that the whole ordered quantity was packed.\n\nThe denominator is orders that were due, not orders that shipped, so an order past its date and still unshipped counts against the rate rather than being held back until it moves. Excluding open orders would let a plant with a growing late backlog report perfect delivery.\n\nOnly orders carrying a ship-by commitment participate. An order with no commitment cannot be late, and counting it as on time would inflate the rate with orders nobody promised anything about — `uncommitted_order_count` says how many were excluded, so the gap is visible rather than silent.\n\nEvery rate is null rather than zero when nothing was due, and average lateness is measured over late orders only.\n\nThis endpoint requires the permission: `sales_orders:read`.",
+        "operationId": "analyze-delivery-performance",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "starts_at": "2026-05-10T00:00:00Z",
+                "ends_at": "2026-05-10T00:23:00Z",
+                "granularity": "week"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/AnalyzeDeliveryPerformanceRequest"
+              }
+            }
+          },
+          "description": "The request body for Analyze Delivery Performance"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "analyze_delivery_performance_response",
+                  "overall": {
+                    "object": "delivery_performance",
+                    "period_start": null,
+                    "committed_order_count": 26,
+                    "shipped_order_count": 24,
+                    "on_time_order_count": 24,
+                    "on_time_in_full_count": 23,
+                    "late_order_count": 2,
+                    "not_yet_shipped_count": 2,
+                    "on_time_pct": 92.31,
+                    "on_time_in_full_pct": 88.46,
+                    "average_days_late": 4.5,
+                    "average_lead_time_days": 26,
+                    "average_committed_lead_time_days": 30
+                  },
+                  "periods": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": []
+                  },
+                  "backlog": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "delivery_backlog_bucket",
+                        "label": "1_7_days",
+                        "min_days_late": 1,
+                        "max_days_late": 7,
+                        "order_count": 2,
+                        "units": 340
+                      }
+                    ]
+                  },
+                  "uncommitted_order_count": 0
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/AnalyzeDeliveryPerformanceResponse"
+                }
+              }
+            },
+            "description": "Successful response for Analyze Delivery Performance"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Analyze Delivery Performance",
+        "tags": [
+          "Analytics"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/core/analytics/oee": {
       "put": {
         "description": "Returns Overall Equipment Effectiveness (OEE) metrics by department.\n\nAvailability is measured from logged machine downtime rather than inferred, so it requires both `planned_time` for the department and downtime events in the period. Departments with `has_downtime_data` false have no availability measurement, and their ratios are returned as null rather than as 100%.\n\nThis endpoint requires the permission: `machine_downtime:read`.",
@@ -78195,7 +80239,16 @@
                   "production_schedule_derived_line",
                   "production_schedule_settings",
                   "production_schedule_resource_setting",
+                  "production_schedule_item_setting",
+                  "fulfillment_recommendation",
+                  "analyze_delivery_performance_response",
+                  "delivery_performance",
+                  "delivery_backlog_bucket",
+                  "schedule_order_coverage",
+                  "schedule_order_coverage_line",
+                  "promise_date_quote",
                   "schedule_deviation_type",
+                  "schedule_at_risk_order",
                   "production_schedule_finished_policy",
                   "production_schedule_week_release",
                   "production_schedule_week_release_preview",
@@ -78268,6 +80321,7 @@
                   "customer_contact_info",
                   "customer_freight_preferences",
                   "customer_defaults",
+                  "customer_lead_time",
                   "customer_notification_preferences",
                   "order_notification_recipient",
                   "order_discount",
@@ -78499,7 +80553,16 @@
                 "production_schedule_derived_line",
                 "production_schedule_settings",
                 "production_schedule_resource_setting",
+                "production_schedule_item_setting",
+                "fulfillment_recommendation",
+                "analyze_delivery_performance_response",
+                "delivery_performance",
+                "delivery_backlog_bucket",
+                "schedule_order_coverage",
+                "schedule_order_coverage_line",
+                "promise_date_quote",
                 "schedule_deviation_type",
+                "schedule_at_risk_order",
                 "production_schedule_finished_policy",
                 "production_schedule_week_release",
                 "production_schedule_week_release_preview",
@@ -78572,6 +80635,7 @@
                 "customer_contact_info",
                 "customer_freight_preferences",
                 "customer_defaults",
+                "customer_lead_time",
                 "customer_notification_preferences",
                 "order_notification_recipient",
                 "order_discount",
@@ -81070,7 +83134,16 @@
                   "production_schedule_derived_line",
                   "production_schedule_settings",
                   "production_schedule_resource_setting",
+                  "production_schedule_item_setting",
+                  "fulfillment_recommendation",
+                  "analyze_delivery_performance_response",
+                  "delivery_performance",
+                  "delivery_backlog_bucket",
+                  "schedule_order_coverage",
+                  "schedule_order_coverage_line",
+                  "promise_date_quote",
                   "schedule_deviation_type",
+                  "schedule_at_risk_order",
                   "production_schedule_finished_policy",
                   "production_schedule_week_release",
                   "production_schedule_week_release_preview",
@@ -81143,6 +83216,7 @@
                   "customer_contact_info",
                   "customer_freight_preferences",
                   "customer_defaults",
+                  "customer_lead_time",
                   "customer_notification_preferences",
                   "order_notification_recipient",
                   "order_discount",
@@ -84868,7 +86942,16 @@
                 "production_schedule_derived_line",
                 "production_schedule_settings",
                 "production_schedule_resource_setting",
+                "production_schedule_item_setting",
+                "fulfillment_recommendation",
+                "analyze_delivery_performance_response",
+                "delivery_performance",
+                "delivery_backlog_bucket",
+                "schedule_order_coverage",
+                "schedule_order_coverage_line",
+                "promise_date_quote",
                 "schedule_deviation_type",
+                "schedule_at_risk_order",
                 "production_schedule_finished_policy",
                 "production_schedule_week_release",
                 "production_schedule_week_release_preview",
@@ -84941,6 +87024,7 @@
                 "customer_contact_info",
                 "customer_freight_preferences",
                 "customer_defaults",
+                "customer_lead_time",
                 "customer_notification_preferences",
                 "order_notification_recipient",
                 "order_discount",
@@ -95065,6 +97149,169 @@
         "x-preview": true
       }
     },
+    "/v1/operations/fulfillment-recommendations": {
+      "get": {
+        "description": "Returns, for every sellable SKU, whether it should be built to stock or only against orders — and the measurement that decided.\n\nThe rules are ordered and the first match wins. Lead-time feasibility is checked before anything else: if customers are promised less time than production needs, building to order is not possible rather than not preferred, and no amount of lumpy demand changes that. After that the engine looks for dead stock, a single contract customer, demand too erratic for a buffer to size, and slow-moving expensive units.\n\nEvery verdict carries its numbers — demand interval, variability, customer concentration, promised lead time, annual cost of goods — so a planner can disagree with the rule rather than only with the answer. Thresholds are merchant-editable in the planning settings.\n\nComputed fresh on every call rather than stored. A recommendation is only meaningful next to current demand, and a saved one would go quietly stale; the durable artifact is the item setting written when someone agrees with it. Nothing here changes a plan on its own.\n\nThis endpoint requires the permission: `production_schedules:read`.",
+        "operationId": "list-fulfillment-recommendations",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": null,
+                    "previous_page_url": null,
+                    "has_next_page": false,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "object": "fulfillment_recommendation",
+                      "item": {
+                        "id": "it_pej07ckhvu62",
+                        "object": "entity",
+                        "type": "item",
+                        "name": null,
+                        "handle": "LKN-001"
+                      },
+                      "sku": "LKN-001",
+                      "product_line": {
+                        "id": "pdln_k9bnlgvxhxjh",
+                        "object": "entity",
+                        "type": "product_line",
+                        "name": null,
+                        "handle": null
+                      },
+                      "current_policy": "make_to_stock",
+                      "recommended_policy": "make_to_order",
+                      "changes": true,
+                      "reason": "lumpy_demand",
+                      "average_demand_interval": 3,
+                      "coefficient_of_variation": 1.8,
+                      "top_customer_share_pct": 95,
+                      "top_customer_name": "Contract Co",
+                      "demand_weighted_lead_time_days": 90,
+                      "annual_cogs": 4000,
+                      "months_since_last_sale": 1,
+                      "mixed_stream_share_pct": 95
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_FulfillmentRecommendation"
+                }
+              }
+            },
+            "description": "Successful response for List Fulfillment Recommendations"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Fulfillment Recommendations",
+        "tags": [
+          "Production Schedule Settings"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/fulfillment-recommendations/actions/apply": {
+      "post": {
+        "description": "Adopts the recommended fulfillment policy for the named items, writing it as a per-item planning override.\n\nThe recommendation is recomputed as part of applying it, rather than taken from the request. Advice read minutes ago may no longer be the advice — demand moves — and writing a stale verdict would set a policy the engine would not give today. What comes back is what was actually written.\n\nTakes effect on the next generated schedule; versions already generated keep the assumptions they were solved under.\n\nThis endpoint requires the permission: `production_schedules:update`.",
+        "operationId": "apply-fulfillment-recommendations",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "item_ids": [
+                  "it_pej07ckhvu62"
+                ]
+              },
+              "schema": {
+                "$ref": "#/components/schemas/ApplyFulfillmentRecommendationsRequest"
+              }
+            }
+          },
+          "description": "The request body for Apply Fulfillment Recommendations"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": null,
+                    "previous_page_url": null,
+                    "has_next_page": false,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "object": "fulfillment_recommendation",
+                      "item": {
+                        "id": "it_pej07ckhvu62",
+                        "object": "entity",
+                        "type": "item",
+                        "name": null,
+                        "handle": "LKN-001"
+                      },
+                      "sku": "LKN-001",
+                      "product_line": {
+                        "id": "pdln_k9bnlgvxhxjh",
+                        "object": "entity",
+                        "type": "product_line",
+                        "name": null,
+                        "handle": null
+                      },
+                      "current_policy": "make_to_stock",
+                      "recommended_policy": "make_to_order",
+                      "changes": true,
+                      "reason": "lumpy_demand",
+                      "average_demand_interval": 3,
+                      "coefficient_of_variation": 1.8,
+                      "top_customer_share_pct": 95,
+                      "top_customer_name": "Contract Co",
+                      "demand_weighted_lead_time_days": 90,
+                      "annual_cogs": 4000,
+                      "months_since_last_sale": 1,
+                      "mixed_stream_share_pct": 95
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_FulfillmentRecommendation"
+                }
+              }
+            },
+            "description": "Successful response for Apply Fulfillment Recommendations"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Apply Fulfillment Recommendations",
+        "tags": [
+          "Production Schedule Settings"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/operations/location-types": {
       "get": {
         "description": "Returns a paginated list of location types.\n\nLocation types are platform-defined and the same for every account, so this list is the complete set of levels you can assign when creating a location. The `q` search term matches on location type name.\n\nThis endpoint requires the permission: `locations:read`.",
@@ -98701,6 +100948,8 @@
                   "weeks_per_year": 52,
                   "capacity_headroom_pct": 0.9,
                   "default_lot_units": 60,
+                  "default_customer_lead_time_days": 30,
+                  "default_fulfillment_policy": "make_to_stock",
                   "cadence_status": "active",
                   "generation_cron": "0 6 * * 1",
                   "generation_timezone": "America/New_York",
@@ -98765,6 +101014,8 @@
                 "weeks_per_year": 52,
                 "capacity_headroom_pct": 0.9,
                 "default_lot_units": 60,
+                "default_customer_lead_time_days": 30,
+                "default_fulfillment_policy": "make_to_stock",
                 "cadence_status": "inactive",
                 "generation_timezone": "UTC",
                 "auto_publish_status": "inactive"
@@ -98813,6 +101064,8 @@
                   "weeks_per_year": 52,
                   "capacity_headroom_pct": 0.9,
                   "default_lot_units": 60,
+                  "default_customer_lead_time_days": 30,
+                  "default_fulfillment_policy": "make_to_stock",
                   "cadence_status": "active",
                   "generation_cron": "0 6 * * 1",
                   "generation_timezone": "America/New_York",
@@ -98841,6 +101094,245 @@
           }
         },
         "summary": "Update Production Schedule Settings",
+        "tags": [
+          "Production Schedule Settings"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/production-schedule-settings/items": {
+      "get": {
+        "description": "Returns every per-item planning override in the account.\n\nOnly items that have been given an override appear here. An item with none is planned on the account defaults and its product line's conventions, which is the normal case — this is the list of exceptions, not a list of every item.\n\nThis endpoint requires the permission: `production_schedules:read`.",
+        "operationId": "list-production-schedule-item-settings",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": "/v1/operations/production-schedule-settings/items?cursor=eyJjIjoiMjAyNi0wNS0xMFQwMDowMDowMFoiLCJzIjoicG5zY2l0c2Rfa3c4M256cTRtcnQ2IiwiZCI6ImYifQ.kl5vPX5U4jwSwEPhBKBSaD_NpCkUlQP6ca-D2hT7t3g",
+                    "previous_page_url": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "pnscitsd_kw83nzq4mrt6",
+                      "object": "production_schedule_item_setting",
+                      "item": {
+                        "id": "it_pej07ckhvu62",
+                        "object": "entity",
+                        "type": "item",
+                        "name": null,
+                        "handle": "LKN-001"
+                      },
+                      "participation_status": "included",
+                      "lot_multiple_units": 60,
+                      "fulfillment_policy": "make_to_order",
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_ProductionScheduleItemSetting"
+                }
+              }
+            },
+            "description": "Successful response for List Production Schedule Item Settings"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Production Schedule Item Settings",
+        "tags": [
+          "Production Schedule Settings"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/production-schedule-settings/items/{item_id}": {
+      "delete": {
+        "description": "Removes one item's planning overrides, returning it to the account defaults and its product line's conventions.\n\nFails with a not-found error when the item has no overrides, rather than reporting success: a mistyped item ID would otherwise read as a change that never happened.\n\nThis endpoint requires the permission: `production_schedules:update`.",
+        "operationId": "delete-production-schedule-item-setting",
+        "parameters": [
+          {
+            "description": "Item whose overrides are being removed.",
+            "example": "example",
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Delete Production Schedule Item Setting"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Delete Production Schedule Item Setting",
+        "tags": [
+          "Production Schedule Settings"
+        ],
+        "x-preview": true
+      },
+      "get": {
+        "description": "Returns the planning overrides for one item.\n\nFails with a not-found error when the item has none, rather than returning an empty set of overrides: an item with no overrides is planned on the account defaults and its product line's conventions, and reporting that as a resource would suggest there is something here to edit.\n\nThis endpoint requires the permission: `production_schedules:read`.",
+        "operationId": "retrieve-production-schedule-item-setting",
+        "parameters": [
+          {
+            "description": "Item whose overrides are being read.",
+            "example": "example",
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "pnscitsd_kw83nzq4mrt6",
+                  "object": "production_schedule_item_setting",
+                  "item": {
+                    "id": "it_pej07ckhvu62",
+                    "object": "entity",
+                    "type": "item",
+                    "name": null,
+                    "handle": "LKN-001"
+                  },
+                  "participation_status": "included",
+                  "lot_multiple_units": 60,
+                  "fulfillment_policy": "make_to_order",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionScheduleItemSetting"
+                }
+              }
+            },
+            "description": "Successful response for Retrieve Production Schedule Item Setting"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Retrieve Production Schedule Item Setting",
+        "tags": [
+          "Production Schedule Settings"
+        ],
+        "x-preview": true
+      },
+      "put": {
+        "description": "Writes the planning overrides for one item.\n\nAn item has at most one set of overrides, so this replaces the existing entry rather than adding a second, and the entry keeps the ID it already had.\n\nThe fulfillment policy is the most consequential of these. A `make_to_order` item contributes no forecast demand and holds no safety stock, so it is built only against orders already on the book — which is what stops a slow mover accumulating inventory nobody asked for. It also propagates: an intermediate item is planned to order only when every finished good it becomes is, so one stocked sibling keeps the whole family buffered.\n\nOverrides are read when a plan is generated, so a change takes effect on the next generated version and leaves existing ones untouched.\n\nThis endpoint requires the permission: `production_schedules:update`.",
+        "operationId": "upsert-production-schedule-item-setting",
+        "parameters": [
+          {
+            "description": "Item to override.",
+            "example": "example",
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "participation_status": "included",
+                "fulfillment_policy": "make_to_order"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/UpsertItemSettingRequest"
+              }
+            }
+          },
+          "description": "The request body for Upsert Production Schedule Item Setting"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "pnscitsd_kw83nzq4mrt6",
+                  "object": "production_schedule_item_setting",
+                  "item": {
+                    "id": "it_pej07ckhvu62",
+                    "object": "entity",
+                    "type": "item",
+                    "name": null,
+                    "handle": "LKN-001"
+                  },
+                  "participation_status": "included",
+                  "lot_multiple_units": 60,
+                  "fulfillment_policy": "make_to_order",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionScheduleItemSetting"
+                }
+              }
+            },
+            "description": "Successful response for Upsert Production Schedule Item Setting"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Upsert Production Schedule Item Setting",
         "tags": [
           "Production Schedule Settings"
         ],
@@ -99153,6 +101645,41 @@
                               "reason": "new_customer"
                             }
                           ]
+                        },
+                        "firm_demand_units": 12480,
+                        "undated_firm_order_count": 0,
+                        "make_to_order_item_count": 2,
+                        "at_risk_orders": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "object": "schedule_at_risk_order",
+                              "sales_order": {
+                                "id": "or_9lqo07quiwyb",
+                                "object": "entity",
+                                "type": "sales_order",
+                                "name": null,
+                                "handle": null
+                              },
+                              "item": {
+                                "id": "it_pej07ckhvu62",
+                                "object": "entity",
+                                "type": "item",
+                                "name": null,
+                                "handle": "MZ-GREIGE-CREW"
+                              },
+                              "sku": "MZ-GREIGE-CREW",
+                              "units": 1800,
+                              "due_week": 0,
+                              "reason": "past_due"
+                            }
+                          ]
                         }
                       },
                       "error_message": null,
@@ -99353,6 +101880,41 @@
                           "reason": "new_customer"
                         }
                       ]
+                    },
+                    "firm_demand_units": 12480,
+                    "undated_firm_order_count": 0,
+                    "make_to_order_item_count": 2,
+                    "at_risk_orders": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "object": "schedule_at_risk_order",
+                          "sales_order": {
+                            "id": "or_9lqo07quiwyb",
+                            "object": "entity",
+                            "type": "sales_order",
+                            "name": null,
+                            "handle": null
+                          },
+                          "item": {
+                            "id": "it_pej07ckhvu62",
+                            "object": "entity",
+                            "type": "item",
+                            "name": null,
+                            "handle": "MZ-GREIGE-CREW"
+                          },
+                          "sku": "MZ-GREIGE-CREW",
+                          "units": 1800,
+                          "due_week": 0,
+                          "reason": "past_due"
+                        }
+                      ]
                     }
                   },
                   "error_message": null,
@@ -99505,6 +102067,10 @@
                           "handle": "MZ-GREIGE-CREW"
                         },
                         "sku": "MZ-GREIGE-CREW",
+                        "fulfillment_policy": "",
+                        "policy_source": "",
+                        "firm_demand_units": 0,
+                        "forecast_demand_units": 0,
                         "annual_demand": 5200,
                         "weekly_demand": 100,
                         "seconds_per_unit": 30,
@@ -99643,6 +102209,41 @@
                           "reason": "new_customer"
                         }
                       ]
+                    },
+                    "firm_demand_units": 12480,
+                    "undated_firm_order_count": 0,
+                    "make_to_order_item_count": 2,
+                    "at_risk_orders": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "object": "schedule_at_risk_order",
+                          "sales_order": {
+                            "id": "or_9lqo07quiwyb",
+                            "object": "entity",
+                            "type": "sales_order",
+                            "name": null,
+                            "handle": null
+                          },
+                          "item": {
+                            "id": "it_pej07ckhvu62",
+                            "object": "entity",
+                            "type": "item",
+                            "name": null,
+                            "handle": "MZ-GREIGE-CREW"
+                          },
+                          "sku": "MZ-GREIGE-CREW",
+                          "units": 1800,
+                          "due_week": 0,
+                          "reason": "past_due"
+                        }
+                      ]
                     }
                   }
                 },
@@ -99665,6 +102266,75 @@
           }
         },
         "summary": "Preview Production Schedule",
+        "tags": [
+          "Production Schedules"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/production-schedules/actions/quote-promise-date": {
+      "post": {
+        "description": "Returns the earliest date the published schedule could ship a quantity of an item.\n\nQuoted from the published version — the plan the floor is actually working to — and net of everything already promised to other orders. A date backed by stock somebody else is owed is not a date, so existing commitments are consumed before anything is offered.\n\nThe answer allows for finishing after the constraint stage completes, so it is a ship date rather than a production date. When the published horizon cannot supply the quantity at all, `is_promisable` is false and no date is returned: a plan that runs thirteen weeks cannot speak for the fourteenth, and inventing a date beyond it would be the one number a customer actually relies on.\n\nQuoting does not reserve anything. Two quotes taken a minute apart can both come back with the same date, and only issuing an order commits the supply.\n\nThis endpoint requires the permission: `production_schedules:read`.",
+        "operationId": "quote-promise-date",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "item_id": "it_pej07ckhvu62",
+                "quantity": 1200
+              },
+              "schema": {
+                "$ref": "#/components/schemas/QuotePromiseDateRequest"
+              }
+            }
+          },
+          "description": "The request body for Quote Promise Date"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "promise_date_quote",
+                  "item": {
+                    "id": "it_pej07ckhvu62",
+                    "object": "entity",
+                    "type": "item",
+                    "name": null,
+                    "handle": "MZ-GREIGE-CREW"
+                  },
+                  "quantity": 1200,
+                  "is_promisable": true,
+                  "earliest_ship_date": "2026-07-06T00:00:00Z",
+                  "earliest_week_index": 4,
+                  "production_schedule": {
+                    "id": "pnsc_m4zt3z8g8src",
+                    "object": "entity",
+                    "type": "production_schedule",
+                    "name": null,
+                    "handle": null
+                  },
+                  "production_schedule_version": 7
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/PromiseDateQuote"
+                }
+              }
+            },
+            "description": "Successful response for Quote Promise Date"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Quote Promise Date",
         "tags": [
           "Production Schedules"
         ],
@@ -99747,6 +102417,41 @@
                           "after": 3667,
                           "adjustment": "delta_units",
                           "reason": "new_customer"
+                        }
+                      ]
+                    },
+                    "firm_demand_units": 12480,
+                    "undated_firm_order_count": 0,
+                    "make_to_order_item_count": 2,
+                    "at_risk_orders": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "object": "schedule_at_risk_order",
+                          "sales_order": {
+                            "id": "or_9lqo07quiwyb",
+                            "object": "entity",
+                            "type": "sales_order",
+                            "name": null,
+                            "handle": null
+                          },
+                          "item": {
+                            "id": "it_pej07ckhvu62",
+                            "object": "entity",
+                            "type": "item",
+                            "name": null,
+                            "handle": "MZ-GREIGE-CREW"
+                          },
+                          "sku": "MZ-GREIGE-CREW",
+                          "units": 1800,
+                          "due_week": 0,
+                          "reason": "past_due"
                         }
                       ]
                     }
@@ -99993,6 +102698,41 @@
                           "reason": "new_customer"
                         }
                       ]
+                    },
+                    "firm_demand_units": 12480,
+                    "undated_firm_order_count": 0,
+                    "make_to_order_item_count": 2,
+                    "at_risk_orders": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "object": "schedule_at_risk_order",
+                          "sales_order": {
+                            "id": "or_9lqo07quiwyb",
+                            "object": "entity",
+                            "type": "sales_order",
+                            "name": null,
+                            "handle": null
+                          },
+                          "item": {
+                            "id": "it_pej07ckhvu62",
+                            "object": "entity",
+                            "type": "item",
+                            "name": null,
+                            "handle": "MZ-GREIGE-CREW"
+                          },
+                          "sku": "MZ-GREIGE-CREW",
+                          "units": 1800,
+                          "due_week": 0,
+                          "reason": "past_due"
+                        }
+                      ]
                     }
                   },
                   "error_message": null,
@@ -100190,6 +102930,41 @@
                           "after": 3667,
                           "adjustment": "delta_units",
                           "reason": "new_customer"
+                        }
+                      ]
+                    },
+                    "firm_demand_units": 12480,
+                    "undated_firm_order_count": 0,
+                    "make_to_order_item_count": 2,
+                    "at_risk_orders": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "object": "schedule_at_risk_order",
+                          "sales_order": {
+                            "id": "or_9lqo07quiwyb",
+                            "object": "entity",
+                            "type": "sales_order",
+                            "name": null,
+                            "handle": null
+                          },
+                          "item": {
+                            "id": "it_pej07ckhvu62",
+                            "object": "entity",
+                            "type": "item",
+                            "name": null,
+                            "handle": "MZ-GREIGE-CREW"
+                          },
+                          "sku": "MZ-GREIGE-CREW",
+                          "units": 1800,
+                          "due_week": 0,
+                          "reason": "past_due"
                         }
                       ]
                     }
@@ -100543,6 +103318,41 @@
                           "reason": "new_customer"
                         }
                       ]
+                    },
+                    "firm_demand_units": 12480,
+                    "undated_firm_order_count": 0,
+                    "make_to_order_item_count": 2,
+                    "at_risk_orders": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "object": "schedule_at_risk_order",
+                          "sales_order": {
+                            "id": "or_9lqo07quiwyb",
+                            "object": "entity",
+                            "type": "sales_order",
+                            "name": null,
+                            "handle": null
+                          },
+                          "item": {
+                            "id": "it_pej07ckhvu62",
+                            "object": "entity",
+                            "type": "item",
+                            "name": null,
+                            "handle": "MZ-GREIGE-CREW"
+                          },
+                          "sku": "MZ-GREIGE-CREW",
+                          "units": 1800,
+                          "due_week": 0,
+                          "reason": "past_due"
+                        }
+                      ]
                     }
                   },
                   "error_message": null,
@@ -100753,6 +103563,41 @@
                           "after": 3667,
                           "adjustment": "delta_units",
                           "reason": "new_customer"
+                        }
+                      ]
+                    },
+                    "firm_demand_units": 12480,
+                    "undated_firm_order_count": 0,
+                    "make_to_order_item_count": 2,
+                    "at_risk_orders": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "object": "schedule_at_risk_order",
+                          "sales_order": {
+                            "id": "or_9lqo07quiwyb",
+                            "object": "entity",
+                            "type": "sales_order",
+                            "name": null,
+                            "handle": null
+                          },
+                          "item": {
+                            "id": "it_pej07ckhvu62",
+                            "object": "entity",
+                            "type": "item",
+                            "name": null,
+                            "handle": "MZ-GREIGE-CREW"
+                          },
+                          "sku": "MZ-GREIGE-CREW",
+                          "units": 1800,
+                          "due_week": 0,
+                          "reason": "past_due"
                         }
                       ]
                     }
@@ -101136,6 +103981,114 @@
           }
         },
         "summary": "Release Production Schedule Week",
+        "tags": [
+          "Production Schedules"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/production-schedules/{id}/at-risk-orders": {
+      "get": {
+        "description": "Returns the customer commitments this schedule version does not meet, soonest first.\n\nThree ways an order lands here. `past_due` means the constraint stage needed to start before this plan begins. `undated` means the order carries no ship-by commitment at all, so it is treated as owed now. `short` means the plan simply does not build enough of it in time — the campaigns it does allocate are listed alongside, because building three hundred of five hundred is a different conversation from building none.\n\nRead from the version's own record rather than re-solved, so what comes back is what was decided when the plan was made. A version generated before commitments were tracked reports nothing, which is correct: it made no promises it could break.\n\nThis endpoint requires the permission: `production_schedules:read`.",
+        "operationId": "list-schedule-at-risk-orders",
+        "parameters": [
+          {
+            "description": "Schedule version ID.",
+            "example": "pnsc_m4zt3z8g8src",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": null,
+                    "previous_page_url": null,
+                    "has_next_page": false,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "object": "schedule_order_coverage",
+                      "sales_order": {
+                        "id": "or_9lqo07quiwyb",
+                        "object": "entity",
+                        "type": "sales_order",
+                        "name": null,
+                        "handle": null
+                      },
+                      "item": {
+                        "id": "it_pej07ckhvu62",
+                        "object": "entity",
+                        "type": "item",
+                        "name": null,
+                        "handle": "MZ-GREIGE-CREW"
+                      },
+                      "sku": "MZ-GREIGE-CREW",
+                      "units_at_risk": 200,
+                      "due_week": 0,
+                      "reason": "past_due",
+                      "ship_by_date": null,
+                      "covering_lines": {
+                        "object": "list",
+                        "page_info": {
+                          "next_page_url": null,
+                          "previous_page_url": null,
+                          "has_next_page": false,
+                          "has_prev_page": false
+                        },
+                        "data": [
+                          {
+                            "object": "schedule_order_coverage_line",
+                            "production_schedule_line": {
+                              "id": "pnscln_l28dutdpl81r",
+                              "object": "entity",
+                              "type": "production_schedule_line",
+                              "name": null,
+                              "handle": null
+                            },
+                            "week_index": 0,
+                            "machine": {
+                              "id": "mc_ffcfk9dxixis",
+                              "object": "entity",
+                              "type": "machine",
+                              "name": null,
+                              "handle": null
+                            },
+                            "allocated_quantity": 300
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_ScheduleOrderCoverage"
+                }
+              }
+            },
+            "description": "Successful response for List Schedule At-Risk Orders"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Schedule At-Risk Orders",
         "tags": [
           "Production Schedules"
         ],
@@ -101593,6 +104546,10 @@
                         "name": null,
                         "handle": "MZ-GREIGE-CREW"
                       },
+                      "fulfillment_policy": "",
+                      "policy_source": "",
+                      "firm_demand_units": 0,
+                      "forecast_demand_units": 0,
                       "sku": "MZ-GREIGE-CREW",
                       "unit": {
                         "id": "un_82bd37dae5po",
@@ -103491,6 +106448,7 @@
                       "description": null,
                       "commission_policy": "commission_applied",
                       "freight_policy": "billed_freight",
+                      "default_lead_time_days": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
@@ -103552,6 +106510,7 @@
                   "description": null,
                   "commission_policy": "commission_applied",
                   "freight_policy": "billed_freight",
+                  "default_lead_time_days": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -103653,6 +106612,7 @@
                   "description": null,
                   "commission_policy": "commission_applied",
                   "freight_policy": "billed_freight",
+                  "default_lead_time_days": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -103723,6 +106683,7 @@
                   "description": null,
                   "commission_policy": "commission_applied",
                   "freight_policy": "billed_freight",
+                  "default_lead_time_days": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -105558,7 +108519,8 @@
                           "last_used_at": "2026-05-10T00:23:00Z",
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
-                        }
+                        },
+                        "lead_time_days": null
                       },
                       "notification_preferences": {
                         "object": "customer_notification_preferences",
@@ -105612,6 +108574,7 @@
                         "description": null,
                         "commission_policy": "commission_applied",
                         "freight_policy": "billed_freight",
+                        "default_lead_time_days": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
@@ -105632,6 +108595,7 @@
                             "description": null,
                             "commission_policy": "commission_applied",
                             "freight_policy": "billed_freight",
+                            "default_lead_time_days": null,
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           }
@@ -106086,7 +109050,8 @@
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
-                    }
+                    },
+                    "lead_time_days": null
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -106140,6 +109105,7 @@
                     "description": null,
                     "commission_policy": "commission_applied",
                     "freight_policy": "billed_freight",
+                    "default_lead_time_days": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -106160,6 +109126,7 @@
                         "description": null,
                         "commission_policy": "commission_applied",
                         "freight_policy": "billed_freight",
+                        "default_lead_time_days": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
@@ -106615,7 +109582,8 @@
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
-                    }
+                    },
+                    "lead_time_days": null
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -106669,6 +109637,7 @@
                     "description": null,
                     "commission_policy": "commission_applied",
                     "freight_policy": "billed_freight",
+                    "default_lead_time_days": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -106689,6 +109658,7 @@
                         "description": null,
                         "commission_policy": "commission_applied",
                         "freight_policy": "billed_freight",
+                        "default_lead_time_days": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
@@ -107137,7 +110107,8 @@
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
-                    }
+                    },
+                    "lead_time_days": null
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -107191,6 +110162,7 @@
                     "description": null,
                     "commission_policy": "commission_applied",
                     "freight_policy": "billed_freight",
+                    "default_lead_time_days": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -107211,6 +110183,7 @@
                         "description": null,
                         "commission_policy": "commission_applied",
                         "freight_policy": "billed_freight",
+                        "default_lead_time_days": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
@@ -107636,7 +110609,8 @@
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
-                    }
+                    },
+                    "lead_time_days": null
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -107690,6 +110664,7 @@
                     "description": null,
                     "commission_policy": "commission_applied",
                     "freight_policy": "billed_freight",
+                    "default_lead_time_days": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
@@ -107710,6 +110685,7 @@
                         "description": null,
                         "commission_policy": "commission_applied",
                         "freight_policy": "billed_freight",
+                        "default_lead_time_days": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       }
@@ -107739,6 +110715,64 @@
           }
         },
         "summary": "Merge Customers",
+        "tags": [
+          "Customers"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/sales/customers/{id}/lead-time": {
+      "get": {
+        "description": "Returns the ship-by lead time a new order for this customer would be committed to.\n\nResolved through the same chain the issue path stamps onto an order, most specific first: a lead time set on the customer, then on the customer's account group, then the account-wide default. `source` names which rule applied, so a form can show where the number came from rather than leaving a rep to guess.\n\nThis is a preview of a commitment, not the commitment itself. An order takes its own `ship_by_date` when it is issued and keeps it afterwards, so changing a lead time here moves what future orders will promise and leaves promises already made alone.\n\nThis endpoint requires the permission: `customers:read`.",
+        "operationId": "retrieve-customer-lead-time",
+        "parameters": [
+          {
+            "description": "Customer ID.",
+            "example": "ac_opnlh43ymyee",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "customer_lead_time",
+                  "customer": {
+                    "id": "ac_opnlh43ymyee",
+                    "object": "entity",
+                    "type": "customer",
+                    "name": null,
+                    "handle": null
+                  },
+                  "days": 30,
+                  "source": "account",
+                  "account_group": null
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerLeadTime"
+                }
+              }
+            },
+            "description": "Successful response for Retrieve Customer Lead Time"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Retrieve Customer Lead Time",
         "tags": [
           "Customers"
         ],
@@ -108055,6 +111089,33 @@
             "name": "ends_at",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Earliest ship-by date to include, in `YYYY-MM-DD` format. Inclusive of the date itself.",
+            "example": "2026-05-10",
+            "in": "query",
+            "name": "ship_by_after",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Latest ship-by date to include, in `YYYY-MM-DD` format. Inclusive of the date itself.",
+            "example": "2026-05-10",
+            "in": "query",
+            "name": "ship_by_before",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Restricts results to orders that are, or are not, past their ship-by date.\n\nAn order is past due when it is still `issued` and its ship-by date has passed. A fulfilled order that shipped late is not past due — it is delivered, and how late it was is a delivery-performance question rather than a backlog one.",
+            "example": true,
+            "in": "query",
+            "name": "past_due",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -108451,7 +111512,8 @@
                             "last_used_at": "2026-05-10T00:23:00Z",
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
-                          }
+                          },
+                          "lead_time_days": null
                         },
                         "notification_preferences": {
                           "object": "customer_notification_preferences",
@@ -108505,6 +111567,7 @@
                           "description": null,
                           "commission_policy": "commission_applied",
                           "freight_policy": "billed_freight",
+                          "default_lead_time_days": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
@@ -108525,6 +111588,7 @@
                               "description": null,
                               "commission_policy": "commission_applied",
                               "freight_policy": "billed_freight",
+                              "default_lead_time_days": null,
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
                             }
@@ -108926,6 +111990,7 @@
                                     "updated_at": "2026-05-10T00:23:00Z"
                                   }
                                 },
+                                "fulfillment_policy": null,
                                 "created_at": "2026-05-10T00:00:00Z",
                                 "updated_at": "2026-05-10T00:23:00Z"
                               },
@@ -109422,6 +112487,9 @@
                       "first_ship_at": null,
                       "expired_at": null,
                       "promised_at": "2026-06-10T00:00:00Z",
+                      "ship_by_date": null,
+                      "lead_time_days": null,
+                      "lead_time_source": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
@@ -109877,7 +112945,8 @@
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
-                      }
+                      },
+                      "lead_time_days": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -109931,6 +113000,7 @@
                       "description": null,
                       "commission_policy": "commission_applied",
                       "freight_policy": "billed_freight",
+                      "default_lead_time_days": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -109951,6 +113021,7 @@
                           "description": null,
                           "commission_policy": "commission_applied",
                           "freight_policy": "billed_freight",
+                          "default_lead_time_days": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -110352,6 +113423,7 @@
                                 "updated_at": "2026-05-10T00:23:00Z"
                               }
                             },
+                            "fulfillment_policy": null,
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
@@ -110848,6 +113920,9 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "ship_by_date": null,
+                  "lead_time_days": null,
+                  "lead_time_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -111084,6 +114159,7 @@
                                 "updated_at": "2026-05-10T00:23:00Z"
                               }
                             },
+                            "fulfillment_policy": null,
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
@@ -112017,7 +115093,8 @@
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
-                      }
+                      },
+                      "lead_time_days": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -112071,6 +115148,7 @@
                       "description": null,
                       "commission_policy": "commission_applied",
                       "freight_policy": "billed_freight",
+                      "default_lead_time_days": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -112091,6 +115169,7 @@
                           "description": null,
                           "commission_policy": "commission_applied",
                           "freight_policy": "billed_freight",
+                          "default_lead_time_days": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -112492,6 +115571,7 @@
                                 "updated_at": "2026-05-10T00:23:00Z"
                               }
                             },
+                            "fulfillment_policy": null,
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
@@ -112988,6 +116068,9 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "ship_by_date": null,
+                  "lead_time_days": null,
+                  "lead_time_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -113421,7 +116504,8 @@
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
-                      }
+                      },
+                      "lead_time_days": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -113475,6 +116559,7 @@
                       "description": null,
                       "commission_policy": "commission_applied",
                       "freight_policy": "billed_freight",
+                      "default_lead_time_days": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -113495,6 +116580,7 @@
                           "description": null,
                           "commission_policy": "commission_applied",
                           "freight_policy": "billed_freight",
+                          "default_lead_time_days": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -113896,6 +116982,7 @@
                                 "updated_at": "2026-05-10T00:23:00Z"
                               }
                             },
+                            "fulfillment_policy": null,
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
@@ -114392,6 +117479,9 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "ship_by_date": null,
+                  "lead_time_days": null,
+                  "lead_time_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -114770,7 +117860,8 @@
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
-                      }
+                      },
+                      "lead_time_days": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -114824,6 +117915,7 @@
                       "description": null,
                       "commission_policy": "commission_applied",
                       "freight_policy": "billed_freight",
+                      "default_lead_time_days": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -114844,6 +117936,7 @@
                           "description": null,
                           "commission_policy": "commission_applied",
                           "freight_policy": "billed_freight",
+                          "default_lead_time_days": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -115245,6 +118338,7 @@
                                 "updated_at": "2026-05-10T00:23:00Z"
                               }
                             },
+                            "fulfillment_policy": null,
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
@@ -115741,6 +118835,9 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "ship_by_date": null,
+                  "lead_time_days": null,
+                  "lead_time_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -116338,7 +119435,8 @@
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
-                      }
+                      },
+                      "lead_time_days": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -116392,6 +119490,7 @@
                       "description": null,
                       "commission_policy": "commission_applied",
                       "freight_policy": "billed_freight",
+                      "default_lead_time_days": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -116412,6 +119511,7 @@
                           "description": null,
                           "commission_policy": "commission_applied",
                           "freight_policy": "billed_freight",
+                          "default_lead_time_days": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -116813,6 +119913,7 @@
                                 "updated_at": "2026-05-10T00:23:00Z"
                               }
                             },
+                            "fulfillment_policy": null,
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
@@ -117309,6 +120410,9 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "ship_by_date": null,
+                  "lead_time_days": null,
+                  "lead_time_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -117687,7 +120791,8 @@
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
-                      }
+                      },
+                      "lead_time_days": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -117741,6 +120846,7 @@
                       "description": null,
                       "commission_policy": "commission_applied",
                       "freight_policy": "billed_freight",
+                      "default_lead_time_days": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -117761,6 +120867,7 @@
                           "description": null,
                           "commission_policy": "commission_applied",
                           "freight_policy": "billed_freight",
+                          "default_lead_time_days": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -118162,6 +121269,7 @@
                                 "updated_at": "2026-05-10T00:23:00Z"
                               }
                             },
+                            "fulfillment_policy": null,
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
@@ -118658,6 +121766,9 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "ship_by_date": null,
+                  "lead_time_days": null,
+                  "lead_time_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -119126,7 +122237,8 @@
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
-                      }
+                      },
+                      "lead_time_days": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -119180,6 +122292,7 @@
                       "description": null,
                       "commission_policy": "commission_applied",
                       "freight_policy": "billed_freight",
+                      "default_lead_time_days": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -119200,6 +122313,7 @@
                           "description": null,
                           "commission_policy": "commission_applied",
                           "freight_policy": "billed_freight",
+                          "default_lead_time_days": null,
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
@@ -119601,6 +122715,7 @@
                                 "updated_at": "2026-05-10T00:23:00Z"
                               }
                             },
+                            "fulfillment_policy": null,
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
@@ -120097,6 +123212,9 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "ship_by_date": null,
+                  "lead_time_days": null,
+                  "lead_time_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -120367,6 +123485,7 @@
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
+                      "fulfillment_policy": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
@@ -121156,6 +124275,7 @@
                           "updated_at": "2026-05-10T00:23:00Z"
                         }
                       },
+                      "fulfillment_policy": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
