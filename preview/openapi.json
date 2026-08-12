@@ -6050,6 +6050,7 @@
                 "service_level_token": "fedex_ground",
                 "customer_portal_visibility": "visible",
                 "is_default": true,
+                "default_transit_days": 3,
                 "owner": {
                   "object": "owner",
                   "type": "account",
@@ -6167,6 +6168,7 @@
                   "service_level_token": "fedex_ground",
                   "customer_portal_visibility": "visible",
                   "is_default": true,
+                  "default_transit_days": 3,
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -10770,7 +10772,8 @@
           "name": "Ground Shipping",
           "code": "ground",
           "customer_portal_visibility": "visible",
-          "is_default": false
+          "is_default": false,
+          "default_transit_days": 3
         },
         "properties": {
           "name": {
@@ -10793,6 +10796,10 @@
           "is_default": {
             "description": "Whether this becomes the carrier's default service level, pre-selected when the carrier is chosen.\n\nEach carrier has at most one default; setting this to `true` clears the carrier's existing default.",
             "type": "boolean"
+          },
+          "default_transit_days": {
+            "description": "Business days this service typically takes in transit, used to work an order's ship-by date back from a promised delivery date.\n\nA fallback: when a carrier can rate the lane, the transit it quotes is used instead. Leave unset for carriers that can be rated, and set it for those that cannot (freight, will-call), where it is the only transit the system will have.",
+            "type": "integer"
           }
         },
         "required": [
@@ -11370,6 +11377,7 @@
                     "service_level_token": "fedex_ground",
                     "customer_portal_visibility": "visible",
                     "is_default": true,
+                    "default_transit_days": 3,
                     "owner": {
                       "object": "owner",
                       "type": "account",
@@ -11401,6 +11409,7 @@
               "service_level_token": "fedex_ground",
               "customer_portal_visibility": "visible",
               "is_default": true,
+              "default_transit_days": 3,
               "owner": {
                 "object": "owner",
                 "type": "account",
@@ -12052,6 +12061,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -12083,6 +12093,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -12765,6 +12776,7 @@
                     "service_level_token": "fedex_ground",
                     "customer_portal_visibility": "visible",
                     "is_default": true,
+                    "default_transit_days": 3,
                     "owner": {
                       "object": "owner",
                       "type": "account",
@@ -12806,6 +12818,7 @@
               "service_level_token": "fedex_ground",
               "customer_portal_visibility": "visible",
               "is_default": true,
+              "default_transit_days": 3,
               "owner": {
                 "object": "owner",
                 "type": "account",
@@ -14652,6 +14665,7 @@
                   "service_level_token": "fedex_ground",
                   "customer_portal_visibility": "visible",
                   "is_default": true,
+                  "default_transit_days": 3,
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -14683,6 +14697,7 @@
             "service_level_token": "fedex_ground",
             "customer_portal_visibility": "visible",
             "is_default": true,
+            "default_transit_days": 3,
             "owner": {
               "object": "owner",
               "type": "account",
@@ -14767,6 +14782,7 @@
                     "service_level_token": "fedex_ground",
                     "customer_portal_visibility": "visible",
                     "is_default": true,
+                    "default_transit_days": 3,
                     "owner": {
                       "object": "owner",
                       "type": "account",
@@ -14807,6 +14823,7 @@
               "service_level_token": "fedex_ground",
               "customer_portal_visibility": "visible",
               "is_default": true,
+              "default_transit_days": 3,
               "owner": {
                 "object": "owner",
                 "type": "account",
@@ -18993,6 +19010,7 @@
                     "service_level_token": "fedex_ground",
                     "customer_portal_visibility": "visible",
                     "is_default": true,
+                    "default_transit_days": 3,
                     "owner": {
                       "object": "owner",
                       "type": "account",
@@ -20167,6 +20185,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -20198,6 +20217,7 @@
                   "service_level_token": "fedex_ground",
                   "customer_portal_visibility": "visible",
                   "is_default": true,
+                  "default_transit_days": 3,
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -28492,6 +28512,7 @@
                           "service_level_token": "fedex_ground",
                           "customer_portal_visibility": "visible",
                           "is_default": true,
+                          "default_transit_days": 3,
                           "owner": {
                             "object": "owner",
                             "type": "account",
@@ -28523,6 +28544,7 @@
                     "service_level_token": "fedex_ground",
                     "customer_portal_visibility": "visible",
                     "is_default": true,
+                    "default_transit_days": 3,
                     "owner": {
                       "object": "owner",
                       "type": "account",
@@ -28975,6 +28997,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -29006,6 +29029,7 @@
                   "service_level_token": "fedex_ground",
                   "customer_portal_visibility": "visible",
                   "is_default": true,
+                  "default_transit_days": 3,
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -29707,6 +29731,8 @@
               "ship_by_date": null,
               "lead_time_days": null,
               "lead_time_source": null,
+              "transit_days": null,
+              "transit_source": null,
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             }
@@ -31135,6 +31161,7 @@
               "service_level_token": "fedex_ground",
               "customer_portal_visibility": "visible",
               "is_default": true,
+              "default_transit_days": 3,
               "owner": {
                 "object": "owner",
                 "type": "account",
@@ -47123,6 +47150,7 @@
                     "service_level_token": "fedex_ground",
                     "customer_portal_visibility": "visible",
                     "is_default": true,
+                    "default_transit_days": 3,
                     "owner": {
                       "object": "owner",
                       "type": "account",
@@ -47164,6 +47192,7 @@
               "service_level_token": "fedex_ground",
               "customer_portal_visibility": "visible",
               "is_default": true,
+              "default_transit_days": 3,
               "owner": {
                 "object": "owner",
                 "type": "account",
@@ -47355,6 +47384,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -47386,6 +47416,7 @@
                   "service_level_token": "fedex_ground",
                   "customer_portal_visibility": "visible",
                   "is_default": true,
+                  "default_transit_days": 3,
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -49191,6 +49222,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -49222,6 +49254,7 @@
                 "service_level_token": "fedex_ground",
                 "customer_portal_visibility": "visible",
                 "is_default": true,
+                "default_transit_days": 3,
                 "owner": {
                   "object": "owner",
                   "type": "account",
@@ -49674,6 +49707,7 @@
                     "service_level_token": "fedex_ground",
                     "customer_portal_visibility": "visible",
                     "is_default": true,
+                    "default_transit_days": 3,
                     "owner": {
                       "object": "owner",
                       "type": "account",
@@ -49705,6 +49739,7 @@
               "service_level_token": "fedex_ground",
               "customer_portal_visibility": "visible",
               "is_default": true,
+              "default_transit_days": 3,
               "owner": {
                 "object": "owner",
                 "type": "account",
@@ -50406,6 +50441,8 @@
           "ship_by_date": null,
           "lead_time_days": null,
           "lead_time_source": null,
+          "transit_days": null,
+          "transit_source": null,
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
         },
@@ -50566,6 +50603,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -50597,6 +50635,7 @@
                   "service_level_token": "fedex_ground",
                   "customer_portal_visibility": "visible",
                   "is_default": true,
+                  "default_transit_days": 3,
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -51099,6 +51138,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -51130,6 +51170,7 @@
                 "service_level_token": "fedex_ground",
                 "customer_portal_visibility": "visible",
                 "is_default": true,
+                "default_transit_days": 3,
                 "owner": {
                   "object": "owner",
                   "type": "account",
@@ -51894,7 +51935,7 @@
             "type": "string"
           },
           "ship_by_date": {
-            "description": "Date this order is contractually due to ship.\n\nStamped when the order is issued, from the promised date if one was set, otherwise from the lead time on the customer, its account group, or the account. It is not recomputed afterwards, so renegotiating a customer's lead time leaves commitments already made where they are. Cleared if the order is unissued.",
+            "description": "Date this order is contractually due to ship.\n\nStamped when the order is issued. With a promised delivery date, this is that date less the carrier's transit for the order's lane, counted in business days — the day the order has to leave to arrive when promised. Otherwise it comes from the lead time on the customer, its account group, or the account.\n\nIt is not recomputed afterwards, so neither renegotiating a customer's lead time nor a later carrier estimate moves commitments already made. Cleared if the order is unissued.",
             "format": "date-time",
             "nullable": true,
             "type": "string"
@@ -51911,6 +51952,21 @@
               "account_group",
               "account",
               "manual",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "transit_days": {
+            "description": "Business days the carrier needs to cover this order's lane, subtracted from the promised delivery date to reach the ship-by date.\n\nOnly set when a delivery date was promised and the lane could be priced. Without it the ship-by date falls back to the promised date itself.",
+            "nullable": true,
+            "type": "integer"
+          },
+          "transit_source": {
+            "description": "Where the transit estimate came from.",
+            "enum": [
+              "carrier_lane",
+              "service_level",
               null
             ],
             "nullable": true,
@@ -51960,6 +52016,8 @@
           "ship_by_date",
           "lead_time_days",
           "lead_time_source",
+          "transit_days",
+          "transit_source",
           "created_at",
           "updated_at"
         ],
@@ -56663,6 +56721,7 @@
           "service_level_token": "fedex_ground",
           "customer_portal_visibility": "visible",
           "is_default": true,
+          "default_transit_days": 3,
           "owner": {
             "object": "owner",
             "type": "account",
@@ -56713,6 +56772,11 @@
             "description": "Whether this is the carrier's default service level, pre-selected when the carrier is chosen.\n\nEach carrier has at most one default; setting a new default clears the previous one. A default service level cannot be deleted until another service level takes its place or the flag is cleared.",
             "type": "boolean"
           },
+          "default_transit_days": {
+            "description": "Business days this service typically takes in transit, used to work an order's ship-by date back from a promised delivery date.\n\nA fallback for lanes the carrier has not quoted. Null means transit is unknown for this service rather than instant, so a ship-by date falls back to the promised delivery date itself.",
+            "nullable": true,
+            "type": "integer"
+          },
           "owner": {
             "allOf": [
               {
@@ -56756,6 +56820,7 @@
           "service_level_token",
           "customer_portal_visibility",
           "is_default",
+          "default_transit_days",
           "owner",
           "created_at",
           "updated_at"
@@ -56974,6 +57039,7 @@
                   "service_level_token": "fedex_ground",
                   "customer_portal_visibility": "visible",
                   "is_default": true,
+                  "default_transit_days": 3,
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -59500,6 +59566,11 @@
           "is_default": {
             "description": "Whether this is the carrier's default service level, pre-selected when the carrier is chosen.\n\nEach carrier has at most one default; setting this to `true` clears the carrier's existing default.",
             "type": "boolean"
+          },
+          "default_transit_days": {
+            "description": "Business days this service typically takes in transit, used to work an order's ship-by date back from a promised delivery date.\n\nA fallback: when a carrier can rate the lane, the transit it quotes is used instead. Set to null to remove it, which leaves transit unknown for lanes the carrier cannot rate.",
+            "nullable": true,
+            "type": "integer"
           }
         },
         "type": "object"
@@ -94683,6 +94754,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -94815,6 +94887,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -94945,6 +95018,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -95029,7 +95103,8 @@
                 "name": "Ground Shipping",
                 "code": "ground",
                 "customer_portal_visibility": "visible",
-                "is_default": false
+                "is_default": false,
+                "default_transit_days": 3
               },
               "schema": {
                 "$ref": "#/components/schemas/CreateServiceLevelRequest"
@@ -95049,6 +95124,7 @@
                   "service_level_token": "fedex_ground",
                   "customer_portal_visibility": "visible",
                   "is_default": true,
+                  "default_transit_days": 3,
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -95202,6 +95278,7 @@
                   "service_level_token": "fedex_ground",
                   "customer_portal_visibility": "visible",
                   "is_default": true,
+                  "default_transit_days": 3,
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -95314,6 +95391,7 @@
                   "service_level_token": "fedex_ground",
                   "customer_portal_visibility": "visible",
                   "is_default": true,
+                  "default_transit_days": 3,
                   "owner": {
                     "object": "owner",
                     "type": "account",
@@ -95479,6 +95557,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -95617,6 +95696,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -105826,6 +105906,7 @@
                                 "service_level_token": "fedex_ground",
                                 "customer_portal_visibility": "visible",
                                 "is_default": true,
+                                "default_transit_days": 3,
                                 "owner": {
                                   "object": "owner",
                                   "type": "account",
@@ -105857,6 +105938,7 @@
                           "service_level_token": "fedex_ground",
                           "customer_portal_visibility": "visible",
                           "is_default": true,
+                          "default_transit_days": 3,
                           "owner": {
                             "object": "owner",
                             "type": "account",
@@ -108282,6 +108364,7 @@
                                 "service_level_token": "fedex_ground",
                                 "customer_portal_visibility": "visible",
                                 "is_default": true,
+                                "default_transit_days": 3,
                                 "owner": {
                                   "object": "owner",
                                   "type": "account",
@@ -108313,6 +108396,7 @@
                           "service_level_token": "fedex_ground",
                           "customer_portal_visibility": "visible",
                           "is_default": true,
+                          "default_transit_days": 3,
                           "owner": {
                             "object": "owner",
                             "type": "account",
@@ -108813,6 +108897,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -108844,6 +108929,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -109345,6 +109431,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -109376,6 +109463,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -109870,6 +109958,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -109901,6 +109990,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -110372,6 +110462,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -110403,6 +110494,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -111275,6 +111367,7 @@
                                   "service_level_token": "fedex_ground",
                                   "customer_portal_visibility": "visible",
                                   "is_default": true,
+                                  "default_transit_days": 3,
                                   "owner": {
                                     "object": "owner",
                                     "type": "account",
@@ -111306,6 +111399,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -111758,6 +111852,7 @@
                                 "service_level_token": "fedex_ground",
                                 "customer_portal_visibility": "visible",
                                 "is_default": true,
+                                "default_transit_days": 3,
                                 "owner": {
                                   "object": "owner",
                                   "type": "account",
@@ -111789,6 +111884,7 @@
                           "service_level_token": "fedex_ground",
                           "customer_portal_visibility": "visible",
                           "is_default": true,
+                          "default_transit_days": 3,
                           "owner": {
                             "object": "owner",
                             "type": "account",
@@ -112490,6 +112586,8 @@
                       "ship_by_date": null,
                       "lead_time_days": null,
                       "lead_time_source": null,
+                      "transit_days": null,
+                      "transit_source": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     }
@@ -112708,6 +112806,7 @@
                               "service_level_token": "fedex_ground",
                               "customer_portal_visibility": "visible",
                               "is_default": true,
+                              "default_transit_days": 3,
                               "owner": {
                                 "object": "owner",
                                 "type": "account",
@@ -112739,6 +112838,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -113191,6 +113291,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -113222,6 +113323,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -113923,6 +114025,8 @@
                   "ship_by_date": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
+                  "transit_days": null,
+                  "transit_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -114856,6 +114960,7 @@
                               "service_level_token": "fedex_ground",
                               "customer_portal_visibility": "visible",
                               "is_default": true,
+                              "default_transit_days": 3,
                               "owner": {
                                 "object": "owner",
                                 "type": "account",
@@ -114887,6 +114992,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -115339,6 +115445,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -115370,6 +115477,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -116071,6 +116179,8 @@
                   "ship_by_date": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
+                  "transit_days": null,
+                  "transit_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -116267,6 +116377,7 @@
                               "service_level_token": "fedex_ground",
                               "customer_portal_visibility": "visible",
                               "is_default": true,
+                              "default_transit_days": 3,
                               "owner": {
                                 "object": "owner",
                                 "type": "account",
@@ -116298,6 +116409,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -116750,6 +116862,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -116781,6 +116894,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -117482,6 +117596,8 @@
                   "ship_by_date": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
+                  "transit_days": null,
+                  "transit_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -117623,6 +117739,7 @@
                               "service_level_token": "fedex_ground",
                               "customer_portal_visibility": "visible",
                               "is_default": true,
+                              "default_transit_days": 3,
                               "owner": {
                                 "object": "owner",
                                 "type": "account",
@@ -117654,6 +117771,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -118106,6 +118224,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -118137,6 +118256,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -118838,6 +118958,8 @@
                   "ship_by_date": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
+                  "transit_days": null,
+                  "transit_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -119198,6 +119320,7 @@
                               "service_level_token": "fedex_ground",
                               "customer_portal_visibility": "visible",
                               "is_default": true,
+                              "default_transit_days": 3,
                               "owner": {
                                 "object": "owner",
                                 "type": "account",
@@ -119229,6 +119352,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -119681,6 +119805,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -119712,6 +119837,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -120413,6 +120539,8 @@
                   "ship_by_date": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
+                  "transit_days": null,
+                  "transit_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -120554,6 +120682,7 @@
                               "service_level_token": "fedex_ground",
                               "customer_portal_visibility": "visible",
                               "is_default": true,
+                              "default_transit_days": 3,
                               "owner": {
                                 "object": "owner",
                                 "type": "account",
@@ -120585,6 +120714,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -121037,6 +121167,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -121068,6 +121199,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -121769,6 +121901,8 @@
                   "ship_by_date": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
+                  "transit_days": null,
+                  "transit_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
@@ -122000,6 +122134,7 @@
                               "service_level_token": "fedex_ground",
                               "customer_portal_visibility": "visible",
                               "is_default": true,
+                              "default_transit_days": 3,
                               "owner": {
                                 "object": "owner",
                                 "type": "account",
@@ -122031,6 +122166,7 @@
                         "service_level_token": "fedex_ground",
                         "customer_portal_visibility": "visible",
                         "is_default": true,
+                        "default_transit_days": 3,
                         "owner": {
                           "object": "owner",
                           "type": "account",
@@ -122483,6 +122619,7 @@
                             "service_level_token": "fedex_ground",
                             "customer_portal_visibility": "visible",
                             "is_default": true,
+                            "default_transit_days": 3,
                             "owner": {
                               "object": "owner",
                               "type": "account",
@@ -122514,6 +122651,7 @@
                       "service_level_token": "fedex_ground",
                       "customer_portal_visibility": "visible",
                       "is_default": true,
+                      "default_transit_days": 3,
                       "owner": {
                         "object": "owner",
                         "type": "account",
@@ -123215,6 +123353,8 @@
                   "ship_by_date": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
+                  "transit_days": null,
+                  "transit_source": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
