@@ -1532,7 +1532,6 @@
               "sales_order_price_quote",
               "sales_order_freight_quote",
               "sales_order_price_quote_line",
-              "sales_order_quote_rate",
               "hubspot_sync_job",
               "hubspot_sync_report",
               "hubspot_company_review",
@@ -5251,7 +5250,6 @@
               "sales_order_price_quote",
               "sales_order_freight_quote",
               "sales_order_price_quote_line",
-              "sales_order_quote_rate",
               "hubspot_sync_job",
               "hubspot_sync_report",
               "hubspot_company_review",
@@ -6278,6 +6276,100 @@
         "required": [
           "object",
           "checkout_url"
+        ],
+        "type": "object"
+      },
+      "ComputedRate": {
+        "description": "A rate calculated on demand rather than stored.\n\nThe same shape as a rate minus the fields only a persisted row can have: it carries no ID and no timestamps because nothing was written. Used where a figure is derived per request, such as an analysis comparing one customer's price against the median other customers pay.",
+        "example": {
+          "object": "computed_rate",
+          "value": "25.50",
+          "numerator_unit": null,
+          "denominator_unit": null,
+          "display_value": "$25.50 / kg"
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "computed_rate"
+            ],
+            "type": "string"
+          },
+          "value": {
+            "description": "Decimal value of the rate, as a string to preserve precision.\n\nExpressed as the amount of the numerator unit per one denominator unit.",
+            "format": "decimal",
+            "type": "string"
+          },
+          "numerator_unit": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Unit"
+              }
+            ],
+            "description": "Unit of the rate's numerator (e.g. the currency of a price).",
+            "example": {
+              "id": "un_82bd37dae5po",
+              "object": "unit",
+              "name": "Kilogram",
+              "abbreviation": "kg",
+              "type": "mass",
+              "ratio_numerator": "1000",
+              "ratio_denominator": "1",
+              "offset_numerator": "0",
+              "offset_denominator": "1",
+              "is_base_unit": false,
+              "owner": {
+                "object": "owner",
+                "type": "system",
+                "account": null
+              },
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "nullable": true,
+            "x-expandable": true
+          },
+          "denominator_unit": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Unit"
+              }
+            ],
+            "description": "Unit of the rate's denominator (the per-unit basis, e.g. pairs for a price per pair).",
+            "example": {
+              "id": "un_82bd37dae5po",
+              "object": "unit",
+              "name": "Kilogram",
+              "abbreviation": "kg",
+              "type": "mass",
+              "ratio_numerator": "1000",
+              "ratio_denominator": "1",
+              "offset_numerator": "0",
+              "offset_denominator": "1",
+              "is_base_unit": false,
+              "owner": {
+                "object": "owner",
+                "type": "system",
+                "account": null
+              },
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "nullable": true,
+            "x-expandable": true
+          },
+          "display_value": {
+            "description": "Human-readable formatted value (e.g. \"$25.50 / pr\").",
+            "type": "string"
+          }
+        },
+        "required": [
+          "object",
+          "value",
+          "numerator_unit",
+          "denominator_unit",
+          "display_value"
         ],
         "type": "object"
       },
@@ -9245,7 +9337,6 @@
               "sales_order_price_quote",
               "sales_order_freight_quote",
               "sales_order_price_quote_line",
-              "sales_order_quote_rate",
               "hubspot_sync_job",
               "hubspot_sync_report",
               "hubspot_company_review",
@@ -14587,7 +14678,6 @@
               "sales_order_price_quote",
               "sales_order_freight_quote",
               "sales_order_price_quote_line",
-              "sales_order_quote_rate",
               "hubspot_sync_job",
               "hubspot_sync_report",
               "hubspot_company_review",
@@ -24366,7 +24456,6 @@
                 "sales_order_price_quote",
                 "sales_order_freight_quote",
                 "sales_order_price_quote_line",
-                "sales_order_quote_rate",
                 "hubspot_sync_job",
                 "hubspot_sync_report",
                 "hubspot_company_review",
@@ -45849,7 +45938,7 @@
         "example": {
           "object": "sales_order_freight_quote",
           "unit_price": {
-            "object": "sales_order_quote_rate",
+            "object": "computed_rate",
             "value": "24.50",
             "numerator_unit": {
               "id": "un_82bd37dae5po",
@@ -45888,7 +45977,8 @@
               },
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
-            }
+            },
+            "display_value": "$24.50 / ea"
           }
         },
         "properties": {
@@ -45902,10 +45992,17 @@
           "unit_price": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/SalesOrderQuoteRate"
+                "$ref": "#/components/schemas/ComputedRate"
               }
             ],
             "description": "Estimated freight unit price.",
+            "example": {
+              "object": "computed_rate",
+              "value": "25.50",
+              "numerator_unit": null,
+              "denominator_unit": null,
+              "display_value": "$25.50 / kg"
+            },
             "nullable": true
           }
         },
@@ -46416,7 +46513,7 @@
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
                 "unit_price": {
-                  "object": "sales_order_quote_rate",
+                  "object": "computed_rate",
                   "value": "25.00",
                   "numerator_unit": {
                     "id": "un_82bd37dae5po",
@@ -46455,7 +46552,8 @@
                     },
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
-                  }
+                  },
+                  "display_value": "kg25.00 / kg"
                 }
               }
             ]
@@ -46947,10 +47045,17 @@
           "unit_price": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/SalesOrderQuoteRate"
+                "$ref": "#/components/schemas/ComputedRate"
               }
             ],
             "description": "Calculated unit price.",
+            "example": {
+              "object": "computed_rate",
+              "value": "25.50",
+              "numerator_unit": null,
+              "denominator_unit": null,
+              "display_value": "$25.50 / kg"
+            },
             "nullable": true
           }
         },
@@ -53302,86 +53407,6 @@
         ],
         "type": "object"
       },
-      "SalesOrderQuoteRate": {
-        "description": "A per-unit rate on a sales-order quote.\n\nA lightweight, unpersisted variant of a rate: it carries no ID or timestamps because a quote is computed on demand and never stored.",
-        "properties": {
-          "object": {
-            "description": "Resource type identifier.",
-            "enum": [
-              "sales_order_quote_rate"
-            ],
-            "type": "string"
-          },
-          "value": {
-            "description": "Decimal value of the rate, expressed as the amount of the numerator unit per one denominator unit.",
-            "format": "decimal",
-            "type": "string"
-          },
-          "numerator_unit": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Unit"
-              }
-            ],
-            "description": "Unit of the rate's numerator (e.g. the currency of a price).",
-            "example": {
-              "id": "un_82bd37dae5po",
-              "object": "unit",
-              "name": "Kilogram",
-              "abbreviation": "kg",
-              "type": "mass",
-              "ratio_numerator": "1000",
-              "ratio_denominator": "1",
-              "offset_numerator": "0",
-              "offset_denominator": "1",
-              "is_base_unit": false,
-              "owner": {
-                "object": "owner",
-                "type": "system",
-                "account": null
-              },
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
-            },
-            "nullable": true
-          },
-          "denominator_unit": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Unit"
-              }
-            ],
-            "description": "Unit of the rate's denominator (the per-unit basis).",
-            "example": {
-              "id": "un_82bd37dae5po",
-              "object": "unit",
-              "name": "Kilogram",
-              "abbreviation": "kg",
-              "type": "mass",
-              "ratio_numerator": "1000",
-              "ratio_denominator": "1",
-              "offset_numerator": "0",
-              "offset_denominator": "1",
-              "is_base_unit": false,
-              "owner": {
-                "object": "owner",
-                "type": "system",
-                "account": null
-              },
-              "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
-            },
-            "nullable": true
-          }
-        },
-        "required": [
-          "object",
-          "value",
-          "numerator_unit",
-          "denominator_unit"
-        ],
-        "type": "object"
-      },
       "SalesOrderRelated": {
         "description": "The fulfillment records produced from a sales order.\n\nThe group itself is returned only when at least one of its members has been expanded.",
         "properties": {
@@ -56343,7 +56368,6 @@
               "sales_order_price_quote",
               "sales_order_freight_quote",
               "sales_order_price_quote_line",
-              "sales_order_quote_rate",
               "hubspot_sync_job",
               "hubspot_sync_report",
               "hubspot_company_review",
@@ -56725,7 +56749,6 @@
               "sales_order_price_quote",
               "sales_order_freight_quote",
               "sales_order_price_quote_line",
-              "sales_order_quote_rate",
               "hubspot_sync_job",
               "hubspot_sync_report",
               "hubspot_company_review",
@@ -80524,7 +80547,6 @@
                   "sales_order_price_quote",
                   "sales_order_freight_quote",
                   "sales_order_price_quote_line",
-                  "sales_order_quote_rate",
                   "hubspot_sync_job",
                   "hubspot_sync_report",
                   "hubspot_company_review",
@@ -80846,7 +80868,6 @@
                 "sales_order_price_quote",
                 "sales_order_freight_quote",
                 "sales_order_price_quote_line",
-                "sales_order_quote_rate",
                 "hubspot_sync_job",
                 "hubspot_sync_report",
                 "hubspot_company_review",
@@ -83435,7 +83456,6 @@
                   "sales_order_price_quote",
                   "sales_order_freight_quote",
                   "sales_order_price_quote_line",
-                  "sales_order_quote_rate",
                   "hubspot_sync_job",
                   "hubspot_sync_report",
                   "hubspot_company_review",
@@ -87251,7 +87271,6 @@
                 "sales_order_price_quote",
                 "sales_order_freight_quote",
                 "sales_order_price_quote_line",
-                "sales_order_quote_rate",
                 "hubspot_sync_job",
                 "hubspot_sync_report",
                 "hubspot_company_review",
@@ -114667,7 +114686,7 @@
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
                         "unit_price": {
-                          "object": "sales_order_quote_rate",
+                          "object": "computed_rate",
                           "value": "25.00",
                           "numerator_unit": {
                             "id": "un_82bd37dae5po",
@@ -114706,7 +114725,8 @@
                             },
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
-                          }
+                          },
+                          "display_value": "kg25.00 / kg"
                         }
                       }
                     ]
@@ -122042,7 +122062,7 @@
                 "example": {
                   "object": "sales_order_freight_quote",
                   "unit_price": {
-                    "object": "sales_order_quote_rate",
+                    "object": "computed_rate",
                     "value": "24.50",
                     "numerator_unit": {
                       "id": "un_82bd37dae5po",
@@ -122081,7 +122101,8 @@
                       },
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
-                    }
+                    },
+                    "display_value": "$24.50 / ea"
                   }
                 },
                 "schema": {
