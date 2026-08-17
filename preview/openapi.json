@@ -918,6 +918,7 @@
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z"
           },
+          "is_commission_eligible": false,
           "last_used_at": "2026-05-10T00:23:00Z",
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
@@ -1098,6 +1099,10 @@
             "nullable": true,
             "x-expandable": true
           },
+          "is_commission_eligible": {
+            "description": "Whether this user can be assigned as a sales representative on orders, territories, and targets.\n\nIndependent of the `sales_rep` role type, which still scopes analytics and hides cost. Users with the `sales_rep` role are always eligible.",
+            "type": "boolean"
+          },
           "last_used_at": {
             "description": "When the user last accessed this account.",
             "format": "date-time",
@@ -1122,6 +1127,7 @@
           "role",
           "department",
           "user",
+          "is_commission_eligible",
           "last_used_at",
           "created_at",
           "updated_at"
@@ -1551,6 +1557,8 @@
               "pack_list_back_order",
               "pack_list_case",
               "job",
+              "job_result",
+              "job_export",
               "analyze_customer_pricing_response",
               "customer_pricing_finding",
               "customer_pricing_summary",
@@ -4089,13 +4097,16 @@
                 "deviated_lines": 1,
                 "added_lines": 0,
                 "abs_delta_units": 252,
+                "off_plan_lines": 1,
+                "off_plan_quantity": 147,
                 "line_adherence_pct": 87.5,
                 "units_adherence_pct": 94,
                 "frozen_through_at": null
               }
             ]
           },
-          "baseline_status": "measured"
+          "baseline_status": "measured",
+          "scheduled_machine_count": 2
         },
         "properties": {
           "object": {
@@ -4205,6 +4216,10 @@
               "no_baseline"
             ],
             "type": "string"
+          },
+          "scheduled_machine_count": {
+            "description": "Machines the plan asked for over this window.\n\nEvery figure in this response covers those machines only. Production scanned onto a machine no published version scheduled is excluded outright, so the score measures the plan that was made rather than the whole plant against it.",
+            "type": "integer"
           }
         },
         "required": [
@@ -4216,7 +4231,8 @@
           "buckets",
           "totals",
           "frozen_adherence",
-          "baseline_status"
+          "baseline_status",
+          "scheduled_machine_count"
         ],
         "type": "object"
       },
@@ -5269,6 +5285,8 @@
               "pack_list_back_order",
               "pack_list_case",
               "job",
+              "job_result",
+              "job_export",
               "analyze_customer_pricing_response",
               "customer_pricing_finding",
               "customer_pricing_summary",
@@ -7367,6 +7385,7 @@
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             },
+            "is_commission_eligible": false,
             "last_used_at": "2026-05-10T00:23:00Z",
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z"
@@ -7602,6 +7621,7 @@
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
+              "is_commission_eligible": false,
               "last_used_at": "2026-05-10T00:23:00Z",
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -8790,6 +8810,7 @@
           "password": "QgS7Z8Hhj3\u00261",
           "role_id": "rl_3xknmfqflhvb",
           "department_id": "dp_m0jayebxnkos",
+          "is_commission_eligible": false,
           "preferences": [
             {
               "notification_type": "order_acknowledgement",
@@ -8821,6 +8842,10 @@
           "department_id": {
             "description": "ID of the department to assign to the user.\n\nThe department must already exist in the account you are acting in.",
             "type": "string"
+          },
+          "is_commission_eligible": {
+            "description": "Whether the user can be assigned as a sales representative on orders, territories, and targets.\n\nDefaults to false. Forced true for the `sales_rep` role type and rejected for scanner and agent roles.",
+            "type": "boolean"
           },
           "preferences": {
             "description": "Notification preference toggles for the new user.\n\nOnly applies when creating a user in another account you manage (cross-account); ignored when creating a user in your own account.",
@@ -9356,6 +9381,8 @@
               "pack_list_back_order",
               "pack_list_case",
               "job",
+              "job_result",
+              "job_export",
               "analyze_customer_pricing_response",
               "customer_pricing_finding",
               "customer_pricing_summary",
@@ -11728,6 +11755,7 @@
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
+              "is_commission_eligible": false,
               "last_used_at": "2026-05-10T00:23:00Z",
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -12412,6 +12440,7 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
+                      "is_commission_eligible": false,
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -12805,6 +12834,7 @@
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
+              "is_commission_eligible": false,
               "last_used_at": "2026-05-10T00:23:00Z",
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -14697,6 +14727,8 @@
               "pack_list_back_order",
               "pack_list_case",
               "job",
+              "job_result",
+              "job_export",
               "analyze_customer_pricing_response",
               "customer_pricing_finding",
               "customer_pricing_summary",
@@ -15035,6 +15067,14 @@
             "description": "Total absolute unit change across frozen-week deviations.",
             "type": "number"
           },
+          "off_plan_lines": {
+            "description": "Campaigns the floor ran inside the frozen window that the frozen plan never called for, counted per machine-week-SKU.\n\nWorking around a commitment breaks it as surely as editing it does, so this scores alongside the hand edits rather than beside them.",
+            "type": "integer"
+          },
+          "off_plan_quantity": {
+            "description": "Units behind those off-plan campaigns.",
+            "type": "number"
+          },
           "line_adherence_pct": {
             "description": "Share of frozen campaigns that survived untouched. Null when nothing was frozen.",
             "nullable": true,
@@ -15060,6 +15100,8 @@
           "deviated_lines",
           "added_lines",
           "abs_delta_units",
+          "off_plan_lines",
+          "off_plan_quantity",
           "line_adherence_pct",
           "units_adherence_pct",
           "frozen_through_at"
@@ -16785,26 +16827,55 @@
       "Job": {
         "description": "Records a piece of work the API accepted and carries out asynchronously. Endpoints\nanswering `202 Accepted` point at one with a `Location` header; poll it for the outcome.",
         "example": {
-          "id": "jb_01k0a5smf9ekb8rqg1",
+          "id": "jb_grz7cdpnz8jr",
           "object": "job",
-          "type": "bulkcreate",
+          "type": "bulk_create",
+          "resource_type": "production_run",
           "status": "completed",
-          "created_by_id": null,
-          "created_by_name": null,
-          "created_by_username": null,
-          "created_by_email": null,
-          "results": [
-            {
-              "index": 0,
-              "id": "prru_sglzcyflxk59",
-              "action": "created",
-              "sub_resource_ids": [
-                "bt_fuies8j4pk45"
-              ]
-            }
-          ],
-          "errors": [],
-          "error_summary": null,
+          "created_by": null,
+          "results": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "object": "job_result",
+                "index": 0,
+                "status": "created",
+                "resource": {
+                  "id": "prru_sglzcyflxk59",
+                  "object": "entity",
+                  "type": "production_run",
+                  "name": null,
+                  "handle": null
+                },
+                "sub_resources": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": null,
+                    "previous_page_url": null,
+                    "has_next_page": false,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "bt_fuies8j4pk45",
+                      "object": "entity",
+                      "type": "batch",
+                      "name": null,
+                      "handle": null
+                    }
+                  ]
+                },
+                "error": null
+              }
+            ]
+          },
+          "error": null,
           "export": null,
           "started_at": "2026-05-10T00:00:00Z",
           "completed_at": "2026-05-10T00:00:00Z",
@@ -16828,14 +16899,318 @@
           "type": {
             "description": "The kind of work the job carries out.",
             "enum": [
-              "bulkcreate",
-              "bulkupsert",
+              "bulk_create",
+              "bulk_upsert",
               "export"
             ],
             "type": "string"
           },
+          "resource_type": {
+            "description": "The kind of resource the job operates on, as an object-type value (e.g. `product`).\n\n`type` names the verb — what the job does — and this names the subject, so a job that produced no results still says what it was for.",
+            "enum": [
+              "account",
+              "actor",
+              "entity",
+              "record",
+              "freight",
+              "sales_order_totals",
+              "sales_order_stage_total",
+              "sales_order_related",
+              "order_contact",
+              "user",
+              "address",
+              "api_key",
+              "created_api_key",
+              "refresh_token",
+              "list",
+              "sandbox",
+              "registration_session",
+              "pricing_plan",
+              "account_plan",
+              "plan_change",
+              "enterprise_inquiry",
+              "request_log",
+              "audit_event",
+              "audit_field_change",
+              "role",
+              "unit",
+              "account_affiliation",
+              "agent_definition",
+              "available_tool",
+              "agent_definition_tool",
+              "agent_account_status",
+              "agent_run",
+              "agent_action",
+              "agent_run_step",
+              "agent_token_usage",
+              "agent_memory",
+              "notification",
+              "notification_unread_count",
+              "notification_send_result",
+              "notification_unread_summary",
+              "announcement",
+              "conversation",
+              "support_case",
+              "conversation_participant",
+              "read_cursor",
+              "chat_message",
+              "notification_unread_summary_account",
+              "messaging_block",
+              "notification_preference",
+              "message_attachment",
+              "attachment_upload_target",
+              "scheduled_message",
+              "messaging_contact",
+              "message_report",
+              "tool_group",
+              "model",
+              "payment_term",
+              "shipping_term",
+              "quantity",
+              "account_group",
+              "support_route",
+              "support_availability",
+              "account_status",
+              "geolocation",
+              "account_user",
+              "department",
+              "account_integration",
+              "account_price",
+              "product_line",
+              "item_category",
+              "attribute",
+              "rate",
+              "account_group_product_line_access",
+              "sales_target",
+              "adjustment_type",
+              "account_branding",
+              "account_portal",
+              "account_logo_url",
+              "account_favicon_url",
+              "public_account",
+              "property",
+              "carrier",
+              "service_level",
+              "item",
+              "item_lot_default",
+              "item_inventory",
+              "product",
+              "batch",
+              "batch_flow_node",
+              "scanning_consumption",
+              "open_batch_summary",
+              "scanning_production_step_info",
+              "scanning_station",
+              "production_step",
+              "production_run",
+              "machine",
+              "machine_status",
+              "machine_downtime_event",
+              "demand_override",
+              "demand_override_type",
+              "machine_downtime_reason",
+              "production_schedule_preview",
+              "production_schedule_regenerate_preview",
+              "production_schedule",
+              "production_schedule_line",
+              "production_schedule_deviation",
+              "production_schedule_derived_line",
+              "production_schedule_settings",
+              "production_schedule_resource_setting",
+              "production_schedule_item_setting",
+              "fulfillment_recommendation",
+              "analyze_delivery_performance_response",
+              "delivery_performance",
+              "delivery_backlog_bucket",
+              "schedule_order_coverage",
+              "schedule_order_coverage_line",
+              "promise_date_quote",
+              "schedule_deviation_type",
+              "schedule_at_risk_order",
+              "production_schedule_finished_policy",
+              "production_schedule_week_release",
+              "production_schedule_week_release_preview",
+              "production_schedule_item_policy",
+              "child_account",
+              "unit_group",
+              "unit_group_unit",
+              "consumption",
+              "customer_product_line_access",
+              "customer",
+              "frequently_ordered_product",
+              "priority",
+              "delivery",
+              "delivery_line",
+              "sales_order",
+              "location",
+              "location_type",
+              "lot",
+              "email_log",
+              "email_domain",
+              "email_inbox",
+              "portal_domain",
+              "dns_record",
+              "inventory_change_log",
+              "invoice",
+              "invoice_summary",
+              "invoice_line",
+              "invoice_allocation",
+              "invoice_for_payment",
+              "shipment",
+              "shipment_summary",
+              "shipment_line",
+              "shipping_case",
+              "shipping_case_label_url",
+              "settlement",
+              "settlement_summary",
+              "role_permission",
+              "registration_flow",
+              "registration_flow_option",
+              "transaction",
+              "transaction_summary",
+              "transaction_method",
+              "transaction_type",
+              "transaction_allocation",
+              "usage_item",
+              "account_usage_response",
+              "subscription_info",
+              "billing_portal_session_response",
+              "switch_plan_response",
+              "ensure_billing_customer_response",
+              "spending_cap_response",
+              "agent_spend_info",
+              "webhook_response",
+              "address_suggestion",
+              "address_components",
+              "address_details_result",
+              "validated_address",
+              "plan_limit",
+              "plan_change_proration",
+              "plan_change_line_item",
+              "setup_billing_response",
+              "confirm_payment_response",
+              "oauth_response",
+              "oauth_status_response",
+              "stripe_publishable_key",
+              "stripe_status",
+              "healthcheck",
+              "agent_definition_config",
+              "trigger_config",
+              "customer_contact_info",
+              "customer_freight_preferences",
+              "customer_defaults",
+              "customer_lead_time",
+              "customer_notification_preferences",
+              "order_notification_recipient",
+              "order_discount",
+              "sales_order_line",
+              "sales_order_type",
+              "sales_order_status",
+              "material",
+              "supplier_material",
+              "part",
+              "permission_group",
+              "permission",
+              "pick",
+              "pick_line",
+              "product_type",
+              "production",
+              "production_flow",
+              "map",
+              "purchase_order",
+              "purchase_order_line",
+              "supplier",
+              "supplier_summary",
+              "receivable_entry",
+              "receiving_order",
+              "receiving_order_line",
+              "email_contact",
+              "allocation_entry",
+              "open_credit_entry",
+              "volume_discount",
+              "volume_discount_tier",
+              "analyze_deliveries_response",
+              "analyze_manufacturing_response",
+              "analyze_manufacturing_batch_response",
+              "analyze_quarterly_orders_response",
+              "analyze_new_customers_response",
+              "analyze_demand_forecast_response",
+              "analyze_oee_response",
+              "analyze_oee_trend_response",
+              "analyze_schedule_attainment_response",
+              "catalog_product_line",
+              "catalog_category",
+              "catalog_product",
+              "catalog_property",
+              "catalog_attribute",
+              "dc_location",
+              "edi_run",
+              "inventory_item",
+              "analyze_weeks_of_sales_response",
+              "bulk_reconcile_items_response",
+              "sys_property",
+              "sys_property_type",
+              "sys_property_value",
+              "territory",
+              "tenancy",
+              "checkout_session",
+              "estimate_rate_result",
+              "rate_shop_option",
+              "rate_shop_result",
+              "owner",
+              "created_by",
+              "message",
+              "account_photo_upload_result",
+              "user_photo_upload_result",
+              "user_photo_url",
+              "batch_lot",
+              "check_duplicate_result",
+              "item_trend_point",
+              "pack_pick_response",
+              "pick_shipments_response",
+              "tenancy_pending_registration",
+              "invoice_allocation_entry",
+              "allocation_customer",
+              "checkout_sales_order",
+              "sales_order_price_quote",
+              "sales_order_freight_quote",
+              "sales_order_price_quote_line",
+              "hubspot_sync_job",
+              "hubspot_sync_report",
+              "hubspot_company_review",
+              "hubspot_company_candidate",
+              "hubspot_sync_record",
+              "contact_match",
+              "reply_draft",
+              "conversation_link",
+              "messaging_group",
+              "messaging_group_member",
+              "portal_profile",
+              "portal_registration_session",
+              "portal_registration_session_data",
+              "pack_list",
+              "pack_list_party",
+              "pack_list_line_item",
+              "pack_list_back_order",
+              "pack_list_case",
+              "job",
+              "job_result",
+              "job_export",
+              "analyze_customer_pricing_response",
+              "customer_pricing_finding",
+              "customer_pricing_summary",
+              "computed_rate",
+              "computed_quantity",
+              "analyze_realized_margins_response",
+              "realized_margin_finding",
+              "realized_margin_summary",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
+          },
           "status": {
-            "description": "How far the job has got. `completed` means the work was processed, not that every\nrow succeeded — read `errors`.",
+            "description": "How far the job has got.\n\n`completed` means the work was processed, not that every row succeeded — read each entry's own `status` in `results`.",
             "enum": [
               "created",
               "started",
@@ -16845,46 +17220,122 @@
             ],
             "type": "string"
           },
-          "created_by_id": {
-            "description": "The ID of the account user who requested the work.",
+          "created_by": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Actor"
+              }
+            ],
+            "description": "The actor who requested the work.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "actor",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com",
+              "avatar_url": "https://cdn.augno.com/avatars/us_43irtlt2ajz6.jpg",
+              "role": {
+                "id": "rl_3xknmfqflhvb",
+                "object": "role",
+                "name": "Admin",
+                "type": "admin",
+                "owner": {
+                  "object": "owner",
+                  "type": "account",
+                  "account": {
+                    "id": "ac_ykxoradjoeb3",
+                    "object": "account",
+                    "name": "Acme Inc.",
+                    "default_billing_address": null,
+                    "default_shipping_address": null,
+                    "branding": null,
+                    "portal": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  }
+                },
+                "permissions": [
+                  "customers:create",
+                  "customers:read",
+                  "customers:update",
+                  "customers:delete"
+                ],
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              }
+            },
             "nullable": true,
-            "type": "string"
-          },
-          "created_by_name": {
-            "description": "Name of the account user who requested the work.",
-            "nullable": true,
-            "type": "string"
-          },
-          "created_by_username": {
-            "description": "Username of the account user who requested the work.",
-            "nullable": true,
-            "type": "string"
-          },
-          "created_by_email": {
-            "description": "Email of the account user who requested the work.",
-            "nullable": true,
-            "type": "string"
+            "x-expandable": true
           },
           "results": {
-            "description": "One entry per request row that produced a resource. A bulk create records these when\nit accepts the request, so they stay provisional until `status` is `completed`.",
-            "items": {
-              "$ref": "#/components/schemas/JobResult"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_JobResult"
+              }
+            ],
+            "description": "One entry per submitted row, saying what became of it. A bulk create records these when it accepts the request, so they stay provisional until `status` is `completed`.\n\n`page_info.has_next_page` is true when the job produced more rows than it records.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": [
+                {
+                  "object": "job_result",
+                  "index": 0,
+                  "status": "created",
+                  "resource": {
+                    "id": "prru_sglzcyflxk59",
+                    "object": "entity",
+                    "type": "production_run",
+                    "name": null,
+                    "handle": null
+                  },
+                  "sub_resources": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "id": "bt_fuies8j4pk45",
+                        "object": "entity",
+                        "type": "batch",
+                        "name": null,
+                        "handle": null
+                      }
+                    ]
+                  },
+                  "error": null
+                }
+              ]
             },
-            "type": "array",
-            "x-expandable": true
+            "nullable": true
           },
-          "errors": {
-            "description": "One entry per failure, so a `completed` job can still carry failed rows. A whole-job\nfailure records a single entry with no `index`.",
-            "items": {
-              "$ref": "#/components/schemas/RowError"
+          "error": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResponseError"
+              }
+            ],
+            "description": "The failure that sank the job as a whole, in the same shape a synchronous error\nresponse carries.\n\nA row rejected on its own merits reports its failure on its own entry in `results` instead, so this stays null even when some rows failed.",
+            "example": {
+              "code": "validation_failed",
+              "type": "invalid_request_error",
+              "message": "The request was invalid.",
+              "param": "email",
+              "doc_url": "https://docs.augno.com/api/errors#validation_failed",
+              "is_transient": false,
+              "quota": null,
+              "request_log_url": "https://augno.com/dashboard/request-logs/rq_fbv1ygmybo3eauykr74"
             },
-            "type": "array",
-            "x-expandable": true
-          },
-          "error_summary": {
-            "description": "A one-line reason the last attempt failed.",
-            "nullable": true,
-            "type": "string"
+            "nullable": true
           },
           "export": {
             "allOf": [
@@ -16892,7 +17343,11 @@
                 "$ref": "#/components/schemas/JobExport"
               }
             ],
-            "description": "Where a completed export job's file can be downloaded. Null on every other job, and\nreturned only to a caller asking for JSON — otherwise retrieving the job redirects to it.",
+            "description": "Where a completed export job's file can be downloaded.\n\nNull on every other job, and returned only to a caller asking for JSON — otherwise retrieving the job redirects to it.",
+            "example": {
+              "object": "job_export",
+              "url": "https://files.augno.com/exports/ac_ykxoradjoeb3/production_runs/jb_grz7cdpnz8jr/production_runs_20260817.xlsx?X-Amz-Signature=example"
+            },
             "nullable": true
           },
           "started_at": {
@@ -16934,14 +17389,11 @@
           "id",
           "object",
           "type",
+          "resource_type",
           "status",
-          "created_by_id",
-          "created_by_name",
-          "created_by_username",
-          "created_by_email",
+          "created_by",
           "results",
-          "errors",
-          "error_summary",
+          "error",
           "export",
           "started_at",
           "completed_at",
@@ -16954,48 +17406,153 @@
       },
       "JobExport": {
         "description": "Points a completed export job at the file it produced.",
+        "example": {
+          "object": "job_export",
+          "url": "https://files.augno.com/exports/ac_ykxoradjoeb3/production_runs/jb_grz7cdpnz8jr/production_runs_20260817.xlsx?X-Amz-Signature=example"
+        },
         "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "job_export"
+            ],
+            "type": "string"
+          },
           "url": {
-            "description": "Presigned link to the file, valid for five minutes — read the job again for a fresh one.\nIt carries its own authorization, so treat it as a credential: do not log it, store it, or pass it on.",
+            "description": "Presigned link to the file, valid for five minutes.\n\nIf the link has expired, read the job again for a fresh one.",
             "type": "string"
           }
         },
         "required": [
+          "object",
           "url"
         ],
         "type": "object"
       },
       "JobResult": {
-        "description": "Accounts for one request row that produced a resource. With `errors`, also row-indexed,\nevery submitted row lands in exactly one of the two once the job completes.",
+        "description": "Accounts for one row of the request: the resource it produced, or the error it was\nrejected with. Every submitted row lands in exactly one of these once the job completes.",
+        "example": {
+          "object": "job_result",
+          "index": 0,
+          "status": "created",
+          "resource": {
+            "id": "prru_sglzcyflxk59",
+            "object": "entity",
+            "type": "production_run",
+            "name": null,
+            "handle": null
+          },
+          "sub_resources": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "id": "bt_fuies8j4pk45",
+                "object": "entity",
+                "type": "batch",
+                "name": null,
+                "handle": null
+              }
+            ]
+          },
+          "error": null
+        },
         "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "job_result"
+            ],
+            "type": "string"
+          },
           "index": {
             "description": "Zero-based row of the request this result names.",
             "type": "integer"
           },
-          "id": {
-            "description": "ID of the resource this row produced.",
-            "type": "string"
-          },
-          "action": {
-            "description": "Whether the resource was created or updated.",
+          "status": {
+            "description": "What became of the row.\n\n- `created`: the row produced a new resource.\n- `updated`: the row updated an existing resource.\n- `failed`: the row was rejected and wrote nothing.",
             "enum": [
               "created",
-              "updated"
+              "updated",
+              "failed"
             ],
             "type": "string"
           },
-          "sub_resource_ids": {
-            "description": "Resources created alongside this row's own resource — for a bulk production run\ncreate, the ids of its batches. Omitted for operations that produce none.",
-            "items": {
-              "type": "string"
+          "resource": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The resource the row produced. Null when the row failed.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
             },
-            "type": "array"
+            "nullable": true
+          },
+          "sub_resources": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_Entity"
+              }
+            ],
+            "description": "Resources produced as a side effect to the row's primary operation.\n\nFor example, when creating a production run, several batch records may also be created.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": [
+                {
+                  "id": "us_43irtlt2ajz6",
+                  "object": "entity",
+                  "type": "user",
+                  "name": "John Doe",
+                  "handle": "jdoe@augno.com"
+                }
+              ]
+            },
+            "nullable": true
+          },
+          "error": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResponseError"
+              }
+            ],
+            "description": "Why the row was rejected, in the same shape a synchronous error response carries.\n\nNull unless `status` is `failed`.",
+            "example": {
+              "code": "validation_failed",
+              "type": "invalid_request_error",
+              "message": "The request was invalid.",
+              "param": "email",
+              "doc_url": "https://docs.augno.com/api/errors#validation_failed",
+              "is_transient": false,
+              "quota": null,
+              "request_log_url": "https://augno.com/dashboard/request-logs/rq_fbv1ygmybo3eauykr74"
+            },
+            "nullable": true
           }
         },
         "required": [
+          "object",
           "index",
-          "id",
-          "action"
+          "status",
+          "resource",
+          "sub_resources",
+          "error"
         ],
         "type": "object"
       },
@@ -17401,6 +17958,7 @@
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
+              "is_commission_eligible": false,
               "last_used_at": "2026-05-10T00:23:00Z",
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -19750,6 +20308,7 @@
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
+                "is_commission_eligible": false,
                 "last_used_at": "2026-05-10T00:23:00Z",
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
@@ -20543,6 +21102,7 @@
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
+                  "is_commission_eligible": false,
                   "last_used_at": "2026-05-10T00:23:00Z",
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -22060,6 +22620,84 @@
             "description": "Resources in this page.",
             "items": {
               "$ref": "#/components/schemas/ItemCategory"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_JobResult": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "object": "job_result",
+              "index": 0,
+              "status": "created",
+              "resource": {
+                "id": "prru_sglzcyflxk59",
+                "object": "entity",
+                "type": "production_run",
+                "name": null,
+                "handle": null
+              },
+              "sub_resources": {
+                "object": "list",
+                "page_info": {
+                  "next_page_url": null,
+                  "previous_page_url": null,
+                  "has_next_page": false,
+                  "has_prev_page": false
+                },
+                "data": [
+                  {
+                    "id": "bt_fuies8j4pk45",
+                    "object": "entity",
+                    "type": "batch",
+                    "name": null,
+                    "handle": null
+                  }
+                ]
+              },
+              "error": null
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/JobResult"
             },
             "type": "array",
             "x-stainless-pagination-property": {
@@ -23796,6 +24434,7 @@
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
+                "is_commission_eligible": false,
                 "last_used_at": "2026-05-10T00:23:00Z",
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
@@ -24475,6 +25114,8 @@
                 "pack_list_back_order",
                 "pack_list_case",
                 "job",
+                "job_result",
+                "job_export",
                 "analyze_customer_pricing_response",
                 "customer_pricing_finding",
                 "customer_pricing_summary",
@@ -28877,6 +29518,7 @@
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
+                    "is_commission_eligible": false,
                     "last_used_at": "2026-05-10T00:23:00Z",
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -35672,6 +36314,7 @@
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             },
+            "is_commission_eligible": false,
             "last_used_at": "2026-05-10T00:23:00Z",
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z"
@@ -35826,6 +36469,7 @@
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
+              "is_commission_eligible": false,
               "last_used_at": "2026-05-10T00:23:00Z",
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -40481,6 +41125,7 @@
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             },
+            "is_commission_eligible": false,
             "last_used_at": "2026-05-10T00:23:00Z",
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z"
@@ -40643,6 +41288,7 @@
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
+              "is_commission_eligible": false,
               "last_used_at": "2026-05-10T00:23:00Z",
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -48149,6 +48795,7 @@
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
+              "is_commission_eligible": false,
               "last_used_at": "2026-05-10T00:23:00Z",
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -48381,6 +49028,7 @@
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
+                "is_commission_eligible": false,
                 "last_used_at": "2026-05-10T00:23:00Z",
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
@@ -49228,50 +49876,6 @@
         },
         "type": "object"
       },
-      "RowError": {
-        "description": "pairs one row of a bulk request with the failure it produced; a failure of the request\nas a whole carries no index",
-        "example": {
-          "index": 2,
-          "error": {
-            "code": "validation_failed",
-            "type": "invalid_request_error",
-            "message": "The request was invalid.",
-            "param": "email",
-            "doc_url": "https://docs.augno.com/api/errors#validation_failed",
-            "is_transient": false,
-            "quota": null,
-            "request_log_url": "https://augno.com/dashboard/request-logs/rq_fbv1ygmybo3eauykr74"
-          }
-        },
-        "properties": {
-          "index": {
-            "description": "Zero-based row of the request this failure names. Absent for a failure of the whole request.",
-            "type": "integer"
-          },
-          "error": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ResponseError"
-              }
-            ],
-            "description": "What went wrong — the same error object a synchronous error response carries.",
-            "example": {
-              "code": "validation_failed",
-              "type": "invalid_request_error",
-              "message": "The request was invalid.",
-              "param": "email",
-              "doc_url": "https://docs.augno.com/api/errors#validation_failed",
-              "is_transient": false,
-              "quota": null,
-              "request_log_url": "https://augno.com/dashboard/request-logs/rq_fbv1ygmybo3eauykr74"
-            }
-          }
-        },
-        "required": [
-          "error"
-        ],
-        "type": "object"
-      },
       "SalesOrder": {
         "description": "An order placed by a customer, tracked from estimate through fulfillment.",
         "example": {
@@ -49603,6 +50207,7 @@
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
+                "is_commission_eligible": false,
                 "last_used_at": "2026-05-10T00:23:00Z",
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
@@ -50984,6 +51589,7 @@
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
+                  "is_commission_eligible": false,
                   "last_used_at": "2026-05-10T00:23:00Z",
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -56387,6 +56993,8 @@
               "pack_list_back_order",
               "pack_list_case",
               "job",
+              "job_result",
+              "job_export",
               "analyze_customer_pricing_response",
               "customer_pricing_finding",
               "customer_pricing_summary",
@@ -56768,6 +57376,8 @@
               "pack_list_back_order",
               "pack_list_case",
               "job",
+              "job_result",
+              "job_export",
               "analyze_customer_pricing_response",
               "customer_pricing_finding",
               "customer_pricing_summary",
@@ -58071,6 +58681,7 @@
           "username": "jdoe",
           "role_id": "rl_3xknmfqflhvb",
           "department_id": "dp_m0jayebxnkos",
+          "is_commission_eligible": false,
           "preferences": [
             {
               "notification_type": "order_acknowledgement",
@@ -58100,6 +58711,10 @@
             "description": "ID of the department to assign to the user.\n\nSet to `null` to clear the department. The department must already exist in the account.",
             "nullable": true,
             "type": "string"
+          },
+          "is_commission_eligible": {
+            "description": "Whether the user can be assigned as a sales representative on orders, territories, and targets.\n\nForced true for the `sales_rep` role type and rejected for scanner and agent roles. Cannot be turned off while the user stays on a `sales_rep` role.",
+            "type": "boolean"
           },
           "preferences": {
             "description": "Notification preference toggles to apply.\n\nOnly allowed when updating a user in another account you manage (cross-account); rejected otherwise. Notification types omitted from the list are left unchanged.",
@@ -60760,7 +61375,7 @@
   "info": {
     "description": "API for Augno services",
     "title": "Augno API",
-    "version": "1.0.forge-preview.2"
+    "version": "1.0.forge-preview.3"
   },
   "openapi": "3.0.0",
   "paths": {
@@ -65312,6 +65927,26 @@
       "post": {
         "description": "Creates or updates multiple item categories for the account, matched by name\n(case-insensitive), then writes asynchronously — 202 with a job to poll.",
         "operationId": "bulk-upsert-item-categories",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "created_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "created_by",
+                  "created_by.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -65340,26 +65975,55 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "id": "jb_grz7cdpnz8jr",
                   "object": "job",
-                  "type": "bulkcreate",
+                  "type": "bulk_create",
+                  "resource_type": "production_run",
                   "status": "completed",
-                  "created_by_id": null,
-                  "created_by_name": null,
-                  "created_by_username": null,
-                  "created_by_email": null,
-                  "results": [
-                    {
-                      "index": 0,
-                      "id": "prru_sglzcyflxk59",
-                      "action": "created",
-                      "sub_resource_ids": [
-                        "bt_fuies8j4pk45"
-                      ]
-                    }
-                  ],
-                  "errors": [],
-                  "error_summary": null,
+                  "created_by": null,
+                  "results": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "job_result",
+                        "index": 0,
+                        "status": "created",
+                        "resource": {
+                          "id": "prru_sglzcyflxk59",
+                          "object": "entity",
+                          "type": "production_run",
+                          "name": null,
+                          "handle": null
+                        },
+                        "sub_resources": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "bt_fuies8j4pk45",
+                              "object": "entity",
+                              "type": "batch",
+                              "name": null,
+                              "handle": null
+                            }
+                          ]
+                        },
+                        "error": null
+                      }
+                    ]
+                  },
+                  "error": null,
                   "export": null,
                   "started_at": "2026-05-10T00:00:00Z",
                   "completed_at": "2026-05-10T00:00:00Z",
@@ -69303,6 +69967,26 @@
       "post": {
         "description": "Creates or updates multiple materials for the account, matched by SKU. Validates and\nresolves synchronously, then writes asynchronously — 202 with a job to poll.",
         "operationId": "bulk-upsert-materials",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "created_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "created_by",
+                  "created_by.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -69329,26 +70013,55 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "id": "jb_grz7cdpnz8jr",
                   "object": "job",
-                  "type": "bulkcreate",
+                  "type": "bulk_create",
+                  "resource_type": "production_run",
                   "status": "completed",
-                  "created_by_id": null,
-                  "created_by_name": null,
-                  "created_by_username": null,
-                  "created_by_email": null,
-                  "results": [
-                    {
-                      "index": 0,
-                      "id": "prru_sglzcyflxk59",
-                      "action": "created",
-                      "sub_resource_ids": [
-                        "bt_fuies8j4pk45"
-                      ]
-                    }
-                  ],
-                  "errors": [],
-                  "error_summary": null,
+                  "created_by": null,
+                  "results": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "job_result",
+                        "index": 0,
+                        "status": "created",
+                        "resource": {
+                          "id": "prru_sglzcyflxk59",
+                          "object": "entity",
+                          "type": "production_run",
+                          "name": null,
+                          "handle": null
+                        },
+                        "sub_resources": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "bt_fuies8j4pk45",
+                              "object": "entity",
+                              "type": "batch",
+                              "name": null,
+                              "handle": null
+                            }
+                          ]
+                        },
+                        "error": null
+                      }
+                    ]
+                  },
+                  "error": null,
                   "export": null,
                   "started_at": "2026-05-10T00:00:00Z",
                   "completed_at": "2026-05-10T00:00:00Z",
@@ -71542,6 +72255,26 @@
       "post": {
         "description": "Creates or updates multiple parts for the account, matched by SKU, then writes\nasynchronously — 202 with a job to poll.",
         "operationId": "bulk-upsert-parts",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "created_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "created_by",
+                  "created_by.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -71568,26 +72301,55 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "id": "jb_grz7cdpnz8jr",
                   "object": "job",
-                  "type": "bulkcreate",
+                  "type": "bulk_create",
+                  "resource_type": "production_run",
                   "status": "completed",
-                  "created_by_id": null,
-                  "created_by_name": null,
-                  "created_by_username": null,
-                  "created_by_email": null,
-                  "results": [
-                    {
-                      "index": 0,
-                      "id": "prru_sglzcyflxk59",
-                      "action": "created",
-                      "sub_resource_ids": [
-                        "bt_fuies8j4pk45"
-                      ]
-                    }
-                  ],
-                  "errors": [],
-                  "error_summary": null,
+                  "created_by": null,
+                  "results": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "job_result",
+                        "index": 0,
+                        "status": "created",
+                        "resource": {
+                          "id": "prru_sglzcyflxk59",
+                          "object": "entity",
+                          "type": "production_run",
+                          "name": null,
+                          "handle": null
+                        },
+                        "sub_resources": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "bt_fuies8j4pk45",
+                              "object": "entity",
+                              "type": "batch",
+                              "name": null,
+                              "handle": null
+                            }
+                          ]
+                        },
+                        "error": null
+                      }
+                    ]
+                  },
+                  "error": null,
                   "export": null,
                   "started_at": "2026-05-10T00:00:00Z",
                   "completed_at": "2026-05-10T00:00:00Z",
@@ -73151,6 +73913,26 @@
       "post": {
         "description": "Creates or updates multiple product lines for the account, matched by name\n(case-insensitive), then writes asynchronously — 202 with a job to poll.",
         "operationId": "bulk-upsert-product-lines",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "created_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "created_by",
+                  "created_by.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -73178,26 +73960,55 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "id": "jb_grz7cdpnz8jr",
                   "object": "job",
-                  "type": "bulkcreate",
+                  "type": "bulk_create",
+                  "resource_type": "production_run",
                   "status": "completed",
-                  "created_by_id": null,
-                  "created_by_name": null,
-                  "created_by_username": null,
-                  "created_by_email": null,
-                  "results": [
-                    {
-                      "index": 0,
-                      "id": "prru_sglzcyflxk59",
-                      "action": "created",
-                      "sub_resource_ids": [
-                        "bt_fuies8j4pk45"
-                      ]
-                    }
-                  ],
-                  "errors": [],
-                  "error_summary": null,
+                  "created_by": null,
+                  "results": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "job_result",
+                        "index": 0,
+                        "status": "created",
+                        "resource": {
+                          "id": "prru_sglzcyflxk59",
+                          "object": "entity",
+                          "type": "production_run",
+                          "name": null,
+                          "handle": null
+                        },
+                        "sub_resources": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "bt_fuies8j4pk45",
+                              "object": "entity",
+                              "type": "batch",
+                              "name": null,
+                              "handle": null
+                            }
+                          ]
+                        },
+                        "error": null
+                      }
+                    ]
+                  },
+                  "error": null,
                   "export": null,
                   "started_at": "2026-05-10T00:00:00Z",
                   "completed_at": "2026-05-10T00:00:00Z",
@@ -74805,6 +75616,26 @@
       "post": {
         "description": "Creates or updates multiple products for the account, matched by SKU. Validates and\nresolves synchronously, then writes asynchronously — 202 with a job to poll.",
         "operationId": "bulk-upsert-products",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "created_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "created_by",
+                  "created_by.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -74831,26 +75662,55 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "id": "jb_grz7cdpnz8jr",
                   "object": "job",
-                  "type": "bulkcreate",
+                  "type": "bulk_create",
+                  "resource_type": "production_run",
                   "status": "completed",
-                  "created_by_id": null,
-                  "created_by_name": null,
-                  "created_by_username": null,
-                  "created_by_email": null,
-                  "results": [
-                    {
-                      "index": 0,
-                      "id": "prru_sglzcyflxk59",
-                      "action": "created",
-                      "sub_resource_ids": [
-                        "bt_fuies8j4pk45"
-                      ]
-                    }
-                  ],
-                  "errors": [],
-                  "error_summary": null,
+                  "created_by": null,
+                  "results": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "job_result",
+                        "index": 0,
+                        "status": "created",
+                        "resource": {
+                          "id": "prru_sglzcyflxk59",
+                          "object": "entity",
+                          "type": "production_run",
+                          "name": null,
+                          "handle": null
+                        },
+                        "sub_resources": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "bt_fuies8j4pk45",
+                              "object": "entity",
+                              "type": "batch",
+                              "name": null,
+                              "handle": null
+                            }
+                          ]
+                        },
+                        "error": null
+                      }
+                    ]
+                  },
+                  "error": null,
                   "export": null,
                   "started_at": "2026-05-10T00:00:00Z",
                   "completed_at": "2026-05-10T00:00:00Z",
@@ -77166,6 +78026,26 @@
       "post": {
         "description": "Creates or updates multiple properties and their attributes for the account, matched by\nname (case-insensitive), then writes asynchronously — 202 with a job to poll.",
         "operationId": "bulk-upsert-properties",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "created_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "created_by",
+                  "created_by.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -77194,26 +78074,55 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "id": "jb_grz7cdpnz8jr",
                   "object": "job",
-                  "type": "bulkcreate",
+                  "type": "bulk_create",
+                  "resource_type": "production_run",
                   "status": "completed",
-                  "created_by_id": null,
-                  "created_by_name": null,
-                  "created_by_username": null,
-                  "created_by_email": null,
-                  "results": [
-                    {
-                      "index": 0,
-                      "id": "prru_sglzcyflxk59",
-                      "action": "created",
-                      "sub_resource_ids": [
-                        "bt_fuies8j4pk45"
-                      ]
-                    }
-                  ],
-                  "errors": [],
-                  "error_summary": null,
+                  "created_by": null,
+                  "results": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "job_result",
+                        "index": 0,
+                        "status": "created",
+                        "resource": {
+                          "id": "prru_sglzcyflxk59",
+                          "object": "entity",
+                          "type": "production_run",
+                          "name": null,
+                          "handle": null
+                        },
+                        "sub_resources": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "bt_fuies8j4pk45",
+                              "object": "entity",
+                              "type": "batch",
+                              "name": null,
+                              "handle": null
+                            }
+                          ]
+                        },
+                        "error": null
+                      }
+                    ]
+                  },
+                  "error": null,
                   "export": null,
                   "started_at": "2026-05-10T00:00:00Z",
                   "completed_at": "2026-05-10T00:00:00Z",
@@ -78221,6 +79130,26 @@
       "post": {
         "description": "Creates or updates multiple unit groups for the account, matched by name\n(case-insensitive), then writes asynchronously — 202 with a job to poll.",
         "operationId": "bulk-upsert-unit-groups",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "created_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "created_by",
+                  "created_by.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -78255,26 +79184,55 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "id": "jb_grz7cdpnz8jr",
                   "object": "job",
-                  "type": "bulkcreate",
+                  "type": "bulk_create",
+                  "resource_type": "production_run",
                   "status": "completed",
-                  "created_by_id": null,
-                  "created_by_name": null,
-                  "created_by_username": null,
-                  "created_by_email": null,
-                  "results": [
-                    {
-                      "index": 0,
-                      "id": "prru_sglzcyflxk59",
-                      "action": "created",
-                      "sub_resource_ids": [
-                        "bt_fuies8j4pk45"
-                      ]
-                    }
-                  ],
-                  "errors": [],
-                  "error_summary": null,
+                  "created_by": null,
+                  "results": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "job_result",
+                        "index": 0,
+                        "status": "created",
+                        "resource": {
+                          "id": "prru_sglzcyflxk59",
+                          "object": "entity",
+                          "type": "production_run",
+                          "name": null,
+                          "handle": null
+                        },
+                        "sub_resources": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "bt_fuies8j4pk45",
+                              "object": "entity",
+                              "type": "batch",
+                              "name": null,
+                              "handle": null
+                            }
+                          ]
+                        },
+                        "error": null
+                      }
+                    ]
+                  },
+                  "error": null,
                   "export": null,
                   "started_at": "2026-05-10T00:00:00Z",
                   "completed_at": "2026-05-10T00:00:00Z",
@@ -79358,6 +80316,26 @@
       "post": {
         "description": "Creates or updates multiple units of measure for the account, matched by name or\nabbreviation, then writes asynchronously — 202 with a job to poll.",
         "operationId": "bulk-upsert-units",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "created_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "created_by",
+                  "created_by.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -79387,26 +80365,55 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "id": "jb_grz7cdpnz8jr",
                   "object": "job",
-                  "type": "bulkcreate",
+                  "type": "bulk_create",
+                  "resource_type": "production_run",
                   "status": "completed",
-                  "created_by_id": null,
-                  "created_by_name": null,
-                  "created_by_username": null,
-                  "created_by_email": null,
-                  "results": [
-                    {
-                      "index": 0,
-                      "id": "prru_sglzcyflxk59",
-                      "action": "created",
-                      "sub_resource_ids": [
-                        "bt_fuies8j4pk45"
-                      ]
-                    }
-                  ],
-                  "errors": [],
-                  "error_summary": null,
+                  "created_by": null,
+                  "results": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "job_result",
+                        "index": 0,
+                        "status": "created",
+                        "resource": {
+                          "id": "prru_sglzcyflxk59",
+                          "object": "entity",
+                          "type": "production_run",
+                          "name": null,
+                          "handle": null
+                        },
+                        "sub_resources": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "bt_fuies8j4pk45",
+                              "object": "entity",
+                              "type": "batch",
+                              "name": null,
+                              "handle": null
+                            }
+                          ]
+                        },
+                        "error": null
+                      }
+                    ]
+                  },
+                  "error": null,
                   "export": null,
                   "started_at": "2026-05-10T00:00:00Z",
                   "completed_at": "2026-05-10T00:00:00Z",
@@ -80185,13 +81192,16 @@
                         "deviated_lines": 1,
                         "added_lines": 0,
                         "abs_delta_units": 252,
+                        "off_plan_lines": 1,
+                        "off_plan_quantity": 147,
                         "line_adherence_pct": 87.5,
                         "units_adherence_pct": 94,
                         "frozen_through_at": null
                       }
                     ]
                   },
-                  "baseline_status": "measured"
+                  "baseline_status": "measured",
+                  "scheduled_machine_count": 2
                 },
                 "schema": {
                   "$ref": "#/components/schemas/AnalyzeScheduleAttainmentResponse"
@@ -80566,6 +81576,8 @@
                   "pack_list_back_order",
                   "pack_list_case",
                   "job",
+                  "job_result",
+                  "job_export",
                   "analyze_customer_pricing_response",
                   "customer_pricing_finding",
                   "customer_pricing_summary",
@@ -80887,6 +81899,8 @@
                 "pack_list_back_order",
                 "pack_list_case",
                 "job",
+                "job_result",
+                "job_export",
                 "analyze_customer_pricing_response",
                 "customer_pricing_finding",
                 "customer_pricing_summary",
@@ -81976,12 +82990,30 @@
         "parameters": [
           {
             "description": "Job ID.",
-            "example": "jb_01k0a5smf9ekb8rqg1",
+            "example": "jb_grz7cdpnz8jr",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "created_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "created_by",
+                  "created_by.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           }
         ],
@@ -81990,26 +83022,55 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "id": "jb_grz7cdpnz8jr",
                   "object": "job",
-                  "type": "bulkcreate",
+                  "type": "bulk_create",
+                  "resource_type": "production_run",
                   "status": "completed",
-                  "created_by_id": null,
-                  "created_by_name": null,
-                  "created_by_username": null,
-                  "created_by_email": null,
-                  "results": [
-                    {
-                      "index": 0,
-                      "id": "prru_sglzcyflxk59",
-                      "action": "created",
-                      "sub_resource_ids": [
-                        "bt_fuies8j4pk45"
-                      ]
-                    }
-                  ],
-                  "errors": [],
-                  "error_summary": null,
+                  "created_by": null,
+                  "results": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "job_result",
+                        "index": 0,
+                        "status": "created",
+                        "resource": {
+                          "id": "prru_sglzcyflxk59",
+                          "object": "entity",
+                          "type": "production_run",
+                          "name": null,
+                          "handle": null
+                        },
+                        "sub_resources": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "bt_fuies8j4pk45",
+                              "object": "entity",
+                              "type": "batch",
+                              "name": null,
+                              "handle": null
+                            }
+                          ]
+                        },
+                        "error": null
+                      }
+                    ]
+                  },
+                  "error": null,
                   "export": null,
                   "started_at": "2026-05-10T00:00:00Z",
                   "completed_at": "2026-05-10T00:00:00Z",
@@ -82050,12 +83111,30 @@
         "parameters": [
           {
             "description": "Job ID.",
-            "example": "jb_01k0a5smf9ekb8rqg1",
+            "example": "jb_grz7cdpnz8jr",
             "in": "path",
             "name": "id",
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "created_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "created_by",
+                  "created_by.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           }
         ],
@@ -82064,26 +83143,55 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "id": "jb_grz7cdpnz8jr",
                   "object": "job",
-                  "type": "bulkcreate",
+                  "type": "bulk_create",
+                  "resource_type": "production_run",
                   "status": "completed",
-                  "created_by_id": null,
-                  "created_by_name": null,
-                  "created_by_username": null,
-                  "created_by_email": null,
-                  "results": [
-                    {
-                      "index": 0,
-                      "id": "prru_sglzcyflxk59",
-                      "action": "created",
-                      "sub_resource_ids": [
-                        "bt_fuies8j4pk45"
-                      ]
-                    }
-                  ],
-                  "errors": [],
-                  "error_summary": null,
+                  "created_by": null,
+                  "results": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "job_result",
+                        "index": 0,
+                        "status": "created",
+                        "resource": {
+                          "id": "prru_sglzcyflxk59",
+                          "object": "entity",
+                          "type": "production_run",
+                          "name": null,
+                          "handle": null
+                        },
+                        "sub_resources": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "bt_fuies8j4pk45",
+                              "object": "entity",
+                              "type": "batch",
+                              "name": null,
+                              "handle": null
+                            }
+                          ]
+                        },
+                        "error": null
+                      }
+                    ]
+                  },
+                  "error": null,
                   "export": null,
                   "started_at": "2026-05-10T00:00:00Z",
                   "completed_at": "2026-05-10T00:00:00Z",
@@ -83475,6 +84583,8 @@
                   "pack_list_back_order",
                   "pack_list_case",
                   "job",
+                  "job_result",
+                  "job_export",
                   "analyze_customer_pricing_response",
                   "customer_pricing_finding",
                   "customer_pricing_summary",
@@ -84247,6 +85357,15 @@
             }
           },
           {
+            "description": "Filter by commission eligibility.\n\nExact match on the column. Pass `true` to list users who can be assigned as sales representatives, including dedicated `sales_rep` users.",
+            "example": true,
+            "in": "query",
+            "name": "is_commission_eligible",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
             "description": "Controls whether removed (soft-deleted) account users appear in the list.\n\nRemoved users are left out unless you pass `included`, so a user removed with the remove action disappears from the default listing.",
             "example": "excluded",
             "in": "query",
@@ -84421,6 +85540,7 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
+                      "is_commission_eligible": false,
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -84485,6 +85605,7 @@
                 "password": "QgS7Z8Hhj3\u00261",
                 "role_id": "rl_3xknmfqflhvb",
                 "department_id": "dp_m0jayebxnkos",
+                "is_commission_eligible": false,
                 "preferences": [
                   {
                     "notification_type": "order_acknowledgement",
@@ -84632,6 +85753,7 @@
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
+                  "is_commission_eligible": false,
                   "last_used_at": "2026-05-10T00:23:00Z",
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -84829,6 +85951,7 @@
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
+                  "is_commission_eligible": false,
                   "last_used_at": "2026-05-10T00:23:00Z",
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -84900,6 +86023,7 @@
                 "username": "jdoe",
                 "role_id": "rl_3xknmfqflhvb",
                 "department_id": "dp_m0jayebxnkos",
+                "is_commission_eligible": false,
                 "preferences": [
                   {
                     "notification_type": "order_acknowledgement",
@@ -85047,6 +86171,7 @@
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
+                  "is_commission_eligible": false,
                   "last_used_at": "2026-05-10T00:23:00Z",
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -86514,6 +87639,7 @@
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
+                        "is_commission_eligible": false,
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
@@ -86720,6 +87846,7 @@
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
+                    "is_commission_eligible": false,
                     "last_used_at": "2026-05-10T00:23:00Z",
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -87290,6 +88417,8 @@
                 "pack_list_back_order",
                 "pack_list_case",
                 "job",
+                "job_result",
+                "job_export",
                 "analyze_customer_pricing_response",
                 "customer_pricing_finding",
                 "customer_pricing_summary",
@@ -97857,6 +98986,26 @@
       "post": {
         "description": "Creates or updates multiple locations for the account, matched by name\n(case-insensitive), then writes asynchronously — 202 with a job to poll.",
         "operationId": "bulk-upsert-locations",
+        "parameters": [
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "created_by"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "created_by",
+                  "created_by.role"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -97880,26 +99029,55 @@
             "content": {
               "application/json": {
                 "example": {
-                  "id": "jb_01k0a5smf9ekb8rqg1",
+                  "id": "jb_grz7cdpnz8jr",
                   "object": "job",
-                  "type": "bulkcreate",
+                  "type": "bulk_create",
+                  "resource_type": "production_run",
                   "status": "completed",
-                  "created_by_id": null,
-                  "created_by_name": null,
-                  "created_by_username": null,
-                  "created_by_email": null,
-                  "results": [
-                    {
-                      "index": 0,
-                      "id": "prru_sglzcyflxk59",
-                      "action": "created",
-                      "sub_resource_ids": [
-                        "bt_fuies8j4pk45"
-                      ]
-                    }
-                  ],
-                  "errors": [],
-                  "error_summary": null,
+                  "created_by": null,
+                  "results": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "job_result",
+                        "index": 0,
+                        "status": "created",
+                        "resource": {
+                          "id": "prru_sglzcyflxk59",
+                          "object": "entity",
+                          "type": "production_run",
+                          "name": null,
+                          "handle": null
+                        },
+                        "sub_resources": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "bt_fuies8j4pk45",
+                              "object": "entity",
+                              "type": "batch",
+                              "name": null,
+                              "handle": null
+                            }
+                          ]
+                        },
+                        "error": null
+                      }
+                    ]
+                  },
+                  "error": null,
                   "export": null,
                   "started_at": "2026-05-10T00:00:00Z",
                   "completed_at": "2026-05-10T00:00:00Z",
@@ -104065,6 +105243,7 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
+                      "is_commission_eligible": false,
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -104284,7 +105463,7 @@
     },
     "/v1/operations/production-schedules/{id}/derived-lines": {
       "get": {
-        "description": "Returns the downstream department work implied by a schedule's constraint plan.\n\nThe solver schedules only the constraint; every other department's work is derived from it by walking the production-step graph, applying each step's lead-time offset and yield. That makes this the work list a supervisor reads, rather than a second plan someone has to maintain.\n\n`explosion_depth` is how many steps downstream the work sits, which is what a readiness indicator keys off. Work whose derived week falls past the schedule's horizon is still returned — a department needs to see it coming.\n\nThis endpoint requires the permission: `production_schedules:read`.",
+        "description": "Returns the department work implied by a schedule's constraint plan.\n\nThe solver schedules only the constraint; every other department's work is derived from it by walking the production-step graph, applying each step's lead-time offset and yield. That makes this the work list a supervisor reads, rather than a second plan someone has to maintain.\n\n`explosion_depth` is how many steps downstream the work sits, which is what a readiness indicator keys off. Depth 0 is the constraint's own campaigns, so a plant with nothing configured downstream of its constraint still gets the work it actually scheduled. Work whose derived week falls past the schedule's horizon is still returned — a department needs to see it coming.\n\nThis endpoint requires the permission: `production_schedules:read`.",
         "operationId": "list-production-schedule-derived-lines",
         "parameters": [
           {
@@ -107992,6 +109171,7 @@
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
+                        "is_commission_eligible": false,
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
@@ -108707,6 +109887,7 @@
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
+                          "is_commission_eligible": false,
                           "last_used_at": "2026-05-10T00:23:00Z",
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
@@ -109240,6 +110421,7 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
+                      "is_commission_eligible": false,
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -109774,6 +110956,7 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
+                      "is_commission_eligible": false,
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -110301,6 +111484,7 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
+                      "is_commission_eligible": false,
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -110805,6 +111989,7 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
+                      "is_commission_eligible": false,
                       "last_used_at": "2026-05-10T00:23:00Z",
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -111710,6 +112895,7 @@
                               "created_at": "2026-05-10T00:00:00Z",
                               "updated_at": "2026-05-10T00:23:00Z"
                             },
+                            "is_commission_eligible": false,
                             "last_used_at": "2026-05-10T00:23:00Z",
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
@@ -113149,6 +114335,7 @@
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
+                        "is_commission_eligible": false,
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
@@ -115304,6 +116491,7 @@
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
+                        "is_commission_eligible": false,
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
@@ -116721,6 +117909,7 @@
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
+                        "is_commission_eligible": false,
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
@@ -118083,6 +119272,7 @@
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
+                        "is_commission_eligible": false,
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
@@ -119267,6 +120457,7 @@
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
+                    "is_commission_eligible": false,
                     "last_used_at": "2026-05-10T00:23:00Z",
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -119664,6 +120855,7 @@
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
+                        "is_commission_eligible": false,
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
@@ -121026,6 +122218,7 @@
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
+                        "is_commission_eligible": false,
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
@@ -122479,6 +123672,7 @@
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
+                        "is_commission_eligible": false,
                         "last_used_at": "2026-05-10T00:23:00Z",
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
