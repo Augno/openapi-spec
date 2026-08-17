@@ -1385,6 +1385,8 @@
               "analyze_delivery_performance_response",
               "delivery_performance",
               "delivery_backlog_bucket",
+              "delivery_lateness_bucket",
+              "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
               "promise_date_quote",
@@ -3610,6 +3612,34 @@
               "month"
             ],
             "type": "string"
+          },
+          "customer_ids": {
+            "description": "Only measure orders bought by these customers. Their child accounts are included, matching how the sales analytics resolve a customer.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "customer_group_ids": {
+            "description": "Only measure orders whose customer sits in these groups.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "product_line_ids": {
+            "description": "Only measure orders containing at least one line in these product lines.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "sales_rep_ids": {
+            "description": "Only measure orders owned by these sales reps.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           }
         },
         "required": [
@@ -3663,6 +3693,108 @@
                 "max_days_late": 7,
                 "order_count": 2,
                 "units": 340
+              }
+            ]
+          },
+          "lateness": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "object": "delivery_lateness_bucket",
+                "label": "1_3_days",
+                "min_days_late": 1,
+                "max_days_late": 3,
+                "order_count": 2,
+                "shipped_count": 0,
+                "units": 340
+              }
+            ]
+          },
+          "by_customer": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "object": "delivery_breakdown",
+                "key": "ac_opnlh43ymyee",
+                "label": "Northwind Textiles",
+                "performance": {
+                  "object": "delivery_performance",
+                  "period_start": null,
+                  "committed_order_count": 6,
+                  "shipped_order_count": 5,
+                  "on_time_order_count": 4,
+                  "on_time_in_full_count": 4,
+                  "late_order_count": 2,
+                  "not_yet_shipped_count": 1,
+                  "on_time_pct": 92.31,
+                  "on_time_in_full_pct": 88.46,
+                  "average_days_late": 4.5,
+                  "average_lead_time_days": null,
+                  "average_committed_lead_time_days": null
+                }
+              }
+            ]
+          },
+          "by_customer_group": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": []
+          },
+          "by_product_line": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": []
+          },
+          "by_commitment_source": {
+            "object": "list",
+            "page_info": {
+              "next_page_url": null,
+              "previous_page_url": null,
+              "has_next_page": false,
+              "has_prev_page": false
+            },
+            "data": [
+              {
+                "object": "delivery_breakdown",
+                "key": "customer",
+                "label": "customer",
+                "performance": {
+                  "object": "delivery_performance",
+                  "period_start": null,
+                  "committed_order_count": 6,
+                  "shipped_order_count": 5,
+                  "on_time_order_count": 4,
+                  "on_time_in_full_count": 4,
+                  "late_order_count": 2,
+                  "not_yet_shipped_count": 1,
+                  "on_time_pct": 92.31,
+                  "on_time_in_full_pct": 88.46,
+                  "average_days_late": 4.5,
+                  "average_lead_time_days": null,
+                  "average_committed_lead_time_days": null
+                }
               }
             ]
           },
@@ -3723,6 +3855,101 @@
             },
             "nullable": true
           },
+          "lateness": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_DeliveryLatenessBucket"
+              }
+            ],
+            "description": "Every miss in the window banded by how far it missed by, shipped and unshipped alike.\n\nThe companion to `average_days_late`, which cannot tell \"everything slips a day\" from \"most orders are fine and four are two months late\". Those are opposite problems with opposite fixes, and one mean reports them identically.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": []
+            },
+            "nullable": true
+          },
+          "by_customer": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_DeliveryBreakdown"
+              }
+            ],
+            "description": "The same window by customer, worst first.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": []
+            },
+            "nullable": true
+          },
+          "by_customer_group": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_DeliveryBreakdown"
+              }
+            ],
+            "description": "The same window by customer group, worst first.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": []
+            },
+            "nullable": true
+          },
+          "by_product_line": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_DeliveryBreakdown"
+              }
+            ],
+            "description": "The same window by product line, worst first. An order spanning two lines is counted under both — a late order is late for every line on it — so these counts sum to more than the overall total.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": []
+            },
+            "nullable": true
+          },
+          "by_commitment_source": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/List_DeliveryBreakdown"
+              }
+            ],
+            "description": "The same window by which rule produced each ship-by date: an explicitly promised date, the customer's lead time, their group's, or the account default.\n\nThis is what says how much of the score rests on a default nobody deliberately set. A plant whose on-time rate is carried by `account`-sourced commitments is measuring itself against a number it invented.",
+            "example": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": []
+            },
+            "nullable": true
+          },
           "uncommitted_order_count": {
             "description": "Issued orders in the window carrying no ship-by date, excluded from every rate above.\n\nReported so the exclusion is visible: a delivery score computed over half the order book, silently, is worse than one that says which half. A non-zero count here means orders placed before commitments were tracked still need a ship-by date.",
             "type": "integer"
@@ -3733,6 +3960,11 @@
           "overall",
           "periods",
           "backlog",
+          "lateness",
+          "by_customer",
+          "by_customer_group",
+          "by_product_line",
+          "by_commitment_source",
           "uncommitted_order_count"
         ],
         "type": "object"
@@ -5113,6 +5345,8 @@
               "analyze_delivery_performance_response",
               "delivery_performance",
               "delivery_backlog_bucket",
+              "delivery_lateness_bucket",
+              "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
               "promise_date_quote",
@@ -9209,6 +9443,8 @@
               "analyze_delivery_performance_response",
               "delivery_performance",
               "delivery_backlog_bucket",
+              "delivery_lateness_bucket",
+              "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
               "promise_date_quote",
@@ -13197,6 +13433,88 @@
         ],
         "type": "object"
       },
+      "DeliveryBreakdown": {
+        "description": "Delivery performance for one slice of the order book.",
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "delivery_breakdown"
+            ],
+            "type": "string"
+          },
+          "key": {
+            "description": "Identifier of the slice — a customer, customer group, product line, or commitment source. Empty when the dimension is unset on the orders in it.",
+            "type": "string"
+          },
+          "label": {
+            "description": "Display name for the slice.",
+            "type": "string"
+          },
+          "performance": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DeliveryPerformance"
+              }
+            ],
+            "description": "The delivery figures for it, on the same shape as the overall window.",
+            "nullable": true
+          }
+        },
+        "required": [
+          "object",
+          "key",
+          "label",
+          "performance"
+        ],
+        "type": "object"
+      },
+      "DeliveryLatenessBucket": {
+        "description": "One band of how far the window's misses missed by.",
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "delivery_lateness_bucket"
+            ],
+            "type": "string"
+          },
+          "label": {
+            "description": "Name of the band.",
+            "type": "string"
+          },
+          "min_days_late": {
+            "description": "Lower bound of the band in days late.",
+            "type": "integer"
+          },
+          "max_days_late": {
+            "description": "Upper bound in days late; `0` means unbounded.",
+            "type": "integer"
+          },
+          "order_count": {
+            "description": "Orders in the band, shipped and unshipped.",
+            "type": "integer"
+          },
+          "shipped_count": {
+            "description": "How many of them have since shipped. The remainder are still owed, and are the same orders `backlog` counts.",
+            "type": "integer"
+          },
+          "units": {
+            "description": "Quantity still unpacked across the band's orders.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "object",
+          "label",
+          "min_days_late",
+          "max_days_late",
+          "order_count",
+          "shipped_count",
+          "units"
+        ],
+        "type": "object"
+      },
       "DeliveryPerformance": {
         "description": "Delivery reliability for one period, or for a whole window.",
         "properties": {
@@ -14555,6 +14873,8 @@
               "analyze_delivery_performance_response",
               "delivery_performance",
               "delivery_backlog_bucket",
+              "delivery_lateness_bucket",
+              "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
               "promise_date_quote",
@@ -17022,6 +17342,8 @@
               "analyze_delivery_performance_response",
               "delivery_performance",
               "delivery_backlog_bucket",
+              "delivery_lateness_bucket",
+              "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
               "promise_date_quote",
@@ -21321,6 +21643,98 @@
         ],
         "type": "object"
       },
+      "List_DeliveryBreakdown": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": []
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/DeliveryBreakdown"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_DeliveryLatenessBucket": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": []
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/DeliveryLatenessBucket"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
       "List_DeliveryPerformance": {
         "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
         "example": {
@@ -24942,6 +25356,8 @@
                 "analyze_delivery_performance_response",
                 "delivery_performance",
                 "delivery_backlog_bucket",
+                "delivery_lateness_bucket",
+                "delivery_breakdown",
                 "schedule_order_coverage",
                 "schedule_order_coverage_line",
                 "promise_date_quote",
@@ -56821,6 +57237,8 @@
               "analyze_delivery_performance_response",
               "delivery_performance",
               "delivery_backlog_bucket",
+              "delivery_lateness_bucket",
+              "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
               "promise_date_quote",
@@ -57204,6 +57622,8 @@
               "analyze_delivery_performance_response",
               "delivery_performance",
               "delivery_backlog_bucket",
+              "delivery_lateness_bucket",
+              "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
               "promise_date_quote",
@@ -80813,7 +81233,7 @@
     },
     "/v1/core/analytics/delivery-performance": {
       "put": {
-        "description": "Returns how reliably promised delivery dates were met.\n\nOrders are counted in the period their promise came due, not the period they shipped — an order promised in March and shipped in May is March's miss. On time means the first shipment left on or before the promised date, because the promise is that the order starts moving by then; judging on the last shipment would fail an order the customer received on time in two boxes. On time in full adds that the whole ordered quantity was packed.\n\nThe denominator is orders that were due, not orders that shipped, so an order past its date and still unshipped counts against the rate rather than being held back until it moves. Excluding open orders would let a plant with a growing late backlog report perfect delivery.\n\nOnly orders carrying a ship-by commitment participate. An order with no commitment cannot be late, and counting it as on time would inflate the rate with orders nobody promised anything about — `uncommitted_order_count` says how many were excluded, so the gap is visible rather than silent.\n\nEvery rate is null rather than zero when nothing was due, and average lateness is measured over late orders only.\n\nThis endpoint requires the permission: `sales_orders:read`.",
+        "description": "Returns how reliably promised delivery dates were met.\n\nOrders are counted in the period their promise came due, not the period they shipped — an order promised in March and shipped in May is March's miss. On time means the first shipment left on or before the promised date, because the promise is that the order starts moving by then; judging on the last shipment would fail an order the customer received on time in two boxes. On time in full adds that the whole ordered quantity was packed.\n\nThe denominator is orders that were due, not orders that shipped, so an order past its date and still unshipped counts against the rate rather than being held back until it moves. Excluding open orders would let a plant with a growing late backlog report perfect delivery.\n\nOnly orders carrying a ship-by commitment participate. An order with no commitment cannot be late, and counting it as on time would inflate the rate with orders nobody promised anything about — `uncommitted_order_count` says how many were excluded, so the gap is visible rather than silent.\n\nEvery rate is null rather than zero when nothing was due, and average lateness is measured over late orders only.\n\nThe same window is also returned sliced by customer, customer group, product line, and the rule each ship-by date came from — each ordered worst-first, and each derived from the same set of orders as the headline so a drilldown always adds up to it. `by_product_line` is the one exception to that: an order spanning two lines is counted under both, because a late order is late for every line on it.\n\nEvery filter is empty-means-all and they combine with AND. They narrow `uncommitted_order_count` too, so the excluded count always describes the same slice of the order book the rates do.\n\nThis endpoint requires the permission: `sales_orders:read`.",
         "operationId": "analyze-delivery-performance",
         "requestBody": {
           "content": {
@@ -80877,6 +81297,108 @@
                         "max_days_late": 7,
                         "order_count": 2,
                         "units": 340
+                      }
+                    ]
+                  },
+                  "lateness": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "delivery_lateness_bucket",
+                        "label": "1_3_days",
+                        "min_days_late": 1,
+                        "max_days_late": 3,
+                        "order_count": 2,
+                        "shipped_count": 0,
+                        "units": 340
+                      }
+                    ]
+                  },
+                  "by_customer": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "delivery_breakdown",
+                        "key": "ac_opnlh43ymyee",
+                        "label": "Northwind Textiles",
+                        "performance": {
+                          "object": "delivery_performance",
+                          "period_start": null,
+                          "committed_order_count": 6,
+                          "shipped_order_count": 5,
+                          "on_time_order_count": 4,
+                          "on_time_in_full_count": 4,
+                          "late_order_count": 2,
+                          "not_yet_shipped_count": 1,
+                          "on_time_pct": 92.31,
+                          "on_time_in_full_pct": 88.46,
+                          "average_days_late": 4.5,
+                          "average_lead_time_days": null,
+                          "average_committed_lead_time_days": null
+                        }
+                      }
+                    ]
+                  },
+                  "by_customer_group": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": []
+                  },
+                  "by_product_line": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": []
+                  },
+                  "by_commitment_source": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "object": "delivery_breakdown",
+                        "key": "customer",
+                        "label": "customer",
+                        "performance": {
+                          "object": "delivery_performance",
+                          "period_start": null,
+                          "committed_order_count": 6,
+                          "shipped_order_count": 5,
+                          "on_time_order_count": 4,
+                          "on_time_in_full_count": 4,
+                          "late_order_count": 2,
+                          "not_yet_shipped_count": 1,
+                          "on_time_pct": 92.31,
+                          "on_time_in_full_pct": 88.46,
+                          "average_days_late": 4.5,
+                          "average_lead_time_days": null,
+                          "average_committed_lead_time_days": null
+                        }
                       }
                     ]
                   },
@@ -81404,6 +81926,8 @@
                   "analyze_delivery_performance_response",
                   "delivery_performance",
                   "delivery_backlog_bucket",
+                  "delivery_lateness_bucket",
+                  "delivery_breakdown",
                   "schedule_order_coverage",
                   "schedule_order_coverage_line",
                   "promise_date_quote",
@@ -81727,6 +82251,8 @@
                 "analyze_delivery_performance_response",
                 "delivery_performance",
                 "delivery_backlog_bucket",
+                "delivery_lateness_bucket",
+                "delivery_breakdown",
                 "schedule_order_coverage",
                 "schedule_order_coverage_line",
                 "promise_date_quote",
@@ -82985,7 +83511,7 @@
     },
     "/v1/core/jobs/{id}": {
       "get": {
-        "description": "Returns a job by ID — poll the job named in a `202 Accepted` response's `Location` to observe its outcome.\nA completed export carries the link to its file on `export.url`.",
+        "description": "Returns a job by ID — poll the job named in a `202 Accepted` response's `Location` to observe its outcome.\nA completed export carries the link to its file on `export.url`.\n\nThis endpoint requires the permissions: `jobs:read`, `customers:read`, `suppliers:read`.",
         "operationId": "retrieve-job",
         "parameters": [
           {
@@ -83106,7 +83632,7 @@
     },
     "/v1/core/jobs/{id}/cancel": {
       "post": {
-        "description": "Cancels a job and returns it carrying its `cancelled` status.\nWork in flight is not interrupted but can no longer settle, and a finished job cannot be cancelled.",
+        "description": "Cancels a job and returns it carrying its `cancelled` status.\nWork in flight is not interrupted but can no longer settle, and a finished job cannot be cancelled.\n\nThis endpoint requires the permission: `jobs:delete`.",
         "operationId": "cancel-job",
         "parameters": [
           {
@@ -84411,6 +84937,8 @@
                   "analyze_delivery_performance_response",
                   "delivery_performance",
                   "delivery_backlog_bucket",
+                  "delivery_lateness_bucket",
+                  "delivery_breakdown",
                   "schedule_order_coverage",
                   "schedule_order_coverage_line",
                   "promise_date_quote",
@@ -88245,6 +88773,8 @@
                 "analyze_delivery_performance_response",
                 "delivery_performance",
                 "delivery_backlog_bucket",
+                "delivery_lateness_bucket",
+                "delivery_breakdown",
                 "schedule_order_coverage",
                 "schedule_order_coverage_line",
                 "promise_date_quote",
