@@ -54680,7 +54680,7 @@
             "type": "string"
           },
           "ordered": {
-            "description": "Total ordered amount as a decimal string (unit price times quantity ordered).\n\nThis is the baseline the stage completions are measured against.",
+            "description": "Total ordered amount as a decimal string (unit price x quantity ordered).\n\nThis is the baseline the stage completions are measured against.",
             "format": "decimal",
             "type": "string"
           },
