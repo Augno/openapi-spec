@@ -4294,6 +4294,11 @@
           },
           "category": {
             "description": "The kind of information this memory holds, used to group related memories.\n\n- `preference`: how someone likes things done, such as a customer who always wants express shipping.\n- `fact`: a durable detail worth remembering about the account or one of its records, such as a customer's typical order size.\n- `instruction`: standing guidance for agents to follow, such as always confirming freight before issuing an order.",
+            "enum": [
+              "preference",
+              "fact",
+              "instruction"
+            ],
             "type": "string"
           },
           "content": {
@@ -11992,6 +11997,11 @@
         "properties": {
           "category": {
             "description": "The kind of information this memory holds, used to group related memories.\n\n- `preference`: how someone likes things done, such as a customer who always wants express shipping.\n- `fact`: a durable detail worth remembering about the account or one of its records, such as a customer's typical order size.\n- `instruction`: standing guidance for agents to follow, such as always confirming freight before issuing an order.",
+            "enum": [
+              "preference",
+              "fact",
+              "instruction"
+            ],
             "type": "string"
           },
           "content": {
@@ -16579,6 +16589,33 @@
           "sent_by",
           "created_at",
           "updated_at"
+        ],
+        "type": "object"
+      },
+      "EmailRecordRequest": {
+        "description": "Request to email a record to its configured recipients.",
+        "example": {
+          "id": "iv_m982ezb0fgp7",
+          "type": "invoice"
+        },
+        "properties": {
+          "id": {
+            "description": "ID of the record to email.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of record to email.\n\n- `invoice`: emails the invoice to the contacts on its sales order that are set to receive invoice emails.\n- `sales_order`: sends an order acknowledgement to the order's acknowledgement recipients.\n- `purchase_order`: sends the purchase order submission to the order's submission recipients.",
+            "enum": [
+              "invoice",
+              "sales_order",
+              "purchase_order"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type"
         ],
         "type": "object"
       },
@@ -62918,6 +62955,11 @@
         "properties": {
           "category": {
             "description": "The kind of information this memory holds, used to group related memories.\n\n- `preference`: how someone likes things done, such as a customer who always wants express shipping.\n- `fact`: a durable detail worth remembering about the account or one of its records, such as a customer's typical order size.\n- `instruction`: standing guidance for agents to follow, such as always confirming freight before issuing an order.",
+            "enum": [
+              "preference",
+              "fact",
+              "instruction"
+            ],
             "type": "string"
           },
           "content": {
@@ -66528,6 +66570,11 @@
             "in": "query",
             "name": "category",
             "schema": {
+              "enum": [
+                "preference",
+                "fact",
+                "instruction"
+              ],
               "type": "string"
             }
           },
@@ -84808,6 +84855,55 @@
         "summary": "Update Unit",
         "tags": [
           "Units"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/core/actions/email-record": {
+      "post": {
+        "description": "Emails a record (invoice, sales order, or purchase order) to its configured recipients and marks the record as sent.\n\nDelivery is asynchronous: the endpoint returns `202 Accepted` once the email is queued, so a `202` means the send was accepted, not that it reached the recipients. If the record has no configured recipients the request still succeeds and nothing is sent; in that case a sales order or purchase order is also left unmarked, while an invoice is still marked as sent.\n\nThis endpoint requires the permissions: `invoices:read`, `sales_orders:read`, `purchase_orders:read`.",
+        "operationId": "email-record",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "id": "iv_m982ezb0fgp7",
+                "type": "invoice"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/EmailRecordRequest"
+              }
+            }
+          },
+          "description": "The request body for Email Record"
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Email Record"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Email Record",
+        "tags": [
+          "Utils"
         ],
         "x-preview": true
       }
@@ -135993,6 +136089,10 @@
     {
       "description": "Analyze sales, orders, manufacturing, materials, and other business metrics.",
       "name": "Analytics"
+    },
+    {
+      "description": "Utility action endpoints for checking duplicates and emailing records.",
+      "name": "Utils"
     }
   ]
 }
