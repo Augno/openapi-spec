@@ -1286,13 +1286,133 @@
                 "id": "ic_d06g9c6yc9ck",
                 "object": "item_category",
                 "name": "Electronics",
-                "notes": null,
-                "type": "",
-                "owner": null,
-                "properties": null,
-                "unit_group": null,
-                "created_at": "0001-01-01T00:00:00Z",
-                "updated_at": "0001-01-01T00:00:00Z"
+                "notes": "Components and raw materials used across the electronics assembly line.",
+                "type": "material_category",
+                "owner": {
+                  "object": "owner",
+                  "type": "system",
+                  "account": null
+                },
+                "properties": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": null,
+                    "previous_page_url": null,
+                    "has_next_page": false,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "pp_fhnnvtt3q3ov",
+                      "object": "property",
+                      "name": "Color",
+                      "attributes": {
+                        "object": "list",
+                        "page_info": {
+                          "next_page_url": null,
+                          "previous_page_url": null,
+                          "has_next_page": false,
+                          "has_prev_page": false
+                        },
+                        "data": [
+                          {
+                            "id": "at_rf1w295jt5ia",
+                            "object": "attribute",
+                            "value": "Premium",
+                            "color": "red",
+                            "sort_order": 1,
+                            "property": {
+                              "id": "pp_fhnnvtt3q3ov",
+                              "object": "property",
+                              "name": "Color",
+                              "attributes": null,
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
+                          }
+                        ]
+                      },
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  ]
+                },
+                "unit_group": {
+                  "id": "ug_andst6m79n41",
+                  "object": "unit_group",
+                  "name": "Weight",
+                  "notes": "Mass units used for ordering raw materials by weight.",
+                  "type": "mass",
+                  "base_unit": {
+                    "id": "un_82bd37dae5po",
+                    "object": "unit",
+                    "name": "Kilogram",
+                    "abbreviation": "kg",
+                    "type": "mass",
+                    "ratio_numerator": "1000",
+                    "ratio_denominator": "1",
+                    "offset_numerator": "0",
+                    "offset_denominator": "1",
+                    "is_base_unit": false,
+                    "owner": {
+                      "object": "owner",
+                      "type": "system",
+                      "account": null
+                    },
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  },
+                  "associated_units": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "id": "ugu_sfrqqziz49dw",
+                        "object": "unit_group_unit",
+                        "unit": {
+                          "id": "un_82bd37dae5po",
+                          "object": "unit",
+                          "name": "Kilogram",
+                          "abbreviation": "kg",
+                          "type": "mass",
+                          "ratio_numerator": "1000",
+                          "ratio_denominator": "1",
+                          "offset_numerator": "0",
+                          "offset_denominator": "1",
+                          "is_base_unit": false,
+                          "owner": {
+                            "object": "owner",
+                            "type": "system",
+                            "account": null
+                          },
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        },
+                        "discount_percentage": 1,
+                        "discount_fixed": 0,
+                        "customer_portal_visibility": "visible",
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      }
+                    ]
+                  },
+                  "owner": {
+                    "object": "owner",
+                    "type": "system",
+                    "account": null
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
               }
             ]
           },
@@ -1309,11 +1429,18 @@
                 "id": "at_rf1w295jt5ia",
                 "object": "attribute",
                 "value": "Premium",
-                "color": "",
-                "sort_order": 0,
-                "property": null,
-                "created_at": "0001-01-01T00:00:00Z",
-                "updated_at": "0001-01-01T00:00:00Z"
+                "color": "red",
+                "sort_order": 1,
+                "property": {
+                  "id": "pp_fhnnvtt3q3ov",
+                  "object": "property",
+                  "name": "Color",
+                  "attributes": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
               }
             ]
           },
@@ -3440,8 +3567,8 @@
           "run": {
             "id": "agrn_l6ob5relrd7t",
             "object": "agent_run",
-            "trigger_type": "",
-            "status": "",
+            "trigger_type": "manual",
+            "status": "completed",
             "definition": null,
             "input": null,
             "output": null,
@@ -3452,8 +3579,8 @@
             "duration_ms": null,
             "actions": null,
             "steps": null,
-            "created_at": "0001-01-01T00:00:00Z",
-            "updated_at": "0001-01-01T00:00:00Z"
+            "created_at": "2026-05-10T00:00:00Z",
+            "updated_at": "2026-05-10T00:23:00Z"
           },
           "input": {
             "path": "/api/sales-orders/create"
@@ -4396,8 +4523,8 @@
                 "run": {
                   "id": "agrn_l6ob5relrd7t",
                   "object": "agent_run",
-                  "trigger_type": "",
-                  "status": "",
+                  "trigger_type": "manual",
+                  "status": "completed",
                   "definition": null,
                   "input": null,
                   "output": null,
@@ -4408,8 +4535,8 @@
                   "duration_ms": null,
                   "actions": null,
                   "steps": null,
-                  "created_at": "0001-01-01T00:00:00Z",
-                  "updated_at": "0001-01-01T00:00:00Z"
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
                 },
                 "input": {
                   "path": "/api/sales-orders/create"
@@ -4737,8 +4864,8 @@
                   "run": {
                     "id": "agrn_l6ob5relrd7t",
                     "object": "agent_run",
-                    "trigger_type": "",
-                    "status": "",
+                    "trigger_type": "manual",
+                    "status": "completed",
                     "definition": null,
                     "input": null,
                     "output": null,
@@ -4749,8 +4876,8 @@
                     "duration_ms": null,
                     "actions": null,
                     "steps": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "input": {
                     "path": "/api/sales-orders/create"
@@ -5480,22 +5607,22 @@
                 "good_units": 980,
                 "waste_units": 20,
                 "seconds_units": 5,
-                "standard_seconds_earned": 0,
+                "standard_seconds_earned": 126000,
                 "estimated_runtime_hours": 40,
-                "availability_loss_seconds": 0,
+                "availability_loss_seconds": 14850,
                 "performance_loss_seconds": 0,
                 "quality_loss_seconds": 0,
-                "not_scheduled_seconds": 0,
+                "not_scheduled_seconds": 3600,
                 "changeover_seconds": 0,
-                "downtime_event_count": 0,
+                "downtime_event_count": 6,
                 "downtime_breakdown": null,
-                "scheduled_seconds": 0,
-                "run_time_seconds": 0,
-                "availability_pct": null,
-                "performance_pct": null,
-                "quality_pct": null,
-                "oee_pct": null,
-                "measurement_status": "",
+                "scheduled_seconds": 165000,
+                "run_time_seconds": 150150,
+                "availability_pct": 0.91,
+                "performance_pct": 0.84,
+                "quality_pct": 0.98,
+                "oee_pct": 0.749112,
+                "measurement_status": "measured",
                 "anomalies": []
               }
             ]
@@ -9484,8 +9611,8 @@
                 "agent_trigger_policy": null,
                 "agent_trigger_keywords": [],
                 "read_cursor": {
-                  "object": "",
-                  "sequence": 0,
+                  "object": "read_cursor",
+                  "sequence": 12,
                   "message_id": null,
                   "read_at": null
                 }
@@ -9811,8 +9938,8 @@
                       "agent_trigger_policy": null,
                       "agent_trigger_keywords": [],
                       "read_cursor": {
-                        "object": "",
-                        "sequence": 0,
+                        "object": "read_cursor",
+                        "sequence": 12,
                         "message_id": null,
                         "read_at": null
                       }
@@ -10002,8 +10129,8 @@
                   "agent_trigger_policy": null,
                   "agent_trigger_keywords": [],
                   "read_cursor": {
-                    "object": "",
-                    "sequence": 0,
+                    "object": "read_cursor",
+                    "sequence": 12,
                     "message_id": null,
                     "read_at": null
                   }
@@ -10118,8 +10245,8 @@
                     "agent_trigger_policy": null,
                     "agent_trigger_keywords": [],
                     "read_cursor": {
-                      "object": "",
-                      "sequence": 0,
+                      "object": "read_cursor",
+                      "sequence": 12,
                       "message_id": null,
                       "read_at": null
                     }
@@ -15981,12 +16108,15 @@
           "email_domain": {
             "id": "emdom_2rk3omr8vshb",
             "object": "email_domain",
-            "domain": "",
-            "status": "",
-            "dkim_tokens": [],
+            "domain": "support.acme.com",
+            "status": "pending",
+            "dkim_tokens": [
+              "abc123._domainkey.support.acme.com",
+              "def456._domainkey.support.acme.com"
+            ],
             "verified_at": null,
-            "created_at": "0001-01-01T00:00:00Z",
-            "updated_at": "0001-01-01T00:00:00Z"
+            "created_at": "2026-05-10T00:00:00Z",
+            "updated_at": "2026-05-10T00:23:00Z"
           },
           "address": "support@acme.com",
           "forwarding_address": null,
@@ -15994,19 +16124,96 @@
           "agent_config": {
             "id": "agdf_ah7tkyfxk8jl",
             "object": "agent_definition",
-            "definition_type": "",
-            "category_code": "",
-            "trigger_type": "",
-            "name": "",
-            "slug": "",
-            "description": null,
-            "editability": "",
-            "status": "",
-            "role": null,
-            "config": null,
-            "tools": null,
-            "created_at": "0001-01-01T00:00:00Z",
-            "updated_at": "0001-01-01T00:00:00Z"
+            "definition_type": "system",
+            "category_code": "order_processing",
+            "trigger_type": "event",
+            "name": "Email Order Agent",
+            "slug": "email_order",
+            "description": "Processes incoming emails and creates draft orders.",
+            "editability": "read_only",
+            "status": "inactive",
+            "role": {
+              "id": "rl_3xknmfqflhvb",
+              "object": "role",
+              "name": "Admin",
+              "type": "admin",
+              "owner": {
+                "object": "owner",
+                "type": "account",
+                "account": {
+                  "id": "ac_ykxoradjoeb3",
+                  "object": "account",
+                  "name": "Acme Inc.",
+                  "default_billing_address": null,
+                  "default_shipping_address": null,
+                  "branding": null,
+                  "portal": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
+              },
+              "permissions": [
+                "customers:create",
+                "customers:read",
+                "customers:update",
+                "customers:delete"
+              ],
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "config": {
+              "object": "agent_definition_config",
+              "system_prompt": "You are an order processing agent. Parse incoming emails and create draft orders.",
+              "tier": "high",
+              "temperature": 0.2,
+              "trigger_config": {
+                "object": "trigger_config",
+                "cron_schedule": null,
+                "timezone": null,
+                "event_filters": [
+                  "email.received"
+                ]
+              },
+              "endpoint_tool_slugs": [
+                "create_account_group"
+              ],
+              "endpoint_tool_review": {
+                "create_account_group": true
+              }
+            },
+            "tools": {
+              "object": "list",
+              "page_info": {
+                "next_page_url": null,
+                "previous_page_url": null,
+                "has_next_page": false,
+                "has_prev_page": false
+              },
+              "data": [
+                {
+                  "id": "agdftl_iyc1asmsg1pu",
+                  "object": "agent_definition_tool",
+                  "tool": {
+                    "object": "available_tool",
+                    "slug": "read_doc",
+                    "category": "built_in",
+                    "name": "Lookup Customer",
+                    "description": "Look up a customer by their email address.",
+                    "config_schema": null,
+                    "required_permissions": [
+                      "customers:read"
+                    ],
+                    "required_role_type": null,
+                    "mutating": false
+                  },
+                  "review_requirement": "not_required",
+                  "config": {},
+                  "sort_order": 0
+                }
+              ]
+            },
+            "created_at": "2026-05-10T00:00:00Z",
+            "updated_at": "2026-05-10T00:23:00Z"
           },
           "agent_trigger_policy": "always",
           "agent_trigger_keywords": [],
@@ -20356,13 +20563,133 @@
                     "id": "ic_d06g9c6yc9ck",
                     "object": "item_category",
                     "name": "Electronics",
-                    "notes": null,
-                    "type": "",
-                    "owner": null,
-                    "properties": null,
-                    "unit_group": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "notes": "Components and raw materials used across the electronics assembly line.",
+                    "type": "material_category",
+                    "owner": {
+                      "object": "owner",
+                      "type": "system",
+                      "account": null
+                    },
+                    "properties": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "id": "pp_fhnnvtt3q3ov",
+                          "object": "property",
+                          "name": "Color",
+                          "attributes": {
+                            "object": "list",
+                            "page_info": {
+                              "next_page_url": null,
+                              "previous_page_url": null,
+                              "has_next_page": false,
+                              "has_prev_page": false
+                            },
+                            "data": [
+                              {
+                                "id": "at_rf1w295jt5ia",
+                                "object": "attribute",
+                                "value": "Premium",
+                                "color": "red",
+                                "sort_order": 1,
+                                "property": {
+                                  "id": "pp_fhnnvtt3q3ov",
+                                  "object": "property",
+                                  "name": "Color",
+                                  "attributes": null,
+                                  "created_at": "2026-05-10T00:00:00Z",
+                                  "updated_at": "2026-05-10T00:23:00Z"
+                                },
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
+                            ]
+                          },
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      ]
+                    },
+                    "unit_group": {
+                      "id": "ug_andst6m79n41",
+                      "object": "unit_group",
+                      "name": "Weight",
+                      "notes": "Mass units used for ordering raw materials by weight.",
+                      "type": "mass",
+                      "base_unit": {
+                        "id": "un_82bd37dae5po",
+                        "object": "unit",
+                        "name": "Kilogram",
+                        "abbreviation": "kg",
+                        "type": "mass",
+                        "ratio_numerator": "1000",
+                        "ratio_denominator": "1",
+                        "offset_numerator": "0",
+                        "offset_denominator": "1",
+                        "is_base_unit": false,
+                        "owner": {
+                          "object": "owner",
+                          "type": "system",
+                          "account": null
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      },
+                      "associated_units": {
+                        "object": "list",
+                        "page_info": {
+                          "next_page_url": null,
+                          "previous_page_url": null,
+                          "has_next_page": false,
+                          "has_prev_page": false
+                        },
+                        "data": [
+                          {
+                            "id": "ugu_sfrqqziz49dw",
+                            "object": "unit_group_unit",
+                            "unit": {
+                              "id": "un_82bd37dae5po",
+                              "object": "unit",
+                              "name": "Kilogram",
+                              "abbreviation": "kg",
+                              "type": "mass",
+                              "ratio_numerator": "1000",
+                              "ratio_denominator": "1",
+                              "offset_numerator": "0",
+                              "offset_denominator": "1",
+                              "is_base_unit": false,
+                              "owner": {
+                                "object": "owner",
+                                "type": "system",
+                                "account": null
+                              },
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "discount_percentage": 1,
+                            "discount_fixed": 0,
+                            "customer_portal_visibility": "visible",
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
+                          }
+                        ]
+                      },
+                      "owner": {
+                        "object": "owner",
+                        "type": "system",
+                        "account": null
+                      },
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   }
                 ]
               },
@@ -20379,11 +20706,18 @@
                     "id": "at_rf1w295jt5ia",
                     "object": "attribute",
                     "value": "Premium",
-                    "color": "",
-                    "sort_order": 0,
-                    "property": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "color": "red",
+                    "sort_order": 1,
+                    "property": {
+                      "id": "pp_fhnnvtt3q3ov",
+                      "object": "property",
+                      "name": "Color",
+                      "attributes": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   }
                 ]
               },
@@ -20953,8 +21287,8 @@
               "run": {
                 "id": "agrn_l6ob5relrd7t",
                 "object": "agent_run",
-                "trigger_type": "",
-                "status": "",
+                "trigger_type": "manual",
+                "status": "completed",
                 "definition": null,
                 "input": null,
                 "output": null,
@@ -20965,8 +21299,8 @@
                 "duration_ms": null,
                 "actions": null,
                 "steps": null,
-                "created_at": "0001-01-01T00:00:00Z",
-                "updated_at": "0001-01-01T00:00:00Z"
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
               },
               "input": {
                 "path": "/api/sales-orders/create"
@@ -21469,8 +21803,8 @@
                     "run": {
                       "id": "agrn_l6ob5relrd7t",
                       "object": "agent_run",
-                      "trigger_type": "",
-                      "status": "",
+                      "trigger_type": "manual",
+                      "status": "completed",
                       "definition": null,
                       "input": null,
                       "output": null,
@@ -21481,8 +21815,8 @@
                       "duration_ms": null,
                       "actions": null,
                       "steps": null,
-                      "created_at": "0001-01-01T00:00:00Z",
-                      "updated_at": "0001-01-01T00:00:00Z"
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
                     },
                     "input": {
                       "path": "/api/sales-orders/create"
@@ -23137,8 +23471,8 @@
                     "agent_trigger_policy": null,
                     "agent_trigger_keywords": [],
                     "read_cursor": {
-                      "object": "",
-                      "sequence": 0,
+                      "object": "read_cursor",
+                      "sequence": 12,
                       "message_id": null,
                       "read_at": null
                     }
@@ -23275,8 +23609,8 @@
                       "agent_trigger_policy": null,
                       "agent_trigger_keywords": [],
                       "read_cursor": {
-                        "object": "",
-                        "sequence": 0,
+                        "object": "read_cursor",
+                        "sequence": 12,
                         "message_id": null,
                         "read_at": null
                       }
@@ -24518,12 +24852,15 @@
               "email_domain": {
                 "id": "emdom_2rk3omr8vshb",
                 "object": "email_domain",
-                "domain": "",
-                "status": "",
-                "dkim_tokens": [],
+                "domain": "support.acme.com",
+                "status": "pending",
+                "dkim_tokens": [
+                  "abc123._domainkey.support.acme.com",
+                  "def456._domainkey.support.acme.com"
+                ],
                 "verified_at": null,
-                "created_at": "0001-01-01T00:00:00Z",
-                "updated_at": "0001-01-01T00:00:00Z"
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
               },
               "address": "support@acme.com",
               "forwarding_address": null,
@@ -24531,19 +24868,96 @@
               "agent_config": {
                 "id": "agdf_ah7tkyfxk8jl",
                 "object": "agent_definition",
-                "definition_type": "",
-                "category_code": "",
-                "trigger_type": "",
-                "name": "",
-                "slug": "",
-                "description": null,
-                "editability": "",
-                "status": "",
-                "role": null,
-                "config": null,
-                "tools": null,
-                "created_at": "0001-01-01T00:00:00Z",
-                "updated_at": "0001-01-01T00:00:00Z"
+                "definition_type": "system",
+                "category_code": "order_processing",
+                "trigger_type": "event",
+                "name": "Email Order Agent",
+                "slug": "email_order",
+                "description": "Processes incoming emails and creates draft orders.",
+                "editability": "read_only",
+                "status": "inactive",
+                "role": {
+                  "id": "rl_3xknmfqflhvb",
+                  "object": "role",
+                  "name": "Admin",
+                  "type": "admin",
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_ykxoradjoeb3",
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
+                  "permissions": [
+                    "customers:create",
+                    "customers:read",
+                    "customers:update",
+                    "customers:delete"
+                  ],
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "config": {
+                  "object": "agent_definition_config",
+                  "system_prompt": "You are an order processing agent. Parse incoming emails and create draft orders.",
+                  "tier": "high",
+                  "temperature": 0.2,
+                  "trigger_config": {
+                    "object": "trigger_config",
+                    "cron_schedule": null,
+                    "timezone": null,
+                    "event_filters": [
+                      "email.received"
+                    ]
+                  },
+                  "endpoint_tool_slugs": [
+                    "create_account_group"
+                  ],
+                  "endpoint_tool_review": {
+                    "create_account_group": true
+                  }
+                },
+                "tools": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": null,
+                    "previous_page_url": null,
+                    "has_next_page": false,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "agdftl_iyc1asmsg1pu",
+                      "object": "agent_definition_tool",
+                      "tool": {
+                        "object": "available_tool",
+                        "slug": "read_doc",
+                        "category": "built_in",
+                        "name": "Lookup Customer",
+                        "description": "Look up a customer by their email address.",
+                        "config_schema": null,
+                        "required_permissions": [
+                          "customers:read"
+                        ],
+                        "required_role_type": null,
+                        "mutating": false
+                      },
+                      "review_requirement": "not_required",
+                      "config": {},
+                      "sort_order": 0
+                    }
+                  ]
+                },
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
               },
               "agent_trigger_policy": "always",
               "agent_trigger_keywords": [],
@@ -26845,8 +27259,8 @@
                       "agent_trigger_policy": null,
                       "agent_trigger_keywords": [],
                       "read_cursor": {
-                        "object": "",
-                        "sequence": 0,
+                        "object": "read_cursor",
+                        "sequence": 12,
                         "message_id": null,
                         "read_at": null
                       }
@@ -30014,8 +30428,8 @@
                 "name": null,
                 "handle": "MZ-GREIGE-CREW"
               },
-              "fulfillment_policy": "",
-              "policy_source": "",
+              "fulfillment_policy": "make_to_stock",
+              "policy_source": "product_line",
               "firm_demand_units": 0,
               "forecast_demand_units": 0,
               "sku": "MZ-GREIGE-CREW",
@@ -38218,8 +38632,8 @@
                   "agent_trigger_policy": null,
                   "agent_trigger_keywords": [],
                   "read_cursor": {
-                    "object": "",
-                    "sequence": 0,
+                    "object": "read_cursor",
+                    "sequence": 12,
                     "message_id": null,
                     "read_at": null
                   }
@@ -38422,8 +38836,8 @@
                     "agent_trigger_policy": null,
                     "agent_trigger_keywords": [],
                     "read_cursor": {
-                      "object": "",
-                      "sequence": 0,
+                      "object": "read_cursor",
+                      "sequence": 12,
                       "message_id": null,
                       "read_at": null
                     }
@@ -38827,8 +39241,8 @@
                     "run": {
                       "id": "agrn_l6ob5relrd7t",
                       "object": "agent_run",
-                      "trigger_type": "",
-                      "status": "",
+                      "trigger_type": "manual",
+                      "status": "completed",
                       "definition": null,
                       "input": null,
                       "output": null,
@@ -38839,8 +39253,8 @@
                       "duration_ms": null,
                       "actions": null,
                       "steps": null,
-                      "created_at": "0001-01-01T00:00:00Z",
-                      "updated_at": "0001-01-01T00:00:00Z"
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
                     },
                     "input": {
                       "path": "/api/sales-orders/create"
@@ -45478,8 +45892,8 @@
             "name": null,
             "handle": "MZ-GREIGE-CREW"
           },
-          "fulfillment_policy": "",
-          "policy_source": "",
+          "fulfillment_policy": "make_to_stock",
+          "policy_source": "product_line",
           "firm_demand_units": 0,
           "forecast_demand_units": 0,
           "sku": "MZ-GREIGE-CREW",
@@ -46299,8 +46713,8 @@
                   "handle": "MZ-GREIGE-CREW"
                 },
                 "sku": "MZ-GREIGE-CREW",
-                "fulfillment_policy": "",
-                "policy_source": "",
+                "fulfillment_policy": "make_to_stock",
+                "policy_source": "product_line",
                 "firm_demand_units": 0,
                 "forecast_demand_units": 0,
                 "annual_demand": 5200,
@@ -66686,8 +67100,8 @@
                             "run": {
                               "id": "agrn_l6ob5relrd7t",
                               "object": "agent_run",
-                              "trigger_type": "",
-                              "status": "",
+                              "trigger_type": "manual",
+                              "status": "completed",
                               "definition": null,
                               "input": null,
                               "output": null,
@@ -66698,8 +67112,8 @@
                               "duration_ms": null,
                               "actions": null,
                               "steps": null,
-                              "created_at": "0001-01-01T00:00:00Z",
-                              "updated_at": "0001-01-01T00:00:00Z"
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
                             },
                             "input": {
                               "path": "/api/sales-orders/create"
@@ -67018,8 +67432,8 @@
                         "run": {
                           "id": "agrn_l6ob5relrd7t",
                           "object": "agent_run",
-                          "trigger_type": "",
-                          "status": "",
+                          "trigger_type": "manual",
+                          "status": "completed",
                           "definition": null,
                           "input": null,
                           "output": null,
@@ -67030,8 +67444,8 @@
                           "duration_ms": null,
                           "actions": null,
                           "steps": null,
-                          "created_at": "0001-01-01T00:00:00Z",
-                          "updated_at": "0001-01-01T00:00:00Z"
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         },
                         "input": {
                           "path": "/api/sales-orders/create"
@@ -67348,8 +67762,8 @@
                         "run": {
                           "id": "agrn_l6ob5relrd7t",
                           "object": "agent_run",
-                          "trigger_type": "",
-                          "status": "",
+                          "trigger_type": "manual",
+                          "status": "completed",
                           "definition": null,
                           "input": null,
                           "output": null,
@@ -67360,8 +67774,8 @@
                           "duration_ms": null,
                           "actions": null,
                           "steps": null,
-                          "created_at": "0001-01-01T00:00:00Z",
-                          "updated_at": "0001-01-01T00:00:00Z"
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         },
                         "input": {
                           "path": "/api/sales-orders/create"
@@ -67676,8 +68090,8 @@
                         "run": {
                           "id": "agrn_l6ob5relrd7t",
                           "object": "agent_run",
-                          "trigger_type": "",
-                          "status": "",
+                          "trigger_type": "manual",
+                          "status": "completed",
                           "definition": null,
                           "input": null,
                           "output": null,
@@ -67688,8 +68102,8 @@
                           "duration_ms": null,
                           "actions": null,
                           "steps": null,
-                          "created_at": "0001-01-01T00:00:00Z",
-                          "updated_at": "0001-01-01T00:00:00Z"
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         },
                         "input": {
                           "path": "/api/sales-orders/create"
@@ -68017,8 +68431,8 @@
                         "run": {
                           "id": "agrn_l6ob5relrd7t",
                           "object": "agent_run",
-                          "trigger_type": "",
-                          "status": "",
+                          "trigger_type": "manual",
+                          "status": "completed",
                           "definition": null,
                           "input": null,
                           "output": null,
@@ -68029,8 +68443,8 @@
                           "duration_ms": null,
                           "actions": null,
                           "steps": null,
-                          "created_at": "0001-01-01T00:00:00Z",
-                          "updated_at": "0001-01-01T00:00:00Z"
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         },
                         "input": {
                           "path": "/api/sales-orders/create"
@@ -68345,8 +68759,8 @@
                         "run": {
                           "id": "agrn_l6ob5relrd7t",
                           "object": "agent_run",
-                          "trigger_type": "",
-                          "status": "",
+                          "trigger_type": "manual",
+                          "status": "completed",
                           "definition": null,
                           "input": null,
                           "output": null,
@@ -68357,8 +68771,8 @@
                           "duration_ms": null,
                           "actions": null,
                           "steps": null,
-                          "created_at": "0001-01-01T00:00:00Z",
-                          "updated_at": "0001-01-01T00:00:00Z"
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
                         },
                         "input": {
                           "path": "/api/sales-orders/create"
@@ -84782,22 +85196,22 @@
                         "good_units": 980,
                         "waste_units": 20,
                         "seconds_units": 5,
-                        "standard_seconds_earned": 0,
+                        "standard_seconds_earned": 126000,
                         "estimated_runtime_hours": 40,
-                        "availability_loss_seconds": 0,
+                        "availability_loss_seconds": 14850,
                         "performance_loss_seconds": 0,
                         "quality_loss_seconds": 0,
-                        "not_scheduled_seconds": 0,
+                        "not_scheduled_seconds": 3600,
                         "changeover_seconds": 0,
-                        "downtime_event_count": 0,
+                        "downtime_event_count": 6,
                         "downtime_breakdown": null,
-                        "scheduled_seconds": 0,
-                        "run_time_seconds": 0,
-                        "availability_pct": null,
-                        "performance_pct": null,
-                        "quality_pct": null,
-                        "oee_pct": null,
-                        "measurement_status": "",
+                        "scheduled_seconds": 165000,
+                        "run_time_seconds": 150150,
+                        "availability_pct": 0.91,
+                        "performance_pct": 0.84,
+                        "quality_pct": 0.98,
+                        "oee_pct": 0.749112,
+                        "measurement_status": "measured",
                         "anomalies": []
                       }
                     ]
@@ -92399,8 +92813,8 @@
                             "agent_trigger_policy": null,
                             "agent_trigger_keywords": [],
                             "read_cursor": {
-                              "object": "",
-                              "sequence": 0,
+                              "object": "read_cursor",
+                              "sequence": 12,
                               "message_id": null,
                               "read_at": null
                             }
@@ -92568,8 +92982,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -92727,8 +93141,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -92897,8 +93311,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -93056,8 +93470,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -93229,8 +93643,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -93388,8 +93802,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -93547,8 +93961,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -93719,8 +94133,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -93891,8 +94305,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -94050,8 +94464,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -94223,8 +94637,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -94395,8 +94809,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -94567,8 +94981,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -94726,8 +95140,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -94885,8 +95299,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -95044,8 +95458,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -95310,8 +95724,8 @@
                               "agent_trigger_policy": null,
                               "agent_trigger_keywords": [],
                               "read_cursor": {
-                                "object": "",
-                                "sequence": 0,
+                                "object": "read_cursor",
+                                "sequence": 12,
                                 "message_id": null,
                                 "read_at": null
                               }
@@ -95496,8 +95910,8 @@
                           "agent_trigger_policy": null,
                           "agent_trigger_keywords": [],
                           "read_cursor": {
-                            "object": "",
-                            "sequence": 0,
+                            "object": "read_cursor",
+                            "sequence": 12,
                             "message_id": null,
                             "read_at": null
                           }
@@ -95793,8 +96207,8 @@
                               "agent_trigger_policy": null,
                               "agent_trigger_keywords": [],
                               "read_cursor": {
-                                "object": "",
-                                "sequence": 0,
+                                "object": "read_cursor",
+                                "sequence": 12,
                                 "message_id": null,
                                 "read_at": null
                               }
@@ -96062,8 +96476,8 @@
                           "agent_trigger_policy": null,
                           "agent_trigger_keywords": [],
                           "read_cursor": {
-                            "object": "",
-                            "sequence": 0,
+                            "object": "read_cursor",
+                            "sequence": 12,
                             "message_id": null,
                             "read_at": null
                           }
@@ -96295,8 +96709,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -96531,8 +96945,8 @@
                         "agent_trigger_policy": null,
                         "agent_trigger_keywords": [],
                         "read_cursor": {
-                          "object": "",
-                          "sequence": 0,
+                          "object": "read_cursor",
+                          "sequence": 12,
                           "message_id": null,
                           "read_at": null
                         }
@@ -96924,12 +97338,15 @@
                       "email_domain": {
                         "id": "emdom_2rk3omr8vshb",
                         "object": "email_domain",
-                        "domain": "",
-                        "status": "",
-                        "dkim_tokens": [],
+                        "domain": "support.acme.com",
+                        "status": "pending",
+                        "dkim_tokens": [
+                          "abc123._domainkey.support.acme.com",
+                          "def456._domainkey.support.acme.com"
+                        ],
                         "verified_at": null,
-                        "created_at": "0001-01-01T00:00:00Z",
-                        "updated_at": "0001-01-01T00:00:00Z"
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "address": "support@acme.com",
                       "forwarding_address": null,
@@ -96937,19 +97354,96 @@
                       "agent_config": {
                         "id": "agdf_ah7tkyfxk8jl",
                         "object": "agent_definition",
-                        "definition_type": "",
-                        "category_code": "",
-                        "trigger_type": "",
-                        "name": "",
-                        "slug": "",
-                        "description": null,
-                        "editability": "",
-                        "status": "",
-                        "role": null,
-                        "config": null,
-                        "tools": null,
-                        "created_at": "0001-01-01T00:00:00Z",
-                        "updated_at": "0001-01-01T00:00:00Z"
+                        "definition_type": "system",
+                        "category_code": "order_processing",
+                        "trigger_type": "event",
+                        "name": "Email Order Agent",
+                        "slug": "email_order",
+                        "description": "Processes incoming emails and creates draft orders.",
+                        "editability": "read_only",
+                        "status": "inactive",
+                        "role": {
+                          "id": "rl_3xknmfqflhvb",
+                          "object": "role",
+                          "name": "Admin",
+                          "type": "admin",
+                          "owner": {
+                            "object": "owner",
+                            "type": "account",
+                            "account": {
+                              "id": "ac_ykxoradjoeb3",
+                              "object": "account",
+                              "name": "Acme Inc.",
+                              "default_billing_address": null,
+                              "default_shipping_address": null,
+                              "branding": null,
+                              "portal": null,
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
+                            }
+                          },
+                          "permissions": [
+                            "customers:create",
+                            "customers:read",
+                            "customers:update",
+                            "customers:delete"
+                          ],
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        },
+                        "config": {
+                          "object": "agent_definition_config",
+                          "system_prompt": "You are an order processing agent. Parse incoming emails and create draft orders.",
+                          "tier": "high",
+                          "temperature": 0.2,
+                          "trigger_config": {
+                            "object": "trigger_config",
+                            "cron_schedule": null,
+                            "timezone": null,
+                            "event_filters": [
+                              "email.received"
+                            ]
+                          },
+                          "endpoint_tool_slugs": [
+                            "create_account_group"
+                          ],
+                          "endpoint_tool_review": {
+                            "create_account_group": true
+                          }
+                        },
+                        "tools": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "agdftl_iyc1asmsg1pu",
+                              "object": "agent_definition_tool",
+                              "tool": {
+                                "object": "available_tool",
+                                "slug": "read_doc",
+                                "category": "built_in",
+                                "name": "Lookup Customer",
+                                "description": "Look up a customer by their email address.",
+                                "config_schema": null,
+                                "required_permissions": [
+                                  "customers:read"
+                                ],
+                                "required_role_type": null,
+                                "mutating": false
+                              },
+                              "review_requirement": "not_required",
+                              "config": {},
+                              "sort_order": 0
+                            }
+                          ]
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "agent_trigger_policy": "always",
                       "agent_trigger_keywords": [],
@@ -97038,12 +97532,15 @@
                   "email_domain": {
                     "id": "emdom_2rk3omr8vshb",
                     "object": "email_domain",
-                    "domain": "",
-                    "status": "",
-                    "dkim_tokens": [],
+                    "domain": "support.acme.com",
+                    "status": "pending",
+                    "dkim_tokens": [
+                      "abc123._domainkey.support.acme.com",
+                      "def456._domainkey.support.acme.com"
+                    ],
                     "verified_at": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "address": "support@acme.com",
                   "forwarding_address": null,
@@ -97051,19 +97548,96 @@
                   "agent_config": {
                     "id": "agdf_ah7tkyfxk8jl",
                     "object": "agent_definition",
-                    "definition_type": "",
-                    "category_code": "",
-                    "trigger_type": "",
-                    "name": "",
-                    "slug": "",
-                    "description": null,
-                    "editability": "",
-                    "status": "",
-                    "role": null,
-                    "config": null,
-                    "tools": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "definition_type": "system",
+                    "category_code": "order_processing",
+                    "trigger_type": "event",
+                    "name": "Email Order Agent",
+                    "slug": "email_order",
+                    "description": "Processes incoming emails and creates draft orders.",
+                    "editability": "read_only",
+                    "status": "inactive",
+                    "role": {
+                      "id": "rl_3xknmfqflhvb",
+                      "object": "role",
+                      "name": "Admin",
+                      "type": "admin",
+                      "owner": {
+                        "object": "owner",
+                        "type": "account",
+                        "account": {
+                          "id": "ac_ykxoradjoeb3",
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      },
+                      "permissions": [
+                        "customers:create",
+                        "customers:read",
+                        "customers:update",
+                        "customers:delete"
+                      ],
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "config": {
+                      "object": "agent_definition_config",
+                      "system_prompt": "You are an order processing agent. Parse incoming emails and create draft orders.",
+                      "tier": "high",
+                      "temperature": 0.2,
+                      "trigger_config": {
+                        "object": "trigger_config",
+                        "cron_schedule": null,
+                        "timezone": null,
+                        "event_filters": [
+                          "email.received"
+                        ]
+                      },
+                      "endpoint_tool_slugs": [
+                        "create_account_group"
+                      ],
+                      "endpoint_tool_review": {
+                        "create_account_group": true
+                      }
+                    },
+                    "tools": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "id": "agdftl_iyc1asmsg1pu",
+                          "object": "agent_definition_tool",
+                          "tool": {
+                            "object": "available_tool",
+                            "slug": "read_doc",
+                            "category": "built_in",
+                            "name": "Lookup Customer",
+                            "description": "Look up a customer by their email address.",
+                            "config_schema": null,
+                            "required_permissions": [
+                              "customers:read"
+                            ],
+                            "required_role_type": null,
+                            "mutating": false
+                          },
+                          "review_requirement": "not_required",
+                          "config": {},
+                          "sort_order": 0
+                        }
+                      ]
+                    },
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "agent_trigger_policy": "always",
                   "agent_trigger_keywords": [],
@@ -97186,12 +97760,15 @@
                   "email_domain": {
                     "id": "emdom_2rk3omr8vshb",
                     "object": "email_domain",
-                    "domain": "",
-                    "status": "",
-                    "dkim_tokens": [],
+                    "domain": "support.acme.com",
+                    "status": "pending",
+                    "dkim_tokens": [
+                      "abc123._domainkey.support.acme.com",
+                      "def456._domainkey.support.acme.com"
+                    ],
                     "verified_at": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "address": "support@acme.com",
                   "forwarding_address": null,
@@ -97199,19 +97776,96 @@
                   "agent_config": {
                     "id": "agdf_ah7tkyfxk8jl",
                     "object": "agent_definition",
-                    "definition_type": "",
-                    "category_code": "",
-                    "trigger_type": "",
-                    "name": "",
-                    "slug": "",
-                    "description": null,
-                    "editability": "",
-                    "status": "",
-                    "role": null,
-                    "config": null,
-                    "tools": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "definition_type": "system",
+                    "category_code": "order_processing",
+                    "trigger_type": "event",
+                    "name": "Email Order Agent",
+                    "slug": "email_order",
+                    "description": "Processes incoming emails and creates draft orders.",
+                    "editability": "read_only",
+                    "status": "inactive",
+                    "role": {
+                      "id": "rl_3xknmfqflhvb",
+                      "object": "role",
+                      "name": "Admin",
+                      "type": "admin",
+                      "owner": {
+                        "object": "owner",
+                        "type": "account",
+                        "account": {
+                          "id": "ac_ykxoradjoeb3",
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      },
+                      "permissions": [
+                        "customers:create",
+                        "customers:read",
+                        "customers:update",
+                        "customers:delete"
+                      ],
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "config": {
+                      "object": "agent_definition_config",
+                      "system_prompt": "You are an order processing agent. Parse incoming emails and create draft orders.",
+                      "tier": "high",
+                      "temperature": 0.2,
+                      "trigger_config": {
+                        "object": "trigger_config",
+                        "cron_schedule": null,
+                        "timezone": null,
+                        "event_filters": [
+                          "email.received"
+                        ]
+                      },
+                      "endpoint_tool_slugs": [
+                        "create_account_group"
+                      ],
+                      "endpoint_tool_review": {
+                        "create_account_group": true
+                      }
+                    },
+                    "tools": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "id": "agdftl_iyc1asmsg1pu",
+                          "object": "agent_definition_tool",
+                          "tool": {
+                            "object": "available_tool",
+                            "slug": "read_doc",
+                            "category": "built_in",
+                            "name": "Lookup Customer",
+                            "description": "Look up a customer by their email address.",
+                            "config_schema": null,
+                            "required_permissions": [
+                              "customers:read"
+                            ],
+                            "required_role_type": null,
+                            "mutating": false
+                          },
+                          "review_requirement": "not_required",
+                          "config": {},
+                          "sort_order": 0
+                        }
+                      ]
+                    },
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "agent_trigger_policy": "always",
                   "agent_trigger_keywords": [],
@@ -97307,12 +97961,15 @@
                   "email_domain": {
                     "id": "emdom_2rk3omr8vshb",
                     "object": "email_domain",
-                    "domain": "",
-                    "status": "",
-                    "dkim_tokens": [],
+                    "domain": "support.acme.com",
+                    "status": "pending",
+                    "dkim_tokens": [
+                      "abc123._domainkey.support.acme.com",
+                      "def456._domainkey.support.acme.com"
+                    ],
                     "verified_at": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "address": "support@acme.com",
                   "forwarding_address": null,
@@ -97320,19 +97977,96 @@
                   "agent_config": {
                     "id": "agdf_ah7tkyfxk8jl",
                     "object": "agent_definition",
-                    "definition_type": "",
-                    "category_code": "",
-                    "trigger_type": "",
-                    "name": "",
-                    "slug": "",
-                    "description": null,
-                    "editability": "",
-                    "status": "",
-                    "role": null,
-                    "config": null,
-                    "tools": null,
-                    "created_at": "0001-01-01T00:00:00Z",
-                    "updated_at": "0001-01-01T00:00:00Z"
+                    "definition_type": "system",
+                    "category_code": "order_processing",
+                    "trigger_type": "event",
+                    "name": "Email Order Agent",
+                    "slug": "email_order",
+                    "description": "Processes incoming emails and creates draft orders.",
+                    "editability": "read_only",
+                    "status": "inactive",
+                    "role": {
+                      "id": "rl_3xknmfqflhvb",
+                      "object": "role",
+                      "name": "Admin",
+                      "type": "admin",
+                      "owner": {
+                        "object": "owner",
+                        "type": "account",
+                        "account": {
+                          "id": "ac_ykxoradjoeb3",
+                          "object": "account",
+                          "name": "Acme Inc.",
+                          "default_billing_address": null,
+                          "default_shipping_address": null,
+                          "branding": null,
+                          "portal": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      },
+                      "permissions": [
+                        "customers:create",
+                        "customers:read",
+                        "customers:update",
+                        "customers:delete"
+                      ],
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "config": {
+                      "object": "agent_definition_config",
+                      "system_prompt": "You are an order processing agent. Parse incoming emails and create draft orders.",
+                      "tier": "high",
+                      "temperature": 0.2,
+                      "trigger_config": {
+                        "object": "trigger_config",
+                        "cron_schedule": null,
+                        "timezone": null,
+                        "event_filters": [
+                          "email.received"
+                        ]
+                      },
+                      "endpoint_tool_slugs": [
+                        "create_account_group"
+                      ],
+                      "endpoint_tool_review": {
+                        "create_account_group": true
+                      }
+                    },
+                    "tools": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "id": "agdftl_iyc1asmsg1pu",
+                          "object": "agent_definition_tool",
+                          "tool": {
+                            "object": "available_tool",
+                            "slug": "read_doc",
+                            "category": "built_in",
+                            "name": "Lookup Customer",
+                            "description": "Look up a customer by their email address.",
+                            "config_schema": null,
+                            "required_permissions": [
+                              "customers:read"
+                            ],
+                            "required_role_type": null,
+                            "mutating": false
+                          },
+                          "review_requirement": "not_required",
+                          "config": {},
+                          "sort_order": 0
+                        }
+                      ]
+                    },
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "agent_trigger_policy": "always",
                   "agent_trigger_keywords": [],
@@ -98014,8 +98748,8 @@
                           "agent_trigger_policy": null,
                           "agent_trigger_keywords": [],
                           "read_cursor": {
-                            "object": "",
-                            "sequence": 0,
+                            "object": "read_cursor",
+                            "sequence": 12,
                             "message_id": null,
                             "read_at": null
                           }
@@ -98258,8 +98992,8 @@
                           "agent_trigger_policy": null,
                           "agent_trigger_keywords": [],
                           "read_cursor": {
-                            "object": "",
-                            "sequence": 0,
+                            "object": "read_cursor",
+                            "sequence": 12,
                             "message_id": null,
                             "read_at": null
                           }
@@ -98489,8 +99223,8 @@
                           "agent_trigger_policy": null,
                           "agent_trigger_keywords": [],
                           "read_cursor": {
-                            "object": "",
-                            "sequence": 0,
+                            "object": "read_cursor",
+                            "sequence": 12,
                             "message_id": null,
                             "read_at": null
                           }
@@ -98720,8 +99454,8 @@
                           "agent_trigger_policy": null,
                           "agent_trigger_keywords": [],
                           "read_cursor": {
-                            "object": "",
-                            "sequence": 0,
+                            "object": "read_cursor",
+                            "sequence": 12,
                             "message_id": null,
                             "read_at": null
                           }
@@ -107268,8 +108002,8 @@
                           "handle": "MZ-GREIGE-CREW"
                         },
                         "sku": "MZ-GREIGE-CREW",
-                        "fulfillment_policy": "",
-                        "policy_source": "",
+                        "fulfillment_policy": "make_to_stock",
+                        "policy_source": "product_line",
                         "firm_demand_units": 0,
                         "forecast_demand_units": 0,
                         "annual_demand": 5200,
@@ -109748,8 +110482,8 @@
                         "name": null,
                         "handle": "MZ-GREIGE-CREW"
                       },
-                      "fulfillment_policy": "",
-                      "policy_source": "",
+                      "fulfillment_policy": "make_to_stock",
+                      "policy_source": "product_line",
                       "firm_demand_units": 0,
                       "forecast_demand_units": 0,
                       "sku": "MZ-GREIGE-CREW",
@@ -112576,13 +113310,133 @@
                             "id": "ic_d06g9c6yc9ck",
                             "object": "item_category",
                             "name": "Electronics",
-                            "notes": null,
-                            "type": "",
-                            "owner": null,
-                            "properties": null,
-                            "unit_group": null,
-                            "created_at": "0001-01-01T00:00:00Z",
-                            "updated_at": "0001-01-01T00:00:00Z"
+                            "notes": "Components and raw materials used across the electronics assembly line.",
+                            "type": "material_category",
+                            "owner": {
+                              "object": "owner",
+                              "type": "system",
+                              "account": null
+                            },
+                            "properties": {
+                              "object": "list",
+                              "page_info": {
+                                "next_page_url": null,
+                                "previous_page_url": null,
+                                "has_next_page": false,
+                                "has_prev_page": false
+                              },
+                              "data": [
+                                {
+                                  "id": "pp_fhnnvtt3q3ov",
+                                  "object": "property",
+                                  "name": "Color",
+                                  "attributes": {
+                                    "object": "list",
+                                    "page_info": {
+                                      "next_page_url": null,
+                                      "previous_page_url": null,
+                                      "has_next_page": false,
+                                      "has_prev_page": false
+                                    },
+                                    "data": [
+                                      {
+                                        "id": "at_rf1w295jt5ia",
+                                        "object": "attribute",
+                                        "value": "Premium",
+                                        "color": "red",
+                                        "sort_order": 1,
+                                        "property": {
+                                          "id": "pp_fhnnvtt3q3ov",
+                                          "object": "property",
+                                          "name": "Color",
+                                          "attributes": null,
+                                          "created_at": "2026-05-10T00:00:00Z",
+                                          "updated_at": "2026-05-10T00:23:00Z"
+                                        },
+                                        "created_at": "2026-05-10T00:00:00Z",
+                                        "updated_at": "2026-05-10T00:23:00Z"
+                                      }
+                                    ]
+                                  },
+                                  "created_at": "2026-05-10T00:00:00Z",
+                                  "updated_at": "2026-05-10T00:23:00Z"
+                                }
+                              ]
+                            },
+                            "unit_group": {
+                              "id": "ug_andst6m79n41",
+                              "object": "unit_group",
+                              "name": "Weight",
+                              "notes": "Mass units used for ordering raw materials by weight.",
+                              "type": "mass",
+                              "base_unit": {
+                                "id": "un_82bd37dae5po",
+                                "object": "unit",
+                                "name": "Kilogram",
+                                "abbreviation": "kg",
+                                "type": "mass",
+                                "ratio_numerator": "1000",
+                                "ratio_denominator": "1",
+                                "offset_numerator": "0",
+                                "offset_denominator": "1",
+                                "is_base_unit": false,
+                                "owner": {
+                                  "object": "owner",
+                                  "type": "system",
+                                  "account": null
+                                },
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              },
+                              "associated_units": {
+                                "object": "list",
+                                "page_info": {
+                                  "next_page_url": null,
+                                  "previous_page_url": null,
+                                  "has_next_page": false,
+                                  "has_prev_page": false
+                                },
+                                "data": [
+                                  {
+                                    "id": "ugu_sfrqqziz49dw",
+                                    "object": "unit_group_unit",
+                                    "unit": {
+                                      "id": "un_82bd37dae5po",
+                                      "object": "unit",
+                                      "name": "Kilogram",
+                                      "abbreviation": "kg",
+                                      "type": "mass",
+                                      "ratio_numerator": "1000",
+                                      "ratio_denominator": "1",
+                                      "offset_numerator": "0",
+                                      "offset_denominator": "1",
+                                      "is_base_unit": false,
+                                      "owner": {
+                                        "object": "owner",
+                                        "type": "system",
+                                        "account": null
+                                      },
+                                      "created_at": "2026-05-10T00:00:00Z",
+                                      "updated_at": "2026-05-10T00:23:00Z"
+                                    },
+                                    "discount_percentage": 1,
+                                    "discount_fixed": 0,
+                                    "customer_portal_visibility": "visible",
+                                    "created_at": "2026-05-10T00:00:00Z",
+                                    "updated_at": "2026-05-10T00:23:00Z"
+                                  }
+                                ]
+                              },
+                              "owner": {
+                                "object": "owner",
+                                "type": "system",
+                                "account": null
+                              },
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
                           }
                         ]
                       },
@@ -112599,11 +113453,18 @@
                             "id": "at_rf1w295jt5ia",
                             "object": "attribute",
                             "value": "Premium",
-                            "color": "",
-                            "sort_order": 0,
-                            "property": null,
-                            "created_at": "0001-01-01T00:00:00Z",
-                            "updated_at": "0001-01-01T00:00:00Z"
+                            "color": "red",
+                            "sort_order": 1,
+                            "property": {
+                              "id": "pp_fhnnvtt3q3ov",
+                              "object": "property",
+                              "name": "Color",
+                              "attributes": null,
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
+                            },
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
                           }
                         ]
                       },
@@ -113275,13 +114136,133 @@
                         "id": "ic_d06g9c6yc9ck",
                         "object": "item_category",
                         "name": "Electronics",
-                        "notes": null,
-                        "type": "",
-                        "owner": null,
-                        "properties": null,
-                        "unit_group": null,
-                        "created_at": "0001-01-01T00:00:00Z",
-                        "updated_at": "0001-01-01T00:00:00Z"
+                        "notes": "Components and raw materials used across the electronics assembly line.",
+                        "type": "material_category",
+                        "owner": {
+                          "object": "owner",
+                          "type": "system",
+                          "account": null
+                        },
+                        "properties": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "pp_fhnnvtt3q3ov",
+                              "object": "property",
+                              "name": "Color",
+                              "attributes": {
+                                "object": "list",
+                                "page_info": {
+                                  "next_page_url": null,
+                                  "previous_page_url": null,
+                                  "has_next_page": false,
+                                  "has_prev_page": false
+                                },
+                                "data": [
+                                  {
+                                    "id": "at_rf1w295jt5ia",
+                                    "object": "attribute",
+                                    "value": "Premium",
+                                    "color": "red",
+                                    "sort_order": 1,
+                                    "property": {
+                                      "id": "pp_fhnnvtt3q3ov",
+                                      "object": "property",
+                                      "name": "Color",
+                                      "attributes": null,
+                                      "created_at": "2026-05-10T00:00:00Z",
+                                      "updated_at": "2026-05-10T00:23:00Z"
+                                    },
+                                    "created_at": "2026-05-10T00:00:00Z",
+                                    "updated_at": "2026-05-10T00:23:00Z"
+                                  }
+                                ]
+                              },
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
+                            }
+                          ]
+                        },
+                        "unit_group": {
+                          "id": "ug_andst6m79n41",
+                          "object": "unit_group",
+                          "name": "Weight",
+                          "notes": "Mass units used for ordering raw materials by weight.",
+                          "type": "mass",
+                          "base_unit": {
+                            "id": "un_82bd37dae5po",
+                            "object": "unit",
+                            "name": "Kilogram",
+                            "abbreviation": "kg",
+                            "type": "mass",
+                            "ratio_numerator": "1000",
+                            "ratio_denominator": "1",
+                            "offset_numerator": "0",
+                            "offset_denominator": "1",
+                            "is_base_unit": false,
+                            "owner": {
+                              "object": "owner",
+                              "type": "system",
+                              "account": null
+                            },
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
+                          },
+                          "associated_units": {
+                            "object": "list",
+                            "page_info": {
+                              "next_page_url": null,
+                              "previous_page_url": null,
+                              "has_next_page": false,
+                              "has_prev_page": false
+                            },
+                            "data": [
+                              {
+                                "id": "ugu_sfrqqziz49dw",
+                                "object": "unit_group_unit",
+                                "unit": {
+                                  "id": "un_82bd37dae5po",
+                                  "object": "unit",
+                                  "name": "Kilogram",
+                                  "abbreviation": "kg",
+                                  "type": "mass",
+                                  "ratio_numerator": "1000",
+                                  "ratio_denominator": "1",
+                                  "offset_numerator": "0",
+                                  "offset_denominator": "1",
+                                  "is_base_unit": false,
+                                  "owner": {
+                                    "object": "owner",
+                                    "type": "system",
+                                    "account": null
+                                  },
+                                  "created_at": "2026-05-10T00:00:00Z",
+                                  "updated_at": "2026-05-10T00:23:00Z"
+                                },
+                                "discount_percentage": 1,
+                                "discount_fixed": 0,
+                                "customer_portal_visibility": "visible",
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
+                            ]
+                          },
+                          "owner": {
+                            "object": "owner",
+                            "type": "system",
+                            "account": null
+                          },
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
                       }
                     ]
                   },
@@ -113298,11 +114279,18 @@
                         "id": "at_rf1w295jt5ia",
                         "object": "attribute",
                         "value": "Premium",
-                        "color": "",
-                        "sort_order": 0,
-                        "property": null,
-                        "created_at": "0001-01-01T00:00:00Z",
-                        "updated_at": "0001-01-01T00:00:00Z"
+                        "color": "red",
+                        "sort_order": 1,
+                        "property": {
+                          "id": "pp_fhnnvtt3q3ov",
+                          "object": "property",
+                          "name": "Color",
+                          "attributes": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
                       }
                     ]
                   },
@@ -114128,13 +115116,133 @@
                         "id": "ic_d06g9c6yc9ck",
                         "object": "item_category",
                         "name": "Electronics",
-                        "notes": null,
-                        "type": "",
-                        "owner": null,
-                        "properties": null,
-                        "unit_group": null,
-                        "created_at": "0001-01-01T00:00:00Z",
-                        "updated_at": "0001-01-01T00:00:00Z"
+                        "notes": "Components and raw materials used across the electronics assembly line.",
+                        "type": "material_category",
+                        "owner": {
+                          "object": "owner",
+                          "type": "system",
+                          "account": null
+                        },
+                        "properties": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "pp_fhnnvtt3q3ov",
+                              "object": "property",
+                              "name": "Color",
+                              "attributes": {
+                                "object": "list",
+                                "page_info": {
+                                  "next_page_url": null,
+                                  "previous_page_url": null,
+                                  "has_next_page": false,
+                                  "has_prev_page": false
+                                },
+                                "data": [
+                                  {
+                                    "id": "at_rf1w295jt5ia",
+                                    "object": "attribute",
+                                    "value": "Premium",
+                                    "color": "red",
+                                    "sort_order": 1,
+                                    "property": {
+                                      "id": "pp_fhnnvtt3q3ov",
+                                      "object": "property",
+                                      "name": "Color",
+                                      "attributes": null,
+                                      "created_at": "2026-05-10T00:00:00Z",
+                                      "updated_at": "2026-05-10T00:23:00Z"
+                                    },
+                                    "created_at": "2026-05-10T00:00:00Z",
+                                    "updated_at": "2026-05-10T00:23:00Z"
+                                  }
+                                ]
+                              },
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
+                            }
+                          ]
+                        },
+                        "unit_group": {
+                          "id": "ug_andst6m79n41",
+                          "object": "unit_group",
+                          "name": "Weight",
+                          "notes": "Mass units used for ordering raw materials by weight.",
+                          "type": "mass",
+                          "base_unit": {
+                            "id": "un_82bd37dae5po",
+                            "object": "unit",
+                            "name": "Kilogram",
+                            "abbreviation": "kg",
+                            "type": "mass",
+                            "ratio_numerator": "1000",
+                            "ratio_denominator": "1",
+                            "offset_numerator": "0",
+                            "offset_denominator": "1",
+                            "is_base_unit": false,
+                            "owner": {
+                              "object": "owner",
+                              "type": "system",
+                              "account": null
+                            },
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
+                          },
+                          "associated_units": {
+                            "object": "list",
+                            "page_info": {
+                              "next_page_url": null,
+                              "previous_page_url": null,
+                              "has_next_page": false,
+                              "has_prev_page": false
+                            },
+                            "data": [
+                              {
+                                "id": "ugu_sfrqqziz49dw",
+                                "object": "unit_group_unit",
+                                "unit": {
+                                  "id": "un_82bd37dae5po",
+                                  "object": "unit",
+                                  "name": "Kilogram",
+                                  "abbreviation": "kg",
+                                  "type": "mass",
+                                  "ratio_numerator": "1000",
+                                  "ratio_denominator": "1",
+                                  "offset_numerator": "0",
+                                  "offset_denominator": "1",
+                                  "is_base_unit": false,
+                                  "owner": {
+                                    "object": "owner",
+                                    "type": "system",
+                                    "account": null
+                                  },
+                                  "created_at": "2026-05-10T00:00:00Z",
+                                  "updated_at": "2026-05-10T00:23:00Z"
+                                },
+                                "discount_percentage": 1,
+                                "discount_fixed": 0,
+                                "customer_portal_visibility": "visible",
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
+                            ]
+                          },
+                          "owner": {
+                            "object": "owner",
+                            "type": "system",
+                            "account": null
+                          },
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
                       }
                     ]
                   },
@@ -114151,11 +115259,18 @@
                         "id": "at_rf1w295jt5ia",
                         "object": "attribute",
                         "value": "Premium",
-                        "color": "",
-                        "sort_order": 0,
-                        "property": null,
-                        "created_at": "0001-01-01T00:00:00Z",
-                        "updated_at": "0001-01-01T00:00:00Z"
+                        "color": "red",
+                        "sort_order": 1,
+                        "property": {
+                          "id": "pp_fhnnvtt3q3ov",
+                          "object": "property",
+                          "name": "Color",
+                          "attributes": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
                       }
                     ]
                   },
@@ -114827,13 +115942,133 @@
                         "id": "ic_d06g9c6yc9ck",
                         "object": "item_category",
                         "name": "Electronics",
-                        "notes": null,
-                        "type": "",
-                        "owner": null,
-                        "properties": null,
-                        "unit_group": null,
-                        "created_at": "0001-01-01T00:00:00Z",
-                        "updated_at": "0001-01-01T00:00:00Z"
+                        "notes": "Components and raw materials used across the electronics assembly line.",
+                        "type": "material_category",
+                        "owner": {
+                          "object": "owner",
+                          "type": "system",
+                          "account": null
+                        },
+                        "properties": {
+                          "object": "list",
+                          "page_info": {
+                            "next_page_url": null,
+                            "previous_page_url": null,
+                            "has_next_page": false,
+                            "has_prev_page": false
+                          },
+                          "data": [
+                            {
+                              "id": "pp_fhnnvtt3q3ov",
+                              "object": "property",
+                              "name": "Color",
+                              "attributes": {
+                                "object": "list",
+                                "page_info": {
+                                  "next_page_url": null,
+                                  "previous_page_url": null,
+                                  "has_next_page": false,
+                                  "has_prev_page": false
+                                },
+                                "data": [
+                                  {
+                                    "id": "at_rf1w295jt5ia",
+                                    "object": "attribute",
+                                    "value": "Premium",
+                                    "color": "red",
+                                    "sort_order": 1,
+                                    "property": {
+                                      "id": "pp_fhnnvtt3q3ov",
+                                      "object": "property",
+                                      "name": "Color",
+                                      "attributes": null,
+                                      "created_at": "2026-05-10T00:00:00Z",
+                                      "updated_at": "2026-05-10T00:23:00Z"
+                                    },
+                                    "created_at": "2026-05-10T00:00:00Z",
+                                    "updated_at": "2026-05-10T00:23:00Z"
+                                  }
+                                ]
+                              },
+                              "created_at": "2026-05-10T00:00:00Z",
+                              "updated_at": "2026-05-10T00:23:00Z"
+                            }
+                          ]
+                        },
+                        "unit_group": {
+                          "id": "ug_andst6m79n41",
+                          "object": "unit_group",
+                          "name": "Weight",
+                          "notes": "Mass units used for ordering raw materials by weight.",
+                          "type": "mass",
+                          "base_unit": {
+                            "id": "un_82bd37dae5po",
+                            "object": "unit",
+                            "name": "Kilogram",
+                            "abbreviation": "kg",
+                            "type": "mass",
+                            "ratio_numerator": "1000",
+                            "ratio_denominator": "1",
+                            "offset_numerator": "0",
+                            "offset_denominator": "1",
+                            "is_base_unit": false,
+                            "owner": {
+                              "object": "owner",
+                              "type": "system",
+                              "account": null
+                            },
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
+                          },
+                          "associated_units": {
+                            "object": "list",
+                            "page_info": {
+                              "next_page_url": null,
+                              "previous_page_url": null,
+                              "has_next_page": false,
+                              "has_prev_page": false
+                            },
+                            "data": [
+                              {
+                                "id": "ugu_sfrqqziz49dw",
+                                "object": "unit_group_unit",
+                                "unit": {
+                                  "id": "un_82bd37dae5po",
+                                  "object": "unit",
+                                  "name": "Kilogram",
+                                  "abbreviation": "kg",
+                                  "type": "mass",
+                                  "ratio_numerator": "1000",
+                                  "ratio_denominator": "1",
+                                  "offset_numerator": "0",
+                                  "offset_denominator": "1",
+                                  "is_base_unit": false,
+                                  "owner": {
+                                    "object": "owner",
+                                    "type": "system",
+                                    "account": null
+                                  },
+                                  "created_at": "2026-05-10T00:00:00Z",
+                                  "updated_at": "2026-05-10T00:23:00Z"
+                                },
+                                "discount_percentage": 1,
+                                "discount_fixed": 0,
+                                "customer_portal_visibility": "visible",
+                                "created_at": "2026-05-10T00:00:00Z",
+                                "updated_at": "2026-05-10T00:23:00Z"
+                              }
+                            ]
+                          },
+                          "owner": {
+                            "object": "owner",
+                            "type": "system",
+                            "account": null
+                          },
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
                       }
                     ]
                   },
@@ -114850,11 +116085,18 @@
                         "id": "at_rf1w295jt5ia",
                         "object": "attribute",
                         "value": "Premium",
-                        "color": "",
-                        "sort_order": 0,
-                        "property": null,
-                        "created_at": "0001-01-01T00:00:00Z",
-                        "updated_at": "0001-01-01T00:00:00Z"
+                        "color": "red",
+                        "sort_order": 1,
+                        "property": {
+                          "id": "pp_fhnnvtt3q3ov",
+                          "object": "property",
+                          "name": "Color",
+                          "attributes": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
                       }
                     ]
                   },
