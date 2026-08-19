@@ -197,6 +197,7 @@
             "phone": "+1-614-555-0142",
             "email": "receiving@acme.example.com",
             "type": "standard",
+            "receive_calendar_id": null,
             "geolocation": {
               "id": "gl_betrf3v346k5",
               "object": "geolocation",
@@ -217,6 +218,7 @@
             "phone": "+1-614-555-0142",
             "email": "receiving@acme.example.com",
             "type": "standard",
+            "receive_calendar_id": null,
             "geolocation": {
               "id": "gl_betrf3v346k5",
               "object": "geolocation",
@@ -285,6 +287,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -315,6 +318,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -1027,7 +1031,8 @@
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
-              "lead_time_days": null
+              "lead_time_days": null,
+              "receive_calendar_id": null
             },
             "notification_preferences": {
               "object": "customer_notification_preferences",
@@ -1040,6 +1045,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -1060,6 +1066,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -1789,7 +1796,8 @@
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
-                "lead_time_days": null
+                "lead_time_days": null,
+                "receive_calendar_id": null
               },
               "notification_preferences": {
                 "object": "customer_notification_preferences",
@@ -1802,6 +1810,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -1822,6 +1831,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -3112,6 +3122,9 @@
               "checkout_sales_order",
               "sales_order_price_quote",
               "sales_order_freight_quote",
+              "sales_order_commitment_quote",
+              "operating_calendar",
+              "operating_calendar_closure",
               "sales_order_price_quote_line",
               "hubspot_sync_job",
               "hubspot_sync_report",
@@ -3223,6 +3236,7 @@
           "phone": "+1-614-555-0142",
           "email": "receiving@acme.example.com",
           "type": "standard",
+          "receive_calendar_id": null,
           "geolocation": {
             "id": "gl_betrf3v346k5",
             "object": "geolocation",
@@ -3270,6 +3284,11 @@
             ],
             "type": "string"
           },
+          "receive_calendar_id": {
+            "description": "The operating calendar naming the days this dock accepts freight.\n\nThe most specific link in the receiving chain: set it when one of a customer's sites keeps different days from the rest. Null falls through to the customer, then their group, then the account default.",
+            "nullable": true,
+            "type": "string"
+          },
           "geolocation": {
             "allOf": [
               {
@@ -3297,6 +3316,7 @@
           "phone",
           "email",
           "type",
+          "receive_calendar_id",
           "geolocation",
           "created_at",
           "updated_at"
@@ -3389,6 +3409,10 @@
               "standard",
               "drop_ship"
             ],
+            "type": "string"
+          },
+          "receive_calendar_id": {
+            "description": "The operating calendar naming the days this dock accepts freight, overriding the customer's own.",
             "type": "string"
           },
           "street_line_1": {
@@ -6558,6 +6582,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -6578,6 +6603,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -6667,6 +6693,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -6687,6 +6714,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -7077,6 +7105,9 @@
               "checkout_sales_order",
               "sales_order_price_quote",
               "sales_order_freight_quote",
+              "sales_order_commitment_quote",
+              "operating_calendar",
+              "operating_calendar_closure",
               "sales_order_price_quote_line",
               "hubspot_sync_job",
               "hubspot_sync_report",
@@ -7179,6 +7210,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -7199,6 +7231,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -7303,6 +7336,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -7323,6 +7357,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -8106,6 +8141,43 @@
         "required": [
           "object",
           "checkout_url"
+        ],
+        "type": "object"
+      },
+      "CommitmentQuoteStep": {
+        "description": "CommitmentQuoteStep is one rule's contribution to a previewed ship-by date.\n\nReturned as an ordered list so a caller can show why a date is what it is without reimplementing the arithmetic, and so the explanation cannot drift from the calculation that produced it.",
+        "properties": {
+          "code": {
+            "description": "Which rule applied.",
+            "enum": [
+              "basis",
+              "receive_calendar",
+              "carrier_transit",
+              "ship_calendar",
+              "pickup_cutoff"
+            ],
+            "type": "string"
+          },
+          "date": {
+            "description": "Where the running date stood after this rule.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "days_moved": {
+            "description": "How far this rule pulled the date back. Zero means the rule applied and changed nothing, which is worth showing: it says the date was already on an open day.",
+            "type": "integer"
+          },
+          "detail": {
+            "description": "The rule's own parameter — where a transit estimate came from, or the cutoff time applied. Null for a rule that takes none, rather than an empty string: snapping onto an open day has no parameter to report.",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "date",
+          "days_moved",
+          "detail"
         ],
         "type": "object"
       },
@@ -9213,6 +9285,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -9233,6 +9306,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -9459,6 +9533,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -9479,6 +9554,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -11231,6 +11307,9 @@
               "checkout_sales_order",
               "sales_order_price_quote",
               "sales_order_freight_quote",
+              "sales_order_commitment_quote",
+              "operating_calendar",
+              "operating_calendar_closure",
               "sales_order_price_quote_line",
               "hubspot_sync_job",
               "hubspot_sync_report",
@@ -11387,6 +11466,10 @@
           "lead_time_days": {
             "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. Leave unset to inherit the customer's account group lead time, then the account default.",
             "type": "integer"
+          },
+          "receive_calendar_id": {
+            "description": "The operating calendar naming the days this customer's dock accepts freight.\n\nSits in the same chain as lead_time_days: leaving it unset falls through to the customer's group, then the account default, then Monday to Friday. A promised delivery date is never worked back from a day nobody is there to receive on.",
+            "type": "string"
           },
           "default_carrier_id": {
             "description": "ID of the carrier used on this customer's orders when the order does not specify one.",
@@ -11971,7 +12054,7 @@
             "description": "Initial cost per unit.\n\nFollows the same unit rule as `unit_price`: currency numerator, non-currency denominator. When omitted, the cost is initialized to a zero rate in the category's base unit."
           },
           "attribute_ids": {
-            "description": "IDs of existing attributes to link to the material at creation time.",
+            "description": "IDs of existing attributes to link to the material at creation time.\n\nEach attribute's property must be one the material's category carries; an attribute from any other property fails the whole request.",
             "items": {
               "type": "string"
             },
@@ -12069,6 +12152,82 @@
         },
         "required": [
           "name"
+        ],
+        "type": "object"
+      },
+      "CreateOperatingCalendarClosureRequest": {
+        "description": "Request to close a calendar on a date.",
+        "example": {
+          "closed_on": "2026-11-26T00:00:00Z",
+          "name": "Thanksgiving Day"
+        },
+        "properties": {
+          "closed_on": {
+            "description": "The date nothing operates. Truncated to a day.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "description": "What the closure is, such as \"Thanksgiving Day\" or \"Summer shutdown\".",
+            "type": "string"
+          }
+        },
+        "required": [
+          "closed_on",
+          "name"
+        ],
+        "type": "object"
+      },
+      "CreateOperatingCalendarRequest": {
+        "description": "Request to create an operating calendar.",
+        "example": {
+          "code": "default_ship",
+          "name": "Shipping days",
+          "kind": "ship",
+          "days_of_week": "1111000",
+          "cutoff_at": "15:00",
+          "timezone": "America/Chicago",
+          "is_default": true
+        },
+        "properties": {
+          "code": {
+            "description": "Short stable identifier, unique per account.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Human-readable name.",
+            "type": "string"
+          },
+          "kind": {
+            "description": "Which side of a shipment this calendar describes.",
+            "enum": [
+              "ship",
+              "receive"
+            ],
+            "type": "string"
+          },
+          "days_of_week": {
+            "description": "Open weekdays as seven characters of '0' or '1', Monday first. \"1111100\" is Monday to Friday; \"1111000\" is a Monday-to-Thursday plant. At least one day must be open.",
+            "type": "string"
+          },
+          "cutoff_at": {
+            "description": "Local time freight has to be tendered by, as \"15:00\". Only a shipping calendar accepts one.",
+            "type": "string"
+          },
+          "timezone": {
+            "description": "IANA zone the cutoff is read in, such as \"America/Chicago\". On a receiving calendar, leave it unset to take the zone from the ship-to address.",
+            "type": "string"
+          },
+          "is_default": {
+            "description": "Make this the calendar used when nothing more specific is linked. Setting it demotes whichever calendar of the same kind held the role.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "kind",
+          "days_of_week"
         ],
         "type": "object"
       },
@@ -12170,7 +12329,7 @@
             "description": "Initial cost per unit.\n\nFollows the same unit rule as `unit_price`: currency numerator, non-currency denominator. When omitted, the cost is initialized to a zero rate in the category's base unit."
           },
           "attribute_ids": {
-            "description": "IDs of existing attributes to link to the part at creation time.",
+            "description": "IDs of existing attributes to link to the part at creation time.\n\nEach attribute's property must be one the part's category carries; an attribute from any other property fails the whole request.",
             "items": {
               "type": "string"
             },
@@ -12356,7 +12515,7 @@
             "description": "Initial cost per unit.\n\nThe same unit rule as `unit_price` applies: the numerator unit must be a currency unit and the denominator unit must not be. When omitted, the cost is initialized to a zero rate in the category's base unit."
           },
           "attribute_ids": {
-            "description": "Attribute IDs to link to the product's item at creation time.\n\nEvery ID must already exist in your account; an unknown ID fails the whole request rather than being skipped.",
+            "description": "Attribute IDs to link to the product's item at creation time.\n\nEvery ID must already exist in your account, and each attribute's property must be one the item's category carries; an ID that fails either check fails the whole request rather than being skipped.",
             "items": {
               "type": "string"
             },
@@ -12652,7 +12811,16 @@
             "type": "string"
           },
           "promised_at": {
-            "description": "Date delivery is promised to the customer.",
+            "description": "Date delivery is promised to the customer.\n\nThe order's ship-by date is worked back from this: the goods have to reach the customer on a day they receive, so transit and both operating calendars are subtracted from it. Mutually exclusive with lead_time_override_days and ship_by_override_date.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "lead_time_override_days": {
+            "description": "Days between this order being issued and it being due to ship, replacing the customer's standing lead time for this order alone.\n\nAlready a ship lead time, so no carrier transit is subtracted from it. Mutually exclusive with promised_at and ship_by_override_date.",
+            "type": "integer"
+          },
+          "ship_by_override_date": {
+            "description": "The exact date the order is due to ship, bypassing transit and the customer's receiving days.\n\nStill moved back to the nearest earlier day the plant ships on, since a date nobody can ship on is not a deadline. Mutually exclusive with promised_at and lead_time_override_days.",
             "format": "date-time",
             "type": "string"
           },
@@ -13773,7 +13941,8 @@
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
             },
-            "lead_time_days": null
+            "lead_time_days": null,
+            "receive_calendar_id": null
           },
           "notification_preferences": {
             "object": "customer_notification_preferences",
@@ -13786,6 +13955,7 @@
             "phone": "+1-614-555-0142",
             "email": "receiving@acme.example.com",
             "type": "standard",
+            "receive_calendar_id": null,
             "geolocation": {
               "id": "gl_betrf3v346k5",
               "object": "geolocation",
@@ -13806,6 +13976,7 @@
             "phone": "+1-614-555-0142",
             "email": "receiving@acme.example.com",
             "type": "standard",
+            "receive_calendar_id": null,
             "geolocation": {
               "id": "gl_betrf3v346k5",
               "object": "geolocation",
@@ -14008,6 +14179,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -14038,6 +14210,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -14458,7 +14631,8 @@
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
-                    "lead_time_days": null
+                    "lead_time_days": null,
+                    "receive_calendar_id": null
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -14471,6 +14645,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -14491,6 +14666,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -14859,6 +15035,11 @@
             "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. With none set here the customer inherits its account group's lead time, then the account default.",
             "nullable": true,
             "type": "integer"
+          },
+          "receive_calendar_id": {
+            "description": "The operating calendar naming the days this customer's dock accepts freight.\n\nA promised delivery date is worked back from a day the customer can actually receive on. With none set here the customer inherits its account group's calendar, then the account default, then Monday to Friday.",
+            "nullable": true,
+            "type": "string"
           }
         },
         "required": [
@@ -14867,7 +15048,8 @@
           "shipping_term",
           "priority",
           "sales_rep",
-          "lead_time_days"
+          "lead_time_days",
+          "receive_calendar_id"
         ],
         "type": "object"
       },
@@ -15073,7 +15255,9 @@
               "customer",
               "account_group",
               "account",
-              "manual"
+              "manual",
+              "order_lead_time",
+              "order_ship_by"
             ],
             "type": "string"
           },
@@ -16911,6 +17095,9 @@
               "checkout_sales_order",
               "sales_order_price_quote",
               "sales_order_freight_quote",
+              "sales_order_commitment_quote",
+              "operating_calendar",
+              "operating_calendar_closure",
               "sales_order_price_quote_line",
               "hubspot_sync_job",
               "hubspot_sync_report",
@@ -19420,6 +19607,9 @@
               "checkout_sales_order",
               "sales_order_price_quote",
               "sales_order_freight_quote",
+              "sales_order_commitment_quote",
+              "operating_calendar",
+              "operating_calendar_closure",
               "sales_order_price_quote_line",
               "hubspot_sync_job",
               "hubspot_sync_report",
@@ -20341,7 +20531,8 @@
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
-                  "lead_time_days": null
+                  "lead_time_days": null,
+                  "receive_calendar_id": null
                 },
                 "notification_preferences": {
                   "object": "customer_notification_preferences",
@@ -20354,6 +20545,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -20374,6 +20566,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -21140,6 +21333,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -22316,6 +22510,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -22336,6 +22531,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -22425,6 +22621,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -22445,6 +22642,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -23363,6 +23561,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -23383,6 +23582,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -24146,7 +24346,8 @@
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
-                "lead_time_days": null
+                "lead_time_days": null,
+                "receive_calendar_id": null
               },
               "notification_preferences": {
                 "object": "customer_notification_preferences",
@@ -24159,6 +24360,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -24179,6 +24381,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -28307,6 +28510,9 @@
                 "checkout_sales_order",
                 "sales_order_price_quote",
                 "sales_order_freight_quote",
+                "sales_order_commitment_quote",
+                "operating_calendar",
+                "operating_calendar_closure",
                 "sales_order_price_quote_line",
                 "hubspot_sync_job",
                 "hubspot_sync_report",
@@ -28477,6 +28683,122 @@
             "description": "Resources in this page.",
             "items": {
               "$ref": "#/components/schemas/OeeTrendPeriod"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_OperatingCalendar": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "object": "operating_calendar",
+              "id": "occd_7f2m9qk4wzxb",
+              "code": "default_ship",
+              "name": "Shipping days",
+              "kind": "ship",
+              "days_of_week": "1111000",
+              "cutoff_at": "15:00",
+              "timezone": "America/Chicago",
+              "is_default": true,
+              "created_at": "2026-01-06T09:14:00Z",
+              "updated_at": "2026-01-06T09:14:00Z"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/OperatingCalendar"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_OperatingCalendarClosure": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "object": "operating_calendar_closure",
+              "id": "occdcn_3vh8yt5nqp1r",
+              "operating_calendar_id": "occd_7f2m9qk4wzxb",
+              "closed_on": "2026-11-26T00:00:00Z",
+              "name": "Thanksgiving Day",
+              "created_at": "2026-01-06T09:14:00Z",
+              "updated_at": "2026-01-06T09:14:00Z"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/OperatingCalendarClosure"
             },
             "type": "array",
             "x-stainless-pagination-property": {
@@ -32230,6 +32552,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -32250,6 +32573,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -32795,7 +33119,8 @@
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
-                  "lead_time_days": null
+                  "lead_time_days": null,
+                  "receive_calendar_id": null
                 },
                 "notification_preferences": {
                   "object": "customer_notification_preferences",
@@ -32808,6 +33133,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -32828,6 +33154,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -32966,6 +33293,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -32986,6 +33314,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -33771,7 +34100,11 @@
               "first_ship_at": null,
               "expired_at": null,
               "promised_at": "2026-06-10T00:00:00Z",
+              "lead_time_override_days": null,
+              "ship_by_override_date": null,
               "ship_by_date": null,
+              "ship_by_cutoff_at": null,
+              "calendar_adjustment_days": null,
               "lead_time_days": null,
               "lead_time_source": null,
               "transit_days": null,
@@ -40914,6 +41247,151 @@
         ],
         "type": "object"
       },
+      "OperatingCalendar": {
+        "description": "OperatingCalendar is the set of days one party to a shipment operates.\n\nA `ship` calendar is the plant tendering freight to a carrier; a `receive` calendar is a customer's dock accepting it. Ship-by dates are resolved against both, so an order is never committed to a day nobody can act on.",
+        "example": {
+          "object": "operating_calendar",
+          "id": "occd_7f2m9qk4wzxb",
+          "code": "default_ship",
+          "name": "Shipping days",
+          "kind": "ship",
+          "days_of_week": "1111000",
+          "cutoff_at": "15:00",
+          "timezone": "America/Chicago",
+          "is_default": true,
+          "created_at": "2026-01-06T09:14:00Z",
+          "updated_at": "2026-01-06T09:14:00Z"
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "operating_calendar"
+            ],
+            "type": "string"
+          },
+          "id": {
+            "description": "Unique identifier.",
+            "type": "string"
+          },
+          "code": {
+            "description": "Short stable identifier, unique per account.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Human-readable name.",
+            "type": "string"
+          },
+          "kind": {
+            "description": "Which side of a shipment this calendar describes.",
+            "enum": [
+              "ship",
+              "receive"
+            ],
+            "type": "string"
+          },
+          "days_of_week": {
+            "description": "Open weekdays as seven characters of '0' or '1', Monday first. \"1111100\" is Monday to Friday; \"1111000\" is a Monday-to-Thursday plant.",
+            "type": "string"
+          },
+          "cutoff_at": {
+            "description": "Local time freight has to be tendered by, as \"15:00\". Only a shipping calendar carries one.",
+            "nullable": true,
+            "type": "string"
+          },
+          "timezone": {
+            "description": "IANA zone the cutoff is read in. Null on a receiving calendar means it is taken from the ship-to address.",
+            "nullable": true,
+            "type": "string"
+          },
+          "is_default": {
+            "description": "Whether this is the calendar used when nothing more specific is linked. Exactly one per kind.",
+            "type": "boolean"
+          },
+          "created_at": {
+            "description": "Creation timestamp.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last updated timestamp.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "object",
+          "id",
+          "code",
+          "name",
+          "kind",
+          "days_of_week",
+          "cutoff_at",
+          "timezone",
+          "is_default",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "OperatingCalendarClosure": {
+        "description": "OperatingCalendarClosure is one date a calendar is shut — a holiday, or a day of a shutdown week.",
+        "example": {
+          "object": "operating_calendar_closure",
+          "id": "occdcn_3vh8yt5nqp1r",
+          "operating_calendar_id": "occd_7f2m9qk4wzxb",
+          "closed_on": "2026-11-26T00:00:00Z",
+          "name": "Thanksgiving Day",
+          "created_at": "2026-01-06T09:14:00Z",
+          "updated_at": "2026-01-06T09:14:00Z"
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "operating_calendar_closure"
+            ],
+            "type": "string"
+          },
+          "id": {
+            "description": "Unique identifier.",
+            "type": "string"
+          },
+          "operating_calendar_id": {
+            "description": "The calendar this closure belongs to.",
+            "type": "string"
+          },
+          "closed_on": {
+            "description": "The date nothing operates.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "description": "What the closure is, such as \"Thanksgiving Day\" or \"Summer shutdown\".",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Creation timestamp.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last updated timestamp.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "object",
+          "id",
+          "operating_calendar_id",
+          "closed_on",
+          "name",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
       "OrderContact": {
         "description": "A sales order's email recipients, grouped by the notification they receive.",
         "properties": {
@@ -41078,6 +41556,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -41098,6 +41577,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -47326,6 +47806,8 @@
           "capacity_headroom_pct": 0.9,
           "default_lot_units": 60,
           "default_customer_lead_time_days": 30,
+          "ship_calendar_id": null,
+          "receive_calendar_id": null,
           "default_fulfillment_policy": "make_to_stock",
           "cadence_status": "active",
           "generation_cron": "0 6 * * 1",
@@ -47464,6 +47946,15 @@
             "description": "Calendar days between an order being issued and it being due to ship.\n\nThe last resort in the ship-by chain: a lead time set on the customer, or on the customer's account group, takes precedence. Zero means same-day shipping.",
             "type": "integer"
           },
+          "ship_calendar_id": {
+            "description": "The account-wide operating calendars: the days the plant tenders freight, and the days a customer's dock accepts it.\n\nBehind the per-address and per-customer links and ahead of a plain Monday-to-Friday week. Null on both means every ship-by date is resolved against weekdays alone.",
+            "nullable": true,
+            "type": "string"
+          },
+          "receive_calendar_id": {
+            "nullable": true,
+            "type": "string"
+          },
           "default_fulfillment_policy": {
             "description": "How a SKU is produced when neither it nor its product line says.\n\n- `make_to_stock`: built to the forecast, holding a safety stock against its variability.\n- `make_to_order`: built only against orders already on the book, holding no buffer.",
             "enum": [
@@ -47550,6 +48041,8 @@
           "capacity_headroom_pct",
           "default_lot_units",
           "default_customer_lead_time_days",
+          "ship_calendar_id",
+          "receive_calendar_id",
           "default_fulfillment_policy",
           "cadence_status",
           "generation_cron",
@@ -49983,6 +50476,180 @@
         "required": [
           "item_id",
           "quantity"
+        ],
+        "type": "object"
+      },
+      "QuoteSalesOrderCommitmentRequest": {
+        "description": "Request to preview the ship-by date a set of commitment inputs would produce.",
+        "example": {
+          "buyer_account_id": "ac_ykxoradjoeb3",
+          "ship_to_address_id": "ad_npqa5y43q26z",
+          "service_level_id": "crop_4ilk9p6gccrx",
+          "promised_at": "2026-08-22T00:00:00Z"
+        },
+        "properties": {
+          "sales_order_id": {
+            "description": "An existing order to preview against. Its customer, ship-to address, carrier, and service level are used, and the commitment fields below replace whatever it currently carries.\n\nOmit it to preview an order that has not been created yet, supplying the parts directly.",
+            "type": "string"
+          },
+          "buyer_account_id": {
+            "description": "The buying account, used to resolve its lead time and receiving days.",
+            "type": "string"
+          },
+          "ship_to_address_id": {
+            "description": "The ship-to address, which decides the destination timezone and the lane transit is quoted on.",
+            "type": "string"
+          },
+          "carrier_id": {
+            "description": "Carrier for the shipment.",
+            "type": "string"
+          },
+          "service_level_id": {
+            "description": "Service level for the shipment, which the lane's transit estimate is keyed on.",
+            "type": "string"
+          },
+          "issued_at": {
+            "description": "When the order would be issued. Defaults to now, since a lead time is measured from issue and an order built today but issued next week commits to next week's date.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "promised_at": {
+            "description": "Date delivery would be promised to the customer.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "lead_time_override_days": {
+            "description": "Days between issue and the order being due to ship, in place of the customer's standing lead time.",
+            "type": "integer"
+          },
+          "ship_by_override_date": {
+            "description": "The exact date the order would be due to ship.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "QuoteSalesOrderCommitmentResponse": {
+        "description": "The ship-by date a set of commitment inputs would produce, and how it was reached.",
+        "example": {
+          "object": "sales_order_commitment_quote",
+          "ship_by_date": "2026-08-20T00:00:00Z",
+          "ship_by_cutoff_at": "2026-08-20T19:00:00Z",
+          "lead_time_days": 16,
+          "lead_time_source": "manual",
+          "transit_days": 3,
+          "transit_source": "carrier_lane",
+          "calendar_adjustment_days": 2,
+          "steps": [
+            {
+              "code": "basis",
+              "date": "2026-08-22T00:00:00Z",
+              "days_moved": 0,
+              "detail": null
+            },
+            {
+              "code": "receive_calendar",
+              "date": "2026-08-21T00:00:00Z",
+              "days_moved": 1,
+              "detail": null
+            },
+            {
+              "code": "carrier_transit",
+              "date": "2026-08-18T00:00:00Z",
+              "days_moved": 3,
+              "detail": "carrier_lane"
+            },
+            {
+              "code": "ship_calendar",
+              "date": "2026-08-20T00:00:00Z",
+              "days_moved": 0,
+              "detail": null
+            },
+            {
+              "code": "pickup_cutoff",
+              "date": "2026-08-20T00:00:00Z",
+              "days_moved": 0,
+              "detail": "15:00"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "sales_order_commitment_quote"
+            ],
+            "type": "string"
+          },
+          "ship_by_date": {
+            "description": "The date the order would be due to ship, or null when no rule resolves one.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "ship_by_cutoff_at": {
+            "description": "That date at the plant's pickup cutoff — the moment freight would have to be tendered by. Null when the shipping calendar carries no cutoff.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "lead_time_days": {
+            "description": "Calendar days between issue and the ship-by date.",
+            "nullable": true,
+            "type": "integer"
+          },
+          "lead_time_source": {
+            "description": "Which rule produced the date.",
+            "enum": [
+              "customer",
+              "account_group",
+              "account",
+              "manual",
+              "order_lead_time",
+              "order_ship_by",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "transit_days": {
+            "description": "Days the carrier needs to cover the lane. Null when the lane has never been quoted and the service level carries no default.",
+            "nullable": true,
+            "type": "integer"
+          },
+          "transit_source": {
+            "description": "Where the transit estimate came from.",
+            "enum": [
+              "carrier_lane",
+              "service_level",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
+          },
+          "calendar_adjustment_days": {
+            "description": "Days the receiving and shipping calendars pulled the date back, beyond what transit accounted for.",
+            "type": "integer"
+          },
+          "steps": {
+            "description": "The derivation in order, one entry per rule that moved the date.",
+            "items": {
+              "$ref": "#/components/schemas/CommitmentQuoteStep"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "object",
+          "ship_by_date",
+          "ship_by_cutoff_at",
+          "lead_time_days",
+          "lead_time_source",
+          "transit_days",
+          "transit_source",
+          "calendar_adjustment_days",
+          "steps"
         ],
         "type": "object"
       },
@@ -52682,6 +53349,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -52702,6 +53370,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -52890,6 +53559,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -52910,6 +53580,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -53619,7 +54290,8 @@
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
               },
-              "lead_time_days": null
+              "lead_time_days": null,
+              "receive_calendar_id": null
             },
             "notification_preferences": {
               "object": "customer_notification_preferences",
@@ -53632,6 +54304,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -53652,6 +54325,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -53790,6 +54464,7 @@
             "phone": "+1-614-555-0142",
             "email": "receiving@acme.example.com",
             "type": "standard",
+            "receive_calendar_id": null,
             "geolocation": {
               "id": "gl_betrf3v346k5",
               "object": "geolocation",
@@ -53810,6 +54485,7 @@
             "phone": "+1-614-555-0142",
             "email": "receiving@acme.example.com",
             "type": "standard",
+            "receive_calendar_id": null,
             "geolocation": {
               "id": "gl_betrf3v346k5",
               "object": "geolocation",
@@ -54595,7 +55271,11 @@
           "first_ship_at": null,
           "expired_at": null,
           "promised_at": "2026-06-10T00:00:00Z",
+          "lead_time_override_days": null,
+          "ship_by_override_date": null,
           "ship_by_date": null,
+          "ship_by_cutoff_at": null,
+          "calendar_adjustment_days": null,
           "lead_time_days": null,
           "lead_time_source": null,
           "transit_days": null,
@@ -55001,7 +55681,8 @@
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
-                "lead_time_days": null
+                "lead_time_days": null,
+                "receive_calendar_id": null
               },
               "notification_preferences": {
                 "object": "customer_notification_preferences",
@@ -55014,6 +55695,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -55034,6 +55716,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -55202,6 +55885,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -55232,6 +55916,7 @@
               "phone": "+1-614-555-0142",
               "email": "receiving@acme.example.com",
               "type": "standard",
+              "receive_calendar_id": null,
               "geolocation": {
                 "id": "gl_betrf3v346k5",
                 "object": "geolocation",
@@ -56092,11 +56777,33 @@
             "nullable": true,
             "type": "string"
           },
-          "ship_by_date": {
-            "description": "Date this order is contractually due to ship.\n\nStamped when the order is issued. With a promised delivery date, this is that date less the carrier's transit for the order's lane, counted in business days — the day the order has to leave to arrive when promised. Otherwise it comes from the lead time on the customer, its account group, or the account.\n\nIt is not recomputed afterwards, so neither renegotiating a customer's lead time nor a later carrier estimate moves commitments already made. Cleared if the order is unissued.",
+          "lead_time_override_days": {
+            "description": "Days between issue and the ship-by date, set on this order alone in place of the customer's standing lead time.",
+            "nullable": true,
+            "type": "integer"
+          },
+          "ship_by_override_date": {
+            "description": "The ship date pinned on this order, bypassing transit and the customer's receiving days.",
             "format": "date-time",
             "nullable": true,
             "type": "string"
+          },
+          "ship_by_date": {
+            "description": "Date this order is contractually due to ship.\n\nStamped when the order is issued. With a promised delivery date, this is that date less the carrier's transit for the order's lane and less any day the customer cannot receive on — the day the order has to leave to arrive when promised. Otherwise it comes from a lead time, whether this order's own or the one on the customer, its account group, or the account.\n\nAlways a day the plant actually ships on, whichever rule produced it.\n\nIt is not recomputed afterwards, so neither renegotiating a customer's lead time, nor a later carrier estimate, nor a holiday added to a calendar moves commitments already made. Cleared if the order is unissued.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "ship_by_cutoff_at": {
+            "description": "The ship-by date at the plant's pickup cutoff — the moment freight has to be tendered by, not just the day.\n\nOnly set when the account's shipping calendar carries a cutoff time.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "calendar_adjustment_days": {
+            "description": "Days the customer's receiving calendar and the plant's shipping calendar pulled the ship-by date back, beyond what carrier transit accounted for.\n\nZero means every date along the way already fell on an open day. This is what explains a ship-by date that is earlier than transit alone would suggest.",
+            "nullable": true,
+            "type": "integer"
           },
           "lead_time_days": {
             "description": "Calendar days between issue and the ship-by date.",
@@ -56110,6 +56817,8 @@
               "account_group",
               "account",
               "manual",
+              "order_lead_time",
+              "order_ship_by",
               null
             ],
             "nullable": true,
@@ -56171,7 +56880,11 @@
           "first_ship_at",
           "expired_at",
           "promised_at",
+          "lead_time_override_days",
+          "ship_by_override_date",
           "ship_by_date",
+          "ship_by_cutoff_at",
+          "calendar_adjustment_days",
           "lead_time_days",
           "lead_time_source",
           "transit_days",
@@ -57900,6 +58613,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -57920,6 +58634,7 @@
                 "phone": "+1-614-555-0142",
                 "email": "receiving@acme.example.com",
                 "type": "standard",
+                "receive_calendar_id": null,
                 "geolocation": {
                   "id": "gl_betrf3v346k5",
                   "object": "geolocation",
@@ -60382,6 +61097,9 @@
               "checkout_sales_order",
               "sales_order_price_quote",
               "sales_order_freight_quote",
+              "sales_order_commitment_quote",
+              "operating_calendar",
+              "operating_calendar_closure",
               "sales_order_price_quote_line",
               "hubspot_sync_job",
               "hubspot_sync_report",
@@ -60767,6 +61485,9 @@
               "checkout_sales_order",
               "sales_order_price_quote",
               "sales_order_freight_quote",
+              "sales_order_commitment_quote",
+              "operating_calendar",
+              "operating_calendar_closure",
               "sales_order_price_quote_line",
               "hubspot_sync_job",
               "hubspot_sync_report",
@@ -62217,6 +62938,11 @@
             ],
             "type": "string"
           },
+          "receive_calendar_id": {
+            "description": "The operating calendar naming the days this dock accepts freight, overriding the customer's own. Clearing it returns this address to the customer's own calendar.",
+            "nullable": true,
+            "type": "string"
+          },
           "street_line_1": {
             "description": "First line of the street address.",
             "type": "string"
@@ -62497,6 +63223,11 @@
             "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. Leave unset to inherit the customer's account group lead time, then the account default.",
             "nullable": true,
             "type": "integer"
+          },
+          "receive_calendar_id": {
+            "description": "The operating calendar naming the days this customer's dock accepts freight. Clearing it returns the customer to their group's calendar, then the account default.",
+            "nullable": true,
+            "type": "string"
           },
           "default_carrier_id": {
             "description": "ID of the carrier used on this customer's orders when the order does not specify one.",
@@ -63009,6 +63740,37 @@
         ],
         "type": "object"
       },
+      "UpdateOperatingCalendarRequest": {
+        "description": "Request to update an operating calendar.",
+        "example": {
+          "is_default": false
+        },
+        "properties": {
+          "name": {
+            "description": "Human-readable name.",
+            "type": "string"
+          },
+          "days_of_week": {
+            "description": "Open weekdays as seven characters of '0' or '1', Monday first. At least one day must be open.",
+            "type": "string"
+          },
+          "cutoff_at": {
+            "description": "Local time freight has to be tendered by. Clearing it leaves the ship-by date a day with no time of day attached.",
+            "nullable": true,
+            "type": "string"
+          },
+          "timezone": {
+            "description": "IANA zone the cutoff is read in. Clearing it on a receiving calendar returns to taking the zone from the ship-to address.",
+            "nullable": true,
+            "type": "string"
+          },
+          "is_default": {
+            "description": "Make this the calendar used when nothing more specific is linked. Setting it demotes whichever calendar of the same kind held the role.",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
       "UpdateOrderDiscountRequest": {
         "description": "Request to partially update an order discount.",
         "example": {
@@ -63222,7 +63984,7 @@
             "type": "string"
           },
           "quantity": {
-            "description": "Units to build over the campaign.\n\nChanging this does not re-derive `lots` or `run_hours` — send those alongside it when they should follow, or the campaign will keep claiming its old share of machine time.",
+            "description": "Units to build over the campaign.\n\nChanging this re-derives `lots` and `run_hours` from the rate and lot size this version was solved with, so the campaign never keeps claiming its old share of machine time; send either alongside it to override what is derived. A campaign builds something by definition, so use delete rather than a quantity of zero to take it off the plan.",
             "type": "number"
           },
           "lots": {
@@ -63413,6 +64175,15 @@
           "default_customer_lead_time_days": {
             "description": "Calendar days between an order being issued and it being due to ship.\n\nThe last resort in the ship-by chain: a lead time set on the customer, or on the customer's account group, takes precedence. Zero commits the account to same-day shipping on every order that falls through to it, so this update replaces the whole settings object and omitting the field is not the same as leaving it alone.",
             "type": "integer"
+          },
+          "ship_calendar_id": {
+            "description": "The operating calendar naming the days this account's plant tenders freight, and the one naming the days a customer's dock accepts it.\n\nThese are the account-wide fallbacks: an address or a customer with its own calendar overrides them, and an account with neither set falls back to a Monday-to-Friday week with no closures.",
+            "nullable": true,
+            "type": "string"
+          },
+          "receive_calendar_id": {
+            "nullable": true,
+            "type": "string"
           },
           "default_fulfillment_policy": {
             "description": "How a SKU is produced when neither it nor its product line says.\n\n- `make_to_stock`: built to the forecast, holding a safety stock against its variability.\n- `make_to_order`: built only against orders already on the book, holding no buffer.",
@@ -63651,6 +64422,17 @@
           },
           "promised_at": {
             "description": "Date delivery is promised to the customer.",
+            "format": "date-time",
+            "nullable": true,
+            "type": "string"
+          },
+          "lead_time_override_days": {
+            "description": "Days between this order being issued and it being due to ship, replacing the customer's standing lead time for this order alone. Mutually exclusive with promised_at and ship_by_override_date; clear one to switch to another.",
+            "nullable": true,
+            "type": "integer"
+          },
+          "ship_by_override_date": {
+            "description": "The exact date the order is due to ship, bypassing transit and the customer's receiving days. Mutually exclusive with promised_at and lead_time_override_days.",
             "format": "date-time",
             "nullable": true,
             "type": "string"
@@ -72157,7 +72939,7 @@
         "x-preview": true
       },
       "put": {
-        "description": "Assigns an attribute to an item and returns the updated item.\n\nAdding an attribute the item already carries succeeds and changes nothing, so the call is safe to repeat.\n\nThis endpoint requires the permission: `items:update`.",
+        "description": "Assigns an attribute to an item and returns the updated item.\n\nThe attribute's property must be one the item's category carries, so link the property to the category before assigning any of its attributes.\n\nAdding an attribute the item already carries succeeds and changes nothing, so the call is safe to repeat.\n\nThis endpoint requires the permission: `items:update`.",
         "operationId": "add-item-attribute",
         "parameters": [
           {
@@ -72560,7 +73342,7 @@
             }
           },
           {
-            "description": "ID of the category to move the item to.\n\nThe category's type has to suit the item: a material can only move to a material category, and a product or part can only move to a product category. Anything else fails validation.",
+            "description": "ID of the category to move the item to.\n\nThe category's type has to suit the item: a material can only move to a material category, and a product or part can only move to a product category. Anything else fails validation.\n\nThe category also has to carry the properties of every attribute the item already has, since the move keeps those attributes. Unlink the offending attributes, or add their properties to the target category, before moving the item.",
             "example": "ic_d06g9c6yc9ck",
             "in": "path",
             "name": "category_id",
@@ -85896,6 +86678,9 @@
                   "checkout_sales_order",
                   "sales_order_price_quote",
                   "sales_order_freight_quote",
+                  "sales_order_commitment_quote",
+                  "operating_calendar",
+                  "operating_calendar_closure",
                   "sales_order_price_quote_line",
                   "hubspot_sync_job",
                   "hubspot_sync_report",
@@ -86221,6 +87006,9 @@
                 "checkout_sales_order",
                 "sales_order_price_quote",
                 "sales_order_freight_quote",
+                "sales_order_commitment_quote",
+                "operating_calendar",
+                "operating_calendar_closure",
                 "sales_order_price_quote_line",
                 "hubspot_sync_job",
                 "hubspot_sync_report",
@@ -86441,6 +87229,7 @@
                           "phone": "+1-614-555-0142",
                           "email": "receiving@acme.example.com",
                           "type": "standard",
+                          "receive_calendar_id": null,
                           "geolocation": {
                             "id": "gl_betrf3v346k5",
                             "object": "geolocation",
@@ -86461,6 +87250,7 @@
                           "phone": "+1-614-555-0142",
                           "email": "receiving@acme.example.com",
                           "type": "standard",
+                          "receive_calendar_id": null,
                           "geolocation": {
                             "id": "gl_betrf3v346k5",
                             "object": "geolocation",
@@ -86550,6 +87340,7 @@
                             "phone": "+1-614-555-0142",
                             "email": "receiving@acme.example.com",
                             "type": "standard",
+                            "receive_calendar_id": null,
                             "geolocation": {
                               "id": "gl_betrf3v346k5",
                               "object": "geolocation",
@@ -86570,6 +87361,7 @@
                             "phone": "+1-614-555-0142",
                             "email": "receiving@acme.example.com",
                             "type": "standard",
+                            "receive_calendar_id": null,
                             "geolocation": {
                               "id": "gl_betrf3v346k5",
                               "object": "geolocation",
@@ -86828,6 +87620,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -86848,6 +87641,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -86937,6 +87731,7 @@
                         "phone": "+1-614-555-0142",
                         "email": "receiving@acme.example.com",
                         "type": "standard",
+                        "receive_calendar_id": null,
                         "geolocation": {
                           "id": "gl_betrf3v346k5",
                           "object": "geolocation",
@@ -86957,6 +87752,7 @@
                         "phone": "+1-614-555-0142",
                         "email": "receiving@acme.example.com",
                         "type": "standard",
+                        "receive_calendar_id": null,
                         "geolocation": {
                           "id": "gl_betrf3v346k5",
                           "object": "geolocation",
@@ -87940,6 +88736,7 @@
                           "phone": "+1-614-555-0142",
                           "email": "receiving@acme.example.com",
                           "type": "standard",
+                          "receive_calendar_id": null,
                           "geolocation": {
                             "id": "gl_betrf3v346k5",
                             "object": "geolocation",
@@ -87960,6 +88757,7 @@
                           "phone": "+1-614-555-0142",
                           "email": "receiving@acme.example.com",
                           "type": "standard",
+                          "receive_calendar_id": null,
                           "geolocation": {
                             "id": "gl_betrf3v346k5",
                             "object": "geolocation",
@@ -88149,6 +88947,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -88169,6 +88968,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -88907,6 +89707,9 @@
                   "checkout_sales_order",
                   "sales_order_price_quote",
                   "sales_order_freight_quote",
+                  "sales_order_commitment_quote",
+                  "operating_calendar",
+                  "operating_calendar_closure",
                   "sales_order_price_quote_line",
                   "hubspot_sync_job",
                   "hubspot_sync_report",
@@ -92743,6 +93546,9 @@
                 "checkout_sales_order",
                 "sales_order_price_quote",
                 "sales_order_freight_quote",
+                "sales_order_commitment_quote",
+                "operating_calendar",
+                "operating_calendar_closure",
                 "sales_order_price_quote_line",
                 "hubspot_sync_job",
                 "hubspot_sync_report",
@@ -106938,6 +107744,521 @@
         "x-preview": true
       }
     },
+    "/v1/operations/operating-calendars": {
+      "get": {
+        "description": "Lists the operating calendars configured for the account.\n\nBoth kinds are returned unless `kind` narrows it, ordered with each kind's default first.\n\nThis endpoint requires the permission: `production_schedules:read`.",
+        "operationId": "list-operating-calendars",
+        "parameters": [
+          {
+            "description": "Return only shipping or only receiving calendars.",
+            "example": "ship",
+            "in": "query",
+            "name": "kind",
+            "schema": {
+              "enum": [
+                "ship",
+                "receive"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": null,
+                    "previous_page_url": null,
+                    "has_next_page": false,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "object": "operating_calendar",
+                      "id": "occd_7f2m9qk4wzxb",
+                      "code": "default_ship",
+                      "name": "Shipping days",
+                      "kind": "ship",
+                      "days_of_week": "1111000",
+                      "cutoff_at": "15:00",
+                      "timezone": "America/Chicago",
+                      "is_default": true,
+                      "created_at": "2026-01-06T09:14:00Z",
+                      "updated_at": "2026-01-06T09:14:00Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_OperatingCalendar"
+                }
+              }
+            },
+            "description": "Successful response for List Operating Calendars"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Operating Calendars",
+        "tags": [
+          "Operating Calendars"
+        ],
+        "x-preview": true
+      },
+      "post": {
+        "description": "Creates an operating calendar.\n\nThe days govern every ship-by date resolved against this calendar: a plant that tenders freight Monday to Thursday never gets committed to a Friday shipment, and a customer's promised delivery date is worked back from a day they can actually receive on.\n\nA calendar starts with no closures. Add holidays and shutdowns to it separately.\n\nThis endpoint requires the permission: `production_schedules:create`.",
+        "operationId": "create-operating-calendar",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "code": "default_ship",
+                "name": "Shipping days",
+                "kind": "ship",
+                "days_of_week": "1111000",
+                "cutoff_at": "15:00",
+                "timezone": "America/Chicago",
+                "is_default": true
+              },
+              "schema": {
+                "$ref": "#/components/schemas/CreateOperatingCalendarRequest"
+              }
+            }
+          },
+          "description": "The request body for Create Operating Calendar"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "operating_calendar",
+                  "id": "occd_7f2m9qk4wzxb",
+                  "code": "default_ship",
+                  "name": "Shipping days",
+                  "kind": "ship",
+                  "days_of_week": "1111000",
+                  "cutoff_at": "15:00",
+                  "timezone": "America/Chicago",
+                  "is_default": true,
+                  "created_at": "2026-01-06T09:14:00Z",
+                  "updated_at": "2026-01-06T09:14:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/OperatingCalendar"
+                }
+              }
+            },
+            "description": "Successful response for Create Operating Calendar"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Create Operating Calendar",
+        "tags": [
+          "Operating Calendars"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/operating-calendars/{id}": {
+      "delete": {
+        "description": "Deletes an operating calendar.\n\nRefused while any address, customer, customer group, or account setting still points at it. Deleting a calendar out from under its references would quietly return every affected order to a plain Monday-to-Friday week, which reads as the feature breaking rather than as a decision anybody made — so re-point them first.\n\nThis endpoint requires the permission: `production_schedules:delete`.",
+        "operationId": "delete-operating-calendar",
+        "parameters": [
+          {
+            "description": "Operating calendar ID.",
+            "example": "occd_7f2m9qk4wzxb",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Delete Operating Calendar"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Delete Operating Calendar",
+        "tags": [
+          "Operating Calendars"
+        ],
+        "x-preview": true
+      },
+      "get": {
+        "description": "Retrieves one operating calendar by ID.\n\nThis endpoint requires the permission: `production_schedules:read`.",
+        "operationId": "retrieve-operating-calendar",
+        "parameters": [
+          {
+            "description": "Operating calendar ID.",
+            "example": "occd_7f2m9qk4wzxb",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "operating_calendar",
+                  "id": "occd_7f2m9qk4wzxb",
+                  "code": "default_ship",
+                  "name": "Shipping days",
+                  "kind": "ship",
+                  "days_of_week": "1111000",
+                  "cutoff_at": "15:00",
+                  "timezone": "America/Chicago",
+                  "is_default": true,
+                  "created_at": "2026-01-06T09:14:00Z",
+                  "updated_at": "2026-01-06T09:14:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/OperatingCalendar"
+                }
+              }
+            },
+            "description": "Successful response for Retrieve Operating Calendar"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Retrieve Operating Calendar",
+        "tags": [
+          "Operating Calendars"
+        ],
+        "x-preview": true
+      },
+      "patch": {
+        "description": "Updates an operating calendar.\n\nA calendar's kind cannot change: a shipping calendar that became a receiving one would silently drop the pickup cutoff every commitment resolved against it depends on. Create a second calendar instead.\n\nChanges apply to commitments made from now on. Orders already issued keep the dates they were stamped with, so adding a holiday never retroactively makes a past order late.\n\nThis endpoint requires the permission: `production_schedules:update`.",
+        "operationId": "update-operating-calendar",
+        "parameters": [
+          {
+            "description": "Operating calendar ID.",
+            "example": "occd_7f2m9qk4wzxb",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "is_default": false
+              },
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOperatingCalendarRequest"
+              }
+            }
+          },
+          "description": "The request body for Update Operating Calendar"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "operating_calendar",
+                  "id": "occd_7f2m9qk4wzxb",
+                  "code": "default_ship",
+                  "name": "Shipping days",
+                  "kind": "ship",
+                  "days_of_week": "1111000",
+                  "cutoff_at": "15:00",
+                  "timezone": "America/Chicago",
+                  "is_default": true,
+                  "created_at": "2026-01-06T09:14:00Z",
+                  "updated_at": "2026-01-06T09:14:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/OperatingCalendar"
+                }
+              }
+            },
+            "description": "Successful response for Update Operating Calendar"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Update Operating Calendar",
+        "tags": [
+          "Operating Calendars"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/operating-calendars/{id}/closures": {
+      "get": {
+        "description": "Lists the dates a calendar is shut, within a date window.\n\nBounded rather than exhaustive: a calendar accumulates closures indefinitely, and the useful answer is the year either side of today. Widen it with `from_date` and `to_date`.\n\nThis endpoint requires the permission: `production_schedules:read`.",
+        "operationId": "list-operating-calendar-closures",
+        "parameters": [
+          {
+            "description": "Operating calendar ID.",
+            "example": "occd_7f2m9qk4wzxb",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Earliest closure date to return. Defaults to a year ago.",
+            "example": "2026-05-10",
+            "in": "query",
+            "name": "from_date",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Latest closure date to return. Defaults to a year ahead.",
+            "example": "2026-05-10",
+            "in": "query",
+            "name": "to_date",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": null,
+                    "previous_page_url": null,
+                    "has_next_page": false,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "object": "operating_calendar_closure",
+                      "id": "occdcn_3vh8yt5nqp1r",
+                      "operating_calendar_id": "occd_7f2m9qk4wzxb",
+                      "closed_on": "2026-11-26T00:00:00Z",
+                      "name": "Thanksgiving Day",
+                      "created_at": "2026-01-06T09:14:00Z",
+                      "updated_at": "2026-01-06T09:14:00Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_OperatingCalendarClosure"
+                }
+              }
+            },
+            "description": "Successful response for List Operating Calendar Closures"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Operating Calendar Closures",
+        "tags": [
+          "Operating Calendars"
+        ],
+        "x-preview": true
+      },
+      "post": {
+        "description": "Closes a calendar on a date.\n\nEvery ship-by date resolved against this calendar afterwards walks past the closure: a carrier that does not move on Thanksgiving pushes the day an order has to leave earlier, and a plant shutdown does the same.\n\nClosing the same date twice is a no-op rather than an error, so re-seeding a year is safe and never renames a closure somebody has relabelled.\n\nThis endpoint requires the permission: `production_schedules:update`.",
+        "operationId": "create-operating-calendar-closure",
+        "parameters": [
+          {
+            "description": "Operating calendar ID.",
+            "example": "occd_7f2m9qk4wzxb",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "closed_on": "2026-11-26T00:00:00Z",
+                "name": "Thanksgiving Day"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/CreateOperatingCalendarClosureRequest"
+              }
+            }
+          },
+          "description": "The request body for Create Operating Calendar Closure"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "operating_calendar_closure",
+                  "id": "occdcn_3vh8yt5nqp1r",
+                  "operating_calendar_id": "occd_7f2m9qk4wzxb",
+                  "closed_on": "2026-11-26T00:00:00Z",
+                  "name": "Thanksgiving Day",
+                  "created_at": "2026-01-06T09:14:00Z",
+                  "updated_at": "2026-01-06T09:14:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/OperatingCalendarClosure"
+                }
+              }
+            },
+            "description": "Successful response for Create Operating Calendar Closure"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Create Operating Calendar Closure",
+        "tags": [
+          "Operating Calendars"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/operations/operating-calendars/{id}/closures/{closure_id}": {
+      "delete": {
+        "description": "Reopens a date the calendar was closed on.\n\nUsed to drop a seeded holiday a plant actually works through. Orders already issued keep the dates they were stamped with.\n\nThis endpoint requires the permission: `production_schedules:update`.",
+        "operationId": "delete-operating-calendar-closure",
+        "parameters": [
+          {
+            "description": "Operating calendar ID.",
+            "example": "occd_7f2m9qk4wzxb",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Closure ID.",
+            "example": "occdcn_3vh8yt5nqp1r",
+            "in": "path",
+            "name": "closure_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Delete Operating Calendar Closure"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Delete Operating Calendar Closure",
+        "tags": [
+          "Operating Calendars"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/operations/production-schedule-settings": {
       "get": {
         "description": "Returns the planning assumptions production schedules are solved against.\n\nThe whole set is always returned. An account that has never saved settings reads back the values the solver would apply anyway, so a caller never has to know which assumptions are in play; `settings_status` says whether the values were saved on the account or are those defaults.\n\nPer-machine, per-department and per-step overrides of these assumptions are read separately.\n\nThis endpoint requires the permission: `production_schedules:read`.",
@@ -106980,6 +108301,8 @@
                   "capacity_headroom_pct": 0.9,
                   "default_lot_units": 60,
                   "default_customer_lead_time_days": 30,
+                  "ship_calendar_id": null,
+                  "receive_calendar_id": null,
                   "default_fulfillment_policy": "make_to_stock",
                   "cadence_status": "active",
                   "generation_cron": "0 6 * * 1",
@@ -107096,6 +108419,8 @@
                   "capacity_headroom_pct": 0.9,
                   "default_lot_units": 60,
                   "default_customer_lead_time_days": 30,
+                  "ship_calendar_id": null,
+                  "receive_calendar_id": null,
                   "default_fulfillment_policy": "make_to_stock",
                   "cadence_status": "active",
                   "generation_cron": "0 6 * * 1",
@@ -113147,7 +114472,8 @@
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
-                          "lead_time_days": null
+                          "lead_time_days": null,
+                          "receive_calendar_id": null
                         },
                         "notification_preferences": {
                           "object": "customer_notification_preferences",
@@ -113160,6 +114486,7 @@
                           "phone": "+1-614-555-0142",
                           "email": "receiving@acme.example.com",
                           "type": "standard",
+                          "receive_calendar_id": null,
                           "geolocation": {
                             "id": "gl_betrf3v346k5",
                             "object": "geolocation",
@@ -113180,6 +114507,7 @@
                           "phone": "+1-614-555-0142",
                           "email": "receiving@acme.example.com",
                           "type": "standard",
+                          "receive_calendar_id": null,
                           "geolocation": {
                             "id": "gl_betrf3v346k5",
                             "object": "geolocation",
@@ -113973,7 +115301,8 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
-                      "lead_time_days": null
+                      "lead_time_days": null,
+                      "receive_calendar_id": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -113986,6 +115315,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -114006,6 +115336,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -114953,7 +116284,8 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
-                      "lead_time_days": null
+                      "lead_time_days": null,
+                      "receive_calendar_id": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -114966,6 +116298,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -114986,6 +116319,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -115779,7 +117113,8 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
-                      "lead_time_days": null
+                      "lead_time_days": null,
+                      "receive_calendar_id": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -115792,6 +117127,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -115812,6 +117148,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -116801,6 +118138,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -116876,6 +118214,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -116986,6 +118325,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -117071,6 +118411,7 @@
                   "phone": "+1-614-555-0142",
                   "email": "receiving@acme.example.com",
                   "type": "standard",
+                  "receive_calendar_id": null,
                   "geolocation": {
                     "id": "gl_betrf3v346k5",
                     "object": "geolocation",
@@ -117331,6 +118672,7 @@
                           "phone": "+1-614-555-0142",
                           "email": "receiving@acme.example.com",
                           "type": "standard",
+                          "receive_calendar_id": null,
                           "geolocation": {
                             "id": "gl_betrf3v346k5",
                             "object": "geolocation",
@@ -117351,6 +118693,7 @@
                           "phone": "+1-614-555-0142",
                           "email": "receiving@acme.example.com",
                           "type": "standard",
+                          "receive_calendar_id": null,
                           "geolocation": {
                             "id": "gl_betrf3v346k5",
                             "object": "geolocation",
@@ -118036,7 +119379,8 @@
                           "created_at": "2026-05-10T00:00:00Z",
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
-                        "lead_time_days": null
+                        "lead_time_days": null,
+                        "receive_calendar_id": null
                       },
                       "notification_preferences": {
                         "object": "customer_notification_preferences",
@@ -118049,6 +119393,7 @@
                         "phone": "+1-614-555-0142",
                         "email": "receiving@acme.example.com",
                         "type": "standard",
+                        "receive_calendar_id": null,
                         "geolocation": {
                           "id": "gl_betrf3v346k5",
                           "object": "geolocation",
@@ -118069,6 +119414,7 @@
                         "phone": "+1-614-555-0142",
                         "email": "receiving@acme.example.com",
                         "type": "standard",
+                        "receive_calendar_id": null,
                         "geolocation": {
                           "id": "gl_betrf3v346k5",
                           "object": "geolocation",
@@ -118570,7 +119916,8 @@
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
-                    "lead_time_days": null
+                    "lead_time_days": null,
+                    "receive_calendar_id": null
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -118583,6 +119930,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -118603,6 +119951,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -119105,7 +120454,8 @@
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
-                    "lead_time_days": null
+                    "lead_time_days": null,
+                    "receive_calendar_id": null
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -119118,6 +120468,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -119138,6 +120489,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -119633,7 +120985,8 @@
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
-                    "lead_time_days": null
+                    "lead_time_days": null,
+                    "receive_calendar_id": null
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -119646,6 +120999,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -119666,6 +121020,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -120138,7 +121493,8 @@
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
-                    "lead_time_days": null
+                    "lead_time_days": null,
+                    "receive_calendar_id": null
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -120151,6 +121507,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -120171,6 +121528,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -121427,7 +122785,8 @@
                             "created_at": "2026-05-10T00:00:00Z",
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
-                          "lead_time_days": null
+                          "lead_time_days": null,
+                          "receive_calendar_id": null
                         },
                         "notification_preferences": {
                           "object": "customer_notification_preferences",
@@ -121440,6 +122799,7 @@
                           "phone": "+1-614-555-0142",
                           "email": "receiving@acme.example.com",
                           "type": "standard",
+                          "receive_calendar_id": null,
                           "geolocation": {
                             "id": "gl_betrf3v346k5",
                             "object": "geolocation",
@@ -121460,6 +122820,7 @@
                           "phone": "+1-614-555-0142",
                           "email": "receiving@acme.example.com",
                           "type": "standard",
+                          "receive_calendar_id": null,
                           "geolocation": {
                             "id": "gl_betrf3v346k5",
                             "object": "geolocation",
@@ -121598,6 +122959,7 @@
                         "phone": "+1-614-555-0142",
                         "email": "receiving@acme.example.com",
                         "type": "standard",
+                        "receive_calendar_id": null,
                         "geolocation": {
                           "id": "gl_betrf3v346k5",
                           "object": "geolocation",
@@ -121618,6 +122980,7 @@
                         "phone": "+1-614-555-0142",
                         "email": "receiving@acme.example.com",
                         "type": "standard",
+                        "receive_calendar_id": null,
                         "geolocation": {
                           "id": "gl_betrf3v346k5",
                           "object": "geolocation",
@@ -122403,7 +123766,11 @@
                       "first_ship_at": null,
                       "expired_at": null,
                       "promised_at": "2026-06-10T00:00:00Z",
+                      "lead_time_override_days": null,
+                      "ship_by_override_date": null,
                       "ship_by_date": null,
+                      "ship_by_cutoff_at": null,
+                      "calendar_adjustment_days": null,
                       "lead_time_days": null,
                       "lead_time_source": null,
                       "transit_days": null,
@@ -122867,7 +124234,8 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
-                      "lead_time_days": null
+                      "lead_time_days": null,
+                      "receive_calendar_id": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -122880,6 +124248,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -122900,6 +124269,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -123038,6 +124408,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -123058,6 +124429,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -123843,7 +125215,11 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "lead_time_override_days": null,
+                  "ship_by_override_date": null,
                   "ship_by_date": null,
+                  "ship_by_cutoff_at": null,
+                  "calendar_adjustment_days": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
                   "transit_days": null,
@@ -123920,6 +125296,97 @@
           }
         },
         "summary": "Bulk Delete Sales Orders",
+        "tags": [
+          "Sales Orders"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/sales/sales-orders/actions/quote-commitment": {
+      "post": {
+        "description": "Previews the ship-by date a set of commitment inputs would produce, without creating or changing anything.\n\nRuns the same resolution an order runs when it is issued: a promised delivery date has the customer's receiving days, the carrier's transit, and the plant's shipping days worked back through it, while a lead time or a pinned ship date is snapped onto the next earlier day the plant ships. The returned steps are that derivation in order, so a caller can show why a date is what it is rather than restating the rules.\n\nAt most one of `promised_at`, `lead_time_override_days`, and `ship_by_override_date` may be set; they are alternative answers to the same question.\n\nAdvisory rather than binding. Carrier transit comes from a lane cache warmed in the background, so a lane nobody has shipped yet quotes against the service level's default or against no transit at all, and the date stamped at issue may differ once the lane has been rated.\n\nThis endpoint requires the permission: `sales_orders:read`.",
+        "operationId": "quote-sales-order-commitment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "buyer_account_id": "ac_ykxoradjoeb3",
+                "ship_to_address_id": "ad_npqa5y43q26z",
+                "service_level_id": "crop_4ilk9p6gccrx",
+                "promised_at": "2026-08-22T00:00:00Z"
+              },
+              "schema": {
+                "$ref": "#/components/schemas/QuoteSalesOrderCommitmentRequest"
+              }
+            }
+          },
+          "description": "The request body for Quote Sales Order Commitment"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "sales_order_commitment_quote",
+                  "ship_by_date": "2026-08-20T00:00:00Z",
+                  "ship_by_cutoff_at": "2026-08-20T19:00:00Z",
+                  "lead_time_days": 16,
+                  "lead_time_source": "manual",
+                  "transit_days": 3,
+                  "transit_source": "carrier_lane",
+                  "calendar_adjustment_days": 2,
+                  "steps": [
+                    {
+                      "code": "basis",
+                      "date": "2026-08-22T00:00:00Z",
+                      "days_moved": 0,
+                      "detail": null
+                    },
+                    {
+                      "code": "receive_calendar",
+                      "date": "2026-08-21T00:00:00Z",
+                      "days_moved": 1,
+                      "detail": null
+                    },
+                    {
+                      "code": "carrier_transit",
+                      "date": "2026-08-18T00:00:00Z",
+                      "days_moved": 3,
+                      "detail": "carrier_lane"
+                    },
+                    {
+                      "code": "ship_calendar",
+                      "date": "2026-08-20T00:00:00Z",
+                      "days_moved": 0,
+                      "detail": null
+                    },
+                    {
+                      "code": "pickup_cutoff",
+                      "date": "2026-08-20T00:00:00Z",
+                      "days_moved": 0,
+                      "detail": "15:00"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteSalesOrderCommitmentResponse"
+                }
+              }
+            },
+            "description": "Successful response for Quote Sales Order Commitment"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Quote Sales Order Commitment",
         "tags": [
           "Sales Orders"
         ],
@@ -125023,7 +126490,8 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
-                      "lead_time_days": null
+                      "lead_time_days": null,
+                      "receive_calendar_id": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -125036,6 +126504,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -125056,6 +126525,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -125194,6 +126664,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -125214,6 +126685,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -125999,7 +127471,11 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "lead_time_override_days": null,
+                  "ship_by_override_date": null,
                   "ship_by_date": null,
+                  "ship_by_cutoff_at": null,
+                  "calendar_adjustment_days": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
                   "transit_days": null,
@@ -126441,7 +127917,8 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
-                      "lead_time_days": null
+                      "lead_time_days": null,
+                      "receive_calendar_id": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -126454,6 +127931,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -126474,6 +127952,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -126612,6 +128091,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -126632,6 +128112,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -127417,7 +128898,11 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "lead_time_override_days": null,
+                  "ship_by_override_date": null,
                   "ship_by_date": null,
+                  "ship_by_cutoff_at": null,
+                  "calendar_adjustment_days": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
                   "transit_days": null,
@@ -127804,7 +129289,8 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
-                      "lead_time_days": null
+                      "lead_time_days": null,
+                      "receive_calendar_id": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -127817,6 +129303,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -127837,6 +129324,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -127975,6 +129463,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -127995,6 +129484,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -128780,7 +130270,11 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "lead_time_override_days": null,
+                  "ship_by_override_date": null,
                   "ship_by_date": null,
+                  "ship_by_cutoff_at": null,
+                  "calendar_adjustment_days": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
                   "transit_days": null,
@@ -129387,7 +130881,8 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
-                      "lead_time_days": null
+                      "lead_time_days": null,
+                      "receive_calendar_id": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -129400,6 +130895,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -129420,6 +130916,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -129558,6 +131055,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -129578,6 +131076,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -130363,7 +131862,11 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "lead_time_override_days": null,
+                  "ship_by_override_date": null,
                   "ship_by_date": null,
+                  "ship_by_cutoff_at": null,
+                  "calendar_adjustment_days": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
                   "transit_days": null,
@@ -130750,7 +132253,8 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
-                      "lead_time_days": null
+                      "lead_time_days": null,
+                      "receive_calendar_id": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -130763,6 +132267,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -130783,6 +132288,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -130921,6 +132427,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -130941,6 +132448,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -131726,7 +133234,11 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "lead_time_override_days": null,
+                  "ship_by_override_date": null,
                   "ship_by_date": null,
+                  "ship_by_cutoff_at": null,
+                  "calendar_adjustment_days": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
                   "transit_days": null,
@@ -132204,7 +133716,8 @@
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
-                      "lead_time_days": null
+                      "lead_time_days": null,
+                      "receive_calendar_id": null
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -132217,6 +133730,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -132237,6 +133751,7 @@
                       "phone": "+1-614-555-0142",
                       "email": "receiving@acme.example.com",
                       "type": "standard",
+                      "receive_calendar_id": null,
                       "geolocation": {
                         "id": "gl_betrf3v346k5",
                         "object": "geolocation",
@@ -132375,6 +133890,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -132395,6 +133911,7 @@
                     "phone": "+1-614-555-0142",
                     "email": "receiving@acme.example.com",
                     "type": "standard",
+                    "receive_calendar_id": null,
                     "geolocation": {
                       "id": "gl_betrf3v346k5",
                       "object": "geolocation",
@@ -133180,7 +134697,11 @@
                   "first_ship_at": null,
                   "expired_at": null,
                   "promised_at": "2026-06-10T00:00:00Z",
+                  "lead_time_override_days": null,
+                  "ship_by_override_date": null,
                   "ship_by_date": null,
+                  "ship_by_cutoff_at": null,
+                  "calendar_adjustment_days": null,
                   "lead_time_days": null,
                   "lead_time_source": null,
                   "transit_days": null,
@@ -136053,6 +137574,10 @@
     {
       "description": "The planning assumptions production schedules are solved against, and the per-resource overrides that mark which machines constrain the plan.",
       "name": "Production Schedule Settings"
+    },
+    {
+      "description": "The days a plant tenders freight and a customer's dock accepts it, less the holidays and shutdowns either side is closed for. Every ship-by date is resolved against them, so an order is never committed to a day nobody can act on.",
+      "name": "Operating Calendars"
     },
     {
       "description": "List and manage volume discounts.",
