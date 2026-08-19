@@ -563,7 +563,7 @@
             "type": "string"
           },
           "default_lead_time_days": {
-            "description": "Calendar days between an order being issued and it being due to ship, inherited by every customer in this group that has not set its own.",
+            "description": "Calendar days between an order being issued and it being due to ship, inherited by every customer in this group that has neither set its own nor inherited one from a parent account.",
             "nullable": true,
             "type": "integer"
           },
@@ -2976,6 +2976,7 @@
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
+              "production_schedule_finishing_line",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
               "production_schedule_item_policy",
@@ -5539,7 +5540,7 @@
                 "$ref": "#/components/schemas/List_DeliveryBreakdown"
               }
             ],
-            "description": "The same window by which rule produced each ship-by date: an explicitly promised date, the customer's lead time, their group's, or the account default.\n\nThis is what says how much of the score rests on a default nobody deliberately set. A plant whose on-time rate is carried by `account`-sourced commitments is measuring itself against a number it invented.",
+            "description": "The same window by which rule produced each ship-by date: an explicitly promised date, the customer's lead time, their parent's, their group's, or the account default.\n\nThis is what says how much of the score rests on a default nobody deliberately set. A plant whose on-time rate is carried by `account`-sourced commitments is measuring itself against a number it invented.",
             "example": {
               "object": "list",
               "page_info": {
@@ -6959,6 +6960,7 @@
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
+              "production_schedule_finishing_line",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
               "production_schedule_item_policy",
@@ -11161,6 +11163,7 @@
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
+              "production_schedule_finishing_line",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
               "production_schedule_item_policy",
@@ -11464,7 +11467,7 @@
             "type": "string"
           },
           "lead_time_days": {
-            "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. Leave unset to inherit the customer's account group lead time, then the account default.",
+            "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. Leave unset to inherit the parent account's lead time, then the customer's account group lead time, then the account default.",
             "type": "integer"
           },
           "receive_calendar_id": {
@@ -11908,6 +11911,14 @@
             "description": "When the machine started running again.\n\nOmit it while the machine is still down; that leaves the event open, and the duration is filled in once the event is closed. It must be later than `started_at`.",
             "format": "date-time",
             "type": "string"
+          },
+          "duration": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/QuantityInput"
+              }
+            ],
+            "description": "How long the machine was down, counted in a unit of time.\n\nThe end time is derived from `started_at` plus this. Send either send `ended_at` or `duration`. The unit must measure time."
           },
           "item_id": {
             "description": "ID of the item the machine was running when it stopped.",
@@ -15032,7 +15043,7 @@
             "x-expandable": true
           },
           "lead_time_days": {
-            "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. With none set here the customer inherits its account group's lead time, then the account default.",
+            "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. With none set here the customer inherits its parent account's lead time, then its account group's, then the account default.",
             "nullable": true,
             "type": "integer"
           },
@@ -15219,7 +15230,8 @@
           },
           "days": 30,
           "source": "account",
-          "account_group": null
+          "account_group": null,
+          "parent_customer": null
         },
         "properties": {
           "object": {
@@ -15250,9 +15262,10 @@
             "type": "integer"
           },
           "source": {
-            "description": "Which rule in the chain produced this lead time.\n\n- `customer`: a lead time set on the customer itself.\n- `account_group`: inherited from the customer's account group.\n- `account`: the account-wide fallback.\n\nThe shared `manual` value cannot appear here: it means a promised date was set on one specific order, which is a fact about that order rather than about the customer.",
+            "description": "Which rule in the chain produced this lead time.\n\n- `customer`: a lead time set on the customer itself.\n- `parent_customer`: inherited from the customer's parent account.\n- `account_group`: inherited from the customer's account group.\n- `account`: the account-wide fallback.\n\nThe shared `manual` value cannot appear here: it means a promised date was set on one specific order, which is a fact about that order rather than about the customer.",
             "enum": [
               "customer",
+              "parent_customer",
               "account_group",
               "account",
               "manual",
@@ -15264,18 +15277,446 @@
           "account_group": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/Entity"
+                "$ref": "#/components/schemas/AccountGroup"
               }
             ],
             "description": "The account group the lead time was inherited from.\n\nPresent only when `source` is `account_group`. A customer that belongs to a group but sets its own lead time inherited nothing.",
             "example": {
-              "id": "us_43irtlt2ajz6",
-              "object": "entity",
-              "type": "user",
-              "name": "John Doe",
-              "handle": "jdoe@augno.com"
+              "id": "acgp_6p4z57e9alaf",
+              "object": "account_group",
+              "type": "type_group",
+              "name": "Wholesale Customers",
+              "description": null,
+              "commission_policy": "commission_applied",
+              "freight_policy": "billed_freight",
+              "default_lead_time_days": null,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
             },
-            "nullable": true
+            "nullable": true,
+            "x-expandable": true
+          },
+          "parent_customer": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Customer"
+              }
+            ],
+            "description": "The parent customer the lead time was inherited from.\n\nPresent only when `source` is `parent_customer`. A customer that has a parent but sets its own lead time inherited nothing.",
+            "example": {
+              "id": "ac_opnlh43ymyee",
+              "object": "customer",
+              "name": "Acme Inc.",
+              "number": "100042",
+              "status": "normal",
+              "edi_status": "disabled",
+              "relationship_type": "standalone",
+              "commission_policy": "commission_applied",
+              "note": "Preferred customer since 2020.",
+              "credit_limit": {
+                "id": "qty_8hnxbigf0bod",
+                "object": "quantity",
+                "value": "1234.56",
+                "display_value": "$1,234.56",
+                "unit": {
+                  "id": "un_82bd37dae5po",
+                  "object": "unit",
+                  "name": "US Dollar",
+                  "abbreviation": "$",
+                  "type": "currency",
+                  "ratio_numerator": "1",
+                  "ratio_denominator": "1",
+                  "offset_numerator": "0",
+                  "offset_denominator": "1",
+                  "is_base_unit": true,
+                  "owner": {
+                    "object": "owner",
+                    "type": "system",
+                    "account": null
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                }
+              },
+              "contact_info": {
+                "object": "customer_contact_info",
+                "email": "orders@acme.com",
+                "phone": "555-123-4567",
+                "url": "https://acme.com"
+              },
+              "freight_preferences": {
+                "object": "customer_freight_preferences",
+                "status": "billed_freight",
+                "carrier": {
+                  "id": "cr_tv5vfjtgu1n3",
+                  "object": "carrier",
+                  "name": "FedEx",
+                  "code": "fedex",
+                  "account_number": "603145678",
+                  "customer_portal_visibility": "visible",
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_ykxoradjoeb3",
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
+                  "service_levels": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": [
+                      {
+                        "id": "crop_4ilk9p6gccrx",
+                        "object": "service_level",
+                        "name": "FedEx Ground",
+                        "service_level_token": "fedex_ground",
+                        "customer_portal_visibility": "visible",
+                        "is_default": true,
+                        "default_transit_days": 3,
+                        "owner": {
+                          "object": "owner",
+                          "type": "account",
+                          "account": {
+                            "id": "ac_ykxoradjoeb3",
+                            "object": "account",
+                            "name": "Acme Inc.",
+                            "default_billing_address": null,
+                            "default_shipping_address": null,
+                            "branding": null,
+                            "portal": null,
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
+                          }
+                        },
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      }
+                    ]
+                  },
+                  "deleted_at": null,
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "service_level": {
+                  "id": "crop_4ilk9p6gccrx",
+                  "object": "service_level",
+                  "name": "FedEx Ground",
+                  "service_level_token": "fedex_ground",
+                  "customer_portal_visibility": "visible",
+                  "is_default": true,
+                  "default_transit_days": 3,
+                  "owner": {
+                    "object": "owner",
+                    "type": "account",
+                    "account": {
+                      "id": "ac_ykxoradjoeb3",
+                      "object": "account",
+                      "name": "Acme Inc.",
+                      "default_billing_address": null,
+                      "default_shipping_address": null,
+                      "branding": null,
+                      "portal": null,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "billing_type": "sender",
+                "billing_account": "123456789"
+              },
+              "defaults": {
+                "object": "customer_defaults",
+                "payment_term": {
+                  "id": "pytm_skssmsy21lem",
+                  "object": "payment_term",
+                  "name": "Net 30",
+                  "status": "active",
+                  "owner": {
+                    "object": "owner",
+                    "type": "system",
+                    "account": null
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "shipping_term": {
+                  "id": "shtm_c5gxy05whw6r",
+                  "object": "shipping_term",
+                  "name": "Prepaid",
+                  "type": "carrier_rate_freight",
+                  "owner": {
+                    "object": "owner",
+                    "type": "system",
+                    "account": null
+                  },
+                  "flat_rate": null,
+                  "minimum_order_value": null,
+                  "free_shipping_service_levels": {
+                    "object": "list",
+                    "page_info": {
+                      "next_page_url": null,
+                      "previous_page_url": null,
+                      "has_next_page": false,
+                      "has_prev_page": false
+                    },
+                    "data": []
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "priority": {
+                  "id": "pi_dubkbqpnz45f",
+                  "object": "priority",
+                  "code": "normal",
+                  "name": "Normal",
+                  "owner": {
+                    "object": "owner",
+                    "type": "system",
+                    "account": null
+                  },
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "sales_rep": {
+                  "id": "acus_e5zu8bde0z3h",
+                  "object": "account_user",
+                  "status": "active",
+                  "role": {
+                    "id": "rl_3xknmfqflhvb",
+                    "object": "role",
+                    "name": "Admin",
+                    "type": "admin",
+                    "owner": {
+                      "object": "owner",
+                      "type": "account",
+                      "account": {
+                        "id": "ac_ykxoradjoeb3",
+                        "object": "account",
+                        "name": "Acme Inc.",
+                        "default_billing_address": null,
+                        "default_shipping_address": null,
+                        "branding": null,
+                        "portal": null,
+                        "created_at": "2026-05-10T00:00:00Z",
+                        "updated_at": "2026-05-10T00:23:00Z"
+                      }
+                    },
+                    "permissions": [
+                      "customers:create",
+                      "customers:read",
+                      "customers:update",
+                      "customers:delete"
+                    ],
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  },
+                  "department": {
+                    "id": "dp_m0jayebxnkos",
+                    "object": "department",
+                    "name": "Fabrication",
+                    "notes": null,
+                    "location": {
+                      "id": "lc_yonnys0hx3ju",
+                      "object": "location",
+                      "name": "Warehouse A",
+                      "type": "building",
+                      "parent": null,
+                      "children": {
+                        "object": "list",
+                        "page_info": {
+                          "next_page_url": null,
+                          "previous_page_url": null,
+                          "has_next_page": false,
+                          "has_prev_page": false
+                        },
+                        "data": [
+                          {
+                            "id": "lc_huci6mict6ys",
+                            "object": "location",
+                            "name": "Shelf A1",
+                            "type": "building",
+                            "parent": null,
+                            "children": null,
+                            "created_at": "2026-05-10T00:00:00Z",
+                            "updated_at": "2026-05-10T00:23:00Z"
+                          }
+                        ]
+                      },
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    },
+                    "scanning_stations": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "id": "scst_t71bn7lq5yov",
+                          "object": "scanning_station",
+                          "name": "Packaging Line 1",
+                          "notes": "Initializes batches at the start of the packaging line.",
+                          "type": "init_batch",
+                          "label_size": "2x4",
+                          "label_type": "traveler",
+                          "operator_requirement": "none",
+                          "department": null,
+                          "production_steps": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      ]
+                    },
+                    "machines": {
+                      "object": "list",
+                      "page_info": {
+                        "next_page_url": null,
+                        "previous_page_url": null,
+                        "has_next_page": false,
+                        "has_prev_page": false
+                      },
+                      "data": [
+                        {
+                          "id": "mc_ffcfk9dxixis",
+                          "object": "machine",
+                          "name": "CNC Router",
+                          "serial_number": "SN-2024-0001",
+                          "notes": "Spindle rebuilt March 2026; torque calibration due quarterly.",
+                          "department": null,
+                          "created_at": "2026-05-10T00:00:00Z",
+                          "updated_at": "2026-05-10T00:23:00Z"
+                        }
+                      ]
+                    },
+                    "labor_rate": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  },
+                  "user": {
+                    "id": "us_43irtlt2ajz6",
+                    "object": "user",
+                    "email": "jdoe@augno.com",
+                    "name": "John Doe",
+                    "username": "jdoe",
+                    "email_verified_at": "2026-06-10T00:00:00Z",
+                    "image_url": "https://cdn.augno.com/avatars/us_43irtlt2ajz6.jpg",
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  },
+                  "is_commission_eligible": false,
+                  "last_used_at": "2026-05-10T00:23:00Z",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "lead_time_days": null,
+                "receive_calendar_id": null
+              },
+              "notification_preferences": {
+                "object": "customer_notification_preferences",
+                "accepts_invoice_emails": true
+              },
+              "bill_to_address": {
+                "id": "ad_j8cz0b79pwdb",
+                "object": "address",
+                "name": "Headquarters",
+                "phone": "+1-614-555-0142",
+                "email": "receiving@acme.example.com",
+                "type": "standard",
+                "receive_calendar_id": null,
+                "geolocation": {
+                  "id": "gl_betrf3v346k5",
+                  "object": "geolocation",
+                  "street_line_1": "4200 Industrial Pkwy",
+                  "street_line_2": null,
+                  "locality": "Columbus",
+                  "state": "OH",
+                  "postal_code": "43204",
+                  "country": "US"
+                },
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "ship_to_address": {
+                "id": "ad_j8cz0b79pwdb",
+                "object": "address",
+                "name": "Headquarters",
+                "phone": "+1-614-555-0142",
+                "email": "receiving@acme.example.com",
+                "type": "standard",
+                "receive_calendar_id": null,
+                "geolocation": {
+                  "id": "gl_betrf3v346k5",
+                  "object": "geolocation",
+                  "street_line_1": "4200 Industrial Pkwy",
+                  "street_line_2": null,
+                  "locality": "Columbus",
+                  "state": "OH",
+                  "postal_code": "43204",
+                  "country": "US"
+                },
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "type": {
+                "id": "acgp_6p4z57e9alaf",
+                "object": "account_group",
+                "type": "type_group",
+                "name": "Wholesale Customers",
+                "description": null,
+                "commission_policy": "commission_applied",
+                "freight_policy": "billed_freight",
+                "default_lead_time_days": null,
+                "created_at": "2026-05-10T00:00:00Z",
+                "updated_at": "2026-05-10T00:23:00Z"
+              },
+              "price_groups": {
+                "object": "list",
+                "page_info": {
+                  "next_page_url": null,
+                  "previous_page_url": null,
+                  "has_next_page": false,
+                  "has_prev_page": false
+                },
+                "data": [
+                  {
+                    "id": "acgp_6p4z57e9alaf",
+                    "object": "account_group",
+                    "type": "type_group",
+                    "name": "Wholesale Customers",
+                    "description": null,
+                    "commission_policy": "commission_applied",
+                    "freight_policy": "billed_freight",
+                    "default_lead_time_days": null,
+                    "created_at": "2026-05-10T00:00:00Z",
+                    "updated_at": "2026-05-10T00:23:00Z"
+                  }
+                ]
+              },
+              "parent_account": null,
+              "child_accounts": null,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            },
+            "nullable": true,
+            "x-expandable": true
           }
         },
         "required": [
@@ -15283,7 +15724,8 @@
           "customer",
           "days",
           "source",
-          "account_group"
+          "account_group",
+          "parent_customer"
         ],
         "type": "object"
       },
@@ -16949,6 +17391,7 @@
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
+              "production_schedule_finishing_line",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
               "production_schedule_item_policy",
@@ -19461,6 +19904,7 @@
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
+              "production_schedule_finishing_line",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
               "production_schedule_item_policy",
@@ -28364,6 +28808,7 @@
                 "schedule_deviation_type",
                 "schedule_at_risk_order",
                 "production_schedule_finished_policy",
+                "production_schedule_finishing_line",
                 "production_schedule_week_release",
                 "production_schedule_week_release_preview",
                 "production_schedule_item_policy",
@@ -30320,7 +30765,20 @@
                       "reason": "past_due"
                     }
                   ]
-                }
+                },
+                "finishing": {
+                  "weekly_capacity_hours": 0,
+                  "planned_hours_by_week": [],
+                  "utilisation_by_week": [],
+                  "greige_starved_skus": [],
+                  "capacity_starved_skus": [],
+                  "items_without_run_rate": [],
+                  "unused_greige_units": 0,
+                  "total_planned_units": 0,
+                  "line_count": 0
+                },
+                "finishing_machine_count": 0,
+                "finishing_capacity_is_estimated": false
               },
               "error_message": null,
               "frozen_line_count": 6,
@@ -30745,6 +31203,104 @@
             "description": "Resources in this page.",
             "items": {
               "$ref": "#/components/schemas/ProductionScheduleFinishedPolicy"
+            },
+            "type": "array",
+            "x-stainless-pagination-property": {
+              "purpose": "items"
+            }
+          }
+        },
+        "required": [
+          "object",
+          "page_info",
+          "data"
+        ],
+        "type": "object"
+      },
+      "List_ProductionScheduleFinishingLine": {
+        "description": "A single page of resources, together with the metadata needed to page through the rest of the result set.",
+        "example": {
+          "object": "list",
+          "page_info": {
+            "next_page_url": null,
+            "previous_page_url": null,
+            "has_next_page": false,
+            "has_prev_page": false
+          },
+          "data": [
+            {
+              "id": "pnscfiln_8dq4mv71pzko",
+              "object": "production_schedule_finishing_line",
+              "production_schedule": {
+                "id": "pnsc_m4zt3z8g8src",
+                "object": "entity",
+                "type": "production_schedule",
+                "name": null,
+                "handle": null
+              },
+              "week_index": 2,
+              "week_starts_at": "2026-05-10T00:00:00Z",
+              "item": {
+                "id": "it_pej07ckhvu62",
+                "object": "entity",
+                "type": "item",
+                "name": null,
+                "handle": null
+              },
+              "sku": "MZ-CREW-BLK-L",
+              "greige_item": {
+                "id": "it_pej07ckhvu62",
+                "object": "entity",
+                "type": "item",
+                "name": null,
+                "handle": null
+              },
+              "greige_sku": "MZ-GREIGE-CREW",
+              "department": {
+                "id": "dp_m0jayebxnkos",
+                "object": "entity",
+                "type": "department",
+                "name": null,
+                "handle": null
+              },
+              "production_step": null,
+              "planned_quantity": 240,
+              "unit": "pr",
+              "planned_lots": 4,
+              "planned_lot_units": 60,
+              "planned_run_hours": 19.2,
+              "greige_consumed": 240,
+              "firm_units": 120,
+              "projected_on_hand_before": 180,
+              "projected_on_hand_after": 420,
+              "status": "planned",
+              "source": "solver",
+              "is_frozen": false,
+              "created_at": "2026-05-10T00:00:00Z",
+              "updated_at": "2026-05-10T00:23:00Z"
+            }
+          ]
+        },
+        "properties": {
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "list"
+            ],
+            "type": "string"
+          },
+          "page_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PageInfo"
+              }
+            ],
+            "description": "Pagination metadata."
+          },
+          "data": {
+            "description": "Resources in this page.",
+            "items": {
+              "$ref": "#/components/schemas/ProductionScheduleFinishingLine"
             },
             "type": "array",
             "x-stainless-pagination-property": {
@@ -45330,7 +45886,20 @@
                   "reason": "past_due"
                 }
               ]
-            }
+            },
+            "finishing": {
+              "weekly_capacity_hours": 0,
+              "planned_hours_by_week": [],
+              "utilisation_by_week": [],
+              "greige_starved_skus": [],
+              "capacity_starved_skus": [],
+              "items_without_run_rate": [],
+              "unused_greige_units": 0,
+              "total_planned_units": 0,
+              "line_count": 0
+            },
+            "finishing_machine_count": 0,
+            "finishing_capacity_is_estimated": false
           },
           "error_message": null,
           "frozen_line_count": 6,
@@ -46390,6 +46959,268 @@
         ],
         "type": "object"
       },
+      "ProductionScheduleFinishingLine": {
+        "description": "One finished good's build in one week: the second stage of the plan.\n\nThe constraint plan says how much greige to knit and deliberately does not say what to turn it into — a family's demand is pooled onto the greige precisely so the buffer can sit at the undifferentiated stage. These lines are where that pooling is undone: how many of which finished good to make from the knitted parts, decided against each SKU's own stock position, its own orders, and the hours the rest of the factory has that week.\n\nQuantities are counted in the constraint item's unit, so `greige_consumed` and the knit plan's `planned_quantity` are directly comparable. That is what lets the two stages be reconciled rather than merely read side by side.",
+        "example": {
+          "id": "pnscfiln_8dq4mv71pzko",
+          "object": "production_schedule_finishing_line",
+          "production_schedule": {
+            "id": "pnsc_m4zt3z8g8src",
+            "object": "entity",
+            "type": "production_schedule",
+            "name": null,
+            "handle": null
+          },
+          "week_index": 2,
+          "week_starts_at": "2026-05-10T00:00:00Z",
+          "item": {
+            "id": "it_pej07ckhvu62",
+            "object": "entity",
+            "type": "item",
+            "name": null,
+            "handle": null
+          },
+          "sku": "MZ-CREW-BLK-L",
+          "greige_item": {
+            "id": "it_pej07ckhvu62",
+            "object": "entity",
+            "type": "item",
+            "name": null,
+            "handle": null
+          },
+          "greige_sku": "MZ-GREIGE-CREW",
+          "department": {
+            "id": "dp_m0jayebxnkos",
+            "object": "entity",
+            "type": "department",
+            "name": null,
+            "handle": null
+          },
+          "production_step": null,
+          "planned_quantity": 240,
+          "unit": "pr",
+          "planned_lots": 4,
+          "planned_lot_units": 60,
+          "planned_run_hours": 19.2,
+          "greige_consumed": 240,
+          "firm_units": 120,
+          "projected_on_hand_before": 180,
+          "projected_on_hand_after": 420,
+          "status": "planned",
+          "source": "solver",
+          "is_frozen": false,
+          "created_at": "2026-05-10T00:00:00Z",
+          "updated_at": "2026-05-10T00:23:00Z"
+        },
+        "properties": {
+          "id": {
+            "description": "Finishing line ID.",
+            "type": "string"
+          },
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "production_schedule_finishing_line"
+            ],
+            "type": "string"
+          },
+          "production_schedule": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The schedule version this belongs to.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "week_index": {
+            "description": "Zero-based week offset from the start of the horizon.",
+            "type": "integer"
+          },
+          "week_starts_at": {
+            "description": "First day of the week this is planned in.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "item": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The finished good to make.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "sku": {
+            "description": "SKU of the finished good, as it stood when the plan was generated.",
+            "type": "string"
+          },
+          "greige_item": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The constraint item it is made from.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "greige_sku": {
+            "description": "SKU of that constraint item.",
+            "type": "string"
+          },
+          "department": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The department that does the work.\n\nAbsent for a finished good nobody has ever scanned a finishing step for, which means the plan knows what to make but not yet where.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "production_step": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Entity"
+              }
+            ],
+            "description": "The production step the work runs at.",
+            "example": {
+              "id": "us_43irtlt2ajz6",
+              "object": "entity",
+              "type": "user",
+              "name": "John Doe",
+              "handle": "jdoe@augno.com"
+            },
+            "nullable": true
+          },
+          "planned_quantity": {
+            "description": "Units of the finished good to make.",
+            "type": "number"
+          },
+          "unit": {
+            "description": "Abbreviation of the unit everything on this line is counted in.",
+            "nullable": true,
+            "type": "string"
+          },
+          "planned_lots": {
+            "description": "How many lots the quantity breaks into.",
+            "type": "integer"
+          },
+          "planned_lot_units": {
+            "description": "Units in one lot.",
+            "type": "number"
+          },
+          "planned_run_hours": {
+            "description": "Hours of the second stage's capacity this line consumes.",
+            "type": "number"
+          },
+          "greige_consumed": {
+            "description": "Units of the constraint item this takes out of the greige buffer.\n\nEqual to `planned_quantity` unless a finishing yield loss means a finished unit costs more than one knitted one.",
+            "type": "number"
+          },
+          "firm_units": {
+            "description": "How much of the week's draw on this SKU is an order rather than a forecast.",
+            "type": "number"
+          },
+          "projected_on_hand_before": {
+            "description": "This SKU's own projected stock before the line lands.",
+            "type": "number"
+          },
+          "projected_on_hand_after": {
+            "description": "And after it lands.",
+            "type": "number"
+          },
+          "status": {
+            "description": "Where the line stands.",
+            "enum": [
+              "planned",
+              "released",
+              "in_progress",
+              "complete",
+              "cancelled"
+            ],
+            "type": "string"
+          },
+          "source": {
+            "description": "Whether the solver produced this line or a person did.",
+            "enum": [
+              "solver",
+              "manual"
+            ],
+            "type": "string"
+          },
+          "is_frozen": {
+            "description": "Whether the line sits inside the published frozen window.",
+            "type": "boolean"
+          },
+          "created_at": {
+            "description": "Creation timestamp.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last updated timestamp.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "production_schedule",
+          "week_index",
+          "week_starts_at",
+          "item",
+          "sku",
+          "greige_item",
+          "greige_sku",
+          "department",
+          "production_step",
+          "planned_quantity",
+          "unit",
+          "planned_lots",
+          "planned_lot_units",
+          "planned_run_hours",
+          "greige_consumed",
+          "firm_units",
+          "projected_on_hand_before",
+          "projected_on_hand_after",
+          "status",
+          "source",
+          "is_frozen",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
       "ProductionScheduleItemPolicy": {
         "description": "The per-item policy behind a schedule version.\n\nSnapshotted at generation rather than recomputed, so a historical plan can still explain itself after costs, demand or settings move.",
         "example": {
@@ -47407,7 +48238,20 @@
                   "reason": "past_due"
                 }
               ]
-            }
+            },
+            "finishing": {
+              "weekly_capacity_hours": 0,
+              "planned_hours_by_week": [],
+              "utilisation_by_week": [],
+              "greige_starved_skus": [],
+              "capacity_starved_skus": [],
+              "items_without_run_rate": [],
+              "unused_greige_units": 0,
+              "total_planned_units": 0,
+              "line_count": 0
+            },
+            "finishing_machine_count": 0,
+            "finishing_capacity_is_estimated": false
           }
         },
         "properties": {
@@ -47943,7 +48787,7 @@
             "type": "number"
           },
           "default_customer_lead_time_days": {
-            "description": "Calendar days between an order being issued and it being due to ship.\n\nThe last resort in the ship-by chain: a lead time set on the customer, or on the customer's account group, takes precedence. Zero means same-day shipping.",
+            "description": "Calendar days between an order being issued and it being due to ship.\n\nThe last resort in the ship-by chain: a lead time set on the customer, on its parent account, or on the customer's account group takes precedence. Zero means same-day shipping.",
             "type": "integer"
           },
           "ship_calendar_id": {
@@ -50540,6 +51384,7 @@
           "lead_time_source": "manual",
           "transit_days": 3,
           "transit_source": "carrier_lane",
+          "estimated_delivery_date": "2026-08-25T00:00:00Z",
           "calendar_adjustment_days": 2,
           "steps": [
             {
@@ -50603,6 +51448,7 @@
             "description": "Which rule produced the date.",
             "enum": [
               "customer",
+              "parent_customer",
               "account_group",
               "account",
               "manual",
@@ -50614,7 +51460,7 @@
             "type": "string"
           },
           "transit_days": {
-            "description": "Days the carrier needs to cover the lane. Null when the lane has never been quoted and the service level carries no default.",
+            "description": "Days the carrier needs to cover the lane. Null when the lane has never been quoted and the service level carries no default, or when no service level was supplied to quote one on.",
             "nullable": true,
             "type": "integer"
           },
@@ -50625,6 +51471,12 @@
               "service_level",
               null
             ],
+            "nullable": true,
+            "type": "string"
+          },
+          "estimated_delivery_date": {
+            "description": "When freight leaving on the ship-by date would reach the customer: transit walked forward from it and landed on a day their dock receives. Null whenever `transit_days` is, since an arrival with no journey behind it would just be the ship date wearing a different name.\n\nReported for every basis, including the ones that do not use transit to decide the ship-by date. An order committed on a lead time has the same journey ahead of it; it simply was not worked backwards from.",
+            "format": "date-time",
             "nullable": true,
             "type": "string"
           },
@@ -50648,6 +51500,7 @@
           "lead_time_source",
           "transit_days",
           "transit_source",
+          "estimated_delivery_date",
           "calendar_adjustment_days",
           "steps"
         ],
@@ -52495,7 +53348,8 @@
         "description": "Request to release one week of a production schedule to the floor.",
         "example": {
           "week_index": 0,
-          "responsible_user_id": "us_43irtlt2ajz6"
+          "responsible_user_id": "us_43irtlt2ajz6",
+          "skip_carry_forward": false
         },
         "properties": {
           "week_index": {
@@ -52509,6 +53363,10 @@
           "scanning_station_id": {
             "description": "ID of the scanning station the batches will be scanned at.\n\nApplied to every batch this release creates, across all machines in the week.",
             "type": "string"
+          },
+          "skip_carry_forward": {
+            "description": "Issue the whole week as new batches, leaving an earlier week's unworked lots where they are.\n\nOff unless you ask for it: reprinting a ticket the floor is already holding is exactly what carrying work forward exists to prevent, so it takes a deliberate choice to do it.",
+            "type": "boolean"
           }
         },
         "required": [
@@ -52550,7 +53408,7 @@
                 "$ref": "#/components/schemas/Entity"
               }
             ],
-            "description": "The batch this lot was created as.\n\nA preview writes nothing, so it names no batch.",
+            "description": "The batch this lot was created as.\n\nA preview names a batch only when the lot is one that already exists and is being moved.",
             "example": {
               "id": "us_43irtlt2ajz6",
               "object": "entity",
@@ -52559,13 +53417,19 @@
               "handle": "jdoe@augno.com"
             },
             "nullable": true
+          },
+          "carried_forward_from": {
+            "description": "The number of the run this ticket came off, when the batch already existed.\n\nPresent on a lot carried forward from an earlier week that the floor never worked. The ticket is already printed and on the floor, so the release moves it into the new run rather than issuing a replacement.",
+            "nullable": true,
+            "type": "string"
           }
         },
         "required": [
           "item",
           "sku",
           "quantity",
-          "batch"
+          "batch",
+          "carried_forward_from"
         ],
         "type": "object"
       },
@@ -52577,6 +53441,7 @@
           "week_starts_at": "2026-05-10T00:00:00Z",
           "line_count": 1,
           "batch_count": 6,
+          "carried_forward_batch_count": 0,
           "total_quantity": 360,
           "lines": {
             "object": "list",
@@ -52614,6 +53479,7 @@
                 "lot_units": 60,
                 "unit": null,
                 "batch_count": 6,
+                "carried_forward_quantity": 0,
                 "batches": {
                   "object": "list",
                   "page_info": {
@@ -52633,7 +53499,8 @@
                       },
                       "sku": "MZ-GREIGE-CREW",
                       "quantity": 60,
-                      "batch": null
+                      "batch": null,
+                      "carried_forward_from": null
                     }
                   ]
                 }
@@ -52666,7 +53533,11 @@
             "type": "integer"
           },
           "batch_count": {
-            "description": "How many batches would be created.",
+            "description": "How many batches the run would hold, created and carried forward together.",
+            "type": "integer"
+          },
+          "carried_forward_batch_count": {
+            "description": "How many of `batch_count` would be moved off an earlier run rather than created.",
             "type": "integer"
           },
           "total_quantity": {
@@ -52724,6 +53595,7 @@
           "week_starts_at",
           "line_count",
           "batch_count",
+          "carried_forward_batch_count",
           "total_quantity",
           "lines",
           "is_releasable",
@@ -52884,6 +53756,7 @@
           "week_starts_at": "2026-05-10T00:00:00Z",
           "released_line_count": 1,
           "batch_count": 6,
+          "carried_forward_batch_count": 0,
           "total_quantity": 360,
           "lines": {
             "object": "list",
@@ -52921,6 +53794,7 @@
                 "lot_units": 60,
                 "unit": null,
                 "batch_count": 6,
+                "carried_forward_quantity": 0,
                 "batches": {
                   "object": "list",
                   "page_info": {
@@ -52946,7 +53820,8 @@
                         "type": "batch",
                         "name": null,
                         "handle": null
-                      }
+                      },
+                      "carried_forward_from": null
                     }
                   ]
                 }
@@ -53129,7 +54004,11 @@
             "type": "integer"
           },
           "batch_count": {
-            "description": "How many batches were created across all campaigns.",
+            "description": "How many batches the run holds across all campaigns, created and carried forward together.",
+            "type": "integer"
+          },
+          "carried_forward_batch_count": {
+            "description": "How many of `batch_count` were moved off an earlier run rather than created.\n\nTickets for these are already printed and on the floor.",
             "type": "integer"
           },
           "total_quantity": {
@@ -53163,6 +54042,7 @@
           "week_starts_at",
           "released_line_count",
           "batch_count",
+          "carried_forward_batch_count",
           "total_quantity",
           "lines"
         ],
@@ -53240,13 +54120,17 @@
             "description": "How many batches the campaign broke into.",
             "type": "integer"
           },
+          "carried_forward_quantity": {
+            "description": "How much of `planned_quantity` is covered by tickets an earlier week already issued.",
+            "type": "number"
+          },
           "batches": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/List_ReleaseScheduleBatch"
               }
             ],
-            "description": "The individual lots, in run order.",
+            "description": "The individual lots, carried-forward tickets first and then the new ones, in run order.",
             "example": {
               "object": "list",
               "page_info": {
@@ -53269,6 +54153,7 @@
           "lot_units",
           "unit",
           "batch_count",
+          "carried_forward_quantity",
           "batches"
         ],
         "type": "object"
@@ -56789,7 +57674,7 @@
             "type": "string"
           },
           "ship_by_date": {
-            "description": "Date this order is contractually due to ship.\n\nStamped when the order is issued. With a promised delivery date, this is that date less the carrier's transit for the order's lane and less any day the customer cannot receive on — the day the order has to leave to arrive when promised. Otherwise it comes from a lead time, whether this order's own or the one on the customer, its account group, or the account.\n\nAlways a day the plant actually ships on, whichever rule produced it.\n\nIt is not recomputed afterwards, so neither renegotiating a customer's lead time, nor a later carrier estimate, nor a holiday added to a calendar moves commitments already made. Cleared if the order is unissued.",
+            "description": "Date this order is contractually due to ship.\n\nStamped when the order is issued. With a promised delivery date, this is that date less the carrier's transit for the order's lane and less any day the customer cannot receive on — the day the order has to leave to arrive when promised. Otherwise it comes from a lead time, whether this order's own or the one on the customer, its parent account, its account group, or the account.\n\nAlways a day the plant actually ships on, whichever rule produced it.\n\nIt is not recomputed afterwards, so neither renegotiating a customer's lead time, nor a later carrier estimate, nor a holiday added to a calendar moves commitments already made. Cleared if the order is unissued.",
             "format": "date-time",
             "nullable": true,
             "type": "string"
@@ -56814,6 +57699,7 @@
             "description": "Which rule produced the ship-by date.",
             "enum": [
               "customer",
+              "parent_customer",
               "account_group",
               "account",
               "manual",
@@ -60225,6 +61111,22 @@
               "data": []
             },
             "nullable": true
+          },
+          "finishing": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ScheduleFinishingDiagnostics"
+              }
+            ],
+            "description": "How the second stage — the rest of the factory — fared against the plan the constraint produced."
+          },
+          "finishing_machine_count": {
+            "description": "Machines outside the constraint department that the second stage was sized from.\n\nZero means its capacity was estimated from the shift pattern alone rather than counted.",
+            "type": "integer"
+          },
+          "finishing_capacity_is_estimated": {
+            "description": "Whether the second stage's capacity was estimated rather than counted from machines.",
+            "type": "boolean"
           }
         },
         "required": [
@@ -60242,7 +61144,10 @@
           "firm_demand_units",
           "undated_firm_order_count",
           "make_to_order_item_count",
-          "at_risk_orders"
+          "at_risk_orders",
+          "finishing",
+          "finishing_machine_count",
+          "finishing_capacity_is_estimated"
         ],
         "type": "object"
       },
@@ -60321,6 +61226,74 @@
           "current_quantity",
           "proposed_quantity",
           "current_is_manual"
+        ],
+        "type": "object"
+      },
+      "ScheduleFinishingDiagnostics": {
+        "description": "How the second stage fared: what it could not make, and which of the two things it ran out of.\n\nThe two starvation lists are the point of planning in two stages at all. A finished good held back for want of greige is a knitting problem — knit more of it, or knit it sooner — and one held back for want of hours is a finishing problem: another shift, or a different mix. A single \"short\" list would throw that distinction away, and it is the only thing this model knows that a one-stage plan does not.",
+        "properties": {
+          "weekly_capacity_hours": {
+            "description": "Hours the second stage can work in one week.",
+            "type": "number"
+          },
+          "planned_hours_by_week": {
+            "description": "Hours the plan asks of it, week by week.",
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "utilisation_by_week": {
+            "description": "Those hours as a fraction of capacity, week by week.",
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "greige_starved_skus": {
+            "description": "Finished goods that wanted building across the whole horizon and never had greige to build from.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "capacity_starved_skus": {
+            "description": "Finished goods that had greige and never had hours.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "items_without_run_rate": {
+            "description": "Finished goods with no measured finishing rate, which cannot be levelled because the hours they cost are unknown.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "unused_greige_units": {
+            "description": "Constraint output the horizon never converts into anything.\n\nA large figure means the two stages are planned against different demand, which is worth looking at rather than leaving as an unexplained pile of greige.",
+            "type": "number"
+          },
+          "total_planned_units": {
+            "description": "Total finished units the stage plans across the horizon.",
+            "type": "number"
+          },
+          "line_count": {
+            "description": "How many finishing lines the plan holds.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "weekly_capacity_hours",
+          "planned_hours_by_week",
+          "utilisation_by_week",
+          "greige_starved_skus",
+          "capacity_starved_skus",
+          "items_without_run_rate",
+          "unused_greige_units",
+          "total_planned_units",
+          "line_count"
         ],
         "type": "object"
       },
@@ -60951,6 +61924,7 @@
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
+              "production_schedule_finishing_line",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
               "production_schedule_item_policy",
@@ -61339,6 +62313,7 @@
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
+              "production_schedule_finishing_line",
               "production_schedule_week_release",
               "production_schedule_week_release_preview",
               "production_schedule_item_policy",
@@ -63220,7 +64195,7 @@
             "type": "string"
           },
           "lead_time_days": {
-            "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. Leave unset to inherit the customer's account group lead time, then the account default.",
+            "description": "Calendar days between an order being issued and it being due to ship.\n\nSets each order's `ship_by_date` when it is issued. Clear it to inherit the parent account's lead time, then the customer's account group lead time, then the account default.",
             "nullable": true,
             "type": "integer"
           },
@@ -63548,6 +64523,10 @@
           "ended_at": "2026-05-10T00:23:00Z"
         },
         "properties": {
+          "machine_id": {
+            "description": "ID of the machine that stopped.\n\nMoving an event to another machine re-resolves the department it is charged to, so past availability changes for both rooms. Rejected when the destination machine already has an open stoppage and this one is open too.",
+            "type": "string"
+          },
           "reason": {
             "description": "Why the machine stopped.\n\nReclassifying a stoppage moves it to the OEE term the new reason charges, so past availability figures change with it.",
             "enum": [
@@ -63572,6 +64551,15 @@
             "format": "date-time",
             "nullable": true,
             "type": "string"
+          },
+          "duration": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/QuantityInput"
+              }
+            ],
+            "description": "How long the machine was down, counted in a unit of time.\n\nRestates the end as a length of time from the start, so it is applied against `started_at` as this request leaves it. Send this or `ended_at`, never both. Send null to reopen the event.",
+            "nullable": true
           },
           "item_id": {
             "description": "ID of the item the machine was running when it stopped.\n\nSend null to detach the item.",
@@ -64173,7 +65161,7 @@
             "type": "number"
           },
           "default_customer_lead_time_days": {
-            "description": "Calendar days between an order being issued and it being due to ship.\n\nThe last resort in the ship-by chain: a lead time set on the customer, or on the customer's account group, takes precedence. Zero commits the account to same-day shipping on every order that falls through to it, so this update replaces the whole settings object and omitting the field is not the same as leaving it alone.",
+            "description": "Calendar days between an order being issued and it being due to ship.\n\nThe last resort in the ship-by chain: a lead time set on the customer, on its parent account, or on the customer's account group takes precedence. Zero commits the account to same-day shipping on every order that falls through to it, so this update replaces the whole settings object and omitting the field is not the same as leaving it alone.",
             "type": "integer"
           },
           "ship_calendar_id": {
@@ -86532,6 +87520,7 @@
                   "schedule_deviation_type",
                   "schedule_at_risk_order",
                   "production_schedule_finished_policy",
+                  "production_schedule_finishing_line",
                   "production_schedule_week_release",
                   "production_schedule_week_release_preview",
                   "production_schedule_item_policy",
@@ -86860,6 +87849,7 @@
                 "schedule_deviation_type",
                 "schedule_at_risk_order",
                 "production_schedule_finished_policy",
+                "production_schedule_finishing_line",
                 "production_schedule_week_release",
                 "production_schedule_week_release_preview",
                 "production_schedule_item_policy",
@@ -89561,6 +90551,7 @@
                   "schedule_deviation_type",
                   "schedule_at_risk_order",
                   "production_schedule_finished_policy",
+                  "production_schedule_finishing_line",
                   "production_schedule_week_release",
                   "production_schedule_week_release_preview",
                   "production_schedule_item_policy",
@@ -93400,6 +94391,7 @@
                 "schedule_deviation_type",
                 "schedule_at_risk_order",
                 "production_schedule_finished_policy",
+                "production_schedule_finishing_line",
                 "production_schedule_week_release",
                 "production_schedule_week_release_preview",
                 "production_schedule_item_policy",
@@ -105482,7 +106474,7 @@
         "x-preview": true
       },
       "post": {
-        "description": "Logs a machine downtime event.\n\nOmit `ended_at` while the machine is still down. A machine can only have one open event at a time, so logging a second open stoppage against a machine that is already down is rejected until the first is closed.\n\nThe department is taken from the machine, the business day is taken from `started_at`, the event is attributed to the credentials that made the request, and the duration is calculated when the event is closed.\n\nThis endpoint requires the permission: `machine_downtime:create`.",
+        "description": "Logs a machine downtime event.\n\nGive the stoppage an end either as `ended_at` or as a `duration` counted in a unit of time — sending both is rejected. Omit `ended_at` while the machine is still down. A machine can only have one open event at a time, so logging a second open stoppage against a machine that is already down is rejected until the first is closed.\n\nThe department is taken from the machine, the business day is taken from `started_at`, the event is attributed to the credentials that made the request, and the duration is calculated when the event is closed.\n\nThis endpoint requires the permission: `machine_downtime:create`.",
         "operationId": "create-machine-downtime-event",
         "parameters": [
           {
@@ -106620,7 +107612,7 @@
         "x-preview": true
       },
       "patch": {
-        "description": "Closes or corrects a machine downtime event.\n\nOnly the fields provided in the request are changed. Setting `ended_at` closes the event and calculates its duration; sending it as null reopens an event closed by mistake, which is rejected when the machine already has another open stoppage. The machine an event belongs to cannot be changed.\n\nThis endpoint requires the permission: `machine_downtime:update`.",
+        "description": "Closes or corrects a machine downtime event.\n\nOnly the fields provided in the request are changed. Setting `ended_at` — or a `duration`, which says the same thing as a length of time from the start — closes the event and calculates how long it lasted; sending either as null reopens an event closed by mistake, which is rejected when the machine already has another open stoppage. Moving the event to another machine re-resolves the department the stoppage is charged to.\n\nThis endpoint requires the permission: `machine_downtime:update`.",
         "operationId": "update-machine-downtime-event",
         "parameters": [
           {
@@ -109036,7 +110028,20 @@
                               "reason": "past_due"
                             }
                           ]
-                        }
+                        },
+                        "finishing": {
+                          "weekly_capacity_hours": 0,
+                          "planned_hours_by_week": [],
+                          "utilisation_by_week": [],
+                          "greige_starved_skus": [],
+                          "capacity_starved_skus": [],
+                          "items_without_run_rate": [],
+                          "unused_greige_units": 0,
+                          "total_planned_units": 0,
+                          "line_count": 0
+                        },
+                        "finishing_machine_count": 0,
+                        "finishing_capacity_is_estimated": false
                       },
                       "error_message": null,
                       "frozen_line_count": 6,
@@ -109271,7 +110276,20 @@
                           "reason": "past_due"
                         }
                       ]
-                    }
+                    },
+                    "finishing": {
+                      "weekly_capacity_hours": 0,
+                      "planned_hours_by_week": [],
+                      "utilisation_by_week": [],
+                      "greige_starved_skus": [],
+                      "capacity_starved_skus": [],
+                      "items_without_run_rate": [],
+                      "unused_greige_units": 0,
+                      "total_planned_units": 0,
+                      "line_count": 0
+                    },
+                    "finishing_machine_count": 0,
+                    "finishing_capacity_is_estimated": false
                   },
                   "error_message": null,
                   "frozen_line_count": 6,
@@ -109600,7 +110618,20 @@
                           "reason": "past_due"
                         }
                       ]
-                    }
+                    },
+                    "finishing": {
+                      "weekly_capacity_hours": 0,
+                      "planned_hours_by_week": [],
+                      "utilisation_by_week": [],
+                      "greige_starved_skus": [],
+                      "capacity_starved_skus": [],
+                      "items_without_run_rate": [],
+                      "unused_greige_units": 0,
+                      "total_planned_units": 0,
+                      "line_count": 0
+                    },
+                    "finishing_machine_count": 0,
+                    "finishing_capacity_is_estimated": false
                   }
                 },
                 "schema": {
@@ -109810,7 +110841,20 @@
                           "reason": "past_due"
                         }
                       ]
-                    }
+                    },
+                    "finishing": {
+                      "weekly_capacity_hours": 0,
+                      "planned_hours_by_week": [],
+                      "utilisation_by_week": [],
+                      "greige_starved_skus": [],
+                      "capacity_starved_skus": [],
+                      "items_without_run_rate": [],
+                      "unused_greige_units": 0,
+                      "total_planned_units": 0,
+                      "line_count": 0
+                    },
+                    "finishing_machine_count": 0,
+                    "finishing_capacity_is_estimated": false
                   },
                   "error_message": null,
                   "frozen_line_count": 6,
@@ -110089,7 +111133,20 @@
                           "reason": "past_due"
                         }
                       ]
-                    }
+                    },
+                    "finishing": {
+                      "weekly_capacity_hours": 0,
+                      "planned_hours_by_week": [],
+                      "utilisation_by_week": [],
+                      "greige_starved_skus": [],
+                      "capacity_starved_skus": [],
+                      "items_without_run_rate": [],
+                      "unused_greige_units": 0,
+                      "total_planned_units": 0,
+                      "line_count": 0
+                    },
+                    "finishing_machine_count": 0,
+                    "finishing_capacity_is_estimated": false
                   },
                   "error_message": null,
                   "frozen_line_count": 6,
@@ -110323,7 +111380,20 @@
                           "reason": "past_due"
                         }
                       ]
-                    }
+                    },
+                    "finishing": {
+                      "weekly_capacity_hours": 0,
+                      "planned_hours_by_week": [],
+                      "utilisation_by_week": [],
+                      "greige_starved_skus": [],
+                      "capacity_starved_skus": [],
+                      "items_without_run_rate": [],
+                      "unused_greige_units": 0,
+                      "total_planned_units": 0,
+                      "line_count": 0
+                    },
+                    "finishing_machine_count": 0,
+                    "finishing_capacity_is_estimated": false
                   },
                   "error_message": null,
                   "frozen_line_count": 6,
@@ -110709,7 +111779,20 @@
                           "reason": "past_due"
                         }
                       ]
-                    }
+                    },
+                    "finishing": {
+                      "weekly_capacity_hours": 0,
+                      "planned_hours_by_week": [],
+                      "utilisation_by_week": [],
+                      "greige_starved_skus": [],
+                      "capacity_starved_skus": [],
+                      "items_without_run_rate": [],
+                      "unused_greige_units": 0,
+                      "total_planned_units": 0,
+                      "line_count": 0
+                    },
+                    "finishing_machine_count": 0,
+                    "finishing_capacity_is_estimated": false
                   },
                   "error_message": null,
                   "frozen_line_count": 6,
@@ -110956,7 +112039,20 @@
                           "reason": "past_due"
                         }
                       ]
-                    }
+                    },
+                    "finishing": {
+                      "weekly_capacity_hours": 0,
+                      "planned_hours_by_week": [],
+                      "utilisation_by_week": [],
+                      "greige_starved_skus": [],
+                      "capacity_starved_skus": [],
+                      "items_without_run_rate": [],
+                      "unused_greige_units": 0,
+                      "total_planned_units": 0,
+                      "line_count": 0
+                    },
+                    "finishing_machine_count": 0,
+                    "finishing_capacity_is_estimated": false
                   },
                   "error_message": null,
                   "frozen_line_count": 6,
@@ -111067,7 +112163,7 @@
     },
     "/v1/operations/production-schedules/{id}/actions/release-week": {
       "post": {
-        "description": "Turns one planned week into a production run.\n\nEach campaign in the week becomes one batch per planned lot, using the lot size the campaign was planned at. A 360-unit campaign at a 60-unit lot arrives on the floor as six batches, not one instruction to make 360; a quantity that is not a whole number of lots trails a single short lot at the end of the run.\n\nThe release is atomic. A run holding half a week's batches is worse than no run, because the missing half looks like work nobody was asked to do and attainment would count it as unplanned production.\n\nReleasing the same week twice fails rather than creating a second run. Each released line records the run now carrying it, and a line that is already released is never re-pointed.\n\nCancelled campaigns and campaigns planned at zero are left behind rather than released. A week that would produce an implausible number of batches is rejected outright, since that is far more likely to be a misconfigured lot size than a real week's work.\n\nThis endpoint requires the permissions: `production_schedules:update`, `production_runs:create`.",
+        "description": "Turns one planned week into a production run.\n\nEach campaign in the week becomes one batch per planned lot, using the lot size the campaign was planned at. A 360-unit campaign at a 60-unit lot arrives on the floor as six batches, not one instruction to make 360; a quantity that is not a whole number of lots trails a single short lot at the end of the run.\n\nThe release is atomic. A run holding half a week's batches is worse than no run, because the missing half looks like work nobody was asked to do and attainment would count it as unplanned production.\n\nReleasing the same week twice fails rather than creating a second run. Each released line records the run now carrying it, and a line that is already released is never re-pointed.\n\nLots an earlier week already issued are carried forward rather than reissued. When a week fell short, the next plan asks for the shortfall — and the batches covering it are usually already printed and sitting on the floor. Those tickets are moved into this run and counted against the campaign, so only the genuinely new work is created. `carried_forward_batch_count` says how many arrived that way, and each one names the run it came off. Send `skip_carry_forward` to issue the whole week new instead.\n\nCancelled campaigns and campaigns planned at zero are left behind rather than released. A week that would produce an implausible number of batches is rejected outright, since that is far more likely to be a misconfigured lot size than a real week's work.\n\nThis endpoint requires the permissions: `production_schedules:update`, `production_runs:create`.",
         "operationId": "release-production-schedule-week",
         "parameters": [
           {
@@ -111086,7 +112182,8 @@
             "application/json": {
               "example": {
                 "week_index": 0,
-                "responsible_user_id": "us_43irtlt2ajz6"
+                "responsible_user_id": "us_43irtlt2ajz6",
+                "skip_carry_forward": false
               },
               "schema": {
                 "$ref": "#/components/schemas/ReleaseProductionScheduleWeekRequest"
@@ -111249,6 +112346,7 @@
                   "week_starts_at": "2026-05-10T00:00:00Z",
                   "released_line_count": 1,
                   "batch_count": 6,
+                  "carried_forward_batch_count": 0,
                   "total_quantity": 360,
                   "lines": {
                     "object": "list",
@@ -111286,6 +112384,7 @@
                         "lot_units": 60,
                         "unit": null,
                         "batch_count": 6,
+                        "carried_forward_quantity": 0,
                         "batches": {
                           "object": "list",
                           "page_info": {
@@ -111311,7 +112410,8 @@
                                 "type": "batch",
                                 "name": null,
                                 "handle": null
-                              }
+                              },
+                              "carried_forward_from": null
                             }
                           ]
                         }
@@ -111483,7 +112583,7 @@
           },
           {
             "description": "Only return work in this horizon week, zero-based.",
-            "example": 100,
+            "example": 2,
             "in": "query",
             "name": "week_index",
             "schema": {
@@ -111857,6 +112957,131 @@
         "x-preview": true
       }
     },
+    "/v1/operations/production-schedules/{id}/finishing-lines": {
+      "get": {
+        "description": "Returns the second stage of a schedule: how many of which finished good to make from the knitted parts, week by week.\n\nThe constraint plan says how much greige to knit and deliberately does not say what to turn it into — a family's demand is pooled onto the greige precisely so the buffer can sit at the undifferentiated stage, where it is cheapest. These lines are where that pooling is undone, against each finished SKU's own stock position, its own orders, and the hours the rest of the factory has that week.\n\nLevelled, not merely allocated. Work that does not fit a week moves to the next one rather than being dropped, so the plan never asks the second stage for more hours than it has. Two things bound it, and they are reported separately in the schedule's diagnostics because they call for opposite responses: a SKU held back for want of greige is a knitting problem, and a SKU held back for want of hours is a finishing one.\n\nEverything is counted in the constraint item's unit, so `greige_consumed` here and `planned_quantity` on the constraint plan are directly comparable — which is what lets the two stages be reconciled rather than only read side by side.\n\nThis endpoint requires the permission: `production_schedules:read`.",
+        "operationId": "list-production-schedule-finishing-lines",
+        "parameters": [
+          {
+            "description": "ID of the schedule version.",
+            "example": "pnsc_m4zt3z8g8src",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Only the finishing planned for this week, zero-based from the start of the horizon.",
+            "example": 2,
+            "in": "query",
+            "name": "week_index",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Only the finishing planned for this finished good.",
+            "example": "it_pej07ckhvu62",
+            "in": "query",
+            "name": "item_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "object": "list",
+                  "page_info": {
+                    "next_page_url": "/v1/operations/production-schedules/pnsc_m4zt3z8g8src/finishing-lines?cursor=eyJjIjoiMjAyNi0wNS0xMFQwMDowMDowMFoiLCJzIjoicG5zY2ZpbG5fOGRxNG12NzFwemtvIiwiZCI6ImYifQ.d2V0lgEtgscDX5ahdFwKYSsDRxNwta6s6GNHkCbWWsg",
+                    "previous_page_url": null,
+                    "has_next_page": true,
+                    "has_prev_page": false
+                  },
+                  "data": [
+                    {
+                      "id": "pnscfiln_8dq4mv71pzko",
+                      "object": "production_schedule_finishing_line",
+                      "production_schedule": {
+                        "id": "pnsc_m4zt3z8g8src",
+                        "object": "entity",
+                        "type": "production_schedule",
+                        "name": null,
+                        "handle": null
+                      },
+                      "week_index": 2,
+                      "week_starts_at": "2026-05-10T00:00:00Z",
+                      "item": {
+                        "id": "it_pej07ckhvu62",
+                        "object": "entity",
+                        "type": "item",
+                        "name": null,
+                        "handle": null
+                      },
+                      "sku": "MZ-CREW-BLK-L",
+                      "greige_item": {
+                        "id": "it_pej07ckhvu62",
+                        "object": "entity",
+                        "type": "item",
+                        "name": null,
+                        "handle": null
+                      },
+                      "greige_sku": "MZ-GREIGE-CREW",
+                      "department": {
+                        "id": "dp_m0jayebxnkos",
+                        "object": "entity",
+                        "type": "department",
+                        "name": null,
+                        "handle": null
+                      },
+                      "production_step": null,
+                      "planned_quantity": 240,
+                      "unit": "pr",
+                      "planned_lots": 4,
+                      "planned_lot_units": 60,
+                      "planned_run_hours": 19.2,
+                      "greige_consumed": 240,
+                      "firm_units": 120,
+                      "projected_on_hand_before": 180,
+                      "projected_on_hand_after": 420,
+                      "status": "planned",
+                      "source": "solver",
+                      "is_frozen": false,
+                      "created_at": "2026-05-10T00:00:00Z",
+                      "updated_at": "2026-05-10T00:23:00Z"
+                    }
+                  ]
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/List_ProductionScheduleFinishingLine"
+                }
+              }
+            },
+            "description": "Successful response for List Production Schedule Finishing Lines"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "List Production Schedule Finishing Lines",
+        "tags": [
+          "Production Schedules"
+        ],
+        "x-preview": true
+      }
+    },
     "/v1/operations/production-schedules/{id}/item-policies": {
       "get": {
         "description": "Returns the per-item policy behind a schedule version, ordered by constraint run hours descending.\n\nThis is the \"why\" behind every campaign: lot size, reorder point, safety stock and lead times as they stood when the plan was generated.\n\nThis endpoint requires the permission: `production_schedules:read`.",
@@ -112029,7 +113254,7 @@
           },
           {
             "description": "Only return campaigns in this horizon week, zero-based.",
-            "example": 100,
+            "example": 2,
             "in": "query",
             "name": "week_index",
             "schema": {
@@ -112508,7 +113733,7 @@
     },
     "/v1/operations/production-schedules/{id}/week-release-preview": {
       "get": {
-        "description": "Returns what releasing a week would create, without creating it.\n\nThe lots are resolved exactly as the release itself resolves them, so what a planner is shown and what the floor receives cannot drift apart.\n\n`is_releasable` is false when the week is empty or already released, with `blocked_reason` saying which; `existing_production_run_id` names the run a released week is already tied to.\n\nCancelled campaigns and campaigns planned at zero are excluded here exactly as the release excludes them, so a week holding nothing but those previews as empty.\n\nThis endpoint requires the permission: `production_schedules:read`.",
+        "description": "Returns what releasing a week would create, without creating it.\n\nThe lots are resolved exactly as the release itself resolves them, so what a planner is shown and what the floor receives cannot drift apart.\n\n`is_releasable` is false when the week is empty or already released, with `blocked_reason` saying which; `existing_production_run_id` names the run a released week is already tied to.\n\nCancelled campaigns and campaigns planned at zero are excluded here exactly as the release excludes them, so a week holding nothing but those previews as empty.\n\nLots the floor is already holding are named as such. A batch with `carried_forward_from` set is a ticket an earlier week issued and nobody worked, which the release moves into the new run rather than reissuing, so nothing has to be reprinted.\n\nThis endpoint requires the permission: `production_schedules:read`.",
         "operationId": "preview-production-schedule-week-release",
         "parameters": [
           {
@@ -112523,11 +113748,20 @@
           },
           {
             "description": "Zero-based week offset from the start of the horizon.",
-            "example": 100,
+            "example": 2,
             "in": "query",
             "name": "week_index",
             "schema": {
               "type": "integer"
+            }
+          },
+          {
+            "description": "Preview the week as if every batch were newly issued.\n\nBy default the preview counts tickets an earlier week issued and the floor never worked against this week's campaigns, because that is what releasing would do.",
+            "example": true,
+            "in": "query",
+            "name": "skip_carry_forward",
+            "schema": {
+              "type": "boolean"
             }
           }
         ],
@@ -112541,6 +113775,7 @@
                   "week_starts_at": "2026-05-10T00:00:00Z",
                   "line_count": 1,
                   "batch_count": 6,
+                  "carried_forward_batch_count": 0,
                   "total_quantity": 360,
                   "lines": {
                     "object": "list",
@@ -112578,6 +113813,7 @@
                         "lot_units": 60,
                         "unit": null,
                         "batch_count": 6,
+                        "carried_forward_quantity": 0,
                         "batches": {
                           "object": "list",
                           "page_info": {
@@ -112597,7 +113833,8 @@
                               },
                               "sku": "MZ-GREIGE-CREW",
                               "quantity": 60,
-                              "batch": null
+                              "batch": null,
+                              "carried_forward_from": null
                             }
                           ]
                         }
@@ -121609,7 +122846,7 @@
     },
     "/v1/sales/customers/{id}/lead-time": {
       "get": {
-        "description": "Returns the ship-by lead time a new order for this customer would be committed to.\n\nResolved through the same chain the issue path stamps onto an order, most specific first: a lead time set on the customer, then on the customer's account group, then the account-wide default. `source` names which rule applied, so a form can show where the number came from rather than leaving a rep to guess.\n\nThis is a preview of a commitment, not the commitment itself. An order takes its own `ship_by_date` when it is issued and keeps it afterwards, so changing a lead time here moves what future orders will promise and leaves promises already made alone.\n\nThis endpoint requires the permission: `customers:read`.",
+        "description": "Returns the ship-by lead time a new order for this customer would be committed to.\n\nResolved through the same chain the issue path stamps onto an order, most specific first: a lead time set on the customer, then on its parent account, then on the customer's account group, then the account-wide default. `source` names which rule applied, so a form can show where the number came from rather than leaving a rep to guess.\n\nA lead time set on a parent account therefore governs every child account under it that has not set its own, which is how a head office's terms are given to its locations without repeating them on each one.\n\nThis is a preview of a commitment, not the commitment itself. An order takes its own `ship_by_date` when it is issued and keeps it afterwards, so changing a lead time here moves what future orders will promise and leaves promises already made alone.\n\nThis endpoint requires the permission: `customers:read`.",
         "operationId": "retrieve-customer-lead-time",
         "parameters": [
           {
@@ -121620,6 +122857,24 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Sub-objects to expand in the response. When omitted, sub-objects are returned as `null`.",
+            "example": [
+              "account_group"
+            ],
+            "in": "query",
+            "name": "include[]",
+            "schema": {
+              "items": {
+                "enum": [
+                  "account_group",
+                  "parent_customer"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             }
           }
         ],
@@ -121638,7 +122893,8 @@
                   },
                   "days": 30,
                   "source": "account",
-                  "account_group": null
+                  "account_group": null,
+                  "parent_customer": null
                 },
                 "schema": {
                   "$ref": "#/components/schemas/CustomerLeadTime"
@@ -125334,6 +126590,7 @@
                   "lead_time_source": "manual",
                   "transit_days": 3,
                   "transit_source": "carrier_lane",
+                  "estimated_delivery_date": "2026-08-25T00:00:00Z",
                   "calendar_adjustment_days": 2,
                   "steps": [
                     {
