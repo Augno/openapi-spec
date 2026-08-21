@@ -2972,7 +2972,6 @@
               "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
-              "promise_date_quote",
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
@@ -6960,7 +6959,6 @@
               "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
-              "promise_date_quote",
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
@@ -11401,7 +11399,6 @@
               "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
-              "promise_date_quote",
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
@@ -17633,7 +17630,6 @@
               "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
-              "promise_date_quote",
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
@@ -19999,7 +19995,6 @@
               "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
-              "promise_date_quote",
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
@@ -28907,7 +28902,6 @@
                 "delivery_breakdown",
                 "schedule_order_coverage",
                 "schedule_order_coverage_line",
-                "promise_date_quote",
                 "schedule_deviation_type",
                 "schedule_at_risk_order",
                 "production_schedule_finished_policy",
@@ -51800,106 +51794,6 @@
         ],
         "type": "object"
       },
-      "PromiseDateQuote": {
-        "description": "The earliest date the published plan could ship a quantity of an item.",
-        "example": {
-          "object": "promise_date_quote",
-          "item": {
-            "id": "it_pej07ckhvu62",
-            "object": "entity",
-            "type": "item",
-            "name": null,
-            "handle": "MZ-GREIGE-CREW"
-          },
-          "quantity": 1200,
-          "is_promisable": true,
-          "earliest_ship_date": "2026-07-06T00:00:00Z",
-          "earliest_week_index": 4,
-          "production_schedule": {
-            "id": "pnsc_m4zt3z8g8src",
-            "object": "entity",
-            "type": "production_schedule",
-            "name": null,
-            "handle": null
-          },
-          "production_schedule_version": 7
-        },
-        "properties": {
-          "object": {
-            "description": "Resource type identifier.",
-            "enum": [
-              "promise_date_quote"
-            ],
-            "type": "string"
-          },
-          "item": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Entity"
-              }
-            ],
-            "description": "The item being quoted.",
-            "example": {
-              "id": "us_43irtlt2ajz6",
-              "object": "entity",
-              "type": "user",
-              "name": "John Doe",
-              "handle": "jdoe@augno.com"
-            },
-            "nullable": true
-          },
-          "quantity": {
-            "description": "The quantity being quoted.",
-            "type": "number"
-          },
-          "is_promisable": {
-            "description": "Whether the published horizon can supply it at all.\n\nFalse means the plan as published runs out before it could cover this quantity. That is not the same as \"never\" — it is the honest limit of a plan that only runs so many weeks.",
-            "type": "boolean"
-          },
-          "earliest_ship_date": {
-            "description": "Earliest date the quantity could ship, allowing for finishing after the constraint stage completes.",
-            "format": "date-time",
-            "nullable": true,
-            "type": "string"
-          },
-          "earliest_week_index": {
-            "description": "Horizon week the constraint stage would complete in.",
-            "nullable": true,
-            "type": "integer"
-          },
-          "production_schedule": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Entity"
-              }
-            ],
-            "description": "The published version this was quoted from.\n\nQuoted from what the floor is working to rather than a fresh solve, and net of everything already promised to other orders.",
-            "example": {
-              "id": "us_43irtlt2ajz6",
-              "object": "entity",
-              "type": "user",
-              "name": "John Doe",
-              "handle": "jdoe@augno.com"
-            },
-            "nullable": true
-          },
-          "production_schedule_version": {
-            "description": "Version number of that schedule.",
-            "type": "integer"
-          }
-        },
-        "required": [
-          "object",
-          "item",
-          "quantity",
-          "is_promisable",
-          "earliest_ship_date",
-          "earliest_week_index",
-          "production_schedule",
-          "production_schedule_version"
-        ],
-        "type": "object"
-      },
       "Property": {
         "description": "A named characteristic used to classify items, such as `Color` or `Size`.\n\nEach property defines a set of attributes — the selectable values (e.g. `Red`, `Blue`) that can be assigned to items.",
         "example": {
@@ -52159,28 +52053,6 @@
           "limit",
           "used",
           "reset_at"
-        ],
-        "type": "object"
-      },
-      "QuotePromiseDateRequest": {
-        "description": "Request to quote the earliest date a quantity could ship.",
-        "example": {
-          "item_id": "it_pej07ckhvu62",
-          "quantity": 1200
-        },
-        "properties": {
-          "item_id": {
-            "description": "Item being quoted.",
-            "type": "string"
-          },
-          "quantity": {
-            "description": "Quantity being quoted, in the item's own unit.",
-            "type": "number"
-          }
-        },
-        "required": [
-          "item_id",
-          "quantity"
         ],
         "type": "object"
       },
@@ -64072,7 +63944,6 @@
               "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
-              "promise_date_quote",
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
@@ -64465,7 +64336,6 @@
               "delivery_breakdown",
               "schedule_order_coverage",
               "schedule_order_coverage_line",
-              "promise_date_quote",
               "schedule_deviation_type",
               "schedule_at_risk_order",
               "production_schedule_finished_policy",
@@ -89821,7 +89691,6 @@
                   "delivery_breakdown",
                   "schedule_order_coverage",
                   "schedule_order_coverage_line",
-                  "promise_date_quote",
                   "schedule_deviation_type",
                   "schedule_at_risk_order",
                   "production_schedule_finished_policy",
@@ -90154,7 +90023,6 @@
                 "delivery_breakdown",
                 "schedule_order_coverage",
                 "schedule_order_coverage_line",
-                "promise_date_quote",
                 "schedule_deviation_type",
                 "schedule_at_risk_order",
                 "production_schedule_finished_policy",
@@ -92860,7 +92728,6 @@
                   "delivery_breakdown",
                   "schedule_order_coverage",
                   "schedule_order_coverage_line",
-                  "promise_date_quote",
                   "schedule_deviation_type",
                   "schedule_at_risk_order",
                   "production_schedule_finished_policy",
@@ -96704,7 +96571,6 @@
                 "delivery_breakdown",
                 "schedule_order_coverage",
                 "schedule_order_coverage_line",
-                "promise_date_quote",
                 "schedule_deviation_type",
                 "schedule_at_risk_order",
                 "production_schedule_finished_policy",
@@ -112974,75 +112840,6 @@
           }
         },
         "summary": "Preview Production Schedule",
-        "tags": [
-          "Production Schedules"
-        ],
-        "x-preview": true
-      }
-    },
-    "/v1/operations/production-schedules/actions/quote-promise-date": {
-      "post": {
-        "description": "Returns the earliest date the published schedule could ship a quantity of an item.\n\nQuoted from the published version — the plan the floor is actually working to — and net of everything already promised to other orders. A date backed by stock somebody else is owed is not a date, so existing commitments are consumed before anything is offered.\n\nThe answer allows for finishing after the constraint stage completes, so it is a ship date rather than a production date. When the published horizon cannot supply the quantity at all, `is_promisable` is false and no date is returned: a plan that runs thirteen weeks cannot speak for the fourteenth, and inventing a date beyond it would be the one number a customer actually relies on.\n\nQuoting does not reserve anything. Two quotes taken a minute apart can both come back with the same date, and only issuing an order commits the supply.\n\nThis endpoint requires the permission: `production_schedules:read`.",
-        "operationId": "quote-promise-date",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "example": {
-                "item_id": "it_pej07ckhvu62",
-                "quantity": 1200
-              },
-              "schema": {
-                "$ref": "#/components/schemas/QuotePromiseDateRequest"
-              }
-            }
-          },
-          "description": "The request body for Quote Promise Date"
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "example": {
-                  "object": "promise_date_quote",
-                  "item": {
-                    "id": "it_pej07ckhvu62",
-                    "object": "entity",
-                    "type": "item",
-                    "name": null,
-                    "handle": "MZ-GREIGE-CREW"
-                  },
-                  "quantity": 1200,
-                  "is_promisable": true,
-                  "earliest_ship_date": "2026-07-06T00:00:00Z",
-                  "earliest_week_index": 4,
-                  "production_schedule": {
-                    "id": "pnsc_m4zt3z8g8src",
-                    "object": "entity",
-                    "type": "production_schedule",
-                    "name": null,
-                    "handle": null
-                  },
-                  "production_schedule_version": 7
-                },
-                "schema": {
-                  "$ref": "#/components/schemas/PromiseDateQuote"
-                }
-              }
-            },
-            "description": "Successful response for Quote Promise Date"
-          },
-          "4XX": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/APIErrorResponse"
-                }
-              }
-            },
-            "description": "Error response"
-          }
-        },
-        "summary": "Quote Promise Date",
         "tags": [
           "Production Schedules"
         ],
