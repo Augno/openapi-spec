@@ -125633,14 +125633,19 @@
             }
           },
           {
-            "description": "Restricts results to orders in any of these lifecycle statuses (`estimate`, `issued`, `fulfilled`).",
+            "description": "Restricts results to orders in any of these lifecycle statuses.",
             "example": [
-              200
+              "estimate"
             ],
             "in": "query",
             "name": "status_codes[]",
             "schema": {
               "items": {
+                "enum": [
+                  "estimate",
+                  "issued",
+                  "fulfilled"
+                ],
                 "type": "string"
               },
               "type": "array"
