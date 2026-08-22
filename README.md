@@ -1,6 +1,6 @@
 # OpenMRP OpenAPI Specification
 
-This repository contains the [OpenAPI specification](https://www.openapis.org/) for the [OpenMRP API](https://docs.openmrp.ai).
+This repository contains the [OpenAPI specification](https://www.openapis.org/) for the [OpenMRP API](https://docs.augno.com).
 
 The spec files are automatically synced from OpenMRP's internal API on every release. Each update is tagged with a version and published as a [GitHub Release](https://github.com/open-mrp/openapi-spec/releases).
 
@@ -16,7 +16,7 @@ Use these files to generate SDKs or client libraries against OpenMRP's productio
 
 The latest public preview release. Use these files for early access to upcoming API features before GA release.
 
-To learn more about public preview and other release phases, see [OpenMRP's release phases](https://docs.openmrp.ai/release-phases).
+To learn more about public preview and other release phases, see [OpenMRP's release phases](https://docs.augno.com/release-phases).
 
 ## Usage
 
