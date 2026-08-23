@@ -6504,7 +6504,7 @@
                 "$ref": "#/components/schemas/Property"
               }
             ],
-            "description": "The property this attribute belongs to.\n\nPopulated only when the attribute is returned under an item's `attributes` list.",
+            "description": "The property this attribute belongs to.\n\nPopulated only when the attribute is returned under an item's or a volume discount's `attributes` list.",
             "nullable": true
           },
           "created_at": {
@@ -142750,6 +142750,7 @@
                   "customer_groups",
                   "product_lines",
                   "categories",
+                  "categories.properties",
                   "attributes",
                   "acceptable_units"
                 ],
@@ -142847,6 +142848,7 @@
                   "customer_groups",
                   "product_lines",
                   "categories",
+                  "categories.properties",
                   "attributes",
                   "acceptable_units"
                 ],
@@ -143010,6 +143012,7 @@
                   "customer_groups",
                   "product_lines",
                   "categories",
+                  "categories.properties",
                   "attributes",
                   "acceptable_units"
                 ],
@@ -143106,6 +143109,7 @@
                   "customer_groups",
                   "product_lines",
                   "categories",
+                  "categories.properties",
                   "attributes",
                   "acceptable_units"
                 ],
