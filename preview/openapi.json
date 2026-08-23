@@ -6286,6 +6286,10 @@
         "properties": {
           "assignee_resource_type": {
             "description": "What kind of owner the case is being assigned to.\n\n- `account_user`: an individual teammate takes the case.\n- `account_group`: a team takes the case, so anyone on it can pick it up.",
+            "enum": [
+              "account_user",
+              "account_group"
+            ],
             "type": "string"
           },
           "assignee_resource_id": {
@@ -7558,6 +7562,10 @@
           },
           "category": {
             "description": "Where the tool's behavior comes from.\n\n- `built_in`: a capability implemented by the agent runtime itself, such as fetching a web page or drafting a reply for a teammate to approve.\n- `api_endpoint`: an operation of this API exposed as a tool, letting the agent perform it on the account's behalf.",
+            "enum": [
+              "built_in",
+              "api_endpoint"
+            ],
             "type": "string"
           },
           "name": {
@@ -7583,6 +7591,14 @@
           },
           "required_role_type": {
             "description": "Role type the caller must have for this tool, when the operation is gated by role rather than a permission (e.g. `admin`).",
+            "enum": [
+              "admin",
+              "user",
+              "scanner",
+              "sales_rep",
+              "agent",
+              null
+            ],
             "nullable": true,
             "type": "string"
           },
@@ -7687,6 +7703,10 @@
           },
           "reconcile_type": {
             "description": "How each item's quantity is applied to its current quantity.\n\n- `addition`: adds the quantity to the item's current quantity.\n- `force`: sets the item's current quantity to exactly the given quantity.",
+            "enum": [
+              "addition",
+              "force"
+            ],
             "type": "string"
           }
         },
@@ -12026,6 +12046,11 @@
           },
           "agent_trigger_policy": {
             "description": "How the bound agent decides whether to run on incoming mail.\n\n- `mention`: runs only when the agent is @mentioned, matched against the trigger keywords below.\n- `keyword`: runs when the message contains any of the trigger keywords.\n- `always`: runs on every incoming message.\n\nLeaving this unset makes the agent run on every incoming message, since email has no reliable @mention convention.",
+            "enum": [
+              "mention",
+              "keyword",
+              "always"
+            ],
             "type": "string"
           },
           "agent_trigger_keywords": {
@@ -13046,6 +13071,11 @@
           },
           "priority_code": {
             "description": "Fulfillment priority used to rank the order on the shop floor.",
+            "enum": [
+              "low",
+              "normal",
+              "high"
+            ],
             "type": "string"
           },
           "sales_rep_id": {
@@ -16940,6 +16970,11 @@
           },
           "status": {
             "description": "Verification status.\n\n- `pending`: registered and awaiting DKIM confirmation.\n- `verified`: DKIM confirmed; the domain can send mail.\n- `failed`: verification could not be completed.\n\nInboxes can only be created on a `verified` domain.",
+            "enum": [
+              "pending",
+              "verified",
+              "failed"
+            ],
             "type": "string"
           },
           "dkim_tokens": {
@@ -17114,6 +17149,10 @@
           },
           "status": {
             "description": "Whether the inbox is currently accepting mail.\n\n- `active`: inbound mail is threaded into a conversation.\n- `disabled`: the inbox stays provisioned and keeps its history, but inbound mail is dropped without being threaded.",
+            "enum": [
+              "active",
+              "disabled"
+            ],
             "type": "string"
           },
           "email_domain": {
@@ -17259,6 +17298,12 @@
           },
           "agent_trigger_policy": {
             "description": "When the bound agent runs on incoming mail.\n\n- `mention`: only when the agent is @mentioned, matched against its trigger keywords.\n- `keyword`: when the mail contains any of the configured trigger keywords.\n- `always`: on every incoming message.\n\nWhen no policy is set the agent runs on every incoming message, since email has no reliable @mention convention.",
+            "enum": [
+              "mention",
+              "keyword",
+              "always",
+              null
+            ],
             "nullable": true,
             "type": "string"
           },
@@ -41124,6 +41169,11 @@
           },
           "streaming_state": {
             "description": "The streaming state of an agent reply.\n\n`streaming` means the body is still being generated and keeps growing as realtime updates arrive; `complete` means it is final.",
+            "enum": [
+              "streaming",
+              "complete",
+              null
+            ],
             "nullable": true,
             "type": "string"
           },
@@ -41160,6 +41210,42 @@
           },
           "agent_error_code": {
             "description": "Machine-readable reason an agent reply failed.\n\nA client can react to the specific code rather than just showing the body — `agent_spending_cap_reached`, for example, is a cue to offer raising the agent spending limit.",
+            "enum": [
+              "expired_token",
+              "api_key_expired",
+              "api_key_revoked",
+              "invalid_credentials",
+              "insufficient_permissions",
+              "payment_required",
+              "agent_spending_cap_reached",
+              "validation_failed",
+              "missing_field",
+              "invalid_format",
+              "method_not_allowed",
+              "resource_not_found",
+              "resource_exists",
+              "resource_conflict",
+              "resource_gone",
+              "idempotency_in_progress",
+              "limit_exceeded",
+              "registration_closed",
+              "rate_limit_exceeded",
+              "parameter_missing",
+              "parameter_invalid",
+              "parameter_unknown",
+              "parameters_exclusive",
+              "internal_error",
+              "service_unavailable",
+              "external_service_error",
+              "timeout",
+              "connection_error",
+              "request_timeout",
+              "client_closed_request",
+              "api_version_required",
+              "api_version_invalid",
+              "api_version_too_old",
+              null
+            ],
             "nullable": true,
             "type": "string"
           }
@@ -42065,6 +42151,17 @@
           },
           "category": {
             "description": "The notification category this preference applies to.\n\nA preference with no category is the user's global default, used for every category they have not set a specific preference for.",
+            "enum": [
+              "chat.message",
+              "chat.mention",
+              "chat.added",
+              "order.updated",
+              "agent.run_completed",
+              "agent.alert",
+              "system.broadcast",
+              "customer.registered",
+              null
+            ],
             "nullable": true,
             "type": "string"
           },
@@ -53923,6 +54020,13 @@
           },
           "exemption_type": {
             "description": "Why a special freight outcome was applied to these options, if any.\n\n- `freight_exempt`: the order is exempt from freight; no options are returned.\n- `minimum_order_met`: the customer's shipping term sets a free-shipping minimum order value and the order total exceeded it, so options are rated at zero. If the shipping term restricts free shipping to specific service levels, only those options are zeroed and the rest keep their carrier or flat rate.\n- `flat_rate`: the customer's shipping term applies a flat shipping rate, which replaced every option's carrier rate.\n- `none`: standard carrier rates apply with no exemption.",
+            "enum": [
+              "freight_exempt",
+              "minimum_order_met",
+              "flat_rate",
+              "none",
+              null
+            ],
             "nullable": true,
             "type": "string"
           },
@@ -55139,6 +55243,15 @@
           },
           "method": {
             "description": "HTTP method.",
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE",
+              "HEAD",
+              "OPTIONS"
+            ],
             "type": "string"
           },
           "host": {
@@ -55189,6 +55302,42 @@
           },
           "error_code": {
             "description": "Machine-readable API error code.\n\nMatches the `code` of the error response the caller received. Populated only for failed requests.",
+            "enum": [
+              "expired_token",
+              "api_key_expired",
+              "api_key_revoked",
+              "invalid_credentials",
+              "insufficient_permissions",
+              "payment_required",
+              "agent_spending_cap_reached",
+              "validation_failed",
+              "missing_field",
+              "invalid_format",
+              "method_not_allowed",
+              "resource_not_found",
+              "resource_exists",
+              "resource_conflict",
+              "resource_gone",
+              "idempotency_in_progress",
+              "limit_exceeded",
+              "registration_closed",
+              "rate_limit_exceeded",
+              "parameter_missing",
+              "parameter_invalid",
+              "parameter_unknown",
+              "parameters_exclusive",
+              "internal_error",
+              "service_unavailable",
+              "external_service_error",
+              "timeout",
+              "connection_error",
+              "request_timeout",
+              "client_closed_request",
+              "api_version_required",
+              "api_version_invalid",
+              "api_version_too_old",
+              null
+            ],
             "nullable": true,
             "type": "string"
           },
@@ -66067,7 +66216,11 @@
         },
         "properties": {
           "status": {
-            "description": "Account-level status to set for the agent.\n\nEither `active` or `inactive`.",
+            "description": "Account-level status to set for the agent.",
+            "enum": [
+              "active",
+              "inactive"
+            ],
             "type": "string"
           }
         },
@@ -66477,6 +66630,10 @@
         "properties": {
           "status": {
             "description": "Whether the inbox accepts mail.\n\n- `active`: inbound mail is threaded into a conversation.\n- `disabled`: the inbox stays provisioned and keeps its history, but inbound mail is dropped without being threaded.",
+            "enum": [
+              "active",
+              "disabled"
+            ],
             "type": "string"
           },
           "from_name": {
@@ -66489,6 +66646,11 @@
           },
           "agent_trigger_policy": {
             "description": "How the bound agent decides whether to run on incoming mail.\n\n- `mention`: runs only when the agent is @mentioned, matched against the trigger keywords below.\n- `keyword`: runs when the message contains any of the trigger keywords.\n- `always`: runs on every incoming message.\n\nWhile no policy has been set, the agent runs on every incoming message, since email has no reliable @mention convention.",
+            "enum": [
+              "mention",
+              "keyword",
+              "always"
+            ],
             "type": "string"
           },
           "agent_trigger_keywords": {
@@ -67466,6 +67628,11 @@
           },
           "priority_code": {
             "description": "New fulfillment priority for the order.",
+            "enum": [
+              "low",
+              "normal",
+              "high"
+            ],
             "type": "string"
           },
           "sales_rep_id": {
@@ -70793,11 +70960,20 @@
             }
           },
           {
-            "description": "Restricts results to runs in this status.\n\nOne of `pending`, `running`, `awaiting_input`, `awaiting_approval`, `completed`, `failed`, or `cancelled`.",
-            "example": "shipped",
+            "description": "Restricts results to runs in this status.",
+            "example": "pending",
             "in": "query",
             "name": "status",
             "schema": {
+              "enum": [
+                "pending",
+                "running",
+                "completed",
+                "failed",
+                "cancelled",
+                "awaiting_input",
+                "awaiting_approval"
+              ],
               "type": "string"
             }
           },
