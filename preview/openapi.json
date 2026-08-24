@@ -3615,7 +3615,7 @@
           },
           "output": {
             "title": "Create a sales order",
-            "url": "https://docs.openmrp.ai/api/sales-orders/create"
+            "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
           },
           "error_message": null,
           "entity": null,
@@ -4576,7 +4576,7 @@
                 },
                 "output": {
                   "title": "Create a sales order",
-                  "url": "https://docs.openmrp.ai/api/sales-orders/create"
+                  "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
                 },
                 "error_message": null,
                 "entity": null,
@@ -4917,7 +4917,7 @@
                   },
                   "output": {
                     "title": "Create a sales order",
-                    "url": "https://docs.openmrp.ai/api/sales-orders/create"
+                    "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
                   },
                   "error_message": null,
                   "entity": null,
@@ -22125,7 +22125,7 @@
               },
               "output": {
                 "title": "Create a sales order",
-                "url": "https://docs.openmrp.ai/api/sales-orders/create"
+                "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
               },
               "error_message": null,
               "entity": null,
@@ -22641,7 +22641,7 @@
                     },
                     "output": {
                       "title": "Create a sales order",
-                      "url": "https://docs.openmrp.ai/api/sales-orders/create"
+                      "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
                     },
                     "error_message": null,
                     "entity": null,
@@ -41087,7 +41087,7 @@
                     },
                     "output": {
                       "title": "Create a sales order",
-                      "url": "https://docs.openmrp.ai/api/sales-orders/create"
+                      "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
                     },
                     "error_message": null,
                     "entity": null,
@@ -71207,7 +71207,7 @@
                             },
                             "output": {
                               "title": "Create a sales order",
-                              "url": "https://docs.openmrp.ai/api/sales-orders/create"
+                              "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
                             },
                             "error_message": null,
                             "entity": null,
@@ -71539,7 +71539,7 @@
                         },
                         "output": {
                           "title": "Create a sales order",
-                          "url": "https://docs.openmrp.ai/api/sales-orders/create"
+                          "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
                         },
                         "error_message": null,
                         "entity": null,
@@ -71869,7 +71869,7 @@
                         },
                         "output": {
                           "title": "Create a sales order",
-                          "url": "https://docs.openmrp.ai/api/sales-orders/create"
+                          "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
                         },
                         "error_message": null,
                         "entity": null,
@@ -72197,7 +72197,7 @@
                         },
                         "output": {
                           "title": "Create a sales order",
-                          "url": "https://docs.openmrp.ai/api/sales-orders/create"
+                          "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
                         },
                         "error_message": null,
                         "entity": null,
@@ -72538,7 +72538,7 @@
                         },
                         "output": {
                           "title": "Create a sales order",
-                          "url": "https://docs.openmrp.ai/api/sales-orders/create"
+                          "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
                         },
                         "error_message": null,
                         "entity": null,
@@ -72866,7 +72866,7 @@
                         },
                         "output": {
                           "title": "Create a sales order",
-                          "url": "https://docs.openmrp.ai/api/sales-orders/create"
+                          "url": "https://docs.openmrp.ai/api-reference/sales-orders/create-sales-order"
                         },
                         "error_message": null,
                         "entity": null,
