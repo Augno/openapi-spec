@@ -31551,6 +31551,21 @@
                 970,
                 1590
               ],
+              "projected_greige_on_hand": [
+                680,
+                580,
+                480,
+                380,
+                280,
+                320,
+                220,
+                120,
+                320,
+                220,
+                120,
+                320,
+                220
+              ],
               "annual_run_hours": 43.3,
               "abc_class": "a",
               "constraints": [],
@@ -48254,6 +48269,21 @@
             970,
             1590
           ],
+          "projected_greige_on_hand": [
+            680,
+            580,
+            480,
+            380,
+            280,
+            320,
+            220,
+            120,
+            320,
+            220,
+            120,
+            320,
+            220
+          ],
           "annual_run_hours": 43.3,
           "abc_class": "a",
           "constraints": [],
@@ -48473,6 +48503,13 @@
             },
             "type": "array"
           },
+          "projected_greige_on_hand": {
+            "description": "The physical greige store at the end of each horizon week — the constraint stage on its own, which `projected_on_hand` cannot be decomposed back into.\n\nA week where this dips to `safety_stock_primary` is the week knitting is meant to replenish, even where `projected_on_hand` still reads full because the stock is held downstream as finished goods. Empty for a schedule generated before the greige buffer existed.",
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
           "annual_run_hours": {
             "description": "Constraint hours this item's annual demand consumes.",
             "type": "number"
@@ -48545,6 +48582,7 @@
           "max_greige_inventory",
           "weeks_of_cover",
           "projected_on_hand",
+          "projected_greige_on_hand",
           "annual_run_hours",
           "abc_class",
           "constraints",
@@ -115483,6 +115521,21 @@
                         1070,
                         970,
                         1590
+                      ],
+                      "projected_greige_on_hand": [
+                        680,
+                        580,
+                        480,
+                        380,
+                        280,
+                        320,
+                        220,
+                        120,
+                        320,
+                        220,
+                        120,
+                        320,
+                        220
                       ],
                       "annual_run_hours": 43.3,
                       "abc_class": "a",
