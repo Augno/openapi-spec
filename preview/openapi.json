@@ -1032,7 +1032,8 @@
                 "updated_at": "2026-05-10T00:23:00Z"
               },
               "lead_time_days": null,
-              "receive_calendar_id": null
+              "receive_calendar_id": null,
+              "fulfillment_policy": "make_to_stock"
             },
             "notification_preferences": {
               "object": "customer_notification_preferences",
@@ -1797,7 +1798,8 @@
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
                 "lead_time_days": null,
-                "receive_calendar_id": null
+                "receive_calendar_id": null,
+                "fulfillment_policy": "make_to_stock"
               },
               "notification_preferences": {
                 "object": "customer_notification_preferences",
@@ -11633,6 +11635,7 @@
           "edi_status": "disabled",
           "commission_policy": "commission_applied",
           "freight_policy": "billed_freight",
+          "fulfillment_policy": "make_to_order",
           "default_carrier_id": "cr_tv5vfjtgu1n3",
           "default_service_level_id": "crop_4ilk9p6gccrx",
           "default_payment_term_id": "pytm_skssmsy21lem",
@@ -11735,6 +11738,14 @@
           },
           "receive_calendar_id": {
             "description": "The operating calendar naming the days this customer's dock accepts freight.\n\nSits in the same chain as lead_time_days: leaving it unset falls through to the customer's group, then the account default, then Monday to Friday. A promised delivery date is never worked back from a day nobody is there to receive on.",
+            "type": "string"
+          },
+          "fulfillment_policy": {
+            "description": "How this customer's orders are produced.\n\n- `make_to_stock`: their order history feeds the production-schedule forecast, so stock is built ahead of their demand.\n- `make_to_order`: their history is left out of the forecast; their orders are produced only once placed, and fit into the schedule on their own ship-by dates.\n\nLeave unset to inherit the customer's account group policy, then the make-to-stock default.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order"
+            ],
             "type": "string"
           },
           "default_carrier_id": {
@@ -14226,7 +14237,8 @@
               "updated_at": "2026-05-10T00:23:00Z"
             },
             "lead_time_days": null,
-            "receive_calendar_id": null
+            "receive_calendar_id": null,
+            "fulfillment_policy": "make_to_stock"
           },
           "notification_preferences": {
             "object": "customer_notification_preferences",
@@ -14916,7 +14928,8 @@
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
                     "lead_time_days": null,
-                    "receive_calendar_id": null
+                    "receive_calendar_id": null,
+                    "fulfillment_policy": "make_to_stock"
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -15324,6 +15337,16 @@
             "description": "The operating calendar naming the days this customer's dock accepts freight.\n\nA promised delivery date is worked back from a day the customer can actually receive on. With none set here the customer inherits its account group's calendar, then the account default, then Monday to Friday.",
             "nullable": true,
             "type": "string"
+          },
+          "fulfillment_policy": {
+            "description": "How this customer's orders are produced.\n\n- `make_to_stock`: their order history feeds the production-schedule forecast, so stock is built ahead of their demand.\n- `make_to_order`: their history is left out of the forecast; their orders are produced only once placed, and fit into the schedule on their own ship-by dates.\n\nWith none set here the customer inherits its account group's policy, then falls back to make-to-stock.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order",
+              null
+            ],
+            "nullable": true,
+            "type": "string"
           }
         },
         "required": [
@@ -15333,7 +15356,8 @@
           "priority",
           "sales_rep",
           "lead_time_days",
-          "receive_calendar_id"
+          "receive_calendar_id",
+          "fulfillment_policy"
         ],
         "type": "object"
       },
@@ -15900,7 +15924,8 @@
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
                 "lead_time_days": null,
-                "receive_calendar_id": null
+                "receive_calendar_id": null,
+                "fulfillment_policy": "make_to_stock"
               },
               "notification_preferences": {
                 "object": "customer_notification_preferences",
@@ -21119,7 +21144,8 @@
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "lead_time_days": null,
-                  "receive_calendar_id": null
+                  "receive_calendar_id": null,
+                  "fulfillment_policy": "make_to_stock"
                 },
                 "notification_preferences": {
                   "object": "customer_notification_preferences",
@@ -24934,7 +24960,8 @@
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
                 "lead_time_days": null,
-                "receive_calendar_id": null
+                "receive_calendar_id": null,
+                "fulfillment_policy": "make_to_stock"
               },
               "notification_preferences": {
                 "object": "customer_notification_preferences",
@@ -33929,7 +33956,8 @@
                     "updated_at": "2026-05-10T00:23:00Z"
                   },
                   "lead_time_days": null,
-                  "receive_calendar_id": null
+                  "receive_calendar_id": null,
+                  "fulfillment_policy": "make_to_stock"
                 },
                 "notification_preferences": {
                   "object": "customer_notification_preferences",
@@ -56144,7 +56172,8 @@
                 "updated_at": "2026-05-10T00:23:00Z"
               },
               "lead_time_days": null,
-              "receive_calendar_id": null
+              "receive_calendar_id": null,
+              "fulfillment_policy": "make_to_stock"
             },
             "notification_preferences": {
               "object": "customer_notification_preferences",
@@ -57843,7 +57872,8 @@
                   "updated_at": "2026-05-10T00:23:00Z"
                 },
                 "lead_time_days": null,
-                "receive_calendar_id": null
+                "receive_calendar_id": null,
+                "fulfillment_policy": "make_to_stock"
               },
               "notification_preferences": {
                 "object": "customer_notification_preferences",
@@ -66351,6 +66381,7 @@
           "edi_status": "disabled",
           "commission_policy": "commission_applied",
           "freight_policy": "billed_freight",
+          "fulfillment_policy": "make_to_order",
           "default_carrier_id": "cr_tv5vfjtgu1n3",
           "default_service_level_id": "crop_4ilk9p6gccrx",
           "default_payment_term_id": "pytm_skssmsy21lem",
@@ -66440,6 +66471,16 @@
           },
           "receive_calendar_id": {
             "description": "The operating calendar naming the days this customer's dock accepts freight. Clearing it returns the customer to their group's calendar, then the account default.",
+            "nullable": true,
+            "type": "string"
+          },
+          "fulfillment_policy": {
+            "description": "How this customer's orders are produced.\n\n- `make_to_stock`: their order history feeds the production-schedule forecast, so stock is built ahead of their demand.\n- `make_to_order`: their history is left out of the forecast; their orders are produced only once placed, and fit into the schedule on their own ship-by dates.\n\nClearing it returns the customer to their account group policy, then the make-to-stock default.",
+            "enum": [
+              "make_to_stock",
+              "make_to_order",
+              null
+            ],
             "nullable": true,
             "type": "string"
           },
@@ -118057,7 +118098,8 @@
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
                           "lead_time_days": null,
-                          "receive_calendar_id": null
+                          "receive_calendar_id": null,
+                          "fulfillment_policy": "make_to_stock"
                         },
                         "notification_preferences": {
                           "object": "customer_notification_preferences",
@@ -118886,7 +118928,8 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "lead_time_days": null,
-                      "receive_calendar_id": null
+                      "receive_calendar_id": null,
+                      "fulfillment_policy": "make_to_stock"
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -119869,7 +119912,8 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "lead_time_days": null,
-                      "receive_calendar_id": null
+                      "receive_calendar_id": null,
+                      "fulfillment_policy": "make_to_stock"
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -120698,7 +120742,8 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "lead_time_days": null,
-                      "receive_calendar_id": null
+                      "receive_calendar_id": null,
+                      "fulfillment_policy": "make_to_stock"
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -122964,7 +123009,8 @@
                           "updated_at": "2026-05-10T00:23:00Z"
                         },
                         "lead_time_days": null,
-                        "receive_calendar_id": null
+                        "receive_calendar_id": null,
+                        "fulfillment_policy": "make_to_stock"
                       },
                       "notification_preferences": {
                         "object": "customer_notification_preferences",
@@ -123133,6 +123179,7 @@
                 "edi_status": "disabled",
                 "commission_policy": "commission_applied",
                 "freight_policy": "billed_freight",
+                "fulfillment_policy": "make_to_order",
                 "default_carrier_id": "cr_tv5vfjtgu1n3",
                 "default_service_level_id": "crop_4ilk9p6gccrx",
                 "default_payment_term_id": "pytm_skssmsy21lem",
@@ -123501,7 +123548,8 @@
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
                     "lead_time_days": null,
-                    "receive_calendar_id": null
+                    "receive_calendar_id": null,
+                    "fulfillment_policy": "make_to_stock"
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -124039,7 +124087,8 @@
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
                     "lead_time_days": null,
-                    "receive_calendar_id": null
+                    "receive_calendar_id": null,
+                    "fulfillment_policy": "make_to_stock"
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -124216,6 +124265,7 @@
                 "edi_status": "disabled",
                 "commission_policy": "commission_applied",
                 "freight_policy": "billed_freight",
+                "fulfillment_policy": "make_to_order",
                 "default_carrier_id": "cr_tv5vfjtgu1n3",
                 "default_service_level_id": "crop_4ilk9p6gccrx",
                 "default_payment_term_id": "pytm_skssmsy21lem",
@@ -124570,7 +124620,8 @@
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
                     "lead_time_days": null,
-                    "receive_calendar_id": null
+                    "receive_calendar_id": null,
+                    "fulfillment_policy": "make_to_stock"
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -125078,7 +125129,8 @@
                       "updated_at": "2026-05-10T00:23:00Z"
                     },
                     "lead_time_days": null,
-                    "receive_calendar_id": null
+                    "receive_calendar_id": null,
+                    "fulfillment_policy": "make_to_stock"
                   },
                   "notification_preferences": {
                     "object": "customer_notification_preferences",
@@ -126394,7 +126446,8 @@
                             "updated_at": "2026-05-10T00:23:00Z"
                           },
                           "lead_time_days": null,
-                          "receive_calendar_id": null
+                          "receive_calendar_id": null,
+                          "fulfillment_policy": "make_to_stock"
                         },
                         "notification_preferences": {
                           "object": "customer_notification_preferences",
@@ -128151,7 +128204,8 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "lead_time_days": null,
-                      "receive_calendar_id": null
+                      "receive_calendar_id": null,
+                      "fulfillment_policy": "make_to_stock"
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -130716,7 +130770,8 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "lead_time_days": null,
-                      "receive_calendar_id": null
+                      "receive_calendar_id": null,
+                      "fulfillment_policy": "make_to_stock"
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -132451,7 +132506,8 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "lead_time_days": null,
-                      "receive_calendar_id": null
+                      "receive_calendar_id": null,
+                      "fulfillment_policy": "make_to_stock"
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -134131,7 +134187,8 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "lead_time_days": null,
-                      "receive_calendar_id": null
+                      "receive_calendar_id": null,
+                      "fulfillment_policy": "make_to_stock"
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -136031,7 +136088,8 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "lead_time_days": null,
-                      "receive_calendar_id": null
+                      "receive_calendar_id": null,
+                      "fulfillment_policy": "make_to_stock"
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -137711,7 +137769,8 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "lead_time_days": null,
-                      "receive_calendar_id": null
+                      "receive_calendar_id": null,
+                      "fulfillment_policy": "make_to_stock"
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
@@ -139482,7 +139541,8 @@
                         "updated_at": "2026-05-10T00:23:00Z"
                       },
                       "lead_time_days": null,
-                      "receive_calendar_id": null
+                      "receive_calendar_id": null,
+                      "fulfillment_policy": "make_to_stock"
                     },
                     "notification_preferences": {
                       "object": "customer_notification_preferences",
