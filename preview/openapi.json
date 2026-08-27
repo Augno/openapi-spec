@@ -118680,12 +118680,12 @@
     },
     "/v1/operations/inventory-change-logs": {
       "get": {
-        "description": "Returns a paginated list of inventory change logs, newest first.\n\nFilters combine with AND, while the values within a single filter combine with OR. The `q` search term matches on item SKU, responsible user name, and scanning station name.\n\nThis endpoint requires the permission: `inventory_logs:read`.",
+        "description": "Returns a paginated list of inventory change logs, newest first.\n\nFilters combine with AND, while the values within a single filter combine with OR.\n\nThis endpoint requires the permission: `inventory_logs:read`.",
         "operationId": "list-inventory-change-logs",
         "parameters": [
           {
             "description": "Opaque cursor token identifying where the page of results starts.\n\nUse the `cursor` value embedded in a previous response's `next_page_url` or `previous_page_url` to fetch the adjacent page. Omit to start from the first page.",
-            "example": "eyJjIjoiMjAyNi0wNS0xMFQwMDowMDowMFoiLCJzIjoiaXRfcGVqMDdja2h2dTYyIiwiZCI6ImYifQ.cIkqwCKCqvPjgCDjmbfxxBTvlflcL0Y4H7LPbg5x5M0",
+            "example": "example",
             "in": "query",
             "name": "cursor",
             "schema": {
@@ -118700,15 +118700,6 @@
             "schema": {
               "default": "100",
               "type": "integer"
-            }
-          },
-          {
-            "description": "Free-text search term used to filter results.\n\nWhich fields are matched against the term varies by endpoint.",
-            "example": "6061",
-            "in": "query",
-            "name": "q",
-            "schema": {
-              "type": "string"
             }
           },
           {
