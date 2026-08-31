@@ -123896,7 +123896,7 @@
     },
     "/v1/operations/picks": {
       "get": {
-        "description": "Returns a paginated list of picks, soonest ship-by date first.\n\nThe `q` search term matches the pick number, the sales order number, the customer PO number, and the customer's name or number.\n\nThis endpoint requires the permissions: `picks:read`, `customers:read`, `suppliers:read`.",
+        "description": "Returns a paginated list of picks, soonest ship-by date first.\n\nThe `q` search term matches the pick number (which is the order number) and the customer PO number. To narrow by customer, use `customer_ids` rather than searching for a customer name.\n\nThis endpoint requires the permissions: `picks:read`, `customers:read`, `suppliers:read`.",
         "operationId": "list-picks",
         "parameters": [
           {
