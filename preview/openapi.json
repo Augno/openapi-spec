@@ -3002,6 +3002,7 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "email_sender",
               "portal_domain",
               "dns_record",
               "inventory_change_log",
@@ -6996,6 +6997,7 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "email_sender",
               "portal_domain",
               "dns_record",
               "inventory_change_log",
@@ -11563,6 +11565,7 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "email_sender",
               "portal_domain",
               "dns_record",
               "inventory_change_log",
@@ -17090,6 +17093,9 @@
             "abc123._domainkey.support.acme.com",
             "def456._domainkey.support.acme.com"
           ],
+          "mail_from_domain": null,
+          "mail_from_mx_record": null,
+          "mail_from_spf_record": null,
           "verified_at": null,
           "created_at": "2026-05-10T00:00:00Z",
           "updated_at": "2026-05-10T00:23:00Z"
@@ -17126,6 +17132,21 @@
             },
             "type": "array"
           },
+          "mail_from_domain": {
+            "description": "The subdomain used as the envelope return path for mail sent from this domain.\n\nPublishing the two records below makes the return path match the sender address. Until you do, mail clients show your mail as coming from your address \"via amazonses.com\".",
+            "nullable": true,
+            "type": "string"
+          },
+          "mail_from_mx_record": {
+            "description": "The MX record to publish on `mail_from_domain`, for delivery of bounces and complaints.",
+            "nullable": true,
+            "type": "string"
+          },
+          "mail_from_spf_record": {
+            "description": "The SPF record to publish as a TXT record on `mail_from_domain`.",
+            "nullable": true,
+            "type": "string"
+          },
           "verified_at": {
             "description": "When the domain's DKIM verification was confirmed.",
             "format": "date-time",
@@ -17149,6 +17170,9 @@
           "domain",
           "status",
           "dkim_tokens",
+          "mail_from_domain",
+          "mail_from_mx_record",
+          "mail_from_spf_record",
           "verified_at",
           "created_at",
           "updated_at"
@@ -17170,6 +17194,9 @@
               "abc123._domainkey.support.acme.com",
               "def456._domainkey.support.acme.com"
             ],
+            "mail_from_domain": null,
+            "mail_from_mx_record": null,
+            "mail_from_spf_record": null,
             "verified_at": null,
             "created_at": "2026-05-10T00:00:00Z",
             "updated_at": "2026-05-10T00:23:00Z"
@@ -17313,6 +17340,9 @@
                 "abc123._domainkey.support.acme.com",
                 "def456._domainkey.support.acme.com"
               ],
+              "mail_from_domain": null,
+              "mail_from_mx_record": null,
+              "mail_from_spf_record": null,
               "verified_at": null,
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -17675,6 +17705,94 @@
         ],
         "type": "object"
       },
+      "EmailSender": {
+        "description": "The address your order, invoice, and statement emails are sent from.\n\nConfigure one on a verified email domain and your customers see mail from your own address instead of the platform's. Emails about someone's OpenMRP account — password resets, verification, plan changes — always send from the platform address regardless of this setting.\n\nMail only sends from this address while the underlying domain stays verified; if verification lapses it falls back to the platform address rather than failing to send.",
+        "example": {
+          "id": "emsx_4bk9pmt2wvqd",
+          "object": "email_sender",
+          "email_domain_id": "emdom_2rk3omr8vshb",
+          "local_part": "orders",
+          "address": "orders@support.acme.com",
+          "from_name": null,
+          "reply_to": null,
+          "domain": "support.acme.com",
+          "domain_status": "verified",
+          "created_at": "2026-05-10T00:00:00Z",
+          "updated_at": "2026-05-10T00:23:00Z"
+        },
+        "properties": {
+          "id": {
+            "description": "Email sender ID.",
+            "type": "string"
+          },
+          "object": {
+            "description": "Resource type identifier.",
+            "enum": [
+              "email_sender"
+            ],
+            "type": "string"
+          },
+          "email_domain_id": {
+            "description": "The verified email domain this address belongs to.",
+            "type": "string"
+          },
+          "local_part": {
+            "description": "The mailbox name before the `@`.",
+            "type": "string"
+          },
+          "address": {
+            "description": "The full sending address.",
+            "type": "string"
+          },
+          "from_name": {
+            "description": "The name shown in a mail client's sender column. When unset, mail shows the bare address.",
+            "nullable": true,
+            "type": "string"
+          },
+          "reply_to": {
+            "description": "Where customer replies are delivered. When unset, replies go to the sending address.",
+            "nullable": true,
+            "type": "string"
+          },
+          "domain": {
+            "description": "The domain name the address sends from.",
+            "type": "string"
+          },
+          "domain_status": {
+            "description": "Verification status of the underlying domain.",
+            "enum": [
+              "pending",
+              "verified",
+              "failed"
+            ],
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Creation timestamp.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last updated timestamp.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "object",
+          "email_domain_id",
+          "local_part",
+          "address",
+          "from_name",
+          "reply_to",
+          "domain",
+          "domain_status",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
       "Entity": {
         "description": "Entity is a polymorphic reference to any resource in the system.",
         "example": {
@@ -17845,6 +17963,7 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "email_sender",
               "portal_domain",
               "dns_record",
               "inventory_change_log",
@@ -21032,6 +21151,7 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "email_sender",
               "portal_domain",
               "dns_record",
               "inventory_change_log",
@@ -26590,6 +26710,9 @@
                 "abc123._domainkey.support.acme.com",
                 "def456._domainkey.support.acme.com"
               ],
+              "mail_from_domain": null,
+              "mail_from_mx_record": null,
+              "mail_from_spf_record": null,
               "verified_at": null,
               "created_at": "2026-05-10T00:00:00Z",
               "updated_at": "2026-05-10T00:23:00Z"
@@ -26654,6 +26777,9 @@
                   "abc123._domainkey.support.acme.com",
                   "def456._domainkey.support.acme.com"
                 ],
+                "mail_from_domain": null,
+                "mail_from_mx_record": null,
+                "mail_from_spf_record": null,
                 "verified_at": null,
                 "created_at": "2026-05-10T00:00:00Z",
                 "updated_at": "2026-05-10T00:23:00Z"
@@ -30356,6 +30482,7 @@
                 "email_log",
                 "email_domain",
                 "email_inbox",
+                "email_sender",
                 "portal_domain",
                 "dns_record",
                 "inventory_change_log",
@@ -75261,6 +75388,7 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "email_sender",
               "portal_domain",
               "dns_record",
               "inventory_change_log",
@@ -75656,6 +75784,7 @@
               "email_log",
               "email_domain",
               "email_inbox",
+              "email_sender",
               "portal_domain",
               "dns_record",
               "inventory_change_log",
@@ -75945,6 +76074,37 @@
           "owner",
           "created_at",
           "updated_at"
+        ],
+        "type": "object"
+      },
+      "SetEmailSenderRequest": {
+        "description": "Request to configure the address the account's customer-facing email is sent from.",
+        "example": {
+          "email_domain_id": "emdom_2rk3omr8vshb",
+          "local_part": "orders",
+          "from_name": "Acme Inc."
+        },
+        "properties": {
+          "email_domain_id": {
+            "description": "The verified email domain to send from.",
+            "type": "string"
+          },
+          "local_part": {
+            "description": "The mailbox name before the `@`, for example `orders`.",
+            "type": "string"
+          },
+          "from_name": {
+            "description": "The name shown in a mail client's sender column. When unset, mail shows the bare address.",
+            "type": "string"
+          },
+          "reply_to": {
+            "description": "Where customer replies are delivered. When unset, replies go to the sending address.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email_domain_id",
+          "local_part"
         ],
         "type": "object"
       },
@@ -101085,6 +101245,7 @@
                   "email_log",
                   "email_domain",
                   "email_inbox",
+                  "email_sender",
                   "portal_domain",
                   "dns_record",
                   "inventory_change_log",
@@ -101420,6 +101581,7 @@
                 "email_log",
                 "email_domain",
                 "email_inbox",
+                "email_sender",
                 "portal_domain",
                 "dns_record",
                 "inventory_change_log",
@@ -104132,6 +104294,7 @@
                   "email_log",
                   "email_domain",
                   "email_inbox",
+                  "email_sender",
                   "portal_domain",
                   "dns_record",
                   "inventory_change_log",
@@ -107989,6 +108152,7 @@
                 "email_log",
                 "email_domain",
                 "email_inbox",
+                "email_sender",
                 "portal_domain",
                 "dns_record",
                 "inventory_change_log",
@@ -112520,6 +112684,9 @@
                         "abc123._domainkey.support.acme.com",
                         "def456._domainkey.support.acme.com"
                       ],
+                      "mail_from_domain": null,
+                      "mail_from_mx_record": null,
+                      "mail_from_spf_record": null,
                       "verified_at": null,
                       "created_at": "2026-05-10T00:00:00Z",
                       "updated_at": "2026-05-10T00:23:00Z"
@@ -112579,6 +112746,9 @@
                     "abc123._domainkey.support.acme.com",
                     "def456._domainkey.support.acme.com"
                   ],
+                  "mail_from_domain": null,
+                  "mail_from_mx_record": null,
+                  "mail_from_spf_record": null,
                   "verified_at": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -112682,6 +112852,9 @@
                     "abc123._domainkey.support.acme.com",
                     "def456._domainkey.support.acme.com"
                   ],
+                  "mail_from_domain": null,
+                  "mail_from_mx_record": null,
+                  "mail_from_spf_record": null,
                   "verified_at": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -112740,6 +112913,9 @@
                     "abc123._domainkey.support.acme.com",
                     "def456._domainkey.support.acme.com"
                   ],
+                  "mail_from_domain": null,
+                  "mail_from_mx_record": null,
+                  "mail_from_spf_record": null,
                   "verified_at": null,
                   "created_at": "2026-05-10T00:00:00Z",
                   "updated_at": "2026-05-10T00:23:00Z"
@@ -112819,6 +112995,9 @@
                           "abc123._domainkey.support.acme.com",
                           "def456._domainkey.support.acme.com"
                         ],
+                        "mail_from_domain": null,
+                        "mail_from_mx_record": null,
+                        "mail_from_spf_record": null,
                         "verified_at": null,
                         "created_at": "2026-05-10T00:00:00Z",
                         "updated_at": "2026-05-10T00:23:00Z"
@@ -113013,6 +113192,9 @@
                       "abc123._domainkey.support.acme.com",
                       "def456._domainkey.support.acme.com"
                     ],
+                    "mail_from_domain": null,
+                    "mail_from_mx_record": null,
+                    "mail_from_spf_record": null,
                     "verified_at": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -113241,6 +113423,9 @@
                       "abc123._domainkey.support.acme.com",
                       "def456._domainkey.support.acme.com"
                     ],
+                    "mail_from_domain": null,
+                    "mail_from_mx_record": null,
+                    "mail_from_spf_record": null,
                     "verified_at": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -113442,6 +113627,9 @@
                       "abc123._domainkey.support.acme.com",
                       "def456._domainkey.support.acme.com"
                     ],
+                    "mail_from_domain": null,
+                    "mail_from_mx_record": null,
+                    "mail_from_spf_record": null,
                     "verified_at": null,
                     "created_at": "2026-05-10T00:00:00Z",
                     "updated_at": "2026-05-10T00:23:00Z"
@@ -113570,6 +113758,144 @@
         "summary": "Update Email Inbox",
         "tags": [
           "Email Inboxes"
+        ],
+        "x-preview": true
+      }
+    },
+    "/v1/messaging/email-sender": {
+      "delete": {
+        "description": "Clears the configured sending address, returning your customer-facing email to the platform address.\n\nThis endpoint requires the permission: `messaging:delete`.",
+        "operationId": "delete-email-sender",
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "example": {},
+                "schema": {
+                  "type": "object",
+                  "x-stainless-empty-object": true
+                }
+              }
+            },
+            "description": "Successful response for Delete Email Sender"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Delete Email Sender",
+        "tags": [
+          "Email Senders"
+        ],
+        "x-preview": true
+      },
+      "get": {
+        "description": "Returns the address your order, invoice, and statement emails are sent from, or 404 when none is configured and that mail sends from the platform address.\n\nThis endpoint requires the permission: `messaging:read`.",
+        "operationId": "get-email-sender",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "emsx_4bk9pmt2wvqd",
+                  "object": "email_sender",
+                  "email_domain_id": "emdom_2rk3omr8vshb",
+                  "local_part": "orders",
+                  "address": "orders@support.acme.com",
+                  "from_name": null,
+                  "reply_to": null,
+                  "domain": "support.acme.com",
+                  "domain_status": "verified",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/EmailSender"
+                }
+              }
+            },
+            "description": "Successful response for Get Email Sender"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Get Email Sender",
+        "tags": [
+          "Email Senders"
+        ],
+        "x-preview": true
+      },
+      "put": {
+        "description": "Sets the address your order, invoice, and statement emails are sent from, replacing any address already configured.\n\nThe domain must be verified first. Emails about someone's OpenMRP account — password resets, verification, plan changes — continue to send from the platform address.\n\nThis endpoint requires the permission: `messaging:update`.",
+        "operationId": "set-email-sender",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "email_domain_id": "emdom_2rk3omr8vshb",
+                "local_part": "orders",
+                "from_name": "Acme Inc."
+              },
+              "schema": {
+                "$ref": "#/components/schemas/SetEmailSenderRequest"
+              }
+            }
+          },
+          "description": "The request body for Set Email Sender"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "emsx_4bk9pmt2wvqd",
+                  "object": "email_sender",
+                  "email_domain_id": "emdom_2rk3omr8vshb",
+                  "local_part": "orders",
+                  "address": "orders@support.acme.com",
+                  "from_name": null,
+                  "reply_to": null,
+                  "domain": "support.acme.com",
+                  "domain_status": "verified",
+                  "created_at": "2026-05-10T00:00:00Z",
+                  "updated_at": "2026-05-10T00:23:00Z"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/EmailSender"
+                }
+              }
+            },
+            "description": "Successful response for Set Email Sender"
+          },
+          "4XX": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/APIErrorResponse"
+                }
+              }
+            },
+            "description": "Error response"
+          }
+        },
+        "summary": "Set Email Sender",
+        "tags": [
+          "Email Senders"
         ],
         "x-preview": true
       }
@@ -168346,6 +168672,10 @@
     {
       "description": "Provision and manage routable email inboxes that bind inbound mail to chat conversations and send agent replies.",
       "name": "Email Inboxes"
+    },
+    {
+      "description": "Choose the address your order, invoice, and statement emails are sent from, on a domain you have verified.",
+      "name": "Email Senders"
     },
     {
       "description": "List, retrieve, trigger, cancel, and continue agent runs.",
