@@ -5656,7 +5656,9 @@
                 "downtime_event_count": 6,
                 "downtime_breakdown": null,
                 "scheduled_seconds": 165000,
+                "operating_time_seconds": 0,
                 "run_time_seconds": 150150,
+                "overrun_seconds": 0,
                 "availability_pct": 0.91,
                 "performance_pct": 0.84,
                 "quality_pct": 0.98,
@@ -5756,7 +5758,9 @@
                 "seconds_units": 5,
                 "standard_seconds_earned": 126000,
                 "scheduled_seconds": 165000,
+                "operating_time_seconds": 0,
                 "run_time_seconds": 150150,
+                "overrun_seconds": 0,
                 "availability_loss_seconds": 14850,
                 "not_scheduled_seconds": 3600,
                 "availability_pct": 0.91,
@@ -47267,20 +47271,28 @@
             "nullable": true
           },
           "scheduled_seconds": {
-            "description": "Planned time net of not-scheduled downtime, in seconds.",
+            "description": "Planned production time net of not-scheduled downtime, in seconds. Availability's denominator.",
+            "type": "number"
+          },
+          "operating_time_seconds": {
+            "description": "The scheduled machines' measured run time (first-to-last scan per machine per day), in seconds. Performance's denominator.",
             "type": "number"
           },
           "run_time_seconds": {
-            "description": "Scheduled time net of availability losses, in seconds.",
+            "description": "Operating time counted toward availability: measured run time capped at scheduled time, in seconds.",
+            "type": "number"
+          },
+          "overrun_seconds": {
+            "description": "Measured run time beyond the scheduled window, in seconds. A schedule-adherence signal reported apart from OEE, so overtime is not counted as extra availability.",
             "type": "number"
           },
           "availability_pct": {
-            "description": "Run time divided by scheduled time.",
+            "description": "Run time (capped at scheduled) divided by scheduled time.",
             "nullable": true,
             "type": "number"
           },
           "performance_pct": {
-            "description": "Standard seconds earned divided by run time: how fast the department ran against the designed speed of its production steps.",
+            "description": "Standard seconds earned divided by measured operating time: how fast the department ran against the designed speed of its production steps.",
             "nullable": true,
             "type": "number"
           },
@@ -47328,7 +47340,9 @@
           "downtime_event_count",
           "downtime_breakdown",
           "scheduled_seconds",
+          "operating_time_seconds",
           "run_time_seconds",
+          "overrun_seconds",
           "availability_pct",
           "performance_pct",
           "quality_pct",
@@ -47430,11 +47444,19 @@
             "type": "number"
           },
           "scheduled_seconds": {
-            "description": "Planned time net of not-scheduled downtime, in seconds.",
+            "description": "Planned production time net of not-scheduled downtime, in seconds. Availability's denominator.",
+            "type": "number"
+          },
+          "operating_time_seconds": {
+            "description": "The scheduled machines' measured run time, in seconds. Performance's denominator.",
             "type": "number"
           },
           "run_time_seconds": {
-            "description": "Scheduled time net of availability losses, in seconds.",
+            "description": "Operating time counted toward availability: measured run time capped at scheduled time, in seconds.",
+            "type": "number"
+          },
+          "overrun_seconds": {
+            "description": "Measured run time beyond the scheduled window, in seconds, reported apart from OEE.",
             "type": "number"
           },
           "availability_loss_seconds": {
@@ -47446,12 +47468,12 @@
             "type": "number"
           },
           "availability_pct": {
-            "description": "Run time divided by scheduled time.",
+            "description": "Run time (capped at scheduled) divided by scheduled time.",
             "nullable": true,
             "type": "number"
           },
           "performance_pct": {
-            "description": "Standard seconds earned divided by run time.",
+            "description": "Standard seconds earned divided by measured operating time.",
             "nullable": true,
             "type": "number"
           },
@@ -47486,7 +47508,9 @@
           "seconds_units",
           "standard_seconds_earned",
           "scheduled_seconds",
+          "operating_time_seconds",
           "run_time_seconds",
+          "overrun_seconds",
           "availability_loss_seconds",
           "not_scheduled_seconds",
           "availability_pct",
@@ -100772,7 +100796,9 @@
                         "downtime_event_count": 6,
                         "downtime_breakdown": null,
                         "scheduled_seconds": 165000,
+                        "operating_time_seconds": 0,
                         "run_time_seconds": 150150,
+                        "overrun_seconds": 0,
                         "availability_pct": 0.91,
                         "performance_pct": 0.84,
                         "quality_pct": 0.98,
@@ -100852,7 +100878,9 @@
                         "seconds_units": 5,
                         "standard_seconds_earned": 126000,
                         "scheduled_seconds": 165000,
+                        "operating_time_seconds": 0,
                         "run_time_seconds": 150150,
+                        "overrun_seconds": 0,
                         "availability_loss_seconds": 14850,
                         "not_scheduled_seconds": 3600,
                         "availability_pct": 0.91,
