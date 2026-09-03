@@ -30166,7 +30166,8 @@
               "read_at": null,
               "dismissed_at": null,
               "created_at": "2026-05-10T00:00:00Z",
-              "updated_at": "2026-05-10T00:23:00Z"
+              "updated_at": "2026-05-10T00:23:00Z",
+              "change_count": 5
             }
           ]
         },
@@ -46703,7 +46704,8 @@
           "read_at": null,
           "dismissed_at": null,
           "created_at": "2026-05-10T00:00:00Z",
-          "updated_at": "2026-05-10T00:23:00Z"
+          "updated_at": "2026-05-10T00:23:00Z",
+          "change_count": 5
         },
         "properties": {
           "id": {
@@ -46851,6 +46853,10 @@
             "description": "Last update timestamp.",
             "format": "date-time",
             "type": "string"
+          },
+          "change_count": {
+            "nullable": true,
+            "type": "integer"
           }
         },
         "required": [
@@ -46867,7 +46873,8 @@
           "read_at",
           "dismissed_at",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "change_count"
         ],
         "type": "object"
       },
@@ -115582,7 +115589,8 @@
                       "read_at": null,
                       "dismissed_at": null,
                       "created_at": "2026-05-10T00:00:00Z",
-                      "updated_at": "2026-05-10T00:23:00Z"
+                      "updated_at": "2026-05-10T00:23:00Z",
+                      "change_count": 5
                     }
                   ]
                 },
@@ -115867,7 +115875,8 @@
                   "read_at": null,
                   "dismissed_at": null,
                   "created_at": "2026-05-10T00:00:00Z",
-                  "updated_at": "2026-05-10T00:23:00Z"
+                  "updated_at": "2026-05-10T00:23:00Z",
+                  "change_count": 5
                 },
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
@@ -115960,7 +115969,8 @@
                   "read_at": null,
                   "dismissed_at": null,
                   "created_at": "2026-05-10T00:00:00Z",
-                  "updated_at": "2026-05-10T00:23:00Z"
+                  "updated_at": "2026-05-10T00:23:00Z",
+                  "change_count": 5
                 },
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
@@ -116053,7 +116063,8 @@
                   "read_at": null,
                   "dismissed_at": null,
                   "created_at": "2026-05-10T00:00:00Z",
-                  "updated_at": "2026-05-10T00:23:00Z"
+                  "updated_at": "2026-05-10T00:23:00Z",
+                  "change_count": 5
                 },
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
@@ -116146,7 +116157,8 @@
                   "read_at": null,
                   "dismissed_at": null,
                   "created_at": "2026-05-10T00:00:00Z",
-                  "updated_at": "2026-05-10T00:23:00Z"
+                  "updated_at": "2026-05-10T00:23:00Z",
+                  "change_count": 5
                 },
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
